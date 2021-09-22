@@ -6,6 +6,7 @@ const RANKS = {
             player.ranks[type] = player.ranks[type].add(1)
             let reset = true
             if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
+            if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             if (reset) this.doReset[type]()
             updateRanksTemp()
         }
@@ -15,6 +16,7 @@ const RANKS = {
             player.ranks[type] = player.ranks[type].max(tmp.ranks[type].bulk.max(player.ranks[type].add(1)))
             let reset = true
             if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
+            if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             if (reset) this.doReset[type]()
             updateRanksTemp()
         }
@@ -49,14 +51,15 @@ const RANKS = {
             14: "double Rage Powers gain.",
             17: "make rank 6 effect is better. [(x+1)^2 -> (x+1)^x^1/3]",
             34: "make mass upgrade 3 softcap starts 1.2x later.",
-            41: "adds tickspeed power based on ranks.",
-            46: "ranks boosts Rage Powers gain.",
+            40: "adds tickspeed power based on ranks.",
+            45: "ranks boosts Rage Powers gain.",
         },
         tier: {
             1: "reduce rank reqirements by 20%.",
             2: "raise mass gain by 1.15",
             3: "reduce all mass upgrades cost scaled by 20%.",
             4: "adds +5% tickspeed power for every tiers you have, softcaps at +40%.",
+            6: "make rage powers are boosted by tiers.",
         },
     },
     effect: {
@@ -73,11 +76,11 @@ const RANKS = {
                 let ret = player.ranks.rank.add(1).pow(player.ranks.rank.gte(17)?player.ranks.rank.add(1).root(3):2)
                 return ret
             },
-            41() {
+            40() {
                 let ret = player.ranks.rank.root(2).div(100)
                 return ret
             },
-            46() {
+            45() {
                 let ret = player.ranks.rank.add(1).pow(1.5)
                 return ret
             },
@@ -87,6 +90,10 @@ const RANKS = {
                 let ret = player.ranks.tier.mul(0.05).add(1).softcap(1.4,0.75,0).sub(1)
                 return ret
             },
+            6() {
+                let ret = E(2).pow(player.ranks.tier)
+                return ret
+            },
         },
     },
     effDesc: {
@@ -94,11 +101,12 @@ const RANKS = {
             3(x) { return "+"+format(x) },
             5(x) { return "+"+format(x) },
             6(x) { return format(x)+"x" },
-            41(x) {  return "+"+format(x.mul(100))+"%" },
-            46(x) { return format(x)+"x" },
+            40(x) {  return "+"+format(x.mul(100))+"%" },
+            45(x) { return format(x)+"x" },
         },
         tier: {
             4(x) { return "+"+format(x.mul(100))+"%" },
+            6(x) { return format(x)+"x" },
         },
     },
     fp: {
