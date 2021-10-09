@@ -372,6 +372,13 @@ var cnExcludePostfix = [
 var cnRegReplace = new Map([
     [/^You have (.+) points$/, '你有 $1 点数'],
     [/^Incremental Mass Rewritten v(.+) - made by MrRedShark77$/, '质量增量重制版 v$1 - 由 MrRedShark77 制作'],
+    [/^\+([\d\.]+) later$/, '\+$1 之后'],
+    [/^\+([\d\.]+) Booster$/, '\+$1 助推器'],
+    [/^\+([\d\.]+) Musclar$/, '\+$1 肌肉'],
+    [/^\+([\d\.]+) Stronger$/, '\+$1 更强'],
+    [/^\+([\d\.]+) later$/, '\+$1 之后'],
+    [/^([\d\.]+)\% weaker$/, '$1\% 减弱'],
+    [/^([\d\.]+)e([\d\.,]+)x later$/, '$1e$2x 之后'],
     [/^(.+) later to Super Ranks, Super Tickspeed scaling (.+) weaker$/, '$1 之后到超级等级，超级 时刻速度 比例减弱 $2'],
     [/^Cost: (.+) Dark Matters$/, '成本: $1 暗物质'],
     [/^Cost: (.+) Rage Powers$/, '成本: $1 愤怒力量'],
