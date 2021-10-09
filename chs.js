@@ -58,7 +58,7 @@ var cnItems = {
     "make mass gain is boosted by (x+1)^2, where x is rank.": "使质量增益提升到 (x+1)^2 ，其中 x 是段位。",
     "mass upgrade 2 boosts itself. Currently": "质量升级 2 提升它自己。当前",
     "reduce all mass upgrades cost scaled by 20%.": "将所有质量升级成本降低 20%。",
-    "reduce mass upgrade 3 cost scaled by 20%.": "将赵林许升级 3 成本降低 20%。",
+    "reduce mass upgrade 3 cost scaled by 20%.": "将质量升级 3 成本降低 20%。",
     "reduce rank reqirements by 20%.": "将段位要求降低 20%。",
     "Tickspeed [": "时刻速度 [",
     "unlock mass upgrade 2, reduce mass upgrade 1 cost scaled by 20%.": "解质量升级 2，减少质量升级 1 成本 20%。",
