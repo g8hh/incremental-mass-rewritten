@@ -1,7 +1,20 @@
+:root {
+    --font: 'Verdana, Geneva, Tahoma, sans-serif';
+}
+
+@font-face {
+	font-family: 'Monospace-Typewritter';
+	src: url('fonts/MonospaceTypewriter.ttf');
+}
+
 * {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-family: var(--font);
     table-align: center;
 	text-align: center;
+}
+
+p {
+	line-height: 0.6;
 }
 
 body {
@@ -27,10 +40,27 @@ button {
 	transition-duration: 0.15s;
 }
 
+.soft {
+	color: hsl(237, 15%, 47%);
+	font-weight: bold;
+	text-shadow: 0px 1px 0px hsl(252, 19%, 57%);
+}
+
 .img_btn {
 	cursor: pointer;
 	background-color: #444;
 	transition-duration: 0.15s;
+}
+
+.img_chal {
+	cursor: pointer;
+	background-color: #171717;
+	transition-duration: 0.15s;
+	margin: 3px;
+}
+
+.img_chal.ch {
+	background-color: #444;
 }
 
 .red {
@@ -38,7 +68,31 @@ button {
 }
 
 .yellow {
-	color: rgb(255, 230, 0);
+	color: yellow;
+}
+
+.green {
+	color: green;
+}
+
+.sky {
+	color: skyblue;
+}
+
+.quark_color {
+	animation: quark_color 6s cubic-bezier(0.37, 0, 0.63, 1) infinite
+}
+
+@keyframes quark_color {
+	0%, 100% {
+		color: red;
+	}
+	33.3% {
+		color: blue;
+	}
+	66.7% {
+		color: limegreen;
+	}
 }
 
 .sml {
@@ -91,6 +145,16 @@ button {
 .img_btn.bought {
 	background-color: #00520b;
 	cursor: default;
+}
+
+.chal_comp {
+	background-color: #00520b;
+}
+
+.input_ratio {
+	width: 100px;
+	border: solid 2px white;
+	background-color: #171717;
 }
 
 .img_btn {

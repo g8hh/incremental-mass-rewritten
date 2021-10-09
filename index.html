@@ -3,12 +3,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Incremental Mass REWRITTEN made by MrRedShark77">
+    <link rel="icon" href="images/mass.png">
     <link rel="stylesheet" href="style.css">
 
     <script src="js/break_eternity.js"></script>
     <script src="js/Element.js"></script>
     <script src="js/elements.js"></script>
     <script src="js/saves.js"></script>
+    <script src="js/challenges.js"></script>
+    <script src="js/atom.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/scaling.js"></script>
     <script src="js/temp.js"></script>
@@ -26,9 +29,10 @@
         </div>
     </div>
     <div id='app' style='display: none'>
-        <div style="height: 140px">
-            <br>
-            <div class="table_center" style="margin-bottom: 5px;">
+        <div style='height: 5px'></div>
+        <div style="height: 180px">
+            <div id="chal_upper" style='height: 50px'></div>
+            <div class="table_center" style="margin: 5px 0px;">
                 <div>
                     <div class="resources sml">
                         <img src="images/mass.png">
@@ -45,34 +49,81 @@
                         <img src="images/bh.png">
                         <span style="margin-left: 5px; text-align: left;" id="bhMass">X</span>
                     </div>
+                </div><div>
+                    <div class="resources sml" id="atom_div">
+                        <img src="images/atom.png" onclick="ATOM.reset()" onmousemove="FORMS.reset_msg.set('atom')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;">
+                        <span style="margin-left: 5px; text-align: left;" id="atomAmt">X</span>
+                    </div><div class="resources quark_color" id="quark_div">
+                        <img src="images/quark.png">
+                        <span style="margin-left: 5px; text-align: left;" id="quarkAmt">X</span>
+                    </div>
                 </div>
             </div><span id="reset_desc"></span>
         </div><div id="tabs" class="table_center" style="height: 30px"></div>
         <div style="width: 100%; border-bottom: solid 2px white; height: 5px; margin-bottom: 13px;"></div>
         <div id="stabs" style="min-height: 30px;"></div><br>
         <div id="tab_frame0">
-            <div id="ranks_table" class="table_center" style="min-height: 180px;"></div>
-            <br><br>
-            <div id="mass_upgs_table"></div><br><br>
-            <div style="width: 100%; margin-bottom: 5px;" class="table_center" id="tickspeed_div">
-                <div style="width: 400px">
-                    <div class="resources">
-                        <img src="images/tickspeed.png">
-                        <span style="margin-left: 5px; text-align: left;"><span id="tickspeed_scale"></span>Tickspeed [<span id="tickspeed_lvl">X</span>]</span>
+            <div id="stab_frame0_0">
+                <div id="ranks_table" class="table_center" style="min-height: 180px;"></div>
+                <br><br>
+                <div id="mass_upgs_table"></div><br><br>
+                <div style="width: 100%; margin-bottom: 5px;" class="table_center" id="tickspeed_div">
+                    <div style="width: 400px">
+                        <div class="resources">
+                            <img src="images/tickspeed.png">
+                            <span style="margin-left: 5px; text-align: left;"><span id="tickspeed_scale"></span>Tickspeed [<span id="tickspeed_lvl">X</span>]</span>
+                        </div>
+                    </div><button id="tickspeed_btn" class="btn" style="width: 200px;" onclick="FORMS.tickspeed.buy()">Cost: <span id="tickspeed_cost">X</span> Rage Points</button>
+                    <button class="btn" style="width: 120px;" onclick="FORMS.tickspeed.buyMax()">Buy Max</button>
+                    <button id="tickspeed_auto" class="btn" style="width: 80px;" onclick="FORMS.tickspeed.autoSwitch()">OFF</button>
+                    <div style="margin-left: 5px; text-align: left; width: 400px">
+                        Tickspeed Power: <span id="tickspeed_step">X</span><br>
+                        Tickspeed Effect: <span id="tickspeed_eff">X</span>x to mass gain
                     </div>
-                </div><button id="tickspeed_btn" class="btn" style="width: 200px;" onclick="FORMS.tickspeed.buy()">Cost: <span id="tickspeed_cost">X</span> Rage Points</button>
-                <button class="btn" style="width: 120px;" onclick="FORMS.tickspeed.buyMax()">Buy Max</button>
-                <button id="tickspeed_auto" class="btn" style="width: 80px;" onclick="FORMS.tickspeed.autoSwitch()">OFF</button>
-                <div style="margin-left: 5px; text-align: left; width: 400px">
-                    Tickspeed Power: <span id="tickspeed_step">X</span><br>
-                    Tickspeed Effect: <span id="tickspeed_eff">X</span>x to mass gain
+                </div><br><div>
+                    <span id="massSoft1" class="red">After <b id="massSoftStart1">X</b> of mass gain will softcap mass gain!</span>
+                </div>
+            </div><div id="stab_frame0_1">
+                You have <span id="bhMass2">X</span> of Black Hole<br>
+                <span class="green">Which multiples mass gain by <span id="bhEffect">X</span></span><br><br>
+                Mass of Black Hole gain formula - (x + 1)<sup>0.33</sup> * <span id="bhCondenserEffect">X</span><br><br>
+                <div style="width: 100%; margin-bottom: 5px;" class="table_center">
+                    <div style="width: 400px">
+                        <div class="resources">
+                            <img src="images/bhCondenser.png">
+                            <span style="margin-left: 5px; text-align: left;"><span id="bhCondenser_scale"></span>Black Hole Condenser [<span id="bhCondenser_lvl">X</span>]</span>
+                        </div>
+                    </div><button id="bhCondenser_btn" class="btn" style="width: 200px;" onclick="FORMS.bh.condenser.buy()">Cost: <span id="bhCondenser_cost">X</span> Dark Matters</button>
+                    <button class="btn" style="width: 120px;" onclick="FORMS.bh.condenser.buyMax()">Buy Max</button>
+                    <button id="bhCondenser_auto" class="btn" style="width: 80px;" onclick="FORMS.bh.condenser.autoSwitch()">OFF</button>
+                    <div style="margin-left: 5px; text-align: left; width: 400px">
+                        BH Condenser Power: <span id="bhCondenser_pow">X</span>x<br>
+                    </div>
+                </div><br><div>
+                    <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> of mass gain from Black Hole will softcap mass gain!</span>
+                </div>
+            </div><div id="stab_frame0_2">
+                You have <span id="atomicAmt">X</span> Atomic Powers<br>
+                <span class="green">Which provides <span id="atomicEff">X</span> free Tickspeeds</span><br><br>
+                <div style="width: 100%; margin-bottom: 5px;" class="table_center">
+                    <div style="width: 400px">
+                        <div class="resources">
+                            <img src="images/gamma_ray.png">
+                            <span style="margin-left: 5px; text-align: left;"><span id="gamma_ray_scale"></span>Gamma Ray [<span id="gamma_ray_lvl">X</span>]</span>
+                        </div>
+                    </div><button id="gamma_ray_btn" class="btn" style="width: 200px;" onclick="ATOM.gamma_ray.buy()">Cost: <span id="gamma_ray_cost">X</span> Atoms</button>
+                    <button class="btn" style="width: 120px;" onclick="ATOM.gamma_ray.buyMax()">Buy Max</button>
+                    <div style="margin-left: 5px; text-align: left; width: 400px">
+                        Gamma Ray Power: <span id="gamma_ray_pow">X</span>x<br>
+                        Gamma Ray Effect: <span id="gamma_ray_eff">X</span>
+                    </div>
                 </div>
             </div>
         </div><div id="tab_frame1">
-            <div id="stab_frame0">
+            <div id="stab_frame1_0">
                 <button onclick="player.ranks_reward = Math.max(player.ranks_reward-1,0)" class="btn"><--</button><span id="ranks_reward_name" style="margin: 0px 10px">aaa</span><button onclick="player.ranks_reward = Math.min(player.ranks_reward+1,RANKS.names.length-1)" class="btn">--></button><br><br>
                 <div id="ranks_rewards_table"></div>
-            </div><div id="stab_frame1">
+            </div><div id="stab_frame1_1">
                 <button onclick="player.scaling_ch = Math.max(player.scaling_ch-1,0)" class="btn"><--</button><span id="scaling_name" style="margin: 0px 10px">aaa</span><button onclick="player.scaling_ch = Math.min(player.scaling_ch+1,SCALE_TYPE.length-1)" class="btn">--></button><br><br>
                 <div id="scaling_table"></div>
             </div>
@@ -80,28 +131,51 @@
             <div id="main_upg_msg" style="min-height: 100px;"></div>
             <div id="main_upgs_table" class="table_center"></div>
         </div><div id="tab_frame3">
-            You have <span id="bhMass2">X</span> of Black Hole<br>
-            Which multiples mass gain by <span id="bhEffect">X</span><br><br>
-            Mass of Black Hole gain formula - (x + 1)<sup>0.33</sup> * <span id="bhCondenserEffect">X</span><br><br>
-            <div style="width: 100%; margin-bottom: 5px;" class="table_center">
-                <div style="width: 400px">
-                    <div class="resources">
-                        <img src="images/bhCondenser.png">
-                        <span style="margin-left: 5px; text-align: left;">Black Hole Condenser [<span id="bhCondenser_lvl">X</span>]</span>
-                    </div>
-                </div><button id="bhCondenser_btn" class="btn" style="width: 200px;" onclick="FORMS.bh.condenser.buy()">Cost: <span id="bhCondenser_cost">X</span> Dark Matters</button>
-                <button class="btn" style="width: 120px;" onclick="FORMS.bh.condenser.buyMax()">Buy Max</button>
-                <div style="margin-left: 5px; text-align: left; width: 400px">
-                    BH Condenser Power: <span id="bhCondenser_pow">X</span><br>
-                </div>
+            Hint: Click any image for show challenge description.<br><br>
+            <button class="btn" id="chal_exit" onclick="CHALS.exit()">Exit Challenge</button><br><br>
+            <div style="min-height: 120px;" id="chals_table" class="table_center"></div><br><br>
+            <div id="chal_desc_div">
+                <button class="btn" id="chal_enter" onclick="CHALS.enter()">Enter Challenge</button>
+                <p id="chal_ch_title"></p>
+                <span class="red" id="chal_ch_desc"></span><br>
+                <span class="red" id="chal_ch_reset"></span>
+                <p id="chal_ch_goal"></p>
+                <span class="green" id="chal_ch_reward"></span><br>
+                <span class="green" id="chal_ch_eff"></span>
             </div>
         </div><div id="tab_frame4">
+            <div id="stab_frame4_0">
+                You have <span id="unassignQuarkAmt">X</span> unassigned Quarks<br><br>
+                <div>
+                    <button class="btn" onclick="ATOM.particles.assignAll()">Distribute</button><br><br>
+                    <input class="input_ratio" style="color: #0f0;" type="number" min="1" id="ratio_d0">
+                    <input class="input_ratio" style="color: #ff0;" type="number" min="1" id="ratio_d1">
+                    <input class="input_ratio" style="color: #f00;" type="number" min="1" id="ratio_d2">
+                </div>
+                <br><br>
+                Ratio Mode: <span id="atom_ratio">X</span><br>
+                <button class="btn" onclick="player.atom.ratio = 0">+1</button><button class="btn"onclick="player.atom.ratio = 1">25%</button><button class="btn"onclick="player.atom.ratio = 2">100%</button><br><br>
+                <div id="particles_table" class="table_center" style="justify-content: space-evenly;"></div>
+            </div>
+        </div><div id="tab_frame5">
             <button class="btn" onclick="save()">Save</button>
             <button class="btn" onclick="if (confirm('您想重置新游戏的进度吗？')) {wipe(); save(); location.reload()}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
             <button class="btn" onclick="importy()">Import</button>
-            <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button><br><br>
-            Incremental Mass Rewritten v0.2 - made by MrRedShark77<br>
+            <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button>
+            <button class="btn" onclick="window.open('https://mrredshark77.github.io/incremental-mass-rewritten/help.html')">Help</button><br><br>
+            <h2>Font Settings</h2><br>
+            <button class="btn" style="font-family: Arial, Helvetica, sans-ser;" onclick="player.options.font = 'Arial, Helvetica, sans-ser'">Arial</button>
+            <button class="btn" style="font-family: Bahnschrift;" onclick="player.options.font = 'Bahnschrift'">Bahnschrift</button>
+            <button class="btn" style="font-family: Comic Sans MS;" onclick="player.options.font = 'Comic Sans MS'">Comic Sans MS</button>
+            <button class="btn" style="font-family: Courier;" onclick="player.options.font = 'Courier'">Courier</button>
+            <button class="btn" style="font-family: Monospace-Typewritter;" onclick="player.options.font = 'Monospace-Typewritter'">Monospace Typewritter</button>
+            <button class="btn" style="font-family: Verdana, Geneva, Tahoma, sans-serif;" onclick="player.options.font = 'Verdana, Geneva, Tahoma, sans-serif'">Verdana</button>
+            <br><br>
+            <h2>Confirmation Settings</h2><br>
+            <div id="confirm_table" class="table_center"></div>
+            <br><br>
+            Incremental Mass Rewritten v0.3 Atom - Test Server 11 - made by MrRedShark77<br>
             The game inspired by Distance Incremental & Synergism<br><br><br>
             Hint 1: Hover top image above tabs to show description...
         </div>
