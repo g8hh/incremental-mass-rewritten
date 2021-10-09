@@ -2,11 +2,17 @@ const SCALE_START = {
     super: {
         rank: E(50),
 		tier: E(10),
+		tetr: E(6),
         massUpg: E(100),
 		tickspeed: E(100),
+		bh_condenser: E(100),
+		gamma_ray: E(100),
     },
 	hyper: {
+		rank: E(120),
 		massUpg: E(500),
+		tickspeed: E(250),
+		bh_condenser: E(300),
 	},
 }
 
@@ -16,8 +22,11 @@ const FULL_SCALE_NAME = ['Super', 'Hyper']
 const SCALING_RES = {
     rank(x=0) { return player.ranks.rank },
 	tier(x=0) { return player.ranks.tier },
+	tetr(x=0) { return player.ranks.tetr },
 	tickspeed(x=0) { return player.tickspeed },
     massUpg(x=1) { return E(player.massUpg[x]||0) },
+	bh_condenser(x=0) { return player.bh.condenser },
+	gamma_ray(x=0) { return player.atom.gamma_ray },
 }
 
 const NAME_FROM_RES = {
@@ -25,6 +34,8 @@ const NAME_FROM_RES = {
 	tier: "Tier",
 	massUpg: "Mass Upgrades",
 	tickspeed: "Tickspeed",
+	bh_condenser: "Black Hole Condenser",
+	gamma_ray: "Gamma Ray",
 }
 
 function updateScalingHTML() {
@@ -78,11 +89,30 @@ function getScalingName(name, x=0) {
 function getScalingStart(type, name) {
 	let start = E(SCALE_START[type][name])
 	if (type=="super") {
+		if (name=="rank") {
+			if (CHALS.inChal(1)) return E(25)
+			start = start.add(tmp.chal?tmp.chal.eff[1].rank:0)
+		}
+		if (name=="tier") {
+			if (player.mainUpg.atom.includes(5)) start = start.add(10)
+		}
 		if (name=="massUpg") {
-			if (player.mainUpg.bh.includes(3)) start = start.add(tmp.upgs?tmp.upgs.main?tmp.upgs.main[2][3].effect:E(0):E(0))
+			if (CHALS.inChal(1)) return E(25)
+			if (player.mainUpg.bh.includes(3)) start = start.add(tmp.upgs?tmp.upgs.main?tmp.upgs.main[2][3].effect:0:0)
+		}
+		if (name=='tickspeed') {
+			if (CHALS.inChal(1)) return E(50)
 		}
 	}
-	return start
+	if (type=="hyper") {
+		if (name=="tickspeed") {
+			if (player.mainUpg.rp.includes(14)) start = start.add(50)
+		}
+		if (name=="rank") {
+			if (player.mainUpg.atom.includes(10)) start = start.add(tmp.upgs?tmp.upgs.main?tmp.upgs.main[3][10].effect:0:0)
+		}
+	}
+	return start.floor()
 }
 
 function getScalingPower(type, name) {
@@ -92,7 +122,21 @@ function getScalingPower(type, name) {
 			if (player.mainUpg.rp.includes(10)) power = power.mul(0.8)
 		}
 		if (name=="massUpg") {
-			if (player.mainUpg.rp.includes(8)) power = power.mul(tmp.upgs.main?tmp.upgs.main[1][8].effect:E(1))
+			if (player.mainUpg.rp.includes(8)) power = power.mul(tmp.upgs.main?tmp.upgs.main[1][8].effect:1)
+		}
+		if (name=='tickspeed') {
+			power = power.mul(tmp.chal?tmp.chal.eff[1].tick:1)
+		}
+	}
+	if (type=="hyper") {
+		if (name=="rank") {
+			if (player.ranks.tetr.gte(1)) power = power.mul(0.85)
+		}
+		if (name=="massUpg") {
+			if (player.mainUpg.bh.includes(12)) power = power.mul(0.85)
+		}
+		if (name=='tickspeed') {
+			if (player.mainUpg.bh.includes(12)) power = power.mul(0.85)
 		}
 	}
 	return power
