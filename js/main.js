@@ -84,7 +84,7 @@ const FORMS = {
             return gain.floor()
         },
         reset() {
-            if (tmp.rp.can) if (player.confirms.rp?confirm("Are you sure to reset?"):true) {
+            if (tmp.rp.can) if (player.confirms.rp?confirm("你确定要重置吗?"):true) {
                 player.rp.points = player.rp.points.add(tmp.rp.gain)
                 player.rp.unl = true
                 this.doReset()
@@ -122,7 +122,7 @@ const FORMS = {
             return E(1).div(p.add(1))
         },
         reset() {
-            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("Are you sure to reset?"):true) {
+            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("你确定要重置吗?"):true) {
                 player.bh.dm = player.bh.dm.add(tmp.bh.dm_gain)
                 player.bh.unl = true
                 this.doReset()
