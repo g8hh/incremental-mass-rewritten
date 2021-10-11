@@ -94,25 +94,33 @@ const CHALS = {
         if (i <= 4) x = x.add(tmp.chal?tmp.chal.eff[7]:0)
         return x.floor()
     },
+    getPower() {
+        let x = E(1)
+        if (player.atom.elements.includes(2)) x = x.mul(0.75)
+        return x
+    },
     getChalData(x, r=E(-1)) {
         let res = !CHALS.inChal(0)?this.getResource(x):E(0)
         let lvl = r.lt(0)?player.chal.comps[x]:r
         let chal = this[x]
-        let goal = chal.inc.pow(lvl.pow(chal.pow)).mul(chal.start)
-        let bulk = res.div(chal.start).max(1).log(chal.inc).root(chal.pow).add(1).floor()
+        let pow = chal.pow
+        if (player.atom.elements.includes(10) && (x==3||x==4)) pow = pow.mul(0.95)
+        chal.pow = chal.pow.max(1)
+        let goal = chal.inc.pow(lvl.pow(pow)).mul(chal.start)
+        let bulk = res.div(chal.start).max(1).log(chal.inc).root(pow).add(1).floor()
         if (res.lt(chal.start)) bulk = E(0)
         if (lvl.max(bulk).gte(75)) {
             let start = E(75);
-            let exp = E(3);
+            let exp = E(3).pow(this.getPower());
             goal =
             chal.inc.pow(
-                    lvl.pow(exp).div(start.pow(exp.sub(1))).pow(chal.pow)
+                    lvl.pow(exp).div(start.pow(exp.sub(1))).pow(pow)
                 ).mul(chal.start)
             bulk = res
                 .div(chal.start)
                 .max(1)
                 .log(chal.inc)
-                .root(chal.pow)
+                .root(pow)
                 .times(start.pow(exp.sub(1)))
                 .root(exp)
                 .add(1)
@@ -145,7 +153,9 @@ const CHALS = {
         pow: E(1.3),
         start: E(1.989e40),
         effect(x) {
-            let ret = x.mul(0.075).add(1).softcap(1.3,0.5,0).sub(1)
+            let sp = E(0.5)
+            if (player.atom.elements.includes(8)) sp = sp.pow(0.25)
+            let ret = x.mul(0.075).add(1).softcap(1.3,sp,0).sub(1)
             return ret
         },
         effDesc(x) { return "+"+format(x.mul(100))+"%"+(x.gte(0.3)?" <span class='soft'>(softcapped)</span>":"") },
@@ -214,18 +224,34 @@ const CHALS = {
         unl() { return player.chal.comps[6].gte(1) },
         title: "No Rage Powers",
         desc: "You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.<br>In addtional, mass gain softcap is stronger.",
-        reward: `Completions adds 2 maximum completions of 1-4 Challenge. On first completion, unlock Elements (Coming Soon)`,
+        reward: `Completions adds 2 maximum completions of 1-4 Challenge. On 16th completion, unlock Elements`,
         max: E(50),
         inc: E(64),
         pow: E(1.25),
         start: E(1.5e76),
         effect(x) {
             let ret = x.mul(2)
-            return ret
+            if (player.atom.elements.includes(5)) ret = ret.mul(2)
+            return ret.floor()
         },
         effDesc(x) { return "+"+format(x,0) },
     },
-    cols: 7,
+    8: {
+        unl() { return player.chal.comps[7].gte(1) },
+        title: "White Hole",
+        desc: "Dark Matter & Mass from Black Hole gains are rooted by 8.",
+        reward: `Dark Matter & Mass from Black Hole gains are raised by completions. On first completion, unlock 6 more Elements`,
+        max: E(50),
+        inc: E(80),
+        pow: E(1.3),
+        start: E(1.989e38),
+        effect(x) {
+            let ret = x.root(1.75).mul(0.02).add(1)
+            return ret
+        },
+        effDesc(x) { return "^"+format(x) },
+    },
+    cols: 8,
 }
 
 /*
