@@ -50,33 +50,36 @@ const RANKS = {
             1: "unlock mass upgrade 1.",
             2: "unlock mass upgrade 2, reduce mass upgrade 1 cost scaled by 20%.",
             3: "unlock mass upgrade 3, reduce mass upgrade 2 cost scaled by 20%, mass upgrade 1 boosts itself.",
-            4: "reduce mass upgrade 3 cost scaled by 20%.",
+            4: "reduce mass upgrade 3 cost scale by 20%.",
             5: "mass upgrade 2 boosts itself.",
             6: "make mass gain is boosted by (x+1)^2, where x is rank.",
             13: "triple mass gain.",
             14: "double Rage Powers gain.",
             17: "make rank 6 reward effect is better. [(x+1)^2 -> (x+1)^x^1/3]",
-            34: "make mass upgrade 3 softcap starts 1.2x later.",
+            34: "make mass upgrade 3 softcap start 1.2x later.",
             40: "adds tickspeed power based on ranks.",
             45: "ranks boosts Rage Powers gain.",
-            90: "rank 40 reward are stronger.",
+            90: "rank 40 reward is stronger.",
             180: "mass gain is raised by 1.025.",
-            220: "rank 40 reward are overpowered.",
-            300: "rank multiplies quark gain.",
+            220: "rank 40 reward is overpowered.",
+            300: "rank multiplie quark gain.",
+            380: "rank multiplie mass gain.",
         },
         tier: {
             1: "reduce rank reqirements by 20%.",
             2: "raise mass gain by 1.15",
-            3: "reduce all mass upgrades cost scaled by 20%.",
-            4: "adds +5% tickspeed power for every tiers you have, softcaps at +40%.",
+            3: "reduce all mass upgrades cost scale by 20%.",
+            4: "adds +5% tickspeed power for every tier you have, softcaps at +40%.",
             6: "make rage powers boosted by tiers.",
-            8: "make tier 6 reward effect is stronger by dark matters.",
-            12: "make tier 4 reward effect is twice effective and remove softcap.",
+            8: "make tier 6's reward effect stronger by dark matters.",
+            12: "make tier 4's reward effect twice effective and remove softcap.",
+            30: "stronger effect's softcap is 10% weaker.",
         },
         tetr: {
             1: "reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.",
             2: "mass upgrade 3 boosts itself.",
             3: "raise tickspeed effect by 1.05.",
+            4: "Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.",
         },
     },
     effect: {
@@ -107,6 +110,10 @@ const RANKS = {
                 let ret = player.ranks.rank.add(1)
                 return ret
             },
+            380() {
+                let ret = E(10).pow(player.ranks.rank.sub(379).pow(1.5).softcap(1000,0.5,0))
+                return ret
+            },
         },
         tier: {
             4() {
@@ -130,6 +137,10 @@ const RANKS = {
                 let ret = E(player.massUpg[3]||0).div(400)
                 return ret
             },
+            4() {
+                let ret = E(0.96).pow(player.ranks.tier.pow(1/3))
+                return ret
+            },
         },
     },
     effDesc: {
@@ -140,6 +151,7 @@ const RANKS = {
             40(x) {  return "+"+format(x.mul(100))+"%" },
             45(x) { return format(x)+"x" },
             300(x) { return format(x)+"x" },
+            380(x) { return format(x)+"x" },
         },
         tier: {
             4(x) { return "+"+format(x.mul(100))+"%" },
@@ -148,6 +160,7 @@ const RANKS = {
         },
         tetr: {
             2(x) { return "+"+format(x) },
+            4(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
         },
     },
     fp: {
@@ -254,6 +267,7 @@ function updateRanksTemp() {
 	}
 
     fp = E(1)
+    if (player.atom.elements.includes(9)) fp = fp.mul(1/0.85)
     tmp.ranks.tetr.req = player.ranks.tetr.div(fp).pow(2).mul(3).add(10).floor()
     tmp.ranks.tetr.bulk = player.ranks.tier.sub(10).div(3).max(0).root(2).mul(fp).add(1).floor();
     if (scalingActive("tetr", player.ranks.tetr.max(tmp.ranks.tetr.bulk), "super")) {
@@ -279,6 +293,6 @@ function updateRanksTemp() {
         if (x > 0) {
             tmp.ranks[rn].can = player.ranks[RANKS.names[x-1]].gte(tmp.ranks[rn].req)
         }
-        tmp.ranks[rn].desc = player.ranks[rn].lt(Number.MAX_VALUE)?RANKS.desc[rn][player.ranks[rn].toNumber()+1]?RANKS.desc[rn][player.ranks[rn].toNumber()+1]:(rn+" up."):(rn+" up.")
+        tmp.ranks[rn].desc = player.ranks[rn].lt(Number.MAX_VALUE)?RANKS.desc[rn][player.ranks[rn].toNumber()+1]?RANKS.desc[rn][player.ranks[rn].toNumber()+1]:(capitalFirst(rn)+" up."):(capitalFirst(rn)+" up.")
     }
 }
