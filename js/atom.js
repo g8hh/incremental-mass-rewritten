@@ -19,7 +19,7 @@ const ATOM = {
     },
     canReset() { return tmp.atom.gain.gte(1) },
     reset() {
-        if (tmp.atom.canReset) if (player.confirms.atom?confirm("你确定要重置吗?"):true) {
+        if (tmp.atom.canReset) if (player.confirms.atom?confirm("您确定要重置吗？"):true) {
             player.atom.points = player.atom.points.add(tmp.atom.gain)
             player.atom.quarks = player.atom.quarks.add(tmp.atom.quarkGain)
             player.atom.unl = true

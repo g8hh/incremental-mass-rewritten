@@ -1,6 +1,6 @@
 const RANKS = {
     names: ['rank', 'tier', 'tetr'],
-    fullNames: ['Rank', 'Tier', 'Tetr'],
+    fullNames: ['级别', '阶层', '三重阶层'],
     reset(type) {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].add(1)
@@ -147,20 +147,20 @@ const RANKS = {
         rank: {
             3(x) { return "+"+format(x) },
             5(x) { return "+"+format(x) },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             40(x) {  return "+"+format(x.mul(100))+"%" },
-            45(x) { return format(x)+"x" },
-            300(x) { return format(x)+"x" },
-            380(x) { return format(x)+"x" },
+            45(x) { return format(x)+"倍" },
+            300(x) { return format(x)+"倍" },
+            380(x) { return format(x)+"倍" },
         },
         tier: {
             4(x) { return "+"+format(x.mul(100))+"%" },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             8(x) { return "^"+format(x) },
         },
         tetr: {
             2(x) { return "+"+format(x) },
-            4(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
+            4(x) { return "弱化"+format(E(1).sub(x).mul(100))+"%" },
         },
     },
     fp: {

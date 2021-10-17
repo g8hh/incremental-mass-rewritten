@@ -98,7 +98,7 @@
                     <button class="btn" style="width: 120px;" onclick="FORMS.bh.condenser.buyMax()">Buy Max</button>
                     <button id="bhCondenser_auto" class="btn" style="width: 80px;" onclick="FORMS.bh.condenser.autoSwitch()">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        BH Condenser Power: <span id="bhCondenser_pow">X</span>x<br>
+                        BH Condenser Power: <span id="bhCondenser_pow">X</span>倍<br>
                     </div>
                 </div><br><div>
                     <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> uni worth of mass gain from Black Hole, mass gain will be softcapped!</span>
@@ -116,7 +116,7 @@
                     <button class="btn" style="width: 120px;" onclick="ATOM.gamma_ray.buyMax()">Buy Max</button>
                     <button id="gamma_ray_auto" class="btn" style="width: 80px;" onclick="player.atom.auto_gr = !player.atom.auto_gr">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        Gamma Ray Power: <span id="gamma_ray_pow">X</span>x<br>
+                        Gamma Ray Power: <span id="gamma_ray_pow">X</span>倍<br>
                         Gamma Ray Effect: <span id="gamma_ray_eff">X</span>
                     </div>
                 </div>
@@ -167,11 +167,11 @@
             </div>
         </div><div id="tab_frame5">
             <button class="btn" onclick="save()">Save</button>
-            <button class="btn" onclick="if (confirm('您想重置游戏的进度为新游戏吗')) {wipe(); save(); location.reload()}">Hard Reset</button>
+            <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(); save(); location.reload()}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
             <button class="btn" onclick="importy()">Import</button>
             <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button>
-            <button class="btn" onclick="window.open('https://mrredshark77.github.io/incremental-mass-rewritten/help.html')">Help</button><br><br>
+            <button class="btn" onclick="window.open('./help.html')">Help</button><br><br>
             <h2>Font Settings</h2><br>
             <button class="btn" style="font-family: Arial, Helvetica, sans-ser;" onclick="player.options.font = 'Arial, Helvetica, sans-ser'">Arial</button>
             <button class="btn" style="font-family: Bahnschrift;" onclick="player.options.font = 'Bahnschrift'">Bahnschrift</button>

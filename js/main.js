@@ -86,7 +86,7 @@ const FORMS = {
             return gain.floor()
         },
         reset() {
-            if (tmp.rp.can) if (player.confirms.rp?confirm("你确定要重置吗?"):true) {
+            if (tmp.rp.can) if (player.confirms.rp?confirm("您确定要重置吗？"):true) {
                 player.rp.points = player.rp.points.add(tmp.rp.gain)
                 player.rp.unl = true
                 this.doReset()
@@ -128,7 +128,7 @@ const FORMS = {
             return E(1).div(p.add(1))
         },
         reset() {
-            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("你确定要重置吗?"):true) {
+            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("您确定要重置吗？"):true) {
                 player.bh.dm = player.bh.dm.add(tmp.bh.dm_gain)
                 player.bh.unl = true
                 this.doReset()
@@ -294,7 +294,7 @@ const UPGS = {
             effDesc(eff) {
                 return {
                     step: "+"+formatMass(eff.step),
-                    eff: "+"+formatMass(eff.eff)+" to mass gain"
+                    eff: "+"+formatMass(eff.eff)+"质量获取速度"
                 }
             },
             bouns() {
@@ -318,7 +318,7 @@ const UPGS = {
             },
             effDesc(eff) {
                 return {
-                    step: "+"+format(eff.step)+"x",
+                    step: "+"+format(eff.step)+"倍",
                     eff: "x"+format(eff.eff)+" to Muscler Power"
                 }
             },
@@ -350,7 +350,7 @@ const UPGS = {
             },
             effDesc(eff) {
                 return {
-                    step: "+^"+format(eff.step),
+                    step: "+"+format(eff.step)+"次方",
                     eff: "^"+format(eff.eff)+" to Booster Power"
                 }
             },
@@ -780,21 +780,21 @@ function format(ex, acc=4) {
 
 function formatMass(ex) {
     ex = E(ex)
-    if (ex.gte(E(1.5e56).mul('ee9'))) return format(ex.div(1.5e56).log10().div(1e9)) + ' mlt'
-    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + ' uni'
-    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + ' MMWG'
-    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + ' M☉'
-    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + ' M⊕'
-    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + ' MME'
-    if (ex.gte(1e6)) return format(ex.div(1e6)) + ' tonne'
-    if (ex.gte(1e3)) return format(ex.div(1e3)) + ' kg'
-    return format(ex) + ' g'
+    if (ex.gte(E(1.5e56).mul('ee9'))) return format(ex.div(1.5e56).log10().div(1e9)) + '多宇宙'
+    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + '宇宙'
+    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + '银河质量'
+    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + '太阳质量'
+    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + '地球质量'
+    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + '珠峰质量'
+    if (ex.gte(1e6)) return format(ex.div(1e6)) + '吨'
+    if (ex.gte(1e3)) return format(ex.div(1e3)) + '千克'
+    return format(ex) + '克'
 }
 
 function formatGain(amt, gain, isMass=false) {
     let f = isMass?formatMass:format
-	if (gain.gte(1e100) && gain.gt(amt)) return "(+"+format(gain.max(1).log10().sub(amt.max(1).log10().max(1)).times(50))+" OoMs/sec)"
-	else return "(+"+f(gain)+"/sec)"
+	if (gain.gte(1e100) && gain.gt(amt)) return "(+"+format(gain.max(1).log10().sub(amt.max(1).log10().max(1)).times(50))+"数量级/秒)"
+	else return "(+"+f(gain)+"/秒)"
 }
 
 function capitalFirst(str) {
