@@ -11,12 +11,16 @@
     <script src="js/elements.js"></script>
     <script src="js/saves.js"></script>
     <script src="js/challenges.js"></script>
+    <script src="js/md.js"></script>
     <script src="js/elemental.js"></script>
     <script src="js/atom.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/scaling.js"></script>
     <script src="js/temp.js"></script>
     <script src="js/ranks.js"></script>
+
+    <script src="js/formats.js"></script>
+
     <script src="js/main.js"></script>
 
     <title>质量增量重制版 - Incremental Mass Rewritten</title>
@@ -24,6 +28,7 @@
 <body onload="loadGame()">
 <script src="chs.js?07071443"></script>
 <script src="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/zh/core.js"></script>
+    <input id="copy" style="position: absolute; top: 0; left: 0; user-select: all; visibility: hidden;">
     <div id="loading" class='table_center' style="align-items: center; height: 100%;">
         <div>
             <h1>Loading game...</h1>
@@ -57,6 +62,11 @@
                     </div><div class="resources quark_color" id="quark_div">
                         <img src="images/quark.png">
                         <span style="margin-left: 5px; text-align: left;" id="quarkAmt">X</span>
+                    </div>
+                </div><div>
+                    <div class="resources sml green" id="md_div">
+                        <img src="images/md.png" onclick="MASS_DILATION.onactive()" onmousemove="FORMS.reset_msg.set('md')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;">
+                        <span style="margin-left: 5px; text-align: left;" id="md_massAmt">X</span>
                     </div>
                 </div>
             </div><span id="reset_desc"></span>
@@ -101,7 +111,7 @@
                         BH Condenser Power: <span id="bhCondenser_pow">X</span>倍<br>
                     </div>
                 </div><br><div>
-                    <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> uni worth of mass gain from Black Hole, mass gain will be softcapped!</span>
+                    <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> worth of mass gain from Black Hole, mass gain will be softcapped!</span>
                 </div>
             </div><div id="stab_frame0_2">
                 You have <span id="atomicAmt">X</span> Atomic Power<br>
@@ -164,11 +174,19 @@
                     Cost: <span id="elem_cost">X</span> Quark<br>
                     <span id="elem_eff" class='green'>X</span>
                 </div><br><div id="elements_table"></div>
+            </div><div id="stab_frame4_2">
+                You have <span id="md_particles">X</span> Relativistic particles<br>
+                You have <span id="md_mass">X</span> of dilated mass, which makes Tickspeed <span id="md_eff">X</span>% stronger<br><br>
+                <button onclick="MASS_DILATION.onactive()" id="md_btn" class="btn full md" tooltip="进行质量膨胀时将同时进行一次原子重置，质量膨胀时，所有原子之前的资源，及原子能量获取速度变为原来的0.8次方。">Dilate Mass</button><br><br>
+                <div class="table_center">
+                    <div id="md_upg_table" class="table_center" style="width: 800px;"></div>
+                </div>
             </div>
         </div><div id="tab_frame5">
             <button class="btn" onclick="save()">Save</button>
             <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(); save(); location.reload()}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
+            <button class="btn" onclick="export_copy()">Export to clipboard</button>
             <button class="btn" onclick="importy()">Import</button>
             <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button>
             <button class="btn" onclick="window.open('./help.html')">Help</button><br><br>
@@ -178,12 +196,21 @@
             <button class="btn" style="font-family: Comic Sans MS;" onclick="player.options.font = 'Comic Sans MS'">Comic Sans MS</button>
             <button class="btn" style="font-family: Courier;" onclick="player.options.font = 'Courier'">Courier</button>
             <button class="btn" style="font-family: Monospace-Typewritter;" onclick="player.options.font = 'Monospace-Typewritter'">Monospace Typewritter</button>
+            <button class="btn" style="font-family: 'Nova Mono';" onclick="player.options.font = 'Nova Mono'">Nova Mono</button>
+            <button class="btn" style="font-family: 'Roboto Mono';" onclick="player.options.font = 'Roboto Mono'">Roboto Mono</button>
             <button class="btn" style="font-family: Verdana, Geneva, Tahoma, sans-serif;" onclick="player.options.font = 'Verdana, Geneva, Tahoma, sans-serif'">Verdana</button>
             <br><br>
             <h2>Confirmation Settings</h2><br>
             <div id="confirm_table" class="table_center"></div>
             <br><br>
-            Incremental Mass Rewritten v0.3.1.1 - made by MrRedShark77<br>
+            <h2>Notation Settings</h2><br>
+            <button class="btn" onclick="player.options.notation = 'elemental'">Elemental</button>
+            <button class="btn" onclick="player.options.notation = 'sc'">Scientific</button>
+            <button class="btn" onclick="player.options.notation = 'st'">Standard</button>
+            <button class="btn" onclick="player.options.notation = 'omega'">Omega</button>
+            <button class="btn" onclick="player.options.notation = 'omega_short'">Omega Short</button>
+            <br><br>
+            Incremental Mass Rewritten v0.3.2.1 - made by MrRedShark77<br>
             The game is inspired by Distance Incremental & Synergism<br><br><br>
             Hint 1: Hover top image above tabs to show description...
         </div>

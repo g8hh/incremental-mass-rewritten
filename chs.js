@@ -26,6 +26,7 @@ var cnItems = {
     'Scaling': '折算',
     'Particles': '粒子',
     'Elements': '元素',
+    'Mass Dilation': '质量膨胀',
     'Buy Max': '最大化购买',
     'ON': '开启',
     'OFF': '关闭',
@@ -33,6 +34,7 @@ var cnItems = {
     'Require over 1e9 tonne of mass to reset previous features for gain Rage Powers': '需要超过1e9吨质量才可以进行狂怒重置，重置之前的所有内容，获得狂怒能量',
     'Require over 1e20 Rage Power to reset all previous features for gain Dark Matters': '需要超过1e20狂怒能量才可以进行暗能量重置，重置之前的所有内容，获得暗能量',
     'Require over 1e100 uni of black hole to reset all previous features for gain Atoms & Quarks': '需要黑洞质量超过1e100宇宙才可以进行原子重置，重置之前的所有内容，获得原子和夸克',
+    'Dilate mass, then cancel': '使质量膨胀，然后再取消',
     'Rank up.': '提升级别。',
     'Tier up.': '提升阶层。',
     'Tetr up.': '提升三重阶层。',
@@ -99,7 +101,7 @@ var cnItems = {
     'Black Hole Condensers [': '黑洞压缩器[',
     ' Dark Matters': '暗能量',
     'BH Condenser Power': '黑洞压缩器倍率',
-    ' uni worth of mass gain from Black Hole, mass gain will be softcapped!': 'uni的黑洞质量获取速度以后，质量获取速度将受到软上限限制！',
+    ' worth of mass gain from Black Hole, mass gain will be softcapped!': '的黑洞质量获取速度以后，质量获取速度将受到软上限限制！',
     ' Atomic Power': '原子能量',
     'Which provides ': '它使您获得了',
     ' free Tickspeeds': '个免费时间速度升级',
@@ -114,17 +116,10 @@ var cnItems = {
     'Distribute': '分配',
     'Ratio Mode': '比例模式',
     ' Quark': '夸克',
-    'Save': '保存',
-    'Hard Reset': '硬重置',
-    'Export': '导出',
-    'Import': '导入',
-    'Join Discord': '加入Discord频道',
-    'Help': '帮助',
-    'Font Settings': '字体设置',
-    'Confirmation Settings': '确认窗口设置',
-    'Incremental Mass Rewritten v0.3.1.1 - made by MrRedShark77': '质量增量重制版v0.3.1.1 - 作者为MrRedShark77，由by22dgb汉化',
-    'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
-    'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
+    ' Relativistic particles': '相对论粒子',
+    ' of dilated mass, which makes Tickspeed ': '膨胀质量，它使时间速度强化',
+    '% stronger': '%',
+    'Dilate Mass': '质量膨胀',
     //主界面等结束
 
     //统计
@@ -180,7 +175,7 @@ var cnItems = {
     'Tickspeed boost each particle powers gain.': '时间速度可以加成粒子能量的获取速度。',
     'Atomic Powers boosts Quark gain.': '原子能量可以加成夸克的获取速度。',
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
-    'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究极折算基于当前的阶层数值而延迟出现。',
+    'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究极折算基于目前的阶层数值而延迟出现。',
     //升级结束
 
     //挑战
@@ -198,9 +193,11 @@ var cnItems = {
     'Reward: For every completions adds +10% to Tickspeed & BH Condenser Power.': '奖励：每次完成该挑战，就使时间速度倍率和黑洞压缩器倍率增加10%。',
     'You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.': '您无法获得狂怒能量，但暗能量可以通过质量，而不是狂怒能量来获取，只是获取倍率降低。',
     'In addtional, mass gain softcap is stronger.': '另外，质量获取速度软上限的效果变得更严重。',
-    'Reward: Completions adds 2 maximum completions of 1-4 Challenge. On 16th completion, unlock Elements': '奖励：每次完成该挑战，就使挑战1-挑战4的次数上限增加2。当完成第16次该挑战时，解锁元素',
+    'Reward: Completions adds 2 maximum completions of 1-4 Challenge.': '奖励：每次完成该挑战，就使挑战1-挑战4的次数上限增加2。',
+    'On 16th completion, unlock Elements': '当完成第16次该挑战时，解锁元素',
     'Dark Matter & Mass from Black Hole gains are rooted by 8.': '通过黑洞获取的暗能量和质量变为原来的八次方根。',
-    'Reward: Dark Matter & Mass from Black Hole gains are raised by completions. On first completion, unlock 3 rows of Elements': '奖励：暗能量和黑洞质量获取速度随着完成次数变为原来的一个指数。当完成第1次该挑战时，解锁3行元素',
+    'Reward: Dark Matter & Mass from Black Hole gains are raised by completions.': '奖励：暗能量和黑洞质量获取速度随着完成次数变为原来的一个指数。',
+    'On first completion, unlock 3 rows of Elements': '当完成第1次该挑战时，解锁3行元素',
     'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗能量重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
     //挑战结束
@@ -234,15 +231,41 @@ var cnItems = {
     '[Argon] You can now automatically buy gamma rays. Gamma ray raise tickspeed effect at an extremely reduced rate.': '[氩]您可以自动购买伽马射线。伽马射线可以增加时间速度效果，只是效果倍率极度降低。',
     '[Potassium] 2nd Neutron’s effect is better.': '[钾]中子的第2个效果变得更好。',
     '[Calcium] Adds 50 more C7 maximum completions.': '[钙]挑战7的次数上限增加50。',
-    '[Scandium] Unlock ???.': '[钪]解锁？？？。',
-    '[Titanium] ': '[钛]',
-    '[Vanadium] ': '[钒]',
-    '[Chromium] ': '[铬]',
-    '[Manganese] ': '[锰]',
-    '[Iron] ': '[铁]',
-    '': '',
-    '': '',
+    '[Scandium] Unlock Mass Dilation.': '[钪]解锁质量膨胀。',
+    '[Titanium] Dilated mass gain is affected by tickspeed at a reduced rate.': '[钛]时间速度可以加成质量膨胀获取速度，只是效果倍率降低。',
+    '[Vanadium] The Atomic Power effect is better.': '[钒]原子能量的效果变得更好。',
+    '[Chromium] Passively gain 100% of the atoms you would get from resetting each second. Atomic Power boost Relativistic particles gain at a reduced rate.': '[铬]每秒获得原子，数量为重置时获取数量的100%。原子能量可以加成相对论粒子获取速度，只是效果倍率降低。',
+    '[Manganese] Adds 1 base of Mass Dilation upgrade 1 effect.': '[锰]质量膨胀升级1的效果视为增加1级。',
+    '[Iron] Hardened Challenge scaling weaker for each element bought.': '[铁]硬化挑战的折算效果基于购买的元素数量而弱化。',
+    'inactive': '未激活',
+    'Double dilated mass gain.': '使质量膨胀获取速度翻倍。',
+    'Make dilated mass effect stronger.': '使质量膨胀的效果更好。',
+    'Double relativistic particles gain.': '使相对论粒子获取数量翻倍。',
+    'Dilated mass also boost Stronger’s power.': '质量膨胀可以加成强化器倍率。',
+    'Mass Dilation upgrade 3 scales 10% weaker.': '质量膨胀升级3的折算弱化10%。',
+    'Currently': '目前效果',
     //原子结束
+
+    //选项
+    'Save': '保存',
+    'Hard Reset': '硬重置',
+    'Export': '导出',
+    'Export to clipboard': '导出到剪贴板',
+    'Import': '导入',
+    'Join Discord': '加入Discord频道',
+    'Help': '帮助',
+    'Font Settings': '字体设置',
+    'Confirmation Settings': '确认窗口设置',
+    'Notation Settings': '记数法设置',
+    'Elemental': '元素记数法',
+    'Scientific': '科学记数法',
+    'Standard': '普通记数法',
+    'Omega': 'Omega记数法',
+    'Omega Short': 'Omega Short记数法',
+    'Incremental Mass Rewritten v0.3.2.1 - made by MrRedShark77': '质量增量重制版v0.3.2.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
+    'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
+    //选项结束
 }
 
 
@@ -363,4 +386,6 @@ var cnRegReplace = new Map([
     [/^ Electrons Powers, which:\s*$/, '电子能量，因此获得以下效果：'], //原子等
     [/^Currently: (.+)x$/, '目前效果：$1倍'], //原子等
     [/^Currently: (.+)x stronger$/, '目前效果：强化$1倍'], //原子等
+    [/^\s*\[Level $/, '[等级：'], //原子等
+    [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
 ]);

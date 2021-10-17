@@ -2,9 +2,17 @@ var diff = 0;
 var date = Date.now();
 var player
 var tmp = {
-    
+    tab: 0,
+    stab: [],
 }
+for (let x = 0; x < TABS[1].length; x++) tmp.stab.push(0)
 
+const ST_NAMES = [
+    ["","U","D","T","Qa","Qt","Sx","Sp","Oc","No"],
+    ["","Dc","Vg","Tg","Qag","Qtg","Sxg","Spg","Ocg","Nog"],
+    ["","Ce","De","Te","Qae","Qte","Sxe","Spe","Oce","Noe"],
+    ["","Mi","Mc","Na","Pc"],
+]
 const CONFIRMS = ['rp', 'bh', 'atom']
 
 const FORMS = {
@@ -22,6 +30,7 @@ const FORMS = {
         if (player.ranks.tier.gte(2)) x = x.pow(1.15)
         if (player.ranks.rank.gte(180)) x = x.pow(1.025)
         if (!CHALS.inChal(3)) x = x.pow(tmp.chal.eff[3])
+        if (player.md.active) x = expMult(x,0.8)
         return x.softcap(tmp.massSoftGain,tmp.massSoftPower,0)
     },
     massSoftGain() {
@@ -58,11 +67,12 @@ const FORMS = {
             let bouns = E(0)
             if (player.atom.unl) bouns = bouns.add(tmp.atom.atomicEff)
             let step = E(1.5)
-            step = step.add(tmp.chal.eff[6])
-            step = step.add(tmp.chal.eff[2])
-            step = step.add(tmp.atom.particles[0].powerEffect.eff2)
-            if (player.ranks.tier.gte(4)) step = step.add(RANKS.effect.tier[4]())
-            if (player.ranks.rank.gte(40)) step = step.add(RANKS.effect.rank[40]())
+                step = step.add(tmp.chal.eff[6])
+                step = step.add(tmp.chal.eff[2])
+                step = step.add(tmp.atom.particles[0].powerEffect.eff2)
+                if (player.ranks.tier.gte(4)) step = step.add(RANKS.effect.tier[4]())
+                if (player.ranks.rank.gte(40)) step = step.add(RANKS.effect.rank[40]())
+                step = step.mul(tmp.md.mass_eff)
             let eff = step.pow(player.tickspeed.add(bouns))
             if (player.atom.elements.includes(18)) eff = eff.pow(tmp.elements.effect[18])
             if (player.ranks.tetr.gte(3)) eff = eff.pow(1.05)
@@ -83,6 +93,7 @@ const FORMS = {
             if (player.mainUpg.bh.includes(8)) gain = gain.pow(1.15)
             gain = gain.pow(tmp.chal.eff[4])
             if (CHALS.inChal(4)) gain = gain.root(10)
+            if (player.md.active) gain = expMult(gain,0.8)
             return gain.floor()
         },
         reset() {
@@ -108,6 +119,7 @@ const FORMS = {
             gain = gain.mul(tmp.atom.particles[2].powerEffect.eff1)
             if (CHALS.inChal(8)) gain = gain.root(8)
             gain = gain.pow(tmp.chal.eff[8])
+            if (player.md.active) gain = expMult(gain,0.8)
             return gain.floor()
         },
         massGain() {
@@ -116,6 +128,7 @@ const FORMS = {
             if (player.mainUpg.bh.includes(14)) x = x.mul(tmp.upgs.main?tmp.upgs.main[2][14].effect:E(1))
             if (CHALS.inChal(8)) x = x.root(8)
             x = x.pow(tmp.chal.eff[8])
+            if (player.md.active) x = expMult(x,0.8)
             return x.softcap(tmp.bh.massSoftGain, tmp.bh.massSoftPower, 0)
         },
         massSoftGain() {
@@ -165,9 +178,9 @@ const FORMS = {
             },
             effect() {
                 let pow = E(2)
-                pow = pow.add(tmp.chal.eff[6])
-                if (player.mainUpg.bh.includes(2)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[2][2].effect:E(1))
-                pow = pow.add(tmp.atom.particles[2].powerEffect.eff2)
+                    pow = pow.add(tmp.chal.eff[6])
+                    if (player.mainUpg.bh.includes(2)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[2][2].effect:E(1))
+                    pow = pow.add(tmp.atom.particles[2].powerEffect.eff2)
                 let eff = pow.pow(player.bh.condenser.add(tmp.bh.condenser_bouns))
                 return {pow: pow, eff: eff}
             },
@@ -183,6 +196,7 @@ const FORMS = {
             rp: "Require over 1e9 tonne of mass to reset previous features for gain Rage Powers",
             dm: "Require over 1e20 Rage Power to reset all previous features for gain Dark Matters",
             atom: "Require over 1e100 uni of black hole to reset all previous features for gain Atoms & Quarks",
+            md: "Dilate mass, then cancel",
         },
         set(id) { player.reset_msg = this.msgs[id] },
         reset() { player.reset_msg = "" },
@@ -342,6 +356,7 @@ const UPGS = {
                 if (player.mainUpg.rp.includes(9)) step = step.add(0.25)
                 if (player.mainUpg.rp.includes(12)) step = step.add(tmp.upgs.main?tmp.upgs.main[1][12].effect:E(0))
                 if (player.atom.elements.includes(4)) step = step.mul(tmp.elements.effect[4])
+                if (player.md.upgs[3].gte(1)) step = step.mul(tmp.md.upgs[3].eff)
                 let sp = 0.5
                 if (player.mainUpg.atom.includes(9)) sp *= 1.15
                 if (player.ranks.tier.gte(30)) sp *= 1.1
@@ -762,7 +777,7 @@ function loop() {
     date = Date.now();
 }
 
-function format(ex, acc=4) {
+function format(ex, acc=4, type=player.options.notation) {
     ex = E(ex)
     neg = ex.lt(0)?"-":""
     if (ex.mag == Infinity) return neg + 'Infinity'
@@ -770,11 +785,34 @@ function format(ex, acc=4) {
     if (ex.lt(0)) ex = ex.mul(-1)
     if (ex.eq(0)) return ex.toFixed(acc)
     let e = ex.log10().floor()
-    if (e.lt(4)) {
-        return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
-    } else {
-        let m = ex.div(E(10).pow(e))
-        return neg+(e.log10().gte(9)?'':m.toFixed(4))+'e'+format(e, 0, "sc")
+    switch (type) {
+        case "sc":
+            if (e.lt(4)) {
+                return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
+            } else {
+                let m = ex.div(E(10).pow(e))
+                return neg+(e.log10().gte(9)?'':m.toFixed(4))+'e'+format(e, 0, "sc")
+            }
+        case "st":
+            if (e.lt(3)) {
+                return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
+            } else {
+                if (e.gte(3e15+3)) return "e"+format(e, acc, "st")
+                let str = e.div(3).floor().sub(1).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ').split(" ")
+                let final = ""
+                let m = ex.div(E(10).pow(e.div(3).floor().mul(3)))
+                str.forEach((arr, i) => {
+                    let ret = ""
+                    arr.split('').forEach((v, j) => {
+                        if (i == str.length - 1) ret = (Number(arr) < 3 ? ["K", "M", "B"][v] : ST_NAMES[arr.length-j-1][v]) + ret 
+                        else if (Number(arr) > 1) ret = ST_NAMES[arr.length-j-1][v] + ret
+                    })
+                    final += (i > 0 && Number(arr) > 0 ? "-" : "") + ret + (i < str.length - 1 && Number(arr) > 0 ? ST_NAMES[3][str.length-i-1] : "")
+                });
+                return neg+(e.log10().gte(9)?'':(m.toFixed(E(3).sub(e.sub(e.div(3).floor().mul(3))).add(1).toNumber())+" "))+final
+            }
+        default:
+            return neg+FORMATS[type].format(ex)
     }
 }
 
@@ -796,6 +834,8 @@ function formatGain(amt, gain, isMass=false) {
 	if (gain.gte(1e100) && gain.gt(amt)) return "(+"+format(gain.max(1).log10().sub(amt.max(1).log10().max(1)).times(50))+"数量级/秒)"
 	else return "(+"+f(gain)+"/秒)"
 }
+
+function expMult(a,b) { return E(a).gte(1) ? E(10).pow(E(a).log10().pow(b)) : E(0) }
 
 function capitalFirst(str) {
 	if (str=="" || str==" ") return str
