@@ -118,7 +118,7 @@ var cnItems = {
     ' Quark': '夸克',
     ' Relativistic particles': '相对论粒子',
     ' of dilated mass, which makes Tickspeed ': '膨胀质量，它使时间速度强化',
-    '% stronger': '%',
+    ' stronger': '',
     'Dilate Mass': '质量膨胀',
     //主界面等结束
 
