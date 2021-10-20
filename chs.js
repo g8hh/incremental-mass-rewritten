@@ -237,12 +237,16 @@ var cnItems = {
     '[Chromium] Passively gain 100% of the atoms you would get from resetting each second. Atomic Power boost Relativistic particles gain at a reduced rate.': '[铬]每秒获得原子，数量为重置时获取数量的100%。原子能量可以加成相对论粒子获取速度，只是效果倍率降低。',
     '[Manganese] Adds 1 base of Mass Dilation upgrade 1 effect.': '[锰]质量膨胀升级1的效果视为增加1级。',
     '[Iron] Hardened Challenge scaling weaker for each element bought.': '[铁]硬化挑战的折算效果基于购买的元素数量而弱化。',
+    '[Cobalt] Hyper/Ultra Rank & Tickspeed scales 25% weaker.': '[钴]级别和时间速度的究极折算和超究折算弱化25%。',
+    '[Nickel] Mass gain is raised to the power of 1.5th if you dilated mass.': '[镍]如果正在进行质量膨胀，则质量获取速度变为原来的1.5次方。',
+    '[Copper] Proton powers effect is better.': '[铜]质子能量的效果变得更好。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果更好。',
     'Double relativistic particles gain.': '使相对论粒子获取数量翻倍。',
     'Dilated mass also boost Stronger’s power.': '膨胀质量可以加成强化器倍率。',
     'Mass Dilation upgrade 3 scales 10% weaker.': '质量膨胀升级3的折算弱化10%。',
+    'Increase the exponent of the RP formula.': '增加相对论粒子公式的指数。',
     'Currently': '目前效果',
     //原子结束
 
@@ -262,7 +266,7 @@ var cnItems = {
     'Standard': '普通记数法',
     'Omega': 'Omega记数法',
     'Omega Short': 'Omega Short记数法',
-    'Incremental Mass Rewritten v0.3.2.1 - made by MrRedShark77': '质量增量重制版v0.3.2.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.3.2.2 - made by MrRedShark77': '质量增量重制版v0.3.2.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     //选项结束
