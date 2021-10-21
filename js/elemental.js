@@ -220,7 +220,7 @@ const ELEMENTS = {
                 let x = player.md.mass.add(1).pow(0.0125)
                 return x
             },
-            effDesc(x) { return format(x)+"倍" },
+            effDesc(x) { return format(x)+"x" },
         },
     ],
     /*
