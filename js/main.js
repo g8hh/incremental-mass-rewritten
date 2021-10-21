@@ -495,7 +495,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return "+^"+format(x)+(x.gte(0.2)?" <span class='soft'>(softcapped)</span>":"")
+                    return "+^"+format(x)+(x.gte(0.2)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             13: {
