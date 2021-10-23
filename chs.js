@@ -392,7 +392,7 @@ var cnRegReplace = new Map([
     [/^ Protons Powers, which:\s*$/, '质子能量，因此获得以下效果：'], //原子等
     [/^ Neutrons Powers, which:\s*$/, '中子能量，因此获得以下效果：'], //原子等
     [/^ Electrons Powers, which:\s*$/, '电子能量，因此获得以下效果：'], //原子等
-    [/^Currently: (.+)x$/, '目前效果：$1倍'], //原子等
+    [/^Currently: (.+)x\s?$/, '目前效果：$1倍'], //原子等
     [/^Currently: (.+)x stronger$/, '目前效果：强化$1倍'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
