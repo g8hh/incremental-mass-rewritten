@@ -178,6 +178,8 @@ var cnItems = {
     'Atomic Powers boosts Quark gain.': '原子能量可以加成夸克的获取速度。',
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
     'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究极折算基于目前的阶层数值而延迟出现。',
+    'Dilated mass also boost BH Condenser & Gamma Ray powers at a reduced rate.': '膨胀质量可以加成黑洞压缩器倍率和伽马射线倍率，只是效果倍率降低。',
+    'Mass from Black Hole effect is better.': '通过黑洞获取的质量效果变得更好。',
     //升级结束
 
     //挑战
@@ -244,13 +246,20 @@ var cnItems = {
     '[Copper] Proton powers effect is better.': '[铜]质子能量的效果变得更好。',
     '[Zinc] Electron powers effect is better. Passively gain 10% of each particle you would assign quarks.': '[锌]电子能量的效果变得更好。自动获得每种粒子，数量为分配夸克时增加数量的10%。',
     '[Gallium] Dilated mass boost Relativistic particles gain.': '[镓]膨胀质量可以加成相对论粒子获取速度。',
+    '[Germanium] Increase dilated mass gain exponent by 5%.': '[锗]膨胀质量获取速度的指数增加5%。',
+    '[Arsenic] Add 50 more C8 maximum completions.': '[砷]挑战8的次数上限增加50。',
+    '[Selenium] Rage power boost Relativistic particles gain.': '[硒]狂怒能量可以加成相对论粒子获取速度。',
+    '[Bromine] Mass from Black Hole boost dilated mass gain.': '[溴]通过黑洞获取的质量可以加成膨胀质量获取速度。',
+    '[Krypton] Unlock ??? (coming soon).': '[氪]解锁？？？(制作中)。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
-    'Make dilated mass effect stronger.': '使膨胀质量的效果更好。',
+    'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
     'Double relativistic particles gain.': '使相对论粒子获取数量翻倍。',
     'Dilated mass also boost Stronger’s power.': '膨胀质量可以加成强化器倍率。',
     'Mass Dilation upgrade 3 scales 10% weaker.': '质量膨胀升级3的折算弱化10%。',
     'Increase the exponent of the RP formula.': '增加相对论粒子公式的指数。',
+    'Dilated mass boost quarks gain.': '膨胀质量可以加成夸克获取速度。',
+    'Mass Dilation upgrade 2 effect’s formula is better.': '质量膨胀升级2的效果公式变得更好。',
     'Currently': '目前效果',
     //原子结束
 
@@ -270,7 +279,7 @@ var cnItems = {
     'Standard': '普通记数法',
     'Omega': 'Omega记数法',
     'Omega Short': 'Omega Short记数法',
-    'Incremental Mass Rewritten v0.3.2.3.1 - made by MrRedShark77': '质量增量重制版v0.3.2.3.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.3.2.4 - made by MrRedShark77': '质量增量重制版v0.3.2.4 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     //选项结束
