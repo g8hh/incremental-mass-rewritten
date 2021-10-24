@@ -801,8 +801,9 @@ function loop() {
     diff = Date.now()-date;
     updateTemp()
     updateHTML()
-    calc(diff/1000);
+    calc(diff/1000*tmp.offlineMult,diff/1000);
     date = Date.now();
+    player.offline.current = date
 }
 
 function format(ex, acc=4, type=player.options.notation) {
@@ -872,5 +873,3 @@ function capitalFirst(str) {
 		.map(x => x[0].toUpperCase() + x.slice(1))
 		.join(" ");
 }
-
-setInterval(loop, 50)
