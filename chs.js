@@ -24,6 +24,7 @@ var cnItems = {
     'Mass': '质量',
     'Black Hole': '黑洞',
     'Atomic Generator': '原子发生器',
+    'Stars': '星辰',
     'Ranks Rewards': '级别奖励',
     'Scaling': '折算',
     'Particles': '粒子',
@@ -77,12 +78,16 @@ var cnItems = {
     'make tier 6\'s reward effect stronger by dark matters. Currently': '使阶层6的奖励效果基于暗能量的数值变得更强。目前效果',
     'make tier 4\'s reward effect twice effective and remove softcap.': '使阶层4的奖励效果翻倍，且移除软上限。',
     'stronger effect\'s softcap is 10% weaker.': '强化器效果的软上限弱化10%。',
-    'reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.': '使阶层的需求减少25%，级别的究极折算弱化15%。',
+    'make rank 380\'s effect stronger based on tier.': '使级别380的效果基于阶层的数值变得更强。',
+    'make rank 380\'s effect stronger based on tier. Currently': '使级别380的效果基于阶层的数值变得更强。目前效果',
+    'reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.': '使阶层的需求减少25%，级别的究级折算弱化15%。',
     'mass upgrade 3 boosts itself.': '质量升级3的效果对自身生效。',
     'mass upgrade 3 boosts itself. Currently': '质量升级3的效果对自身生效。目前效果',
     'raise tickspeed effect by 1.05.': '时间速度效果变为原来的1.05次方。',
     'Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.': '级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。',
     'Super Rank scale weaker based on Tier, Super Tier scale 20% weaker. Currently': '级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。目前效果',
+    'Hyper/Ultra Tickspeed starts later based on tetr.': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。',
+    'Hyper/Ultra Tickspeed starts later based on tetr. Currently': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。目前效果',
     'Super': '超级折算',
     'Hyper': '究级折算',
     'Ultra': '超究折算',
@@ -113,17 +118,8 @@ var cnItems = {
     ' Atoms': '原子',
     'Gamma Ray Power': '伽马射线倍率',
     'Gamma Ray Effect': '伽马射线效果',
-    'Hint: Click any image for show challenge description.': '提示：点击图片以查看挑战详情。',
-    'Exit Challenge': '退出挑战',
-    'Enter Challenge': '进入挑战',
-    ' unassigned Quarks': '尚未分配的夸克',
-    'Distribute': '分配',
-    'Ratio Mode': '比例模式',
-    ' Quark': '夸克',
-    ' Relativistic particles': '相对论粒子',
-    ' of dilated mass, which makes Tickspeed ': '膨胀质量，它使时间速度强化',
-    ' stronger': '',
-    'Dilate Mass': '质量膨胀',
+    'You collapsed ': '您已经坍缩了',
+    ' stars, which makes mass gain is multiplied based on every type of Ranks': '星辰，因此质量获取速度基于级别的种类而增加',
     //主界面等结束
 
     //统计
@@ -151,7 +147,7 @@ var cnItems = {
     'Black Hole mass\'s gain is boosted by Rage Points.': '黑洞质量的获取速度基于狂怒能量的数值变得更多。',
     'For every OoM of Rage Powers adds Stronger Power at a reduced rate.': '狂怒能量的数量级可以增加强化器倍率，只是效果倍率降低。',
     'Mass gain softcap starts 3x later for every Rank you have.': '每有1个级别，质量获取速度的软上限就延迟3倍出现。',
-    'Hyper Tickspeed starts 50 later.': '时间速度的究极折算延迟50次出现。',
+    'Hyper Tickspeed starts 50 later.': '时间速度的究级折算延迟50次出现。',
     'Mass boost Atom gain.': '质量可以加成原子获取速度。',
     'Black Hole Upgrades': '黑洞升级',
     'Mass Upgardes no longer spends mass.': '购买质量升级不再花费质量。',
@@ -165,7 +161,7 @@ var cnItems = {
     'Stronger Effect\'s softcap start later based on unspent Dark Matters.': '强化器的软上限基于未花费的暗能量数值而延迟出现。',
     'Mass gain is boosted by OoM of Dark Matters.': '质量获取速度基于暗能量的数量级而增加。',
     'Mass gain softcap is 10% weaker.': '质量获取速度的软上限弱化10%。',
-    'Hyper Mass Upgrade & Tickspeed scales 15% weaker.': '质量升级和时间速度的究极折算弱化15%。',
+    'Hyper Mass Upgrade & Tickspeed scales 15% weaker.': '质量升级和时间速度的究级折算弱化15%。',
     'Quark gain is multiplied by 10.': '夸克获取速度变为原来的10倍。',
     'Neturon Powers boosts mass of Black Hole gain.': '中子能量可以加成黑洞质量获取速度。',
     'Atomic Powers adds Black Hole Condensers at a reduced rate.': '原子能量可以增加黑洞压缩器的数量，只是效果倍率降低。',
@@ -179,12 +175,15 @@ var cnItems = {
     'Tickspeed boost each particle powers gain.': '时间速度可以加成粒子能量的获取速度。',
     'Atomic Powers boosts Quark gain.': '原子能量可以加成夸克的获取速度。',
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
-    'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究极折算基于目前的阶层数值而延迟出现。',
+    'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究级折算基于目前的阶层数值而延迟出现。',
     'Dilated mass also boost BH Condenser & Gamma Ray powers at a reduced rate.': '膨胀质量可以加成黑洞压缩器倍率和伽马射线倍率，只是效果倍率降低。',
     'Mass from Black Hole effect is better.': '通过黑洞获取的质量效果变得更好。',
     //升级结束
 
     //挑战
+    'Hint: Click any image for show challenge description.': '提示：点击图片以查看挑战详情。',
+    'Exit Challenge': '退出挑战',
+    'Enter Challenge': '进入挑战',
     'Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.': '级别和质量升级的超级折算在25次就开始出现。另外，时间速度的超级折算在50次就开始出现。',
     'Reward: Super Ranks starts later, Super Tickspeed scaling weaker by completions.': '奖励：级别的超级折算更迟出现，时间速度的超级折算效果随着完成次数而弱化。',
     'You cannot buy Tickspeed.': '您无法购买时间速度。',
@@ -209,6 +208,14 @@ var cnItems = {
     //挑战结束
 
     //原子
+    ' unassigned Quarks': '尚未分配的夸克',
+    'Distribute': '分配',
+    'Ratio Mode': '比例模式',
+    ' Quark': '夸克',
+    ' Relativistic particles': '相对论粒子',
+    ' of dilated mass, which makes Tickspeed ': '膨胀质量，它使时间速度强化',
+    ' stronger': '',
+    'Dilate Mass': '质量膨胀',
     'Assign': '分配',
     ' Protons': '质子',
     ' Neutrons': '中子',
@@ -243,7 +250,7 @@ var cnItems = {
     '[Chromium] Passively gain 100% of the atoms you would get from resetting each second. Atomic Power boost Relativistic particles gain at a reduced rate.': '[铬]每秒获得原子，数量为重置时获取数量的100%。原子能量可以加成相对论粒子获取速度，只是效果倍率降低。',
     '[Manganese] Adds 1 base of Mass Dilation upgrade 1 effect.': '[锰]质量膨胀升级1的基础效果增加1倍。',
     '[Iron] Hardened Challenge scaling weaker for each element bought.': '[铁]硬化挑战的折算效果基于购买的元素数量而弱化。',
-    '[Cobalt] Hyper/Ultra Rank & Tickspeed scales 25% weaker.': '[钴]级别和时间速度的究极折算和超究折算弱化25%。',
+    '[Cobalt] Hyper/Ultra Rank & Tickspeed scales 25% weaker.': '[钴]级别和时间速度的究级折算和超究折算弱化25%。',
     '[Nickel] Mass gain is raised to the power of 1.5th if you dilated mass.': '[镍]如果正在进行质量膨胀，则质量获取速度变为原来的1.5次方。',
     '[Copper] Proton powers effect is better.': '[铜]质子能量的效果变得更好。',
     '[Zinc] Electron powers effect is better. Passively gain 10% of each particle you would assign quarks.': '[锌]电子能量的效果变得更好。自动获得每种粒子，数量为分配夸克时增加数量的10%。',
@@ -252,7 +259,11 @@ var cnItems = {
     '[Arsenic] Add 50 more C8 maximum completions.': '[砷]挑战8的次数上限增加50。',
     '[Selenium] Rage power boost Relativistic particles gain.': '[硒]狂怒能量可以加成相对论粒子获取速度。',
     '[Bromine] Mass from Black Hole boost dilated mass gain.': '[溴]通过黑洞获取的质量可以加成膨胀质量获取速度。',
-    '[Krypton] Unlock ??? (coming soon).': '[氪]解锁？？？(制作中)。',
+    '[Krypton] Unlock Stars.': '[氪]解锁星辰。',
+    '[Rubidium] Super Tier scale weaker based on Tetr.': '[铷]阶层的超级折算基于三重阶层的数值而弱化。',
+    '[Strontium] Gamma ray\'s free tickspeeds now adds to RU7.': '[锶]通过伽马射线获得的免费时间速度升级计入狂怒升级7。',
+    '[Yttrium] Remove softcap from C2 & C6 effects.': '[钇]移除挑战2和挑战6奖励效果的软上限。',
+    '[Zirconium] Collapsed star boost dilated mass gain.': '[锆]坍缩的星辰可以加成膨胀质量获取速度。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -262,6 +273,7 @@ var cnItems = {
     'Increase the exponent of the RP formula.': '增加相对论粒子公式的指数。',
     'Dilated mass boost quarks gain.': '膨胀质量可以加成夸克获取速度。',
     'Mass Dilation upgrade 2 effect’s formula is better.': '质量膨胀升级2的效果公式变得更好。',
+    'Tickspeed affect all-star resources at a reduced rate.': '时间速度可以对所有星辰相关资源生效，只是效果倍率降低。',
     'Currently': '目前效果',
     //原子结束
 
@@ -284,6 +296,7 @@ var cnItems = {
     'Incremental Mass Rewritten v0.3.2.5 - made by MrRedShark77': '质量增量重制版v0.3.2.5 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
+    'Total time played': '游戏总时间',
     //选项结束
 }
 
@@ -376,6 +389,7 @@ var cnRegReplace = new Map([
     [/^\s*Stronger Power$/, '强化器倍率'], //主界面等
     [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
+    [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗能量'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
@@ -393,6 +407,7 @@ var cnRegReplace = new Map([
     [/^Currently: \^(.*)$/, '目前效果：^$1'], //挑战等
     [/^Currently: (.+)% weaker\s?$/, '目前效果：降低$1%'], //挑战等
     [/^Currently: \+(.+)x\s?$/, '目前效果：增加$1倍'], //挑战等
+    [/^Currently: \+(.+) to Rage Power Upgrade 7$/, '目前效果：狂怒升级7的效果增加$1'], //原子等，前置
     [/^Currently: \+(.+)$/, '目前效果：增加$1'], //挑战等
     [/^Multiplies Mass gain by\s*(.*)$/, '使质量获取速度乘以$1'], //原子等
     [/^Adds Tickspeed Power by (.+)%$/, '使时间速度倍率增加$1%'], //原子等
