@@ -132,6 +132,55 @@ const FORMATS = {
             return `${formattedMantissa} × (${parts.map((x) => this.formatElementalPart(x[0], x[1])).join(" + ")})`;
         },
     },
+    old_sc: {
+      format(ex, acc) {
+        ex = E(ex)
+        let e = ex.log10().floor()
+        if (e.lt(9)) {
+            if (e.lt(3)) {
+                return ex.toFixed(acc)
+            }
+            return ex.floor().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        } else {
+            if (ex.gte("eeee10")) {
+                let slog = ex.slog()
+                return (slog.gte(1e9)?'':E(10).pow(slog.sub(slog.floor())).toFixed(4)) + "F" + this.format(slog.floor(), 0)
+            }
+            let m = ex.div(E(10).pow(e))
+            return (e.log10().gte(9)?'':m.toFixed(4))+'e'+this.format(e,0)
+        }
+      }
+    },
+    eng: {
+      format(ex, acc) {
+        ex = E(ex)
+        let e = ex.log10().floor()
+        if (e.lt(9)) {
+          if (e.lt(3)) {
+              return ex.toFixed(acc)
+          }
+          return ex.floor().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        } else {
+          if (ex.gte("eeee10")) {
+            let slog = ex.slog()
+            return (slog.gte(1e9)?'':E(10).pow(slog.sub(slog.floor())).toFixed(4)) + "F" + this.format(slog.floor(), 0)
+          }
+          let m = ex.div(E(1000).pow(e.div(3).floor()))
+          return (e.log10().gte(9)?'':m.toFixed(4))+'e'+this.format(e.div(3).floor().mul(3),0)
+        }
+      },
+    },
+    mixed_sc: {
+      format(ex, acc) {
+        ex = E(ex)
+        let e = ex.log10().floor()
+        if (e.lt(33)) return format(ex,acc,"st")
+        else {
+          let m = ex.div(E(10).pow(e))
+          return e.gte(1e3) ? (e.gte(1e9)?"":m.toFixed(4))+"e"+this.format(e,0) : format(ex,acc,"sc")
+        }
+      }
+    },
 }
 
 const SUBSCRIPT_NUMBERS = ["₀", "₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈", "₉"];
