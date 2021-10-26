@@ -129,6 +129,7 @@ var cnItems = {
     //统计
     'Rank': '级别',
     'Tier': '阶层',
+    'Tetr': '三重阶层',
     'Mass Upgrades': '质量升级',
     'Tickspeed': '时间速度',
     'Black Hole Condenser': '黑洞压缩器',
