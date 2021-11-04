@@ -14,12 +14,14 @@ var cnItems = {
     //主界面等
     'Loading game...': '载入游戏中……',
     'Loading Offline Progress... (': '计算离线进度……(',
+    'Hello, world!': '你好，世界！',
     'x speed': '倍速度',
     'Main': '主要',
     'Stats': '统计',
     'Upgrades': '升级',
     'Challenges': '挑战',
     'Atom': '原子',
+    'Supernova': '超新星',
     'Options': '选项',
     'Mass': '质量',
     'Black Hole': '黑洞',
@@ -34,9 +36,9 @@ var cnItems = {
     'ON': '开启',
     'OFF': '关闭',
     'softcapped': '受软上限限制',
-    'softcapped^2': '受软上限二重限制',
+    'softcapped^2': '受二重软上限限制',
     'Require over 1e9 tonne of mass to reset previous features for gain Rage Powers': '需要超过1e9吨质量才可以进行狂怒重置，重置之前的所有内容，获得狂怒能量',
-    'Require over 1e20 Rage Power to reset all previous features for gain Dark Matters': '需要超过1e20狂怒能量才可以进行暗能量重置，重置之前的所有内容，获得暗能量',
+    'Require over 1e20 Rage Power to reset all previous features for gain Dark Matters': '需要超过1e20狂怒能量才可以进行暗物质重置，重置之前的所有内容，获得暗物质',
     'Require over 1e100 uni of black hole to reset all previous features for gain Atoms & Quarks': '需要黑洞质量超过1e100宇宙才可以进行原子重置，重置之前的所有内容，获得原子和夸克',
     'Dilate mass, then cancel': '使质量膨胀，然后再取消',
     'Rank up.': '提升级别。',
@@ -75,8 +77,8 @@ var cnItems = {
     'adds +5% tickspeed power for every tier you have, softcaps at +40%. Currently': '每有1个阶层，时间速度倍率就增加5%，在增加40%时达到软上限。目前效果',
     'make rage powers boosted by tiers.': '阶层可以加成狂怒能量。',
     'make rage powers boosted by tiers. Currently': '阶层可以加成狂怒能量。目前效果',
-    'make tier 6\'s reward effect stronger by dark matters.': '使阶层6的奖励效果基于暗能量的数值变得更强。',
-    'make tier 6\'s reward effect stronger by dark matters. Currently': '使阶层6的奖励效果基于暗能量的数值变得更强。目前效果',
+    'make tier 6\'s reward effect stronger by dark matters.': '使阶层6的奖励效果基于暗物质的数值变得更强。',
+    'make tier 6\'s reward effect stronger by dark matters. Currently': '使阶层6的奖励效果基于暗物质的数值变得更强。目前效果',
     'make tier 4\'s reward effect twice effective and remove softcap.': '使阶层4的奖励效果翻倍，且移除软上限。',
     'stronger effect\'s softcap is 10% weaker.': '强化器效果的软上限弱化10%。',
     'make rank 380\'s effect stronger based on tier.': '使级别380的效果基于阶层的数值变得更强。',
@@ -89,6 +91,7 @@ var cnItems = {
     'Super Rank scale weaker based on Tier, Super Tier scale 20% weaker. Currently': '级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。目前效果',
     'Hyper/Ultra Tickspeed starts later based on tetr.': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。',
     'Hyper/Ultra Tickspeed starts later based on tetr. Currently': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。目前效果',
+    'Mass gain softcap^2 starts ^1.5 later.': '质量获取速度的二重软上限延迟1.5次方出现。',
     'Super': '超级折算',
     'Hyper': '究级折算',
     'Ultra': '超究折算',
@@ -106,13 +109,13 @@ var cnItems = {
     'Tickspeed Effect': '时间速度效果',
     'After ': '当到达',
     ' of mass gain will softcap mass gain!': '的质量获取速度以后，质量获取速度将受到软上限限制！',
-    ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到软上限二重限制！',
+    ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到二重软上限限制！',
     'You have ': '您拥有',
     ' of Black Hole': '黑洞',
     'Which multiplies mass gain by ': '它将质量获取速度乘以',
     'Black Hole mass\'s gain formula - (x + 1': '黑洞质量获取公式为：(x + 1',
     'Black Hole Condensers [': '黑洞压缩器[',
-    ' Dark Matters': '暗能量',
+    ' Dark Matters': '暗物质',
     'BH Condenser Power': '黑洞压缩器倍率',
     ' worth of mass gain from Black Hole, mass gain will be softcapped!': '的黑洞质量获取速度以后，质量获取速度将受到软上限限制！',
     ' Atomic Power': '原子能量',
@@ -163,8 +166,8 @@ var cnItems = {
     'Gain 100% of Rage Power gained from reset per second. Rage Powers are boosted by mass of Black Hole.': '每秒获得狂怒能量，数量为重置时获取数量的100%。狂怒能量获取速度基于黑洞质量的数值而增加。',
     'Mass gain softcap start later based on mass of Black Hole.': '质量获取速度的软上限基于黑洞质量的数值而延迟出现。',
     'Raise Rage Power gain by 1.15.': '狂怒能量获取速度变为原来的1.15次方。',
-    'Stronger Effect\'s softcap start later based on unspent Dark Matters.': '强化器的软上限基于未花费的暗能量数值而延迟出现。',
-    'Mass gain is boosted by OoM of Dark Matters.': '质量获取速度基于暗能量的数量级而增加。',
+    'Stronger Effect\'s softcap start later based on unspent Dark Matters.': '强化器的软上限基于未花费的暗物质数值而延迟出现。',
+    'Mass gain is boosted by OoM of Dark Matters.': '质量获取速度基于暗物质的数量级而增加。',
     'Mass gain softcap is 10% weaker.': '质量获取速度的软上限弱化10%。',
     'Hyper Mass Upgrade & Tickspeed scales 15% weaker.': '质量升级和时间速度的究级折算弱化15%。',
     'Quark gain is multiplied by 10.': '夸克获取速度变为原来的10倍。',
@@ -176,7 +179,7 @@ var cnItems = {
     '[Tetr Era] Unlock Tetr.': '[三重阶层纪元]解锁三重阶层。',
     'Keep 1-4 Challenge on reset. BH Condensers adds Gamma Rays Power at a reduced rate.': '重置时保留挑战1-挑战4的完成次数。黑洞压缩器可以增加伽马射线的数量，只是效果倍率降低。',
     'You can automatically Tetr up. Super Tier starts 10 later.': '您可以自动提升三重阶层。阶层的超级折算延迟10次出现。',
-    'Gain 100% of Dark Matters gained from reset per second. Mass gain from Black Hole softcap starts later based on Atomic Powers.': '每秒获得暗能量，数量为重置时获取数量的100%。黑洞质量获取速度的软上限基于原子能量的数值而延迟出现。',
+    'Gain 100% of Dark Matters gained from reset per second. Mass gain from Black Hole softcap starts later based on Atomic Powers.': '每秒获得暗物质，数量为重置时获取数量的100%。黑洞质量获取速度的软上限基于原子能量的数值而延迟出现。',
     'Tickspeed boost each particle powers gain.': '时间速度可以加成粒子能量的获取速度。',
     'Atomic Powers boosts Quark gain.': '原子能量可以加成夸克的获取速度。',
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
@@ -186,7 +189,7 @@ var cnItems = {
     //升级结束
 
     //挑战
-    'Hint: Click any image for show challenge description.': '提示：点击图片以查看挑战详情。',
+    'Hint: Click any image to show challenge description.': '提示：点击图片以查看挑战详情。',
     'Exit Challenge': '退出挑战',
     'Enter Challenge': '进入挑战',
     'Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.': '级别和质量升级的超级折算在25次就开始出现。另外，时间速度的超级折算在50次就开始出现。',
@@ -201,15 +204,18 @@ var cnItems = {
     'Reward: Rank requirement are weaker by completions.': '奖励：级别的需求随着完成次数而降低。',
     'You cannot buy Tickspeed & BH Condenser.': '您无法购买时间速度和黑洞压缩器。',
     'Reward: For every completions adds +10% to Tickspeed & BH Condenser Power.': '奖励：每次完成该挑战，就使时间速度倍率和黑洞压缩器倍率增加10%。',
-    'You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.': '您无法获得狂怒能量，但暗能量可以通过质量，而不是狂怒能量来获取，只是获取倍率降低。',
+    'You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.': '您无法获得狂怒能量，但暗物质可以通过质量，而不是狂怒能量来获取，只是获取倍率降低。',
     'In addtional, mass gain softcap is stronger.': '另外，质量获取速度软上限的效果变得更严重。',
     'Reward: Completions adds 2 maximum completions of 1-4 Challenge.': '奖励：每次完成该挑战，就使挑战1-挑战4的次数上限增加2。',
     'On 16th completion, unlock Elements': '当完成第16次该挑战时，解锁元素',
-    'Dark Matter & Mass from Black Hole gains are rooted by 8.': '通过黑洞获取的暗能量和质量变为原来的八次方根。',
-    'Reward: Dark Matter & Mass from Black Hole gains are raised by completions.': '奖励：暗能量和黑洞质量获取速度随着完成次数变为原来的一个指数。',
+    'Dark Matter & Mass from Black Hole gains are rooted by 8.': '通过黑洞获取的暗物质和质量变为原来的八次方根。',
+    'Reward: Dark Matter & Mass from Black Hole gains are raised by completions.': '奖励：暗物质和黑洞质量获取速度随着完成次数变为原来的一个指数。',
     'On first completion, unlock 3 rows of Elements': '当完成第1次该挑战时，解锁3行元素',
-    'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗能量重置！',
+    'You cannot assign quarks. In addtional, mass gains exponent is raised to 0.9th power.': '您无法分配夸克。另外，质量获取速度的指数变为原来的0.9次方。',
+    'Reward: Improve Magnesium-12 better.': '奖励：镁(12Mg)的效果变得更好。',
+    'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗物质重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
+    'Entering challenge will reset without being Supernova!': '进入挑战时将同时在未成为超新星的前提下重置！',
     //挑战结束
 
     //原子
@@ -278,6 +284,11 @@ var cnItems = {
     '[Silver] Quarks gain is raised to the 1.05th power.': '[银]夸克获取速度变为原来的1.05次方。',
     '[Cadmium] Collapsed stars effect is 10% stronger.': '[镉]坍缩的星辰效果加强10%。',
     '[Indium] Collapsed star boost last type of stars.': '[铟]坍缩的星辰可以加强最后一种星辰。',
+    '[Tin] Star generator is now ^1.05 stronger.': '[锡]星辰发生器的速度变为原来的1.05次方。',
+    '[Antimony] Mass gain softcap^2 is 10% weaker.': '[锑]质量获取速度的二重软上限效果弱化10%。',
+    '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]通过黑洞获取的质量可以加成原子能量，只是效果倍率降低。',
+    '[Iodine] Mass Dilation upgrade 6 is 75% stronger.': '[碘]质量膨胀升级6的效果增加75%。',
+    '[Xenom] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩的星辰可以加成所有星辰相关资源，只是效果倍率降低。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -289,15 +300,55 @@ var cnItems = {
     'Mass Dilation upgrade 2 effect’s formula is better.': '质量膨胀升级2的效果公式变得更好。',
     'Tickspeed affect all-star resources at a reduced rate.': '时间速度可以对所有星辰相关资源生效，只是效果倍率降低。',
     'Double quarks gain.': '夸克获取速度翻倍。',
+    'Add 0.015 Mass Dilation upgrade 6’s base.': '使质量膨胀升级6的基础效果增加0.015。',
     'Currently': '目前效果',
     //原子结束
 
+    //超新星
+    'You have become SUPERNOVA!': '您终于成为了超新星！',
+    'But will reset everything, and gain SUPERNOVA!': '迄今为止的一切都将重置，但可以获得超新星！',
+    'You can pass it...': '继续前行吧……',
+    '... to discover!': '去探索，去发现！',
+    'You\'ll be Supernova...': '您将成为超新星……',
+    'Back to Main': '返回主游戏',
+    'Reset without being Supernova': '在未成为超新星的前提下重置',
+    'You become ': '您已经有',
+    ' Supernova': '次成为超新星了',
+    'Next Supernova at ': '下次超新星需要',
+    ' stars': '星辰',
+    ' Neutron star.': '中子星。',
+    'You become Supernova!': '您成为了超新星！',
+    'Start generating 0.1 Neutron Star per second (not affected by offline production).': '开始每秒产生0.1中子星(不受离线产量影响)。',
+    'Tickspeed affects Neutron Star gain at a reduced rate.': '时间速度可以加成中子星获取速度，只是效果倍率降低。',
+    'Supernova boosts Neutron Star gain.': '超新星次数可以加成中子星获取速度。',
+    'Neutron star multiplies Mass gain.': '中子星可以加成质量获取速度。',
+    'Multiplies the Mass requirement for softcap^2 by 1.5': '使质量获取速度的二重软上限阈值变为原来的1.5倍。',
+    'Tickspeed Power is raised to the 1.15th.': '时间速度的倍率变为原来的1.15次方。',
+    'Neutron Stars multiplies Rage Powers gain': '中子星可以加成狂怒能量获取速度。',
+    'Neutron Star multiplies Dark Matters gain.': '中子星可以加成暗物质获取速度。',
+    'BH Condenser power is raised to the 1.15th.': '黑洞压缩器的倍率变为原来的1.15次方。',
+    'Neutron Star boosts last star gain.': '中子星可以加成最后一种星辰的获取速度。',
+    'Star boost\'s Tetr\'s softcap is 50% weaker.': '星辰加成的三重阶层的软上限弱化50%。',
+    'Star generators are stronger based on Supernova.': '星辰发生器的效果基于超新星次数变得更强。',
+    'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
+    'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
+    'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
+    'Add 100 more C7 & C8 maximum completions.': '挑战7和挑战8的次数上限增加100。',
+    'Keep challenge 1-4 completions on reset.': '重置时保留挑战1-挑战4的完成次数。',
+    'Keep challenge 5-8 completions on reset.': '重置时保留挑战5-挑战8的完成次数。',
+    'Unlock new challenge.': '解锁新的挑战。',
+    'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
+    //超新星结束
+    
     //选项
     'Save': '保存',
+    'Game Saved': '游戏进度已保存',
     'Hard Reset': '硬重置',
     'Export': '导出',
     'Export to clipboard': '导出到剪贴板',
+    'Copied to Clipboard': '已导出至剪贴板',
     'Import': '导入',
+    'Error Importing': '输入有误，导入失败',
     'Join Discord': '加入Discord频道',
     'Help': '帮助',
     'Offline Production': '离线产量',
@@ -312,7 +363,7 @@ var cnItems = {
     'Old Scientific': '旧科学记数法',
     'Omega': 'Omega记数法',
     'Omega Short': 'Omega Short记数法',
-    'Incremental Mass Rewritten v0.3.3.2 - made by MrRedShark77': '质量增量重制版v0.3.3.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4 Supernova - made by MrRedShark77': '质量增量重制版v0.4 超新星 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -410,7 +461,7 @@ var cnRegReplace = new Map([
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
-    [/^Cost: (.+) Dark Matter$/, '花费：$1暗能量'], //升级等
+    [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
     [/^Currently: \+(.+) Musclers$/, '目前效果：增加$1锻体器'], //升级等
     [/^Currently: \+(.+) Boosters$/, '目前效果：增加$1助推器'], //升级等
@@ -432,7 +483,7 @@ var cnRegReplace = new Map([
     [/^Adds Tickspeed Power by (.+)%$/, '使时间速度倍率增加$1%'], //原子等
     [/^Multiplies Rage Power gain by\s*(.*)$/, '使狂怒能量获取速度乘以$1'], //原子等
     [/^Makes Mass gain boosted by Rage Powers - (.+)x$/, '使狂怒能量可以加成质量获取速度 - 倍率为$1倍'], //原子等
-    [/^Multiplies Dark Matter gain by\s*(.*)$/, '使暗能量获取速度乘以$1'], //原子等
+    [/^Multiplies Dark Matter gain by\s*(.*)$/, '使暗物质获取速度乘以$1'], //原子等
     [/^Adds BH Condenser Power by\s*(.*)$/, '使黑洞压缩器倍率增加$1'], //原子等
     [/^ Protons Powers, which:\s*$/, '质子能量，因此获得以下效果：'], //原子等
     [/^ Neutrons Powers, which:\s*$/, '中子能量，因此获得以下效果：'], //原子等
@@ -441,4 +492,5 @@ var cnRegReplace = new Map([
     [/^Currently: (.+)x stronger$/, '目前效果：强化$1倍'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
+    [/^Cost: (.+) Neutron star$/, '需：$1中子星'], //超新星等
 ]);
