@@ -9,14 +9,24 @@
     <script src="js/break_eternity.js"></script>
     <script src="js/Element.js"></script>
     <script src="js/elements.js"></script>
+    <script src="js/notify.js"></script>
     <script src="js/saves.js"></script>
     <script src="js/challenges.js"></script>
+
+    <script src="js/supernova/tree.js"></script>
+    <script src="js/supernova/supernova.js"></script>
+
+    <script src="js/stars.js"></script>
+    <script src="js/md.js"></script>
     <script src="js/elemental.js"></script>
     <script src="js/atom.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/scaling.js"></script>
     <script src="js/temp.js"></script>
     <script src="js/ranks.js"></script>
+
+    <script src="js/formats.js"></script>
+
     <script src="js/main.js"></script>
 
     <title>质量增量重制版 - Incremental Mass Rewritten</title>
@@ -24,12 +34,47 @@
 <body onload="loadGame()">
 <script src="chs.js?07071443"></script>
 <script src="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/zh/core.js"></script>
+    <input id="copy" style="position: absolute; top: 0; left: 0; user-select: all; visibility: hidden;">
     <div id="loading" class='table_center' style="align-items: center; height: 100%;">
         <div>
-            <h1>Loading game...</h1>
+            <h1>Loading game...</h1><br>
+            <h2>Loading Offline Progress... (<span id='offlineSpeed'>1</span>x speed)</h2>
+        </div>
+    </div>
+    <div id="notify" class="hide">
+        Hello, world!
+    </div>
+    <div id="supernova_scene" style='display: none'>
+        <br>
+        <div id="sns1" style='font-size: 25px;'>You have become SUPERNOVA!</div><br>
+        <div id="sns2" style='font-size: 15px;'>But will reset everything, and gain SUPERNOVA!</div><br>
+        <div id="sns3" style='font-size: 15px;'>You can pass it...</div><br>
+        <div id="sns4" style='font-size: 20px;'>... to discover!</div><br>
+        <button class="btn" id="sns5" onclick="SUPERNOVA.reset()">You'll be Supernova...</button>
+    </div>
+    <div id='app_supernova' style='display: none'>
+        <div style="position: absolute; top: 25px; left: 25px;">
+            <button class="btn" onclick="tmp.tab = tmp.sn_tab;">Back to Main</button>
+            <button class="btn" onclick="SUPERNOVA.reset(true)">Reset without being Supernova</button>
+        </div>
+        <div style="min-height: 70px; margin-top: 15px;">
+            <h2>You become <span id="supernova_rank"></span> Supernova</h2><br>
+            Next Supernova at <span id="supernova_next">X</span> stars
+        </div>
+        <div style="width: 100%; border-bottom: solid 2px white; height: 5px; margin-bottom: 13px;"></div>
+        <div style="height: 150px;">
+            You have <span id="neutronStar">X</span> Neutron star.<br>
+            <div id="tree_desc" style="margin-top: 3px;">
+
+            </div>
+        </div>
+        <div id="tree" class="table_center">
+            <canvas id="tree_canvas"></canvas>
+            <div id="tree_table"></div>
         </div>
     </div>
     <div id='app' style='display: none'>
+        <div id="star"></div>
         <div style='height: 5px'></div>
         <div style="height: 180px">
             <div id="chal_upper" style='height: 50px'></div>
@@ -58,6 +103,11 @@
                         <img src="images/quark.png">
                         <span style="margin-left: 5px; text-align: left;" id="quarkAmt">X</span>
                     </div>
+                </div><div>
+                    <div class="resources sml green" id="md_div">
+                        <img src="images/md.png" onclick="MASS_DILATION.onactive()" onmousemove="FORMS.reset_msg.set('md')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;">
+                        <span style="margin-left: 5px; text-align: left;" id="md_massAmt">X</span>
+                    </div>
                 </div>
             </div><span id="reset_desc"></span>
         </div><div id="tabs" class="table_center" style="height: 30px"></div>
@@ -82,7 +132,8 @@
                         Tickspeed Effect: <span id="tickspeed_eff">X</span>x to mass gain
                     </div>
                 </div><br><div>
-                    <span id="massSoft1" class="red">After <b id="massSoftStart1">X</b> of mass gain will softcap mass gain!</span>
+                    <span id="massSoft1" class="red">After <b id="massSoftStart1">X</b> of mass gain will softcap mass gain!</span><br>
+                    <span id="massSoft3" style="color: rgb(121, 0, 0)">After <b id="massSoftStart3">X</b> of mass gain will softcap^2 mass gain!</span>
                 </div>
             </div><div id="stab_frame0_1">
                 You have <span id="bhMass2">X</span> of Black Hole<br>
@@ -98,10 +149,10 @@
                     <button class="btn" style="width: 120px;" onclick="FORMS.bh.condenser.buyMax()">Buy Max</button>
                     <button id="bhCondenser_auto" class="btn" style="width: 80px;" onclick="FORMS.bh.condenser.autoSwitch()">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        BH Condenser Power: <span id="bhCondenser_pow">X</span>x<br>
+                        BH Condenser Power: <span id="bhCondenser_pow">X</span>倍<br>
                     </div>
                 </div><br><div>
-                    <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> uni worth of mass gain from Black Hole, mass gain will be softcapped!</span>
+                    <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> worth of mass gain from Black Hole, mass gain will be softcapped!</span>
                 </div>
             </div><div id="stab_frame0_2">
                 You have <span id="atomicAmt">X</span> Atomic Power<br>
@@ -116,10 +167,15 @@
                     <button class="btn" style="width: 120px;" onclick="ATOM.gamma_ray.buyMax()">Buy Max</button>
                     <button id="gamma_ray_auto" class="btn" style="width: 80px;" onclick="player.atom.auto_gr = !player.atom.auto_gr">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        Gamma Ray Power: <span id="gamma_ray_pow">X</span>x<br>
+                        Gamma Ray Power: <span id="gamma_ray_pow">X</span>倍<br>
                         Gamma Ray Effect: <span id="gamma_ray_eff">X</span>
                     </div>
                 </div>
+            </div><div id="stab_frame0_3">
+                You collapsed <span id="stars_Amt">X</span> stars, which makes mass gain is multiplied based on every type of Ranks<br>
+                <span class="green">Currently: <span id="stars_Eff">X</span>倍</span><br><br>
+                <button id="star_btn" class="btn" onclick="STARS.generators.unl()">X</button><br><br>
+                <div id="stars_table" class="table_center"></div>
             </div>
         </div><div id="tab_frame1">
             <div id="stab_frame1_0">
@@ -133,7 +189,7 @@
             <div id="main_upg_msg" style="min-height: 100px;"></div>
             <div id="main_upgs_table" class="table_center"></div>
         </div><div id="tab_frame3">
-            Hint: Click any image for show challenge description.<br><br>
+            Hint: Click any image to show challenge description.<br><br>
             <button class="btn" id="chal_exit" onclick="CHALS.exit()">Exit Challenge</button><br><br>
             <div style="min-height: 120px;" id="chals_table" class="table_center"></div><br><br>
             <div id="chal_desc_div">
@@ -164,28 +220,56 @@
                     Cost: <span id="elem_cost">X</span> Quark<br>
                     <span id="elem_eff" class='green'>X</span>
                 </div><br><div id="elements_table"></div>
+            </div><div id="stab_frame4_2">
+                You have <span id="md_particles">X</span> Relativistic particles<br>
+                You have <span id="md_mass">X</span> of dilated mass, which makes Tickspeed <span id="md_eff">X</span> stronger<br><br>
+                <button onclick="MASS_DILATION.onactive()" id="md_btn" class="btn full md" tooltip="进行质量膨胀时将同时进行一次原子重置，质量膨胀时，所有原子之前的资源，及原子能量获取速度变为原来的0.8次方。">Dilate Mass</button><br><br>
+                <div class="table_center">
+                    <div id="md_upg_table" class="table_center" style="width: 800px;"></div>
+                </div>
             </div>
-        </div><div id="tab_frame5">
+        </div><div id="tab_frame6">
             <button class="btn" onclick="save()">Save</button>
-            <button class="btn" onclick="if (confirm('您想重置游戏的进度为新游戏吗')) {wipe(); save(); location.reload()}">Hard Reset</button>
+            <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(); save(); location.reload()}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
+            <button class="btn" onclick="export_copy()">Export to clipboard</button>
             <button class="btn" onclick="importy()">Import</button>
             <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button>
-            <button class="btn" onclick="window.open('https://mrredshark77.github.io/incremental-mass-rewritten/help.html')">Help</button><br><br>
+            <button class="btn" onclick="window.open('./help.html')">Help</button><br>
+            <button class="btn" onclick="turnOffline()">Offline Production: <span id="offline_active">ON</span></button><br><br>
             <h2>Font Settings</h2><br>
+            <button class="btn" style="font-family: 'Andy Bold';" onclick="player.options.font = 'Andy Bold'">Andy Bold</button>
             <button class="btn" style="font-family: Arial, Helvetica, sans-ser;" onclick="player.options.font = 'Arial, Helvetica, sans-ser'">Arial</button>
             <button class="btn" style="font-family: Bahnschrift;" onclick="player.options.font = 'Bahnschrift'">Bahnschrift</button>
             <button class="btn" style="font-family: Comic Sans MS;" onclick="player.options.font = 'Comic Sans MS'">Comic Sans MS</button>
             <button class="btn" style="font-family: Courier;" onclick="player.options.font = 'Courier'">Courier</button>
+            <button class="btn" style="font-family: Cousine;" onclick="player.options.font = 'Cousine'">Cousine</button>
+            <button class="btn" style="font-family: 'Flexi IBM VGA False';" onclick="player.options.font = 'Flexi IBM VGA False'">Flexi IBM VGA False</button>
+            <button class="btn" style="font-family: Inconsolata;" onclick="player.options.font = 'Inconsolata'">Inconsolata</button><br>
+            <button class="btn" style="font-family: 'Lucida Handwriting';" onclick="player.options.font = 'Lucida Handwriting'">Lucida Handwriting</button>
             <button class="btn" style="font-family: Monospace-Typewritter;" onclick="player.options.font = 'Monospace-Typewritter'">Monospace Typewritter</button>
+            <button class="btn" style="font-family: 'Nova Mono';" onclick="player.options.font = 'Nova Mono'">Nova Mono</button>
+            <button class="btn" style="font-family: 'Retron2000';" onclick="player.options.font = 'Retron2000'">Retron 2000</button>
+            <button class="btn" style="font-family: 'Roboto Mono';" onclick="player.options.font = 'Roboto Mono'">Roboto Mono</button>
             <button class="btn" style="font-family: Verdana, Geneva, Tahoma, sans-serif;" onclick="player.options.font = 'Verdana, Geneva, Tahoma, sans-serif'">Verdana</button>
             <br><br>
             <h2>Confirmation Settings</h2><br>
             <div id="confirm_table" class="table_center"></div>
             <br><br>
-            Incremental Mass Rewritten v0.3.1.1 - made by MrRedShark77<br>
+            <h2>Notation Settings</h2><br>
+            <button class="btn" onclick="player.options.notation = 'elemental'">Elemental</button>
+            <button class="btn" onclick="player.options.notation = 'eng'">Engineering</button>
+            <button class="btn" onclick="player.options.notation = 'mixed_sc'">Mixed Scientific</button>
+            <button class="btn" onclick="player.options.notation = 'sc'">Scientific</button>
+            <button class="btn" onclick="player.options.notation = 'st'">Standard</button>
+            <button class="btn" onclick="player.options.notation = 'old_sc'">Old Scientific</button>
+            <button class="btn" onclick="player.options.notation = 'omega'">Omega</button>
+            <button class="btn" onclick="player.options.notation = 'omega_short'">Omega Short</button>
+            <br><br>
+            Incremental Mass Rewritten v0.4 Supernova - made by MrRedShark77<br>
             The game is inspired by Distance Incremental & Synergism<br><br><br>
-            Hint 1: Hover top image above tabs to show description...
+            Hint 1: Hover top image above tabs to show description...<br><br>
+            Total time played: <span id="total_time">X</span>
         </div>
     </div>
 <!--客服 开始-->

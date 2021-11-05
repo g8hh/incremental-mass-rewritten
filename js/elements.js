@@ -26,9 +26,9 @@ function setupHTML() {
 		let rn = RANKS.names[x]
 		table += `<div style="width: 300px" id="ranks_div_${x}">
 			<button id="ranks_auto_${x}" class="btn" style="width: 80px;" onclick="RANKS.autoSwitch('${rn}')">OFF</button>
-			<span id="ranks_scale_${x}""></span>${RANKS.fullNames[x]} <span id="ranks_amt_${x}">X</span><br><br>
+			<span id="ranks_scale_${x}""></span>${RANKS.fullNames[x]}<span id="ranks_amt_${x}">X</span><br><br>
 			<button onclick="RANKS.reset('${rn}')" class="btn reset" id="ranks_${x}">
-				Reset your ${x>0?RANKS.fullNames[x-1]:'mass and upgrades'}, but <span id="ranks_desc_${x}">X</span><br>
+				重置${x>0?RANKS.fullNames[x-1]:'质量和质量升级'}，但<span id="ranks_desc_${x}">X</span><br>
 				Req: <span id="ranks_req_${x}">X</span>
 			</button>
 		</div>`
@@ -63,7 +63,7 @@ function setupHTML() {
 		table += `<div id="ranks_reward_div_${x}">`
 		let keys = Object.keys(RANKS.desc[rn])
 		for (let y = 0; y < keys.length; y++) {
-			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]} ${keys[y]}:</b> ${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?` Currently: <span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
+			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]}${keys[y]}:</b>${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?` Currently: <span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
 		}
 		table += `</div>`
 	}
@@ -89,7 +89,7 @@ function setupHTML() {
 		table += `<div id="scaling_div_${x}">`
 		let key = Object.keys(SCALE_START[SCALE_TYPE[x]])
 		for (let y = 0; y < key.length; y++) {
-			table += `<div id="scaling_${x}_${key[y]}_div" style="margin-bottom: 10px;"><b>${NAME_FROM_RES[key[y]]}</b> (<span id="scaling_${x}_${key[y]}_power"></span>): Starts at <span id="scaling_${x}_${key[y]}_start"></span></div>`
+			table += `<div id="scaling_${x}_${key[y]}_div" style="margin-bottom: 10px;"><b>${NAME_FROM_RES[key[y]]}</b>(<span id="scaling_${x}_${key[y]}_power"></span>): Starts at <span id="scaling_${x}_${key[y]}_start"></span></div>`
 		}
 		table += `</div>`
 	}
@@ -98,6 +98,22 @@ function setupHTML() {
 	setupChalHTML()
 	setupAtomHTML()
 	setupElementsHTML()
+	setupMDHTML()
+	setupStarsHTML()
+	setupTreeHTML()
+
+	/*
+	function setupTestHTML() {
+		let test_table = new Element("test_table")
+		let table = ""
+		for (let i = 0; i < 5; i++) {
+			table += `
+				
+			`
+		}
+		test_table.setHTML(table)
+	}
+	*/
 
 	let confirm_table = new Element("confirm_table")
 	table = ""
@@ -118,16 +134,16 @@ function updateTabsHTML() {
 	for (let x = 0; x < TABS[1].length; x++) {
 		let tab = TABS[1][x]
 		tmp.el["tab"+x].setDisplay(tab.unl ? tab.unl() : true)
-		tmp.el["tab"+x].setClasses({btn_tab: true, [tab.style ? tab.style : "normal"]: true, choosed: x == player.tab[0]})
+		tmp.el["tab"+x].setClasses({btn_tab: true, [tab.style ? tab.style : "normal"]: true, choosed: x == tmp.tab})
 
-		if (tmp.el["tab_frame"+x]) tmp.el["tab_frame"+x].setDisplay(x == player.tab[0])
+		if (tmp.el["tab_frame"+x]) tmp.el["tab_frame"+x].setDisplay(x == tmp.tab)
 		if (TABS[2][x]) {
-			tmp.el["stabs"+x].setDisplay(x == player.tab[0])
-			if (x == player.tab[0]) for (let y = 0; y < TABS[2][x].length; y++)  {
+			tmp.el["stabs"+x].setDisplay(x == tmp.tab)
+			if (x == tmp.tab) for (let y = 0; y < TABS[2][x].length; y++)  {
 				let stab = TABS[2][x][y]
 				tmp.el["stab"+x+"_"+y].setDisplay(stab.unl ? stab.unl() : true)
-				tmp.el["stab"+x+"_"+y].setClasses({btn_tab: true, [stab.style ? stab.style : "normal"]: true, choosed: y == player.tab[1]})
-				if (tmp.el["stab_frame"+x+"_"+y]) tmp.el["stab_frame"+x+"_"+y].setDisplay(y == player.tab[1])
+				tmp.el["stab"+x+"_"+y].setClasses({btn_tab: true, [stab.style ? stab.style : "normal"]: true, choosed: y == tmp.stab[x]})
+				if (tmp.el["stab_frame"+x+"_"+y]) tmp.el["stab_frame"+x+"_"+y].setDisplay(y == tmp.stab[x])
 			}
 		}
 	}
@@ -145,18 +161,21 @@ function updateUpperHTML() {
 	tmp.el.atom_div.setVisible(unl)
 	if (unl) {
 		tmp.el.bhMass.setHTML(formatMass(player.bh.mass)+"<br>"+formatGain(player.bh.mass, tmp.bh.mass_gain, true))
-		tmp.el.atomAmt.setHTML(format(player.atom.points,0)+"<br>(+"+format(tmp.atom.gain,0)+")")
+		tmp.el.atomAmt.setHTML(format(player.atom.points,0)+"<br>"+(player.atom.elements.includes(24)?formatGain(player.atom.points,tmp.atom.gain):"(+"+format(tmp.atom.gain,0)+")"))
 	}
 	unl = !CHALS.inChal(0)
 	tmp.el.chal_upper.setVisible(unl)
 	if (unl) {
 		let data = CHALS.getChalData(player.chal.active, tmp.chal.bulk[player.chal.active].max(player.chal.comps[player.chal.active]))
-		tmp.el.chal_upper.setHTML(`You are now in [${CHALS[player.chal.active].title}] Challenge! Go over ${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)} to complete.
-		<br>+${tmp.chal.gain} Completions (+1 at ${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)})`)
+		tmp.el.chal_upper.setHTML(`您目前正在进行[${CHALS[player.chal.active].title}]挑战！达到${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)}以后可以完成1次挑战。
+		<br>本次挑战可增加${tmp.chal.gain}次完成次数(到达${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)}后可再增加1次)`)
 	}
 	unl = player.atom.unl
 	tmp.el.quark_div.setVisible(unl)
 	if (unl) tmp.el.quarkAmt.setHTML(format(player.atom.quarks,0)+"<br>"+(player.atom.elements.includes(14)?formatGain(player.atom.quarks,tmp.atom?tmp.atom.quarkGain.mul(tmp.atom.quarkGainSec):0):"(+"+format(tmp.atom.quarkGain,0)+")"))
+	unl = MASS_DILATION.unlocked()
+	tmp.el.md_div.setVisible(unl)
+	if (unl) tmp.el.md_massAmt.setHTML(format(player.md.particles,0)+"<br>"+(player.md.active?"(+"+format(tmp.md.rp_gain,0)+")":(player.supernova.tree.includes("qol3")?formatGain(player.md.particles,tmp.md.passive_rp_gain):"(inactive)")))
 }
 
 function updateRanksHTML() {
@@ -169,7 +188,7 @@ function updateRanksHTML() {
 			tmp.el["ranks_amt_"+x].setTxt(format(player.ranks[rn],0))
 			tmp.el["ranks_"+x].setClasses({btn: true, reset: true, locked: !tmp.ranks[rn].can})
 			tmp.el["ranks_desc_"+x].setTxt(tmp.ranks[rn].desc,0)
-			tmp.el["ranks_req_"+x].setTxt(x==0?formatMass(tmp.ranks[rn].req):RANKS.fullNames[x-1]+" "+format(tmp.ranks[rn].req,0))
+			tmp.el["ranks_req_"+x].setTxt(x==0?formatMass(tmp.ranks[rn].req):RANKS.fullNames[x-1]+format(tmp.ranks[rn].req,0))
 			tmp.el["ranks_auto_"+x].setDisplay(RANKS.autoUnl[rn]())
 			tmp.el["ranks_auto_"+x].setTxt(player.auto_ranks[rn]?"ON":"OFF")
 		}
@@ -186,7 +205,7 @@ function updateMassUpgradesHTML() {
 			tmp.el["massUpg_btn_"+x].setClasses({btn: true, locked: player.mass.lt(tmp.upgs.mass[x].cost)})
 			tmp.el["massUpg_cost_"+x].setTxt(formatMass(tmp.upgs.mass[x].cost))
 			tmp.el["massUpg_step_"+x].setTxt(tmp.upgs.mass[x].effDesc.step)
-			tmp.el["massUpg_eff_"+x].setHTML(tmp.upgs.mass[x].effDesc.eff+(tmp.upgs.mass[x].eff.ss ? (tmp.upgs.mass[x].eff.eff.gte(tmp.upgs.mass[x].eff.ss)?" <span class='soft'>(softcapped)</span>":"") : ""))
+			tmp.el["massUpg_eff_"+x].setHTML(tmp.upgs.mass[x].effDesc.eff)
 			tmp.el["massUpg_auto_"+x].setDisplay(player.mainUpg.rp.includes(3))
 			tmp.el["massUpg_auto_"+x].setTxt(player.autoMassUpg[x]?"ON":"OFF")
 		}
@@ -201,7 +220,7 @@ function updateTickspeedHTML() {
 		tmp.el.tickspeed_lvl.setTxt(format(player.tickspeed,0)+(tmp.atom.atomicEff.gte(1)?" + "+format(tmp.atom.atomicEff,0):""))
 		tmp.el.tickspeed_btn.setClasses({btn: true, locked: !FORMS.tickspeed.can()})
 		tmp.el.tickspeed_cost.setTxt(format(tmp.tickspeedCost,0))
-		tmp.el.tickspeed_step.setTxt(tmp.tickspeedEffect.step.gte(10)?format(tmp.tickspeedEffect.step)+"x":format(tmp.tickspeedEffect.step.sub(1).mul(100))+"%")
+		tmp.el.tickspeed_step.setTxt(tmp.tickspeedEffect.step.gte(10)?format(tmp.tickspeedEffect.step)+"倍":format(tmp.tickspeedEffect.step.sub(1).mul(100))+"%")
 		tmp.el.tickspeed_eff.setTxt(format(tmp.tickspeedEffect.eff))
 
 		tmp.el.tickspeed_auto.setDisplay(FORMS.tickspeed.autoUnl())
@@ -250,7 +269,7 @@ function updateMainUpgradesHTML() {
 }
 
 function updateBlackHoleHTML() {
-	tmp.el.bhMass2.setHTML(formatMass(player.bh.mass)+" "+formatGain(player.bh.mass, tmp.bh.mass_gain, true))
+	tmp.el.bhMass2.setHTML(formatMass(player.bh.mass)+formatGain(player.bh.mass, tmp.bh.mass_gain, true))
 	tmp.el.massSoft2.setDisplay(tmp.bh.mass_gain.gte(tmp.bh.massSoftGain))
 	tmp.el.massSoftStart2.setTxt(formatMass(tmp.bh.massSoftGain))
 	tmp.el.bhEffect.setTxt(format(tmp.bh.effect))
@@ -270,43 +289,58 @@ function updateOptionsHTML() {
 		tmp.el["confirm_div_"+x].setDisplay(player[CONFIRMS[x]].unl)
 		tmp.el["confirm_btn_"+x].setTxt(player.confirms[CONFIRMS[x]] ? "ON":"OFF")
 	}
+	tmp.el.total_time.setTxt(formatTime(player.time))
+	tmp.el.offline_active.setTxt(player.offline.active?"ON":"OFF")
 }
 
 function updateHTML() {
 	document.documentElement.style.setProperty('--font', player.options.font)
-	updateUpperHTML()
-    updateTabsHTML()
-	if (player.tab[0] == 0) {
-		if (player.tab[1] == 0) {
-			updateRanksHTML()
-			updateMassUpgradesHTML()
-			updateTickspeedHTML()
-			
-			tmp.el.massSoft1.setDisplay(tmp.massGain.gte(tmp.massSoftGain))
-			tmp.el.massSoftStart1.setTxt(formatMass(tmp.massSoftGain))
+	tmp.el.offlineSpeed.setTxt(format(tmp.offlineMult))
+	tmp.el.loading.setDisplay(tmp.offlineActive)
+    tmp.el.app.setDisplay(tmp.offlineActive ? false : ((player.supernova.times.lte(0) ? !tmp.supernova.reached : true) && tmp.tab != 5))
+	updateSupernovaEndingHTML()
+	if (!tmp.supernova.reached && tmp.tab != 5) {
+		updateStarsScreenHTML()
+		updateUpperHTML()
+		updateTabsHTML()
+		if (tmp.tab == 0) {
+			if (tmp.stab[0] == 0) {
+				updateRanksHTML()
+				updateMassUpgradesHTML()
+				updateTickspeedHTML()
+				
+				tmp.el.massSoft1.setDisplay(tmp.massGain.gte(tmp.massSoftGain))
+				tmp.el.massSoftStart1.setTxt(formatMass(tmp.massSoftGain))
+				tmp.el.massSoft3.setDisplay(tmp.massGain.gte(tmp.massSoftGain2))
+				tmp.el.massSoftStart3.setTxt(formatMass(tmp.massSoftGain2))
+			}
+			if (tmp.stab[0] == 1) {
+				updateBlackHoleHTML()
+			}
+			if (tmp.stab[0] == 2) {
+				updateAtomicHTML()
+			}
+			if (tmp.stab[0] == 3) {
+				updateStarsHTML()
+			}
 		}
-		if (player.tab[1] == 1) {
-			updateBlackHoleHTML()
+		if (tmp.tab == 1) {
+			if (tmp.stab[1] == 0) updateRanksRewardHTML()
+			if (tmp.stab[1] == 1) updateScalingHTML()
 		}
-		if (player.tab[1] == 2) {
-			updateAtomicHTML()
+		if (tmp.tab == 2) {
+			updateMainUpgradesHTML()
 		}
-	}
-	if (player.tab[0] == 1) {
-		if (player.tab[1] == 0) updateRanksRewardHTML()
-		if (player.tab[1] == 1) updateScalingHTML()
-	}
-	if (player.tab[0] == 2) {
-		updateMainUpgradesHTML()
-	}
-	if (player.tab[0] == 3) {
-		updateChalHTML()
-	}
-	if (player.tab[0] == 4) {
-		if (player.tab[1] == 0) updateAtomHTML()
-		if (player.tab[1] == 1) updateElementsHTML()
-	}
-	if (player.tab[0] == 5) {
-		updateOptionsHTML()
+		if (tmp.tab == 3) {
+			updateChalHTML()
+		}
+		if (tmp.tab == 4) {
+			if (tmp.stab[4] == 0) updateAtomHTML()
+			if (tmp.stab[4] == 1) updateElementsHTML()
+			if (tmp.stab[4] == 2) updateMDHTML()
+		}
+		if (tmp.tab == 6) {
+			updateOptionsHTML()
+		}
 	}
 }

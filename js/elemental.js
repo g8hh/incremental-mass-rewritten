@@ -31,17 +31,6 @@ const ELEMENTS = {
         'Mendelevium','Nobelium','Lawrencium','Ruthefordium','Dubnium','Seaborgium','Bohrium','Hassium','Meitnerium','Darmstadium',
         'Roeritgenium','Copernicium','Nihonium','Flerovium','Moscovium','Livermorium','Tennessine','Oganesson'
     ],
-    /*
-    {
-        desc: `Placeholder.`,
-        cost: E(1/0),
-        effect() {
-            let x = E(1)
-            return x
-        },
-        effDesc(x) { return format(x)+"x" },
-    },
-    */
     canBuy(x) { return player.atom.quarks.gte(this.upgs[x].cost) && !player.atom.elements.includes(x) },
     buyUpg(x) {
         if (this.canBuy(x)) {
@@ -63,16 +52,17 @@ const ELEMENTS = {
             desc: `Electron Power boost Atomic Powers gain.`,
             cost: E(1e15),
             effect() {
-                let x = player.atom.powers[2].add(1).root(2)
+                let x = player.atom?player.atom.powers[2].add(1).root(2):E(1)
+                if (x.gte('e1e4')) x = expMult(x.div('e1e4'),0.9).mul('e1e4')
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"x"+(x.gte('e1e4')?"<span class='soft'>(softcapped)</span>":"") },
         },
         {
             desc: `Stronger’s power is stronger based on Proton Powers.`,
             cost: E(2.5e16),
             effect() {
-                let x = player.atom.powers[0].max(1).log10().pow(0.8).div(50).add(1)
+                let x = player.atom?player.atom.powers[0].max(1).log10().pow(0.8).div(50).add(1):E(1)
                 return x
             },
             effDesc(x) { return format(x)+"x stronger" },
@@ -85,10 +75,10 @@ const ELEMENTS = {
             desc: `Gain 1% more quarks for each challenge completion.`,
             cost: E(5e18),
             effect() {
-                let x = E(1)
+                let x = E(0)
                 for (let i = 1; i <= CHALS.cols; i++) x = x.add(player.chal.comps[i].mul(i>4?2:1))
                 if (player.atom.elements.includes(7)) x = x.mul(tmp.elements.effect[7])
-                return x.div(100)
+                return x.div(100).add(1).max(1)
             },
             effDesc(x) { return format(x)+"x" },
         },
@@ -144,7 +134,7 @@ const ELEMENTS = {
             cost: E(5e38),
             effect() {
                 let x = player.atom.elements.length*0.02
-                return x
+                return Number(x)
             },
             effDesc(x) { return "+"+format(x*100)+"%" },
         },
@@ -170,14 +160,235 @@ const ELEMENTS = {
             cost: E(1e53),
         },
         {
-            desc: `Unlock ???.`,
+            desc: `Unlock Mass Dilation.`,
             cost: E(1e56),
         },
+        {
+            desc: `Dilated mass gain is affected by tickspeed at a reduced rate.`,
+            cost: E(1e61),
+            effect() {
+                let x = E(1.25).pow(player.tickspeed.pow(0.55))
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `The Atomic Power effect is better.`,
+            cost: E(1e65),
+        },
+        {
+            desc: `Passively gain 100% of the atoms you would get from resetting each second. Atomic Power boost Relativistic particles gain at a reduced rate.`,
+            cost: E(1e75),
+            effect() {
+                let x = player.atom.atomic.max(1).log10().add(1).pow(0.4)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Adds 1 base of Mass Dilation upgrade 1 effect.`,
+            cost: E(1e80),
+        },
+        {
+            desc: `Hardened Challenge scaling weaker for each element bought.`,
+            cost: E(1e85),
+            effect() {
+                let x = E(0.99).pow(E(player.atom.elements.length).softcap(30,2/3,0)).max(0.5)
+                return x
+            },
+            effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
+        },
+        {
+            desc: `Hyper/Ultra Rank & Tickspeed scales 25% weaker.`,
+            cost: E(1e90),
+        },
+        {
+            desc: `Mass gain is raised to the power of 1.5th if you dilated mass.`,
+            cost: E(1e97),
+        },
+        {
+            desc: `Proton powers effect is better.`,
+            cost: E(1e100),
+        },
+        {
+            desc: `Electron powers effect is better. Passively gain 10% of each particle you would assign quarks.`,
+            cost: E(1e107),
+        },
+        {
+            desc: `Dilated mass boost Relativistic particles gain.`,
+            cost: E(1e130),
+            effect() {
+                let x = player.md.mass.add(1).pow(0.0125)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Increase dilated mass gain exponent by 5%.`,
+            cost: E(1e140),
+        },
+        {
+            desc: `Add 50 more C8 maximum completions.`,
+            cost: E(1e155),
+        },
+        {
+            desc: `Rage power boost Relativistic particles gain.`,
+            cost: E(1e175),
+            effect() {
+                let x = player.rp.points.max(1).log10().add(1).pow(0.75)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Mass from Black Hole boost dilated mass gain.`,
+            cost: E(1e210),
+            effect() {
+                let x = player.bh.mass.max(1).log10().add(1).pow(0.8)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Unlock Stars.`,
+            cost: E(1e225),
+        },
+        {
+            desc: `Super Tier scale weaker based on Tetr.`,
+            cost: E(1e245),
+            effect() {
+                let x = E(0.9).pow(player.ranks.tetr.softcap(6,0.5,0))
+                return x
+            },
+            effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
+        },
+        {
+            desc: `Gamma ray's free tickspeeds now adds to RU7.`,
+            cost: E(1e260),
+            effect() {
+                let x = tmp.atom?tmp.atom.atomicEff:E(0)
+                return x.div(6).floor()
+            },
+            effDesc(x) { return "+"+format(x,0)+" to Rage Power Upgrade 7" },
+        },
+        {
+            desc: `Remove softcap from C2 & C6 effects.`,
+            cost: E(1e285),
+        },
+        {
+            desc: `Collapsed star boost dilated mass gain.`,
+            cost: E(1e303),
+            effect() {
+                let x = player.stars.points.add(1).pow(0.5)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Add 50 more C7 maximum completions.`,
+            cost: E('e315'),
+        },
+        {
+            desc: `Collapsed star boost quark gain.`,
+            cost: E('e325'),
+            effect() {
+                let x = player.stars.points.add(1).pow(1/3)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `You can now automatically buy mass dilation upgrades if you purchased any first. They no longer spent dilated mass.`,
+            cost: E('e360'),
+        },
+        {
+            desc: `The Tetr requirement is broken.`,
+            cost: E('e380'),
+        },
+        {
+            desc: `Collapsed star boost relativistic particles gain.`,
+            cost: E('e420'),
+            effect() {
+                let x = player.stars.points.add(1).pow(0.15).min(1e20)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Collapsed star’s effect boost mass gain from the black hole at a reduced rate.`,
+            cost: E('e510'),
+            effect() {
+                let x = tmp.stars?tmp.stars.effect.add(1).pow(0.02):E(1)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Quarks gain is raised to the 1.05th power.`,
+            cost: E('e610'),
+        },
+        {
+            desc: `Collapsed stars effect is 10% stronger.`,
+            cost: E('e800'),
+        },
+        {
+            desc: `Collapsed star boost last type of stars.`,
+            cost: E('e1000'),
+            effect() {
+                let x = player.stars.points.add(1).log10().add(1).pow(1.1)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Star generator is now ^1.05 stronger.`,
+            cost: E('e1750'),
+        },
+        {
+            desc: `Mass gain softcap^2 is 10% weaker.`,
+            cost: E('e2400'),
+        },
+        {
+            desc: `Mass of black hole boost atomic powers gain at a reduced rate.`,
+            cost: E('e2800'),
+            effect() {
+                let x = expMult(player.bh.mass.add(1),0.6)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
+        {
+            desc: `Mass Dilation upgrade 6 is 75% stronger.`,
+            cost: E('e4600'),
+        },
+        {
+            desc: `Collapsed stars boost all-star resources at a reduced rate.`,
+            cost: E('e5200'),
+            effect() {
+                let x = player.mass.max(1).log10().root(2)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
     ],
+    /*
+    {
+        desc: `Placeholder.`,
+        cost: E(1/0),
+        effect() {
+            let x = E(1)
+            return x
+        },
+        effDesc(x) { return format(x)+"x" },
+    },
+    */
     getUnlLength() {
         let u = 4
         if (player.chal.comps[8].gte(1)) u += 14
         if (player.atom.elements.includes(18)) u += 3
+        if (MASS_DILATION.unlocked()) u += 15
+        if (STARS.unlocked()) u += 18
+        if (player.supernova.times.gte(1)) u = 49+5
         return u
     },
 }
@@ -209,7 +420,7 @@ function updateElementsHTML() {
     if (ch) {
         tmp.el.elem_desc.setTxt("["+ELEMENTS.fullNames[ch]+"] "+ELEMENTS.upgs[ch].desc)
         tmp.el.elem_cost.setTxt(format(ELEMENTS.upgs[ch].cost,0))
-        tmp.el.elem_eff.setTxt(ELEMENTS.upgs[ch].effDesc?"Currently: "+ELEMENTS.upgs[ch].effDesc(tmp.elements.effect[ch]):"")
+        tmp.el.elem_eff.setHTML(ELEMENTS.upgs[ch].effDesc?"Currently: "+ELEMENTS.upgs[ch].effDesc(tmp.elements.effect[ch]):"")
     }
     for (let x = 1; x <= tmp.elements.upg_length; x++) {
         let upg = tmp.el['elementID_'+x]
@@ -229,8 +440,7 @@ function updateElementsTemp() {
     }
     if (!tmp.elements.effect) tmp.elements.effect = [null]
     for (let x = 1; x <= tmp.elements.upg_length; x++) if (ELEMENTS.upgs[x].effect) {
-        if (!tmp.elements.effect[x]) tmp.elements.effect.push(ELEMENTS.upgs[x].effect())
-        else tmp.elements.effect[x] = ELEMENTS.upgs[x].effect()
+        tmp.elements.effect[x] = ELEMENTS.upgs[x].effect()
     }
     tmp.elements.unl_length = ELEMENTS.getUnlLength()
 }

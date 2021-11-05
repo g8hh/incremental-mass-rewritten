@@ -3,8 +3,48 @@
 }
 
 @font-face {
+	font-family: 'Andy Bold';
+	src: url('fonts/design.graffiti.ANDYB.ttf');
+}
+
+@font-face {
+	font-family: 'Cousine';
+	src: url('fonts/Cousine-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Flexi IBM VGA False';
+	src: url('fonts/Flexi_IBM_VGA_False.ttf');
+}
+
+@font-face {
+	font-family: 'Inconsolata';
+	src: url('fonts/Inconsolata-VariableFont_wdth\,wght.ttf');
+}
+
+@font-face {
+	font-family: 'Lucida Handwriting';
+	src: url('fonts/qkmarisa.ttf');
+}
+
+@font-face {
 	font-family: 'Monospace-Typewritter';
 	src: url('fonts/MonospaceTypewriter.ttf');
+}
+
+@font-face {
+	font-family: 'Nova Mono';
+	src: url('fonts/NovaMono-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Retron2000';
+	src: url('fonts/Retron2000.ttf');
+}
+
+@font-face {
+	font-family: 'Roboto Mono';
+	src: url('fonts/RobotoMono-VariableFont_wght.ttf');
 }
 
 * {
@@ -19,7 +59,7 @@ p {
 
 body {
     color: white;
-    background-color: #111;
+    background-color: hsl(0, 0%, 7%);
 	overflow-x: hidden;
 	font-size: 16px;
 	margin: 0px;
@@ -38,6 +78,53 @@ button {
     font-size: 14px;
 	cursor: pointer;
 	transition-duration: 0.15s;
+}
+
+#star {
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+	border-radius: 50%;
+	z-index: -1;
+	opacity: 0.25;
+	transition-duration: 0.15s;
+}
+
+#notify {
+	position: absolute;
+    left: 50%;
+    top: 20px;
+	transform: translate(-50%, 0);
+	width: 400px;
+	min-height: 10px;
+	border: solid 2px white;
+	background-color: #171717;
+	padding: 7px 25px;
+	transition-duration: 0.75s;
+}
+
+#notify.hide {
+	opacity: 0;
+	top: -130px;
+}
+
+#tree {
+	height: calc(100% - 300px);
+}
+
+#tree_table {
+	width: 95%;
+	height: 100%;
+	border: solid 2px white;
+	overflow: auto;
+}
+
+#tree_canvas {
+	z-index: -1;
+	position: absolute;
+	width: 95%;
+	height: calc(100% - 300px);
 }
 
 .soft {
@@ -72,11 +159,15 @@ button {
 }
 
 .green {
-	color: green;
+	color: #00bb00;
 }
 
 .sky {
 	color: skyblue;
+}
+
+.gray {
+	color: gray
 }
 
 .quark_color {
@@ -113,12 +204,55 @@ button {
 	width: 120px;
 }
 
+.btn_tab.bh {
+	color: gold;
+	border-color: gold;
+}
+
+.btn_tab.bh:not(.choosed):hover {
+	background-color: #493e00;
+}
+
+.btn_tab.bh.choosed {
+	color: black;
+	background-color: gold;
+}
+
+.btn_tab.atom {
+	color: #3157be;
+	border-color: #3157be;
+}
+
+.btn_tab.atom:not(.choosed):hover {
+	background-color: #172857;
+}
+
+.btn_tab.atom.choosed {
+	color: black;
+	background-color: #3157be;
+}
+
+.btn_tab.dilation {
+	color: #25ff30;
+	border-color: #25ff30;
+}
+
+.btn_tab.dilation:not(.choosed):hover {
+	background-color: #0a470d;
+}
+
+.btn_tab.dilation.choosed {
+	color: black;
+	background-color: #25ff30;
+}
+
 .btn_tab:not(.choosed):hover {
 	background-color: #444
 }
 
+.btn_tree:not(.locked):not(.bought):hover,
 .elements:not(.locked):not(.bought):hover,
-.btn:not(.locked):hover,
+.btn:not(.locked):not(.md):hover,
 .img_btn:not(.locked):not(.bought):hover {
 	background-color: #555
 }
@@ -128,16 +262,32 @@ button {
 	color: black;
 }
 
+.btn_tree {
+	background-color: black;
+	border: solid 2px white;
+	margin: 10px;
+	width: 54px;
+	height: 54px;
+	padding: 0;
+}
+
+.btn_tree:not(.bought).locked {
+	border-color: #171717;
+}
+
+.btn_tree.bought {
+	border-color: #00520b;
+}
+
+.btn_tree.choosed {
+	transform: scale(1.25);
+}
+
 .elements {
 	font-size: 18px;
 	width: 50px;
 	height: 50px;
 	background-color: #444;
-}
-
-.elements.locked {
-	background-color: #171717;
-	cursor: default;
 }
 
 .btn {
@@ -149,8 +299,14 @@ button {
 	text-decoration: none;
 }
 
+.btn.full {
+	width: 250px;
+	height: 120px;
+}
+
 .btn.locked,
-.img_btn.locked {
+.img_btn.locked,
+.elements.locked {
 	background-color: #171717;
 	cursor: default;
 }
@@ -192,6 +348,22 @@ h2 {
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
+}
+
+.md {
+	border-color: darkgreen;
+	background-color: #171717;
+}
+
+.md.locked {
+	border-color: #303030;
+	cursor: default;
+}
+
+.md:not(.locked):hover {
+	border-color: #00ce00;
+	background-color: #003a00;
+	box-shadow: 0 0 10px #00ce00;
 }
 
 [tooltip] {

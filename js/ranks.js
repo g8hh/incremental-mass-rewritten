@@ -1,6 +1,6 @@
 const RANKS = {
     names: ['rank', 'tier', 'tetr'],
-    fullNames: ['Rank', 'Tier', 'Tetr'],
+    fullNames: ['级别', '阶层', '三重阶层'],
     reset(type) {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].add(1)
@@ -64,6 +64,7 @@ const RANKS = {
             220: "rank 40 reward is overpowered.",
             300: "rank multiplie quark gain.",
             380: "rank multiplie mass gain.",
+            800: "make mass gain softcap 0.25% weaker based on rank.",
         },
         tier: {
             1: "reduce rank reqirements by 20%.",
@@ -74,12 +75,15 @@ const RANKS = {
             8: "make tier 6's reward effect stronger by dark matters.",
             12: "make tier 4's reward effect twice effective and remove softcap.",
             30: "stronger effect's softcap is 10% weaker.",
+            55: "make rank 380's effect stronger based on tier.",
         },
         tetr: {
             1: "reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.",
             2: "mass upgrade 3 boosts itself.",
             3: "raise tickspeed effect by 1.05.",
             4: "Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.",
+            5: "Hyper/Ultra Tickspeed starts later based on tetr.",
+            8: "Mass gain softcap^2 starts ^1.5 later.",
         },
     },
     effect: {
@@ -111,7 +115,11 @@ const RANKS = {
                 return ret
             },
             380() {
-                let ret = E(10).pow(player.ranks.rank.sub(379).pow(1.5).softcap(1000,0.5,0))
+                let ret = E(10).pow(player.ranks.rank.sub(379).pow(1.5).pow(player.ranks.tier.gte(55)?RANKS.effect.tier[55]():1).softcap(1000,0.5,0))
+                return ret
+            },
+            800() {
+                let ret = E(1).sub(player.ranks.rank.sub(799).mul(0.0025).add(1).softcap(1.25,0.5,0).sub(1)).max(0.75)
                 return ret
             },
         },
@@ -131,6 +139,10 @@ const RANKS = {
                 let ret = player.bh.dm.max(1).log10().add(1).root(2)
                 return ret
             },
+            55() {
+                let ret = player.ranks.tier.max(1).log10().add(1).root(4)
+                return ret
+            },
         },
         tetr: {
             2() {
@@ -141,26 +153,33 @@ const RANKS = {
                 let ret = E(0.96).pow(player.ranks.tier.pow(1/3))
                 return ret
             },
+            5() {
+                let ret = player.ranks.tetr.pow(4).softcap(1000,0.25,0)
+                return ret
+            },
         },
     },
     effDesc: {
         rank: {
             3(x) { return "+"+format(x) },
             5(x) { return "+"+format(x) },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             40(x) {  return "+"+format(x.mul(100))+"%" },
-            45(x) { return format(x)+"x" },
-            300(x) { return format(x)+"x" },
-            380(x) { return format(x)+"x" },
+            45(x) { return format(x)+"倍" },
+            300(x) { return format(x)+"倍" },
+            380(x) { return format(x)+"倍" },
+            800(x) { return "弱化"+format(E(1).sub(x).mul(100))+"%" },
         },
         tier: {
             4(x) { return "+"+format(x.mul(100))+"%" },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             8(x) { return "^"+format(x) },
+            55(x) { return "^"+format(x) },
         },
         tetr: {
             2(x) { return "+"+format(x) },
-            4(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
+            4(x) { return "弱化"+format(E(1).sub(x).mul(100))+"%" },
+            5(x) { return "延迟"+format(x,0)+"次出现" },
         },
     },
     fp: {
@@ -279,6 +298,51 @@ function updateRanksTemp() {
 			.add(1)
 			.floor();
 	}
+    /*if (scalingActive("rank", player.ranks.rank.max(tmp.ranks.rank.bulk), "meta")) {
+		let start = getScalingStart("super", "rank");
+		let power = getScalingPower("super", "rank");
+		let exp = E(1.5).pow(power);
+        let start2 = getScalingStart("hyper", "rank");
+		let power2 = getScalingPower("hyper", "rank");
+		let exp2 = E(2.5).pow(power2);
+        let start3 = getScalingStart("ultra", "rank");
+		let power3 = getScalingPower("ultra", "rank");
+		let exp3 = E(4).pow(power3);
+        let start4 = getScalingStart("meta", "rank");
+		let power4 = getScalingPower("meta", "rank");
+		let exp4 = E(1.0025).pow(power4);
+		tmp.ranks.rank.req =
+			E(10).pow(
+				exp4.pow(player.ranks.rank.sub(start4)).mul(start4)
+                    .pow(exp3)
+                    .div(start3.pow(exp3.sub(1)))
+                    .pow(exp2)
+                    .div(start2.pow(exp2.sub(1)))
+					.pow(exp)
+					.div(start.pow(exp.sub(1)))
+                    .div(fp)
+					.pow(1.15)
+			).mul(10)
+		tmp.ranks.rank.bulk = player.mass
+            .div(10)
+			.max(1)
+			.log10()
+            
+			.root(1.15)
+            .mul(fp)
+			.mul(start.pow(exp.sub(1)))
+			.root(exp)
+            .mul(start2.pow(exp2.sub(1)))
+			.root(exp2)
+            .mul(start3.pow(exp3.sub(1)))
+			.root(exp3)
+            .div(start4)
+			.max(1)
+			.log(exp4)
+			.add(start4)
+			.add(1)
+			.floor();
+	}*/
     tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5)
 
     fp = RANKS.fp.tier()
@@ -287,7 +351,7 @@ function updateRanksTemp() {
     if (scalingActive("tier", player.ranks.tier.max(tmp.ranks.tier.bulk), "super")) {
 		let start = getScalingStart("super", "tier");
 		let power = getScalingPower("super", "tier");
-		let exp = E(2).pow(power);
+		let exp = E(1.5).pow(power);
 		tmp.ranks.tier.req =
 			player.ranks.tier
 			.pow(exp)
@@ -305,9 +369,11 @@ function updateRanksTemp() {
 	}
 
     fp = E(1)
+    let pow = 2
+    if (player.atom.elements.includes(44)) pow = 1.75
     if (player.atom.elements.includes(9)) fp = fp.mul(1/0.85)
-    tmp.ranks.tetr.req = player.ranks.tetr.div(fp).pow(2).mul(3).add(10).floor()
-    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10).div(3).max(0).root(2).mul(fp).add(1).floor();
+    tmp.ranks.tetr.req = player.ranks.tetr.div(fp).pow(pow).mul(3).add(10).floor()
+    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10).div(3).max(0).root(pow).mul(fp).add(1).floor();
     if (scalingActive("tetr", player.ranks.tetr.max(tmp.ranks.tetr.bulk), "super")) {
 		let start = getScalingStart("super", "tetr");
 		let power = getScalingPower("super", "tetr");
@@ -316,9 +382,9 @@ function updateRanksTemp() {
 			player.ranks.tetr
 			.pow(exp)
 			.div(start.pow(exp.sub(1))).div(fp)
-			.pow(2).mul(3).add(10).floor()
+			.pow(pow).mul(3).add(10).floor()
 		tmp.ranks.tetr.bulk = player.ranks.tier
-            .sub(10).div(3).max(0).root(2)
+            .sub(10).div(3).max(0).root(pow)
             .mul(fp)
 			.mul(start.pow(exp.sub(1)))
 			.root(exp)

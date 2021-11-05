@@ -2,7 +2,7 @@ const SCALE_START = {
     super: {
         rank: E(50),
 		tier: E(10),
-		tetr: E(6),
+		tetr: E(7),
         massUpg: E(100),
 		tickspeed: E(100),
 		bh_condenser: E(100),
@@ -19,11 +19,16 @@ const SCALE_START = {
 		rank: E(600),
 		tickspeed: E(700),
 		bh_condenser: E(750),
+		gamma_ray: E(800),
+	},
+	meta: {/*
+		rank: E(1200),
+		tickspeed: E(3000),*/
 	},
 }
 
-const SCALE_TYPE = ['super', 'hyper', 'ultra'] // super, hyper, ultra, meta
-const FULL_SCALE_NAME = ['Super', 'Hyper', 'Ultra']
+const SCALE_TYPE = ['super', 'hyper', 'ultra', 'meta'] // super, hyper, ultra, meta
+const FULL_SCALE_NAME = ['Super', 'Hyper', 'Ultra', 'Meta']
 
 const SCALING_RES = {
     rank(x=0) { return player.ranks.rank },
@@ -88,7 +93,7 @@ function getScalingName(name, x=0) {
 	let amt = SCALING_RES[name](x);
 	for (let n = cap - 1; n >= 0; n--) {
 		if (scalingActive(name, amt, Object.keys(SCALE_START)[n]))
-			return capitalFirst(Object.keys(SCALE_START)[n]) + " ";
+			return capitalFirst(Object.keys(SCALE_START)[n]) + (Object.keys(SCALE_START)[n]=="meta"?"-":" ");
 	}
 	return current;
 }
@@ -114,9 +119,15 @@ function getScalingStart(type, name) {
 	if (type=="hyper") {
 		if (name=="tickspeed") {
 			if (player.mainUpg.rp.includes(14)) start = start.add(50)
+			if (player.ranks.tetr.gte(5)) start = start.add(RANKS.effect.tetr[5]())
 		}
 		if (name=="rank") {
 			if (player.mainUpg.atom.includes(10)) start = start.add(tmp.upgs?tmp.upgs.main?tmp.upgs.main[3][10].effect:0:0)
+		}
+	}
+	if (type=="ultra") {
+		if (name=="tickspeed") {
+			if (player.ranks.tetr.gte(5)) start = start.add(RANKS.effect.tetr[5]())
 		}
 	}
 	return start.floor()
@@ -131,6 +142,7 @@ function getScalingPower(type, name) {
 		}
 		if (name=="tier") {
 			if (player.ranks.tetr.gte(4)) power = power.mul(0.8)
+			if (player.atom.elements.includes(37)) power = power.mul(tmp.elements.effect[37])
 		}
 		if (name=="massUpg") {
 			if (player.mainUpg.rp.includes(8)) power = power.mul(tmp.upgs.main?tmp.upgs.main[1][8].effect:1)
@@ -148,12 +160,22 @@ function getScalingPower(type, name) {
 	if (type=="hyper") {
 		if (name=="rank") {
 			if (player.ranks.tetr.gte(1)) power = power.mul(0.85)
+			if (player.atom.elements.includes(27)) power = power.mul(0.75)
 		}
 		if (name=="massUpg") {
 			if (player.mainUpg.bh.includes(12)) power = power.mul(0.85)
 		}
 		if (name=='tickspeed') {
 			if (player.mainUpg.bh.includes(12)) power = power.mul(0.85)
+			if (player.atom.elements.includes(27)) power = power.mul(0.75)
+		}
+	}
+	if (type=="ultra") {
+		if (name=="rank") {
+			if (player.atom.elements.includes(27)) power = power.mul(0.75)
+		}
+		if (name=='tickspeed') {
+			if (player.atom.elements.includes(27)) power = power.mul(0.75)
 		}
 	}
 	return power

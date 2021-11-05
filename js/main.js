@@ -2,9 +2,20 @@ var diff = 0;
 var date = Date.now();
 var player
 var tmp = {
-    
+    sn_tab: 0,
+    tab: 0,
+    stab: [],
+    pass: true,
+    notify: [],
 }
+for (let x = 0; x < TABS[1].length; x++) tmp.stab.push(0)
 
+const ST_NAMES = [
+    ["","U","D","T","Qa","Qt","Sx","Sp","Oc","No"],
+    ["","Dc","Vg","Tg","Qag","Qtg","Sxg","Spg","Ocg","Nog"],
+    ["","Ce","De","Te","Qae","Qte","Sxe","Spe","Oce","Noe"],
+    ["","Mi","Mc","Na","Pc"],
+]
 const CONFIRMS = ['rp', 'bh', 'atom']
 
 const FORMS = {
@@ -19,10 +30,18 @@ const FORMS = {
         x = x.mul(tmp.atom.particles[0].powerEffect.eff1)
         x = x.mul(tmp.atom.particles[1].powerEffect.eff2)
         if (player.ranks.rank.gte(380)) x = x.mul(RANKS.effect.rank[380]())
+        x = x.mul(tmp.stars.effect)
+        if (player.supernova.tree.includes("m1")) x = x.mul(tmp.supernova.tree_eff.m1)
+
         if (player.ranks.tier.gte(2)) x = x.pow(1.15)
         if (player.ranks.rank.gte(180)) x = x.pow(1.025)
         if (!CHALS.inChal(3)) x = x.pow(tmp.chal.eff[3])
-        return x.softcap(tmp.massSoftGain,tmp.massSoftPower,0)
+        if (player.md.active) {
+            x = expMult(x,0.8)
+            if (player.atom.elements.includes(28)) x = x.pow(1.5)
+        }
+        if (CHALS.inChal(9)) x = expMult(x,0.9)
+        return x.softcap(tmp.massSoftGain,tmp.massSoftPower,0).softcap(tmp.massSoftGain2,tmp.massSoftPower2,0)
     },
     massSoftGain() {
         let s = E(1.5e156)
@@ -37,7 +56,19 @@ const FORMS = {
         if (CHALS.inChal(3)) p = p.mul(4)
         if (CHALS.inChal(7)) p = p.mul(6)
         if (player.mainUpg.bh.includes(11)) p = p.mul(0.9)
+        if (player.ranks.rank.gte(800)) p = p.mul(RANKS.effect.rank[800]())
         return E(1).div(p.add(1))
+    },
+    massSoftGain2() {
+        let s = E('1.5e1000056')
+        if (player.supernova.tree.includes("m2")) s = s.pow(1.5)
+        if (player.ranks.tetr.gte(8)) s = s.pow(1.5)
+        return s
+    },
+    massSoftPower2() {
+        let p = E(0.25)
+        if (player.atom.elements.includes(51)) p = p.pow(0.9)
+        return p
     },
     tickspeed: {
         cost(x=player.tickspeed) { return E(2).pow(x).floor() },
@@ -58,11 +89,13 @@ const FORMS = {
             let bouns = E(0)
             if (player.atom.unl) bouns = bouns.add(tmp.atom.atomicEff)
             let step = E(1.5)
-            step = step.add(tmp.chal.eff[6])
-            step = step.add(tmp.chal.eff[2])
-            step = step.add(tmp.atom.particles[0].powerEffect.eff2)
-            if (player.ranks.tier.gte(4)) step = step.add(RANKS.effect.tier[4]())
-            if (player.ranks.rank.gte(40)) step = step.add(RANKS.effect.rank[40]())
+                step = step.add(tmp.chal.eff[6])
+                step = step.add(tmp.chal.eff[2])
+                step = step.add(tmp.atom.particles[0].powerEffect.eff2)
+                if (player.ranks.tier.gte(4)) step = step.add(RANKS.effect.tier[4]())
+                if (player.ranks.rank.gte(40)) step = step.add(RANKS.effect.rank[40]())
+                step = step.mul(tmp.md.mass_eff)
+            if (player.supernova.tree.includes("t1")) step = step.pow(1.15)
             let eff = step.pow(player.tickspeed.add(bouns))
             if (player.atom.elements.includes(18)) eff = eff.pow(tmp.elements.effect[18])
             if (player.ranks.tetr.gte(3)) eff = eff.pow(1.05)
@@ -80,13 +113,15 @@ const FORMS = {
             if (player.ranks.tier.gte(6)) gain = gain.mul(RANKS.effect.tier[6]())
             if (player.mainUpg.bh.includes(6)) gain = gain.mul(tmp.upgs.main?tmp.upgs.main[2][6].effect:E(1))
             gain = gain.mul(tmp.atom.particles[1].powerEffect.eff1)
+            if (player.supernova.tree.includes("rp1")) gain = gain.mul(tmp.supernova.tree_eff.rp1)
             if (player.mainUpg.bh.includes(8)) gain = gain.pow(1.15)
             gain = gain.pow(tmp.chal.eff[4])
             if (CHALS.inChal(4)) gain = gain.root(10)
+            if (player.md.active) gain = expMult(gain,0.8)
             return gain.floor()
         },
         reset() {
-            if (tmp.rp.can) if (player.confirms.rp?confirm("你确定要重置吗?"):true) {
+            if (tmp.rp.can) if (player.confirms.rp?confirm("您确定要重置吗？"):true) {
                 player.rp.points = player.rp.points.add(tmp.rp.gain)
                 player.rp.unl = true
                 this.doReset()
@@ -104,18 +139,22 @@ const FORMS = {
             if (CHALS.inChal(7)) gain = player.mass.div(1e180)
             if (gain.lt(1)) return E(0)
             gain = gain.root(4)
+            if (player.supernova.tree.includes("bh1")) gain = gain.mul(tmp.supernova.tree_eff.bh1)
             if (CHALS.inChal(7)) gain = gain.root(6)
             gain = gain.mul(tmp.atom.particles[2].powerEffect.eff1)
             if (CHALS.inChal(8)) gain = gain.root(8)
             gain = gain.pow(tmp.chal.eff[8])
+            if (player.md.active) gain = expMult(gain,0.8)
             return gain.floor()
         },
         massGain() {
             let x = player.bh.mass.add(1).pow(0.33).mul(this.condenser.effect().eff)
             if (player.mainUpg.rp.includes(11)) x = x.mul(tmp.upgs.main?tmp.upgs.main[1][11].effect:E(1))
             if (player.mainUpg.bh.includes(14)) x = x.mul(tmp.upgs.main?tmp.upgs.main[2][14].effect:E(1))
+            if (player.atom.elements.includes(46)) x = x.mul(tmp.elements.effect[46])
             if (CHALS.inChal(8)) x = x.root(8)
             x = x.pow(tmp.chal.eff[8])
+            if (player.md.active) x = expMult(x,0.8)
             return x.softcap(tmp.bh.massSoftGain, tmp.bh.massSoftPower, 0)
         },
         massSoftGain() {
@@ -128,7 +167,7 @@ const FORMS = {
             return E(1).div(p.add(1))
         },
         reset() {
-            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("你确定要重置吗?"):true) {
+            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("您确定要重置吗？"):true) {
                 player.bh.dm = player.bh.dm.add(tmp.bh.dm_gain)
                 player.bh.unl = true
                 this.doReset()
@@ -144,7 +183,9 @@ const FORMS = {
             FORMS.rp.doReset()
         },
         effect() {
-            let x = player.bh.mass.add(1).root(4)
+            let x = player.mainUpg.atom.includes(12)
+            ?player.bh.mass.add(1).pow(1.25)
+            :player.bh.mass.add(1).root(4)
             return x
         },
         condenser: {
@@ -165,9 +206,11 @@ const FORMS = {
             },
             effect() {
                 let pow = E(2)
-                pow = pow.add(tmp.chal.eff[6])
-                if (player.mainUpg.bh.includes(2)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[2][2].effect:E(1))
-                pow = pow.add(tmp.atom.particles[2].powerEffect.eff2)
+                    pow = pow.add(tmp.chal.eff[6])
+                    if (player.mainUpg.bh.includes(2)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[2][2].effect:E(1))
+                    pow = pow.add(tmp.atom.particles[2].powerEffect.eff2)
+                    if (player.mainUpg.atom.includes(11)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[3][11].effect:E(1))
+                    if (player.supernova.tree.includes("bh2")) pow = pow.pow(1.15)
                 let eff = pow.pow(player.bh.condenser.add(tmp.bh.condenser_bouns))
                 return {pow: pow, eff: eff}
             },
@@ -183,6 +226,7 @@ const FORMS = {
             rp: "Require over 1e9 tonne of mass to reset previous features for gain Rage Powers",
             dm: "Require over 1e20 Rage Power to reset all previous features for gain Dark Matters",
             atom: "Require over 1e100 uni of black hole to reset all previous features for gain Atoms & Quarks",
+            md: "Dilate mass, then cancel",
         },
         set(id) { player.reset_msg = this.msgs[id] },
         reset() { player.reset_msg = "" },
@@ -294,7 +338,7 @@ const UPGS = {
             effDesc(eff) {
                 return {
                     step: "+"+formatMass(eff.step),
-                    eff: "+"+formatMass(eff.eff)+" to mass gain"
+                    eff: "+"+formatMass(eff.eff)+"质量获取速度"
                 }
             },
             bouns() {
@@ -318,7 +362,7 @@ const UPGS = {
             },
             effDesc(eff) {
                 return {
-                    step: "+"+format(eff.step)+"x",
+                    step: "+"+format(eff.step)+"倍",
                     eff: "x"+format(eff.eff)+" to Muscler Power"
                 }
             },
@@ -342,16 +386,17 @@ const UPGS = {
                 if (player.mainUpg.rp.includes(9)) step = step.add(0.25)
                 if (player.mainUpg.rp.includes(12)) step = step.add(tmp.upgs.main?tmp.upgs.main[1][12].effect:E(0))
                 if (player.atom.elements.includes(4)) step = step.mul(tmp.elements.effect[4])
+                if (player.md.upgs[3].gte(1)) step = step.mul(tmp.md.upgs[3].eff)
                 let sp = 0.5
                 if (player.mainUpg.atom.includes(9)) sp *= 1.15
                 if (player.ranks.tier.gte(30)) sp *= 1.1
-                let ret = step.mul(x.add(tmp.upgs.mass[3].bouns)).add(1).softcap(ss,sp,0)
+                let ret = step.mul(x.add(tmp.upgs.mass[3].bouns)).add(1).softcap(ss,sp,0).softcap(1.8e5,0.5,0)
                 return {step: step, eff: ret, ss: ss}
             },
             effDesc(eff) {
                 return {
-                    step: "+^"+format(eff.step),
-                    eff: "^"+format(eff.eff)+" to Booster Power"
+                    step: "+"+format(eff.step)+"次方",
+                    eff: "^"+format(eff.eff)+" to Booster Power"+(eff.eff.gte(eff.ss)?`<span class='soft'>(softcapped${eff.eff.gte(1.8e5)?"^2":""})</span>`:"")
                 }
             },
             bouns() {
@@ -428,7 +473,7 @@ const UPGS = {
                 desc: "For every 3 tickspeeds adds Stronger.",
                 cost: E(1e7),
                 effect() {
-                    let ret = player.tickspeed.div(3).floor()
+                    let ret = player.tickspeed.div(3).add(player.atom.elements.includes(38)?tmp.elements.effect[38]:0).floor()
                     return ret
                 },
                 effDesc(x=this.effect()) {
@@ -443,7 +488,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.9).gte(2.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.9).gte(2.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             9: {
@@ -461,11 +506,11 @@ const UPGS = {
                 desc: "Black Hole mass's gain is boosted by Rage Points.",
                 cost: E(1e72),
                 effect() {
-                    let ret = player.rp.points.add(1).root(10)
+                    let ret = player.rp.points.add(1).root(10).softcap('e4000',0.1,0)
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return format(x)+"x"
+                    return format(x)+"x"+(x.gte("e4000")?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             12: {
@@ -477,7 +522,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return "+^"+format(x)+(x.gte(0.2)?" <span class='soft'>(softcapped)</span>":"")
+                    return "+^"+format(x)+(x.gte(0.2)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             13: {
@@ -546,7 +591,7 @@ const UPGS = {
                     return ret.min(400)
                 },
                 effDesc(x=this.effect()) {
-                    return "+"+format(x,0)+" later"+(x.gte(100)?" <span class='soft'>(softcapped)</span>":"")
+                    return "+"+format(x,0)+" later"+(x.gte(100)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             4: {
@@ -602,11 +647,11 @@ const UPGS = {
                 desc: "Mass gain is boosted by OoM of Dark Matters.",
                 cost: E(1e33),
                 effect() {
-                    let ret = E(2).pow(player.bh.dm.add(1).log10())
+                    let ret = E(2).pow(player.bh.dm.add(1).log10().softcap(11600,0.5,0))
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return format(x)+"x"
+                    return format(x)+"x"+(x.max(1).log2().gte(11600)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             11: {
@@ -660,7 +705,8 @@ const UPGS = {
                     player.mainUpg.atom.push(x)
                 }
             },
-            lens: 10,
+            auto_unl() { return player.supernova.tree.includes("qol1") },
+            lens: 12,
             1: {
                 desc: "Start with Mass upgrades unlocked.",
                 cost: E(1),
@@ -736,6 +782,27 @@ const UPGS = {
                     return "+"+format(x,0)+" later"
                 },
             },
+            11: {
+                unl() { return MASS_DILATION.unlocked() },
+                desc: "Dilated mass also boost BH Condenser & Gamma Ray powers at a reduced rate.",
+                cost: E('e1640'),
+                effect() {
+                    let ret = player.md.mass.max(1).log10().add(1).pow(0.1)
+                    return ret
+                },
+                effDesc(x=this.effect()) {
+                    return format(x)+"x"
+                },
+            },
+            12: {
+                unl() { return MASS_DILATION.unlocked() },
+                desc: "Mass from Black Hole effect is better.",
+                cost: E('e2015'),
+                effect() {
+                    let ret = E(1)
+                    return ret
+                },
+            },
         },
     },
 }
@@ -758,11 +825,12 @@ function loop() {
     diff = Date.now()-date;
     updateTemp()
     updateHTML()
-    calc(diff/1000);
+    calc(diff/1000*tmp.offlineMult,diff/1000);
     date = Date.now();
+    player.offline.current = date
 }
 
-function format(ex, acc=4) {
+function format(ex, acc=4, type=player.options.notation) {
     ex = E(ex)
     neg = ex.lt(0)?"-":""
     if (ex.mag == Infinity) return neg + 'Infinity'
@@ -770,32 +838,71 @@ function format(ex, acc=4) {
     if (ex.lt(0)) ex = ex.mul(-1)
     if (ex.eq(0)) return ex.toFixed(acc)
     let e = ex.log10().floor()
-    if (e.lt(4)) {
-        return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
-    } else {
-        let m = ex.div(E(10).pow(e))
-        return neg+(e.log10().gte(9)?'':m.toFixed(4))+'e'+format(e, 0, "sc")
+    switch (type) {
+        case "sc":
+            if (e.lt(4)) {
+                return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
+            } else {
+                if (ex.gte("eeee10")) {
+                    let slog = ex.slog()
+                    return (slog.gte(1e9)?'':E(10).pow(slog.sub(slog.floor())).toFixed(3)) + "F" + format(slog.floor(), 0)
+                }
+                let m = ex.div(E(10).pow(e))
+                return neg+(e.log10().gte(9)?'':m.toFixed(4))+'e'+format(e, 0, "sc")
+            }
+        case "st":
+            if (e.lt(3)) {
+                return neg+ex.toFixed(Math.max(Math.min(acc-e.toNumber(), acc), 0))
+            } else {
+                if (e.gte(3e15+3)) return "e"+format(e, acc, "st")
+                let str = e.div(3).floor().sub(1).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ').split(" ")
+                let final = ""
+                let m = ex.div(E(10).pow(e.div(3).floor().mul(3)))
+                str.forEach((arr, i) => {
+                    let ret = ""
+                    arr.split('').forEach((v, j) => {
+                        if (i == str.length - 1) ret = (Number(arr) < 3 ? ["K", "M", "B"][v] : ST_NAMES[arr.length-j-1][v]) + ret 
+                        else if (Number(arr) > 1) ret = ST_NAMES[arr.length-j-1][v] + ret
+                    })
+                    final += (i > 0 && Number(arr) > 0 ? "-" : "") + ret + (i < str.length - 1 && Number(arr) > 0 ? ST_NAMES[3][str.length-i-1] : "")
+                });
+                return neg+(e.log10().gte(9)?'':(m.toFixed(E(3).sub(e.sub(e.div(3).floor().mul(3))).add(1).toNumber())+" "))+final
+            }
+        default:
+            return neg+FORMATS[type].format(ex, acc)
     }
 }
 
+function turnOffline() { player.offline.active = !player.offline.active }
+
 function formatMass(ex) {
     ex = E(ex)
-    if (ex.gte(E(1.5e56).mul('ee9'))) return format(ex.div(1.5e56).log10().div(1e9)) + ' mlt'
-    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + ' uni'
-    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + ' MMWG'
-    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + ' M☉'
-    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + ' M⊕'
-    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + ' MME'
-    if (ex.gte(1e6)) return format(ex.div(1e6)) + ' tonne'
-    if (ex.gte(1e3)) return format(ex.div(1e3)) + ' kg'
-    return format(ex) + ' g'
+    if (ex.gte(E(1.5e56).mul('ee9'))) return format(ex.div(1.5e56).log10().div(1e9)) + '多宇宙'
+    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + '宇宙'
+    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + '银河质量'
+    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + '太阳质量'
+    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + '地球质量'
+    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + '珠峰质量'
+    if (ex.gte(1e6)) return format(ex.div(1e6)) + '吨'
+    if (ex.gte(1e3)) return format(ex.div(1e3)) + '千克'
+    return format(ex) + '克'
 }
 
 function formatGain(amt, gain, isMass=false) {
     let f = isMass?formatMass:format
-	if (gain.gte(1e100) && gain.gt(amt)) return "(+"+format(gain.max(1).log10().sub(amt.max(1).log10().max(1)).times(50))+" OoMs/sec)"
-	else return "(+"+f(gain)+"/sec)"
+	if (gain.gte(1e100) && gain.gt(amt)) return "(+"+format(gain.max(1).log10().sub(amt.max(1).log10().max(1)).times(50))+"数量级/秒)"
+	else return "(+"+f(gain)+"/秒)"
 }
+
+function formatTime(ex,type="s") {
+    ex = E(ex)
+    if (ex.gte(86400)) return format(ex.div(86400).floor(),0)+":"+formatTime(ex.mod(86400),'d')
+    if (ex.gte(3600)||type=="d") return (ex.div(3600).gte(10)||type!="d"?"":"0")+format(ex.div(3600).floor(),0)+":"+formatTime(ex.mod(3600),'h')
+    if (ex.gte(60)||type=="h") return (ex.div(60).gte(10)||type!="h"?"":"0")+format(ex.div(60).floor(),0)+":"+formatTime(ex.mod(60),'m')
+    return (ex.gte(10)||type!="m" ?"":"0")+format(ex)
+}
+
+function expMult(a,b) { return E(a).gte(1) ? E(10).pow(E(a).log10().pow(b)) : E(0) }
 
 function capitalFirst(str) {
 	if (str=="" || str==" ") return str
@@ -804,5 +911,3 @@ function capitalFirst(str) {
 		.map(x => x[0].toUpperCase() + x.slice(1))
 		.join(" ");
 }
-
-setInterval(loop, 50)
