@@ -14,7 +14,7 @@ var cnItems = {
     //主界面等
     'Loading game...': '载入游戏中……',
     'Loading Offline Progress... (': '计算离线进度……(',
-    'Hello, world!': '你好，世界！',
+    'Okay': '好的',
     'x speed': '倍速度',
     'Main': '主要',
     'Stats': '统计',
@@ -288,7 +288,7 @@ var cnItems = {
     '[Antimony] Mass gain softcap^2 is 10% weaker.': '[锑]质量获取速度的二重软上限效果弱化10%。',
     '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]通过黑洞获取的质量可以加成原子能量，只是效果倍率降低。',
     '[Iodine] Mass Dilation upgrade 6 is 75% stronger.': '[碘]质量膨胀升级6的效果增加75%。',
-    '[Xenom] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩的星辰可以加成所有星辰相关资源，只是效果倍率降低。',
+    '[Xenon] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩的星辰可以加成所有星辰相关资源，只是效果倍率降低。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -321,15 +321,17 @@ var cnItems = {
     'Start generating 0.1 Neutron Star per second (not affected by offline production).': '开始每秒产生0.1中子星(不受离线产量影响)。',
     'Tickspeed affects Neutron Star gain at a reduced rate.': '时间速度可以加成中子星获取速度，只是效果倍率降低。',
     'Supernova boosts Neutron Star gain.': '超新星次数可以加成中子星获取速度。',
+    'Blue star boost Neutron star gain at a reduced rate.': '蓝色星辰可以加成中子星获取速度，只是效果倍率降低。',
     'Neutron star multiplies Mass gain.': '中子星可以加成质量获取速度。',
     'Multiplies the Mass requirement for softcap^2 by 1.5': '使质量获取速度的二重软上限阈值变为原来的1.5倍。',
     'Tickspeed Power is raised to the 1.15th.': '时间速度的倍率变为原来的1.15次方。',
     'Neutron Stars multiplies Rage Powers gain': '中子星可以加成狂怒能量获取速度。',
     'Neutron Star multiplies Dark Matters gain.': '中子星可以加成暗物质获取速度。',
-    'BH Condenser power is raised to the 1.15th.': '黑洞压缩器的倍率变为原来的1.15次方。',
+    'BH Condenser power is raised to the 1.15th.': '黑洞压缩器倍率变为原来的1.15次方。',
     'Neutron Star boosts last star gain.': '中子星可以加成最后一种星辰的获取速度。',
     'Star boost\'s Tetr\'s softcap is 50% weaker.': '星辰加成的三重阶层的软上限弱化50%。',
     'Star generators are stronger based on Supernova.': '星辰发生器的效果基于超新星次数变得更强。',
+    'Beyond unlocking stars, Star Unlocker will transform into Booster.': '解锁完星辰以后，星辰解锁的功能变为星辰加速。',
     'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
     'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
     'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
@@ -337,6 +339,7 @@ var cnItems = {
     'Keep challenge 1-4 completions on reset.': '重置时保留挑战1-挑战4的完成次数。',
     'Keep challenge 5-8 completions on reset.': '重置时保留挑战5-挑战8的完成次数。',
     'Unlock new challenge.': '解锁新的挑战。',
+    'BH Condensers power boost Gamma Rays power.': '黑洞压缩器倍率可以加成伽马射线倍率。',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     //超新星结束
     
@@ -352,9 +355,9 @@ var cnItems = {
     'Join Discord': '加入Discord频道',
     'Help': '帮助',
     'Offline Production': '离线产量',
-    'Font Settings': '字体设置',
+    'Fonts': '字体',
+    'Notations': '记数法',
     'Confirmation Settings': '确认窗口设置',
-    'Notation Settings': '记数法设置',
     'Elemental': '元素记数法',
     'Engineering': '工程记数法',
     'Mixed Scientific': '混合科学记数法',
@@ -460,6 +463,7 @@ var cnRegReplace = new Map([
     [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
+    [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
