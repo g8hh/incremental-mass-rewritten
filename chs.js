@@ -331,7 +331,7 @@ var cnItems = {
     'Neutron Star boosts last star gain.': '中子星可以加成最后一种星辰的获取速度。',
     'Star boost\'s Tetr\'s softcap is 50% weaker.': '星辰加成的三重阶层的软上限弱化50%。',
     'Star generators are stronger based on Supernova.': '星辰发生器的效果基于超新星次数变得更强。',
-    'Beyond unlocking stars, Star Unlocker will transform into Booster.': '解锁完星辰以后，星辰解锁的功能变为星辰加速。',
+    'Beyond unlocking stars, Star Unlocker will transform into Booster.': '解锁完星辰以后，星辰解锁的功能变为星辰加成。',
     'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
     'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
     'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
