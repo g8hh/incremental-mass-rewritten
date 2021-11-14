@@ -370,7 +370,7 @@ var cnItems = {
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
     'And you can become Supernova ': '您这下真的是超新星了，',
     'yourself': '真的',
-    'Incremental Mass Rewritten v0.4.0.2 Supernova - made by MrRedShark77': '质量增量重制版v0.4.0.2 超新星 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.0.2 - made by MrRedShark77': '质量增量重制版v0.4.0.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
