@@ -63,6 +63,7 @@ const POPUP_GROUPS = {
             <button class="btn" onclick="player.options.notation = 'elemental'">Elemental</button>
             <button class="btn" onclick="player.options.notation = 'eng'">Engineering</button>
             <button class="btn" onclick="player.options.notation = 'mixed_sc'">Mixed Scientific</button>
+            <button class="btn" onclick="player.options.notation = 'layer'">Prestige Layer</button>
             <button class="btn" onclick="player.options.notation = 'sc'">Scientific</button>
             <button class="btn" onclick="player.options.notation = 'st'">Standard</button>
             <button class="btn" onclick="player.options.notation = 'old_sc'">Old Scientific</button>
@@ -73,7 +74,7 @@ const POPUP_GROUPS = {
     supernova10: {
         html: `
             Congratulations!<br><br>You have becomed 10 Supernovas!<br>
-            And you can become Supernova <b>yourself</b>!
+            And you can manualy supernova!
         `,
         width: 400,
         height: 150,

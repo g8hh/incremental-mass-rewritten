@@ -361,6 +361,7 @@ var cnItems = {
     'Elemental': '元素记数法',
     'Engineering': '工程记数法',
     'Mixed Scientific': '混合科学记数法',
+    'Prestige Layer': '转生层级记数法',
     'Scientific': '科学记数法',
     'Standard': '普通记数法',
     'Old Scientific': '旧科学记数法',
@@ -368,9 +369,8 @@ var cnItems = {
     'Omega Short': 'Omega Short记数法',
     'Congratulations!': '恭喜您！',
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
-    'And you can become Supernova ': '您这下真的是超新星了，',
-    'yourself': '真的',
-    'Incremental Mass Rewritten v0.4.0.2 - made by MrRedShark77': '质量增量重制版v0.4.0.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'And you can manualy supernova!': '您可以手动成为超新星了！',
+    'Incremental Mass Rewritten v0.4.0.3 - made by MrRedShark77': '质量增量重制版v0.4.0.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -468,6 +468,7 @@ var cnRegReplace = new Map([
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
+    [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩的星辰不少于$1时就可以成为超新星了'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
