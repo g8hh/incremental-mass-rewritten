@@ -32,6 +32,8 @@ var cnItems = {
     'Particles': '粒子',
     'Elements': '元素',
     'Mass Dilation': '质量膨胀',
+    'Neutron Tree': '中子树',
+    'Bosons': '玻色子',
     'Buy Max': '最大化购买',
     'ON': '开启',
     'OFF': '关闭',
@@ -127,6 +129,7 @@ var cnItems = {
     'Gamma Ray Effect': '伽马射线效果',
     'You collapsed ': '您已经坍缩了',
     ' stars, which makes mass gain is multiplied based on every type of Ranks': '星辰，因此质量获取速度基于级别的种类而增加',
+    ' of collapsed stars gain will softcap collapsed stars gain!': '的坍缩星辰以后，星辰获取速度将受到软上限限制！',
     //主界面等结束
 
     //统计
@@ -171,7 +174,7 @@ var cnItems = {
     'Mass gain softcap is 10% weaker.': '质量获取速度的软上限弱化10%。',
     'Hyper Mass Upgrade & Tickspeed scales 15% weaker.': '质量升级和时间速度的究级折算弱化15%。',
     'Quark gain is multiplied by 10.': '夸克获取速度变为原来的10倍。',
-    'Neturon Powers boosts mass of Black Hole gain.': '中子能量可以加成黑洞质量获取速度。',
+    'Neutron Powers boosts mass of Black Hole gain.': '中子能量可以加成黑洞质量获取速度。',
     'Atomic Powers adds Black Hole Condensers at a reduced rate.': '原子能量可以增加黑洞压缩器的数量，只是效果倍率降低。',
     'Atom Upgrades': '原子升级',
     'Start with Mass upgrades unlocked.': '初始状态下就解锁质量升级。',
@@ -274,21 +277,23 @@ var cnItems = {
     '[Rubidium] Super Tier scale weaker based on Tetr.': '[铷]阶层的超级折算基于三重阶层的数值而弱化。',
     '[Strontium] Gamma ray\'s free tickspeeds now adds to RU7.': '[锶]通过伽马射线获得的免费时间速度升级计入狂怒升级7。',
     '[Yttrium] Remove softcap from C2 & C6 effects.': '[钇]移除挑战2和挑战6奖励效果的软上限。',
-    '[Zirconium] Collapsed star boost dilated mass gain.': '[锆]坍缩的星辰可以加成膨胀质量获取速度。',
+    '[Zirconium] Collapsed star boost dilated mass gain.': '[锆]坍缩星辰可以加成膨胀质量获取速度。',
     '[Niobium] Add 50 more C7 maximum completions.': '[铌]挑战7的次数上限增加50。',
-    '[Molybdenum] Collapsed star boost quark gain.': '[钼]坍缩的星辰可以加成夸克获取速度。',
+    '[Molybdenum] Collapsed star boost quark gain.': '[钼]坍缩星辰可以加成夸克获取速度。',
     '[Technetium] You can now automatically buy mass dilation upgrades if you purchased any first. They no longer spent dilated mass.': '[锝]只要您购买过相应的质量膨胀升级，就可以自动购买它们。购买质量膨胀升级不再花费膨胀质量。',
     '[Ruthenium] The Tetr requirement is broken.': '[钌]三重阶层的需求大幅降低。',
-    '[Rhodium] Collapsed star boost relativistic particles gain.': '[铑]坍缩的星辰可以加成相对论粒子获取速度。',
-    '[Palladium] Collapsed star’s effect boost mass gain from the black hole at a reduced rate.': '[钯]坍缩的星辰可以加成黑洞质量获取速度，只是效果倍率降低。',
+    '[Rhodium] Collapsed star boost relativistic particles gain.': '[铑]坍缩星辰可以加成相对论粒子获取速度。',
+    '[Palladium] Collapsed star’s effect boost mass gain from the black hole at a reduced rate.': '[钯]坍缩星辰可以加成黑洞质量获取速度，只是效果倍率降低。',
     '[Silver] Quarks gain is raised to the 1.05th power.': '[银]夸克获取速度变为原来的1.05次方。',
-    '[Cadmium] Collapsed stars effect is 10% stronger.': '[镉]坍缩的星辰效果加强10%。',
-    '[Indium] Collapsed star boost last type of stars.': '[铟]坍缩的星辰可以加强最后一种星辰。',
+    '[Cadmium] Collapsed stars effect is 10% stronger.': '[镉]坍缩星辰效果加强10%。',
+    '[Indium] Collapsed star boost last type of stars.': '[铟]坍缩星辰可以加强最后一种星辰。',
     '[Tin] Star generator is now ^1.05 stronger.': '[锡]星辰发生器的速度变为原来的1.05次方。',
     '[Antimony] Mass gain softcap^2 is 10% weaker.': '[锑]质量获取速度的二重软上限效果弱化10%。',
     '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]通过黑洞获取的质量可以加成原子能量，只是效果倍率降低。',
     '[Iodine] Mass Dilation upgrade 6 is 75% stronger.': '[碘]质量膨胀升级6的效果增加75%。',
-    '[Xenon] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩的星辰可以加成所有星辰相关资源，只是效果倍率降低。',
+    '[Xenon] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩星辰可以加成所有星辰相关资源，只是效果倍率降低。',
+    '[Caesium] Hyper/Ultra BH Condenser & Gamma Ray scale 25% weaker.': '[铯]黑洞压缩器和伽马射线的究级和超究折算弱化25%。',
+    '[Barium] Add 200 more C8 maximum completions.': '[钡]挑战8的次数上限增加200。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -318,29 +323,45 @@ var cnItems = {
     ' stars': '星辰',
     ' Neutron star.': '中子星。',
     'You become Supernova!': '您成为了超新星！',
-    'Start generating 0.1 Neutron Star per second (not affected by offline production).': '开始每秒产生0.1中子星(不受离线产量影响)。',
-    'Tickspeed affects Neutron Star gain at a reduced rate.': '时间速度可以加成中子星获取速度，只是效果倍率降低。',
-    'Supernova boosts Neutron Star gain.': '超新星次数可以加成中子星获取速度。',
-    'Blue star boost Neutron star gain at a reduced rate.': '蓝色星辰可以加成中子星获取速度，只是效果倍率降低。',
-    'Neutron star multiplies Mass gain.': '中子星可以加成质量获取速度。',
-    'Multiplies the Mass requirement for softcap^2 by 1.5': '使质量获取速度的二重软上限阈值变为原来的1.5倍。',
-    'Tickspeed Power is raised to the 1.15th.': '时间速度的倍率变为原来的1.15次方。',
-    'Neutron Stars multiplies Rage Powers gain': '中子星可以加成狂怒能量获取速度。',
-    'Neutron Star multiplies Dark Matters gain.': '中子星可以加成暗物质获取速度。',
-    'BH Condenser power is raised to the 1.15th.': '黑洞压缩器倍率变为原来的1.15次方。',
-    'Neutron Star boosts last star gain.': '中子星可以加成最后一种星辰的获取速度。',
-    'Star boost\'s Tetr\'s softcap is 50% weaker.': '星辰加成的三重阶层的软上限弱化50%。',
-    'Star generators are stronger based on Supernova.': '星辰发生器的效果基于超新星次数变得更强。',
-    'Beyond unlocking stars, Star Unlocker will transform into Booster.': '解锁完星辰以后，星辰解锁的功能变为星辰加成。',
-    'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
-    'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
-    'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
-    'Add 100 more C7 & C8 maximum completions.': '挑战7和挑战8的次数上限增加100。',
-    'Keep challenge 1-4 completions on reset.': '重置时保留挑战1-挑战4的完成次数。',
-    'Keep challenge 5-8 completions on reset.': '重置时保留挑战5-挑战8的完成次数。',
-    'Unlock new challenge.': '解锁新的挑战。',
-    'BH Condensers power boost Gamma Rays power.': '黑洞压缩器倍率可以加成伽马射线倍率。',
+    '[c] Start generating 0.1 Neutron Star per second (not affected by offline production).': '[c]开始每秒产生0.1中子星(不受离线产量影响)。',
+    '[sn1] Tickspeed affects Neutron Star gain at a reduced rate.': '[sn1]时间速度可以加成中子星获取速度，只是效果倍率降低。',
+    '[sn2] Supernova boosts Neutron Star gain.': '[sn2]超新星次数可以加成中子星获取速度。',
+    '[sn3] Blue star boost Neutron star gain at a reduced rate.': '[sn3]蓝色星辰可以加成中子星获取速度，只是效果倍率降低。',
+    '[sn4] Tree “sn2”’s effect base is increased by Supernova.': '[sn4]中子树sn2的基础效果基于超新星次数而增加。',
+    '[m1] Neutron star multiplies Mass gain.': '[m1]中子星可以加成质量获取速度。',
+    '[m2] Multiplies the Mass requirement for softcap^2 by 1.5': '[m2]使质量获取速度的二重软上限阈值变为原来的1.5倍。',
+    '[t1] Tickspeed Power is raised to the 1.15th.': '[t1]时间速度倍率变为原来的1.15次方。',
+    '[rp1] Neutron Stars multiplies Rage Powers gain': '[rp1]中子星可以加成狂怒能量获取速度。',
+    '[bh1] Neutron Star multiplies Dark Matters gain.': '[bh1]中子星可以加成暗物质获取速度。',
+    '[bh2] BH Condenser power is raised to the 1.15th.': '[bh2]黑洞压缩器倍率变为原来的1.15次方。',
+    '[s1] Neutron Star boosts last star gain.': '[s1]中子星可以加成最后一种星辰的获取速度。',
+    '[s2] Star boost\'s Tetr\'s softcap is 50% weaker.': '[s2]星辰加成的三重阶层的软上限弱化50%。',
+    '[s3] Star generators are stronger based on Supernova.': '[s3]星辰发生器的效果基于超新星次数变得更强。',
+    '[s4] Beyond unlocking stars, Star Unlocker will transform into Booster.': '[s4]解锁完星辰以后，星辰解锁的功能变为星辰加成。',
+    '[qol1] Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '[qol1]初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
+    '[qol2] Start with Chromium-24 and Atom upgrade 6 unlocked.': '[qol2]初始状态下就解锁铬(Cr24)和原子升级6。',
+    '[qol3] Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '[qol3]初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
+    '[qol4] You can now automatically buy Star unlockers & boosters.': '[qol4]您可以自动购买星辰解锁和星辰加成。',
+    '[chal1] Add 100 more C7 & C8 maximum completions.': '[chal1]挑战7和挑战8的次数上限增加100。',
+    '[chal2] Keep challenge 1-4 completions on reset.': '[chal2]重置时保留挑战1-挑战4的完成次数。',
+    '[chal3] Keep challenge 5-8 completions on reset.': '[chal3]重置时保留挑战5-挑战8的完成次数。',
+    '[chal4] Unlock new challenge.': '[chal4]解锁新的挑战。',
+    '[chal4a] Make 9th Challenges effect better.': '[chal4a]使挑战9的奖励效果变得更好。',
+    '[gr1] BH Condensers power boost Gamma Rays power.': '[gr1]黑洞压缩器倍率可以加成伽马射线倍率。',
+    '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
+    'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
+    ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
+    ' Higgs Boson, which raises Gravitons effect by ': '希格斯玻色子，因此引力子效果乘以',
+    ' Photon': '光子',
+    ' Gluon': '胶子',
+    ' Boson, which multiplies Mass gain by ': '玻色子，因此质量获取速度乘以',
+    ' multiplies W': '并使W',
+    ' Bosons gain by ': '玻色子获取速度乘以',
+    ' Boson, which makes Mass gains softcap^2 starts ^': '玻色子，因此质量获取速度的二重软上限延迟',
+    ' later,': '次方出现，',
+    ' Boson, which multiplies Tickspeed Power by ': '玻色子，因此时间速度倍率乘以',
+    ' multiplies W Bosons gain by ': '并使W玻色子的获取速度乘以',
     //超新星结束
     
     //选项
@@ -370,7 +391,8 @@ var cnItems = {
     'Congratulations!': '恭喜您！',
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
     'And you can manualy supernova!': '您可以手动成为超新星了！',
-    'Incremental Mass Rewritten v0.4.0.3 - made by MrRedShark77': '质量增量重制版v0.4.0.3 - 作者为MrRedShark77，由by22dgb汉化',
+    'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
+    'Incremental Mass Rewritten v0.4.1 - made by MrRedShark77': '质量增量重制版v0.4.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -468,7 +490,7 @@ var cnRegReplace = new Map([
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
-    [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩的星辰不少于$1时就可以成为超新星了'], //主界面等
+    [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩星辰不少于$1时就可以成为超新星了'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
@@ -502,4 +524,11 @@ var cnRegReplace = new Map([
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
     [/^Cost: (.+) Neutron star$/, '需：$1中子星'], //超新星等
+    [/^\s+Gain more Dark Matters & Mass from Black Hole based on Photon.$/, '基于光子的数值，增加通过黑洞获取的暗物质和质量的获取速度。'], //超新星等
+    [/^\s+Boost BH Condenser Power.$/, '增加黑洞压缩器倍率。'], //超新星等
+    [/^\s+Photons gain is boosted by Collapsed Star.$/, '使坍缩星辰可以加成光子获取速度。'], //超新星等
+    [/^\s+Gain more Atoms & Atomic Powers based on Gluon.$/, '基于胶子的数值，增加原子获取速度及原子能量。'], //超新星等
+    [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
+    [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
+    [/^\s+Currently$/, '目前效果'], //超新星等
 ]);
