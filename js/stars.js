@@ -98,7 +98,7 @@ function updateStarsScreenHTML() {
 function updateStarsHTML() {
     tmp.el.starSoft1.setDisplay(tmp.stars.gain.gte(tmp.stars.softGain))
 	tmp.el.starSoftStart1.setTxt(format(tmp.stars.softGain))
-    tmp.el.stars_Amt.setTxt(format(player.stars.points,2)+"星辰，上限为"+format(tmp.stars.maxlimit,2)+formatGain(player.stars.points,tmp.stars.gain))
+    tmp.el.stars_Amt.setTxt(format(player.stars.points,2)+"星辰，成为超新星需要"+format(tmp.stars.maxlimit,2)+formatGain(player.stars.points,tmp.stars.gain))
     tmp.el.stars_Eff.setTxt(format(tmp.stars.effect))
 
     tmp.el.star_btn.setDisplay(player.supernova.tree.includes("s4") || player.stars.unls < 5)

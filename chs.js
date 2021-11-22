@@ -128,7 +128,7 @@ var cnItems = {
     'Gamma Ray Power': '伽马射线倍率',
     'Gamma Ray Effect': '伽马射线效果',
     'You collapsed ': '您已经坍缩了',
-    ' stars, which makes mass gain is multiplied based on every type of Ranks': '星辰，因此质量获取速度基于级别的种类而增加',
+    ' stars, which makes mass gain is multiplied based on every type of Ranks': '星辰，质量获取速度基于级别的种类而增加',
     ' of collapsed stars gain will softcap collapsed stars gain!': '的坍缩星辰以后，星辰获取速度将受到软上限限制！',
     //主界面等结束
 
