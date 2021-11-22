@@ -392,7 +392,7 @@ var cnItems = {
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
     'And you can manualy supernova!': '您可以手动成为超新星了！',
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
-    'Incremental Mass Rewritten v0.4.1 - made by MrRedShark77': '质量增量重制版v0.4.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.1.2 - made by MrRedShark77': '质量增量重制版v0.4.1.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -527,6 +527,7 @@ var cnRegReplace = new Map([
     [/^\s+Gain more Dark Matters & Mass from Black Hole based on Photon.$/, '基于光子的数值，增加通过黑洞获取的暗物质和质量的获取速度。'], //超新星等
     [/^\s+Boost BH Condenser Power.$/, '增加黑洞压缩器倍率。'], //超新星等
     [/^\s+Photons gain is boosted by Collapsed Star.$/, '使坍缩星辰可以加成光子获取速度。'], //超新星等
+    [/^\s+All-Star resources gain is boosted by Photon.$/, '使光子可以加成所有星辰相关资源的获取速度。'], //超新星等
     [/^\s+Gain more Atoms & Atomic Powers based on Gluon.$/, '基于胶子的数值，增加原子获取速度及原子能量。'], //超新星等
     [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
     [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
