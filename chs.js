@@ -349,6 +349,7 @@ var cnItems = {
     '[chal4a] Make 9th Challenges effect better.': '[chal4a]使挑战9的奖励效果变得更好。',
     '[gr1] BH Condensers power boost Gamma Rays power.': '[gr1]黑洞压缩器倍率可以加成伽马射线倍率。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
+    '[bs2] Photon, Gluon powers up each other.': '[bs2]光子和胶子互相加成彼此的获取速度。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -392,7 +393,7 @@ var cnItems = {
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
     'And you can manualy supernova!': '您可以手动成为超新星了！',
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
-    'Incremental Mass Rewritten v0.4.1.2 - made by MrRedShark77': '质量增量重制版v0.4.1.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.1.3 - made by MrRedShark77': '质量增量重制版v0.4.1.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -531,5 +532,6 @@ var cnRegReplace = new Map([
     [/^\s+Gain more Atoms & Atomic Powers based on Gluon.$/, '基于胶子的数值，增加原子获取速度及原子能量。'], //超新星等
     [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
     [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
+    [/^\s+Supernova requirement is decreased based on Gluon.$/, '基于胶子的数值，降低超新星的需求。'], //超新星等
     [/^\s+Currently$/, '目前效果'], //超新星等
 ]);
