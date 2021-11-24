@@ -533,5 +533,6 @@ var cnRegReplace = new Map([
     [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
     [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
     [/^\s+Supernova requirement is decreased based on Gluon.$/, '基于胶子的数值，降低超新星的需求。'], //超新星等
+    [/^Currently: (.+)x to Photon, (.+)x to Gluon$/, '目前效果：光子获取速度变为$1倍，胶子获取速度变为$2倍'], //超新星等
     [/^\s+Currently$/, '目前效果'], //超新星等
 ]);

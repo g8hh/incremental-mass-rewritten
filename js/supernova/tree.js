@@ -262,7 +262,7 @@ const TREE_UPGS = {
                 let y = expMult(player.supernova.bosons.gluon,1/2,2)
                 return [x,y]
             },
-            effDesc(x) { return "光子获取速度变为"+format(x[1])+"倍，胶子获取速度变为"+format(x[0])+"倍" },
+            effDesc(x) { return format(x[1])+"x to Photon, "+format(x[0])+"x to Gluon" },
         },
         /*
         x: {
