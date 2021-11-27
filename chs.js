@@ -306,6 +306,7 @@ var cnItems = {
     'Tickspeed affect all-star resources at a reduced rate.': '时间速度可以对所有星辰相关资源生效，只是效果倍率降低。',
     'Double quarks gain.': '夸克获取速度翻倍。',
     'Add 0.015 Mass Dilation upgrade 6’s base.': '使质量膨胀升级6的基础效果增加0.015。',
+    'Mass Dilation upgrades in the first row are stronger.': '使第一行质量膨胀升级的效果变得更好。',
     'Currently': '目前效果',
     //原子结束
 
@@ -522,6 +523,7 @@ var cnRegReplace = new Map([
     [/^ Electrons Powers, which:\s*$/, '电子能量，因此获得以下效果：'], //原子等
     [/^Currently: (.+)x\s?$/, '目前效果：$1倍'], //原子等
     [/^Currently: (.+)x stronger$/, '目前效果：强化$1倍'], //原子等
+    [/^Currently: \+(.+)% stronger$/, '目前效果：强化$1%'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
     [/^Cost: (.+) Neutron star$/, '需：$1中子星'], //超新星等
