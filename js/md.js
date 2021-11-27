@@ -142,7 +142,7 @@ const MASS_DILATION = {
                 effect(x) {
                     return x.pow(0.5).div(100).add(1)
                 },
-                effDesc(x) { return "+"+format(x.sub(1).mul(100))+"% stronger" },
+                effDesc(x) { return "强化"+format(x.sub(1).mul(100))+"%" },
             },
         ],
     },
