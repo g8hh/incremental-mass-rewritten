@@ -102,7 +102,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `Collapse Stars gain softcap starts ^${format(x)} later`+(x.gte(1.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return `Collapse Stars gain softcap starts ^${format(x)} later`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Quark",
                 cons: "^0.625 to the exponent of Atoms gain",
@@ -122,7 +122,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `x${format(x)} to Higgs Bosons & Gravitons gain`+(x.gte(1e6)?" <span class='soft'>(softcapped)</span>":"")
+                    return `x${format(x)} to Higgs Bosons & Gravitons gain`+(x.gte(1e6)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 isMass: true,
                 inc: "Mass of Black Hole",
@@ -191,7 +191,7 @@ function updateFermionsTemp() {
 
 function updateFermionsHTML() {
     for (i = 0; i < 2; i++) {
-        tmp.el["f"+FERMIONS.names[i]+"Amt"].setTxt(format(player.supernova.fermions.points[i],2)+" "+formatGain(player.supernova.fermions.points[i],tmp.fermions.gains[i]))
+        tmp.el["f"+FERMIONS.names[i]+"Amt"].setTxt(format(player.supernova.fermions.points[i],2)+formatGain(player.supernova.fermions.points[i],tmp.fermions.gains[i]))
 
         for (let x = 0; x < FERMIONS.types[i].length; x++) {
             let f = FERMIONS.types[i][x]
@@ -202,7 +202,7 @@ function updateFermionsHTML() {
             tmp.el[id+"_div"].setClasses({fermion_btn: true, [FERMIONS.names[i]]: true, choosed: tmp.fermions.ch[0] == i && tmp.fermions.ch[1] == x})
             tmp.el[id+"_nextTier"].setTxt(fm(f.nextTierAt(player.supernova.fermions.tiers[i][x])))
             tmp.el[id+"_tier_scale"].setTxt(getScalingName('fTier', i, x))
-            tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(f.maxTier?" / "+format(f.maxTier,0):""))
+            tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(f.maxTier?"，上限为"+format(f.maxTier,0):""))
             tmp.el[id+"_desc"].setHTML(f.desc(tmp.fermions.effs[i][x]))
         }
     }

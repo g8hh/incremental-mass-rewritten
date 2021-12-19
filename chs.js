@@ -190,7 +190,7 @@ var cnItems = {
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
     'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究级折算基于目前的阶层数值而延迟出现。',
     'Dilated mass also boost BH Condenser & Gamma Ray powers at a reduced rate.': '膨胀质量可以加成黑洞压缩器倍率和伽马射线倍率，只是效果倍率降低。',
-    'Mass from Black Hole effect is better.': '通过黑洞获取的质量效果变得更好。',
+    'Mass from Black Hole effect is better.': '黑洞质量效果变得更好。',
     //升级结束
 
     //挑战
@@ -213,7 +213,7 @@ var cnItems = {
     'In addtional, mass gain softcap is stronger.': '另外，质量获取速度软上限的效果变得更严重。',
     'Reward: Completions adds 2 maximum completions of 1-4 Challenge.': '奖励：每次完成该挑战，就使挑战1-挑战4的次数上限增加2。',
     'On 16th completion, unlock Elements': '当完成第16次该挑战时，解锁元素',
-    'Dark Matter & Mass from Black Hole gains are rooted by 8.': '通过黑洞获取的暗物质和质量变为原来的八次方根。',
+    'Dark Matter & Mass from Black Hole gains are rooted by 8.': '暗物质和黑洞质量变为原来的八次方根。',
     'Reward: Dark Matter & Mass from Black Hole gains are raised by completions.': '奖励：暗物质和黑洞质量获取速度随着完成次数变为原来的一个指数。',
     'On first completion, unlock 3 rows of Elements': '当完成第1次该挑战时，解锁3行元素',
     'You cannot assign quarks. In addtional, mass gains exponent is raised to 0.9th power.': '您无法分配夸克。另外，质量获取速度的指数变为原来的0.9次方。',
@@ -277,7 +277,7 @@ var cnItems = {
     '[Germanium] Increase dilated mass gain exponent by 5%.': '[锗]膨胀质量获取速度的指数增加5%。',
     '[Arsenic] Add 50 more C8 maximum completions.': '[砷]挑战8的次数上限增加50。',
     '[Selenium] Rage power boost Relativistic particles gain.': '[硒]狂怒能量可以加成相对论粒子获取速度。',
-    '[Bromine] Mass from Black Hole boost dilated mass gain.': '[溴]通过黑洞获取的质量可以加成膨胀质量获取速度。',
+    '[Bromine] Mass from Black Hole boost dilated mass gain.': '[溴]黑洞质量可以加成膨胀质量获取速度。',
     '[Krypton] Unlock Stars.': '[氪]解锁星辰。',
     '[Rubidium] Super Tier scale weaker based on Tetr.': '[铷]阶层的超级折算基于三重阶层的数值而弱化。',
     '[Strontium] Gamma ray\'s free tickspeeds now adds to RU7.': '[锶]通过伽马射线获得的免费时间速度升级计入狂怒升级7。',
@@ -294,14 +294,14 @@ var cnItems = {
     '[Indium] Collapsed star boost last type of stars.': '[铟]坍缩星辰可以加强最后一种星辰。',
     '[Tin] Star generator is now ^1.05 stronger.': '[锡]星辰发生器的速度变为原来的1.05次方。',
     '[Antimony] Mass gain softcap^2 is 10% weaker.': '[锑]质量获取速度的二重软上限效果弱化10%。',
-    '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]通过黑洞获取的质量可以加成原子能量，只是效果倍率降低。',
+    '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]黑洞质量可以加成原子能量，只是效果倍率降低。',
     '[Iodine] Mass Dilation upgrade 6 is 75% stronger.': '[碘]质量膨胀升级6的效果增加75%。',
     '[Xenon] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩星辰可以加成所有星辰相关资源，只是效果倍率降低。',
     '[Caesium] Hyper/Ultra BH Condenser & Gamma Ray scale 25% weaker.': '[铯]黑洞压缩器和伽马射线的究级和超究折算弱化25%。',
     '[Barium] Add 200 more C8 maximum completions.': '[钡]挑战8的次数上限增加200。',
     '[Lanthanum] Tickspeed power boost base from Star Booster at a reduced rate.': '[镧]时间速度倍率可以加成星辰发生器的基础加成，只是效果倍率降低。',
     '[Cerium] Ultra Rank & Tickspeed scales weaker based on Tier.': '[铈]级别和时间速度的超究折算基于阶层的数值而弱化。',
-    '[Praseodymium] The power from the mass of the BH formula is increased to 0.5.': '[镨]通过黑洞获取的质量公式中，指数增加为0.5。',
+    '[Praseodymium] The power from the mass of the BH formula is increased to 0.5.': '[镨]黑洞质量公式中，指数增加为0.5。',
     '[Neodymium] Add 100 more C7 maximum completions.': '[钕]挑战7的次数上限增加100。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
@@ -378,8 +378,28 @@ var cnItems = {
     ' multiplies W Bosons gain by ': '并使W玻色子的获取速度乘以',
     'Note: Choosing any fermion will reset without being Supernova!': '注意：选择任意费米子后，将在未成为超新星的前提下重置！',
     'Back to Normal': '恢复正常',
-    ' U-Quark': '上夸克',
-    ' U-Lepton': '缪轻子',
+    ' You have ': '您拥有',
+    ' U-Quark': 'U-夸克',
+    ' U-Lepton': 'U-轻子',
+    '[Up]': '[上夸克]',
+    '[Down]': '[下夸克]',
+    '[Charm]': '[粲夸克]',
+    '[Strange]': '[奇夸克]',
+    '[Top]': '[顶夸克]',
+    '[Bottom]': '[底夸克]',
+    '[Electron]': '[电子]',
+    '[Muon]': '[缪子]',
+    '[Tau]': '[陶子]',
+    '[Neutrion]': '[电中微子]',
+    '[Neut-Muon]': '[缪中微子]',
+    '[Neut-Tau]': '[陶中微子]',
+    'Tier ': '阶层',
+    'Next Tier at': '下一阶层需',
+    '(Increased by Atomic Powers': '(单位为原子能量',
+    '(Increased by Relativistic Particle': '(单位为相对论粒子',
+    '(Increased by Quark': '(单位为夸克',
+    '(Increased by Mass of Black Hole': '(单位为黑洞质量',
+    'Effect': '效果',
     //超新星结束
     
     //选项
@@ -544,7 +564,7 @@ var cnRegReplace = new Map([
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
     [/^Cost: (.+) Neutron star$/, '需：$1中子星'], //超新星等
-    [/^\s+Gain more Dark Matters & Mass from Black Hole based on Photon.$/, '基于光子的数值，增加通过黑洞获取的暗物质和质量的获取速度。'], //超新星等
+    [/^\s+Gain more Dark Matters & Mass from Black Hole based on Photon.$/, '基于光子的数值，增加暗物质和黑洞质量的获取速度。'], //超新星等
     [/^\s+Boost BH Condenser Power.$/, '增加黑洞压缩器倍率。'], //超新星等
     [/^\s+Photons gain is boosted by Collapsed Star.$/, '使坍缩星辰可以加成光子获取速度。'], //超新星等
     [/^\s+All-Star resources gain is boosted by Photon.$/, '使光子可以加成所有星辰相关资源的获取速度。'], //超新星等
@@ -554,4 +574,12 @@ var cnRegReplace = new Map([
     [/^\s+Supernova requirement is decreased based on Gluon.$/, '基于胶子的数值，降低超新星的需求。'], //超新星等
     [/^Currently: (.+)x to Photon, (.+)x to Gluon$/, '目前效果：光子获取速度变为$1倍，胶子获取速度变为$2倍'], //超新星等
     [/^\s+Currently$/, '目前效果'], //超新星等
+    [/^Adds (.+) free Gamma Rays$/, '增加$1个免费伽马射线'], //超新星等
+    [/^x(.+) to Relativistic Particles gain$/, '相对论粒子获取速度变为$1倍'], //超新星等
+    [/^Collapse Stars gain softcap starts \^(.+) later$/, '坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
+    [/^x(.+) to Higgs Bosons & Gravitons gain$/, '希格斯玻色子和引力子的获取速度变为$1倍'], //超新星等
+    [/^On Active: \^0.6 to the exponent of Atomic Powers gain$/, '激活时，使原子能量的获取速度指数变为原来的0.6次方'], //超新星等
+    [/^On Active: The exponent of the RP formula is divided by 10$/, '激活时，使相对论粒子公式的指数除以10'], //超新星等
+    [/^On Active: \^0.625 to the exponent of Atoms gain$/, '激活时，使原子的获取速度指数变为原来的0.625次方'], //超新星等
+    [/^On Active: The power from the mass of the BH formula is always -1$/, '激活时，黑洞质量公式中，指数始终为-1'], //超新星等
 ]);
