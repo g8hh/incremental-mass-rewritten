@@ -93,7 +93,7 @@ const BOSONS = {
                 cost(x) { return E(5).pow(x.pow(1.25)).mul(1e5) },
                 bulk(x=player.supernova.bosons.photon) { return x.gte(1e5) ? x.div(1e5).max(1).log(5).root(1.25).add(1).floor() : E(0) },
                 effect(x) { return player.supernova.bosons.photon.add(1).log10().add(1).pow(x.mul(0.5)) },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },
         ],
         gluon: [
