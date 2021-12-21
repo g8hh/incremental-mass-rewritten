@@ -316,7 +316,7 @@ var cnItems = {
     'Tickspeed affect all-star resources at a reduced rate.': '时间速度可以对所有星辰相关资源生效，只是效果倍率降低。',
     'Double quarks gain.': '夸克获取速度翻倍。',
     'Add 0.015 Mass Dilation upgrade 6’s base.': '使质量膨胀升级6的基础效果增加0.015。',
-    'Mass Dilation upgrades in the first row are stronger.': '使第一行质量膨胀升级的效果变得更好。',
+    'First 3 Mass Dilation upgrades are stronger.': '使前3个质量膨胀升级的效果变得更好。',
     'Currently': '目前效果',
     //原子结束
 
