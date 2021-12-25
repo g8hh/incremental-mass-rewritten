@@ -190,7 +190,8 @@
                     </div>
                 </div><br><div>
                     <span id="massSoft1" class="red">After <b id="massSoftStart1">X</b> of mass gain will softcap mass gain!</span><br>
-                    <span id="massSoft3" style="color: rgb(121, 0, 0)">After <b id="massSoftStart3">X</b> of mass gain will softcap^2 mass gain!</span>
+                    <span id="massSoft3" style="color: rgb(121, 0, 0)">After <b id="massSoftStart3">X</b> of mass gain will softcap^2 mass gain!</span><br>
+                    <span id="massSoft4" style="color: rgb(122, 0, 86)">After <b id="massSoftStart4">X</b> of mass gain will softcap^3 mass gain!</span>
                 </div>
             </div><div id="stab_frame0_1">
                 You have <span id="bhMass2">X</span> of Black Hole<br>
@@ -288,7 +289,7 @@
             </div>
         </div><div id="tab_frame6">
             <button class="btn" onclick="save()">Save</button>
-            <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(); save(); location.reload()}">Hard Reset</button>
+            <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(true)}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
             <button class="btn" onclick="export_copy()">Export to clipboard</button>
             <button class="btn" onclick="importy()">Import</button>
@@ -300,7 +301,7 @@
             <h2>Confirmation Settings</h2><br>
             <div id="confirm_table" class="table_center"></div>
             <br><br>
-            Incremental Mass Rewritten v0.4.2.1.1 - made by MrRedShark77<br>
+            Incremental Mass Rewritten v0.4.2.2 - made by MrRedShark77<br>
             The game is inspired by Distance Incremental & Synergism<br><br><br>
             Hint 1: Hover top image above tabs to show description...<br><br>
             Total time played: <span id="total_time">X</span>

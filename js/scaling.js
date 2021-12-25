@@ -16,6 +16,7 @@ const SCALE_START = {
 		tickspeed: E(250),
 		bh_condenser: E(300),
 		gamma_ray: E(300),
+		supernova: E(35),
 	},
 	ultra: {
 		rank: E(600),
@@ -135,6 +136,9 @@ function getScalingStart(type, name) {
 		}
 	}
 	if (type=="ultra") {
+		if (name=="rank") {
+			if (player.atom.elements.includes(62)) start = start.add(tmp.elements.effect[62])
+		}
 		if (name=="tickspeed") {
 			if (player.ranks.tetr.gte(5)) start = start.add(RANKS.effect.tetr[5]())
 		}
@@ -164,6 +168,9 @@ function getScalingPower(type, name) {
 		}
 		if (name=='gamma_ray') {
 			if (player.atom.elements.includes(15)) power = power.mul(0.8)
+		}
+		if (name=="fTier") {
+			if (player.supernova.tree.includes("fn3")) power = power.mul(0.925)
 		}
 	}
 	if (type=="hyper") {
