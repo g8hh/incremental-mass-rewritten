@@ -382,8 +382,9 @@ const ELEMENTS = {
             desc: `Tickspeed power boost base from Star Booster at a reduced rate.`,
             cost: E('e3.6e4'),
             effect() {
-                let x = tmp.tickspeedEffect?tmp.tickspeedEffect.step.max(1).log10().div(10):E(0)
-                return x.max(1)
+                let x = tmp.tickspeedEffect?tmp.tickspeedEffect.step.max(1).log10().div(10).max(1):E(1)
+                if (player.atom.elements.includes(66)) x = x.pow(2)
+                return x
             },
             effDesc(x) { return format(x)+"x" },
         },
@@ -397,7 +398,7 @@ const ELEMENTS = {
             effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
         },
         {
-            desc: `The power from the mass of the BH formula is increased to 0.5.`,
+            desc: `The power from the mass of the BH formula is increased to 0.45.`,
             cost: E('e6.6e4'),
         },
         {
@@ -421,6 +422,27 @@ const ELEMENTS = {
             desc: `Non-bonus Tickspeed is 25x effective.`,
             cost: E('e3e5'),
         },
+        {
+            desc: `Rewards from Challenges 3-4 & 8 are 50% effective.`,
+            cost: E('e5e5'),
+        },
+        {
+            desc: `Add 200 more C7 & c8 maximum completions.`,
+            cost: E('e8e5'),
+        },
+        {
+            desc: `Lanthanum's effect is twice stronger.`,
+            cost: E('e1.1e6'),
+        },
+        {
+            desc: `Collapsed star boost quarks gain.`,
+            cost: E('e1.7e6'),
+            effect() {
+                let x = player.stars.points.add(1)
+                return x
+            },
+            effDesc(x) { return format(x)+"x" },
+        },
     ],
     /*
     {
@@ -435,11 +457,13 @@ const ELEMENTS = {
     */
     getUnlLength() {
         let u = 4
-        if (player.chal.comps[8].gte(1)) u += 14
-        if (player.atom.elements.includes(18)) u += 3
-        if (MASS_DILATION.unlocked()) u += 15
-        if (STARS.unlocked()) u += 18
         if (player.supernova.times.gte(1)) u = 49+5
+        else {
+            if (player.chal.comps[8].gte(1)) u += 14
+            if (player.atom.elements.includes(18)) u += 3
+            if (MASS_DILATION.unlocked()) u += 15
+            if (STARS.unlocked()) u += 18
+        }
         if (player.supernova.post_10) u += 3
         if (player.supernova.fermions.unl) u += 10
         return u

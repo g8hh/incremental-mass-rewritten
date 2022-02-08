@@ -49,8 +49,16 @@ function calc(dt, dt_offline) {
     player.md.mass = player.md.mass.add(tmp.md.mass_gain.mul(dt))
     if (player.supernova.tree.includes("qol3")) player.md.particles = player.md.particles.add(player.md.active ? tmp.md.rp_gain.mul(dt) : tmp.md.passive_rp_gain.mul(dt))
     if (player.supernova.tree.includes("qol4")) STARS.generators.unl(true)
+    if (player.supernova.tree.includes("qol7")) {
+        for (let x = 0; x < BOSONS.upgs.ids.length; x++) {
+            let id = BOSONS.upgs.ids[x]
+            for (let y = 0; y < BOSONS.upgs[id].length; y++) BOSONS.upgs.buy(id,y)
+        }
+    }
     calcStars(dt)
     calcSupernova(dt, dt_offline)
+
+    if (player.supernova.tree.includes("qol6")) CHALS.exit(true)
 
     tmp.pass = true
 
@@ -202,7 +210,7 @@ function loadPlayer(load) {
     player.chal.choosed = 0
     for (i = 0; i < 2; i++) for (let x = 0; x < FERMIONS.types[i].length; x++) {
         let f = FERMIONS.types[i][x]
-        if (f.maxTier) player.supernova.fermions.tiers[i][x] = player.supernova.fermions.tiers[i][x].min(f.maxTier)
+        player.supernova.fermions.tiers[i][x] = player.supernova.fermions.tiers[i][x].min(typeof f.maxTier == "function" ? f.maxTier() : f.maxTier||1/0)
     }
     let off_time = (Date.now() - player.offline.current)/1000
     if (off_time >= 60 && player.offline.active) player.offline.time += off_time
@@ -331,6 +339,7 @@ function loadGame(start=true) {
             })
         }
         setInterval(loop, 50)
+        setInterval(updateStarsScreenHTML, 50)
         treeCanvas()
         setInterval(drawTreeHTML, 50)
     }

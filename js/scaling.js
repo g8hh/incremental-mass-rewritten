@@ -12,6 +12,7 @@ const SCALE_START = {
     },
 	hyper: {
 		rank: E(120),
+		tier: E(200),
 		massUpg: E(500),
 		tickspeed: E(250),
 		bh_condenser: E(300),
@@ -24,9 +25,8 @@ const SCALE_START = {
 		bh_condenser: E(750),
 		gamma_ray: E(800),
 	},
-	meta: {/*
-		rank: E(1200),
-		tickspeed: E(3000),*/
+	meta: {
+		tickspeed: E(5e4),
 	},
 }
 

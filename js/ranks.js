@@ -49,114 +49,114 @@ const RANKS = {
     },
     desc: {
         rank: {
-            1: "unlock mass upgrade 1.",
-            2: "unlock mass upgrade 2, reduce mass upgrade 1 cost scaled by 20%.",
-            3: "unlock mass upgrade 3, reduce mass upgrade 2 cost scaled by 20%, mass upgrade 1 boosts itself.",
-            4: "reduce mass upgrade 3 cost scale by 20%.",
-            5: "mass upgrade 2 boosts itself.",
-            6: "make mass gain is boosted by (x+1)^2, where x is rank.",
-            13: "triple mass gain.",
-            14: "double Rage Powers gain.",
-            17: "make rank 6 reward effect is better. [(x+1)^2 -> (x+1)^x^1/3]",
-            34: "make mass upgrade 3 softcap start 1.2x later.",
-            40: "adds tickspeed power based on ranks.",
-            45: "ranks boosts Rage Powers gain.",
-            90: "rank 40 reward is stronger.",
-            180: "mass gain is raised by 1.025.",
-            220: "rank 40 reward is overpowered.",
-            300: "rank multiplie quark gain.",
-            380: "rank multiplie mass gain.",
-            800: "make mass gain softcap 0.25% weaker based on rank.",
+            '1': "解锁质量升级1。",
+            '2': "解锁质量升级2，使质量升级1的花费折算弱化20%。",
+            '3': "解锁质量升级3，使质量升级2的花费折算弱化20%，质量升级1的效果对自身生效。",
+            '4': "使质量升级3的花费折算弱化20%。",
+            '5': "使质量升级2的效果对自身生效。",
+            '6': "使质量获取速度乘以(级别+1)的平方。",
+            '13': "使质量获取速度变为原来的3倍。",
+            '14': "使狂怒能量获取速度翻倍。",
+            '17': "使级别6的奖励公式变得更好。即原公式的指数从2变为级别的1/3次方。",
+            '34': "使质量升级3的软上限延迟1.2倍出现。",
+            '40': "基于级别的数值，增加时间速度倍率。",
+            '45': "使级别可以加成狂怒能量获取速度。",
+            '90': "使级别40的奖励变得更好。",
+            '180': "使质量获取速度变为原来的1.025次方。",
+            '220': "使级别40的奖励变得滥强。",
+            '300': "使级别可以加成夸克获取速度。",
+            '380': "使级别可以加成质量获取速度。",
+            '800': "基于级别的数值，使质量获取速度的软上限弱化0.25%。",
         },
         tier: {
-            1: "reduce rank reqirements by 20%.",
-            2: "raise mass gain by 1.15",
-            3: "reduce all mass upgrades cost scale by 20%.",
-            4: "adds +5% tickspeed power for every tier you have, softcaps at +40%.",
-            6: "make rage powers boosted by tiers.",
-            8: "make tier 6's reward effect stronger by dark matters.",
-            12: "make tier 4's reward effect twice effective and remove softcap.",
-            30: "stronger effect's softcap is 10% weaker.",
-            55: "make rank 380's effect stronger based on tier.",
-            100: "Super Tetr scale 5 later.",
+            '1': "使级别的需求减少20%。",
+            '2': "使质量获取速度变为原来的1.15次方。",
+            '3': "使所有质量升级的花费折算弱化20%。",
+            '4': "每有1个阶层，时间速度倍率就增加5%，在增加40%时达到软上限。",
+            '6': "使阶层可以加成狂怒能量。",
+            '8': "使阶层6的奖励效果基于暗物质的数值变得更强。",
+            '12': "使阶层4的奖励效果翻倍，且移除软上限。",
+            '30': "使强化器效果的软上限弱化10%。",
+            '55': "使级别380的效果基于阶层的数值变得更强。",
+            '100': "使三重阶层的超级折算延迟5次出现。",
         },
         tetr: {
-            1: "reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.",
-            2: "mass upgrade 3 boosts itself.",
-            3: "raise tickspeed effect by 1.05.",
-            4: "Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.",
-            5: "Hyper/Ultra Tickspeed starts later based on tetr.",
-            8: "Mass gain softcap^2 starts ^1.5 later.",
+            '1': "使阶层的需求减少25%，级别的究级折算弱化15%。",
+            '2': "使质量升级3的效果对自身生效。",
+            '3': "使时间速度效果变为原来的1.05次方。",
+            '4': "使级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。",
+            '5': "使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。",
+            '8': "使质量获取速度的二重软上限延迟1.5次方出现。",
         },
     },
     effect: {
         rank: {
-            3() {
+            '3'() {
                 let ret = E(player.massUpg[1]||0).div(20)
                 return ret
             },
-            5() {
+            '5'() {
                 let ret = E(player.massUpg[2]||0).div(40)
                 return ret
             },
-            6() {
+            '6'() {
                 let ret = player.ranks.rank.add(1).pow(player.ranks.rank.gte(17)?player.ranks.rank.add(1).root(3):2)
                 return ret
             },
-            40() {
+            '40'() {
                 let ret = player.ranks.rank.root(2).div(100)
                 if (player.ranks.rank.gte(90)) ret = player.ranks.rank.root(1.6).div(100)
                 if (player.ranks.rank.gte(220)) ret = player.ranks.rank.div(100)
                 return ret
             },
-            45() {
+            '45'() {
                 let ret = player.ranks.rank.add(1).pow(1.5)
                 return ret
             },
-            300() {
+            '300'() {
                 let ret = player.ranks.rank.add(1)
                 return ret
             },
-            380() {
+            '380'() {
                 let ret = E(10).pow(player.ranks.rank.sub(379).pow(1.5).pow(player.ranks.tier.gte(55)?RANKS.effect.tier[55]():1).softcap(1000,0.5,0))
                 return ret
             },
-            800() {
+            '800'() {
                 let ret = E(1).sub(player.ranks.rank.sub(799).mul(0.0025).add(1).softcap(1.25,0.5,0).sub(1)).max(0.75)
                 return ret
             },
         },
         tier: {
-            4() {
+            '4'() {
                 let ret = E(0)
                 if (player.ranks.tier.gte(12)) ret = player.ranks.tier.mul(0.1)
                 else ret = player.ranks.tier.mul(0.05).add(1).softcap(1.4,0.75,0).sub(1)
                 return ret
             },
-            6() {
+            '6'() {
                 let ret = E(2).pow(player.ranks.tier)
                 if (player.ranks.tier.gte(8)) ret = ret.pow(RANKS.effect.tier[8]())
                 return ret
             },
-            8() {
+            '8'() {
                 let ret = player.bh.dm.max(1).log10().add(1).root(2)
                 return ret
             },
-            55() {
+            '55'() {
                 let ret = player.ranks.tier.max(1).log10().add(1).root(4)
                 return ret
             },
         },
         tetr: {
-            2() {
+            '2'() {
                 let ret = E(player.massUpg[3]||0).div(400)
                 return ret
             },
-            4() {
+            '4'() {
                 let ret = E(0.96).pow(player.ranks.tier.pow(1/3))
                 return ret
             },
-            5() {
+            '5'() {
                 let ret = player.ranks.tetr.pow(4).softcap(1000,0.25,0)
                 return ret
             },
@@ -194,6 +194,7 @@ const RANKS = {
         },
         tier() {
             let f = E(1)
+            f = f.mul(tmp.fermions.effs[1][3])
             if (player.ranks.tetr.gte(1)) f = f.mul(1/0.75)
             if (player.mainUpg.atom.includes(10)) f = f.mul(2)
             return f
@@ -346,7 +347,7 @@ function updateRanksTemp() {
 			.add(1)
 			.floor();
 	}*/
-    tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5) && !CHALS.inChal(10)
+    tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5) && !CHALS.inChal(10) && !FERMIONS.onActive("03")
 
     fp = RANKS.fp.tier()
     tmp.ranks.tier.req = player.ranks.tier.div(fp).add(2).pow(2).floor()
@@ -367,6 +368,32 @@ function updateRanksTemp() {
             .mul(fp)
 			.mul(start.pow(exp.sub(1)))
 			.root(exp)
+			.add(1)
+			.floor();
+	}
+    if (scalingActive("tier", player.ranks.tier.max(tmp.ranks.tier.bulk), "hyper")) {
+		let start = getScalingStart("super", "tier");
+		let power = getScalingPower("super", "tier");
+		let exp = E(1.5).pow(power);
+        let start2 = getScalingStart("hyper", "tier");
+		let power2 = getScalingPower("hyper", "tier");
+		let exp2 = E(2.5).pow(power);
+		tmp.ranks.tier.req =
+			player.ranks.tier
+            .pow(exp2)
+			.div(start2.pow(exp2.sub(1)))
+			.pow(exp)
+			.div(start.pow(exp.sub(1))).div(fp)
+			.add(2).pow(2).floor()
+		tmp.ranks.tier.bulk = player.ranks.rank
+            .max(0)
+            .root(2)
+            .sub(2)
+            .mul(fp)
+			.mul(start.pow(exp.sub(1)))
+			.root(exp)
+            .mul(start2.pow(exp2.sub(1)))
+			.root(exp2)
 			.add(1)
 			.floor();
 	}
@@ -400,6 +427,5 @@ function updateRanksTemp() {
         if (x > 0) {
             tmp.ranks[rn].can = player.ranks[RANKS.names[x-1]].gte(tmp.ranks[rn].req)
         }
-        tmp.ranks[rn].desc = player.ranks[rn].lt(Number.MAX_VALUE)?RANKS.desc[rn][player.ranks[rn].toNumber()+1]?RANKS.desc[rn][player.ranks[rn].toNumber()+1]:(capitalFirst(rn)+" up."):(capitalFirst(rn)+" up.")
     }
 }

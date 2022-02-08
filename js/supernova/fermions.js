@@ -44,6 +44,7 @@ const FERMIONS = {
     getUnlLength(x) {
         let u = 2
         if (player.supernova.tree.includes("fn2")) u++
+        if (player.supernova.tree.includes("fn6")) u++
         return u
     },
     names: ['quark', 'lepton'],
@@ -102,19 +103,44 @@ const FERMIONS = {
                     return FERMIONS.getTierScaling(x, true)
                 },
                 eff(i, t) {
-                    let x = i.add(1).log10().pow(1.75).mul(t.pow(0.8)).div(100).add(1)
+                    let x = i.add(1).log10().pow(1.75).mul(t.pow(0.8)).div(100).add(1).softcap(5,0.75,0)
                     return x
                 },
                 desc(x) {
-                    return `Z<sup>0</sup> Boson's first effect is ${format(x.sub(1).mul(100))}% stronger`
+                    return `Z<sup>0</sup> Boson's first effect is ${format(x.sub(1).mul(100))}% stronger`+(x.gte(5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Mass",
                 cons: "You are trapped in Mass Dilation, but they are twice effective",
                 isMass: true,
+            },{
+                nextTierAt(x) {
+                    let t = FERMIONS.getTierScaling(x)
+                    return E('e1000').pow(t.pow(1.5)).mul("e3e4")
+                },
+                calcTier() {
+                    let res = player.rp.points
+                    if (res.lt('e3e4')) return E(0)
+                    let x = res.div('e3e4').max(1).log('e1000').max(0).root(1.5).add(1).floor()
+                    return FERMIONS.getTierScaling(x, true)
+                },
+                eff(i, t) {
+                    let x = i.max(1).log10().add(1).mul(t).pow(0.9).div(100).add(1).softcap(1.5,0.5,0)
+                    return x
+                },
+                desc(x) {
+                    return `4th Photon & Gluon upgrades are ${format(x)}x stronger`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
+                },
+                inc: "Rage Power",
+                cons: "You are trapped in Mass Dilation and Challenges 3-5",
             },
+
         ],[
             {
-                maxTier: 15,
+                maxTier() {
+                    let x = 15
+                    if (player.supernova.tree.includes("fn5")) x += 35
+                    return x
+                },
                 nextTierAt(x) {
                     let t = FERMIONS.getTierScaling(x)
                     return E('e5').pow(t.pow(1.5)).mul("e175")
@@ -126,7 +152,7 @@ const FERMIONS = {
                     return FERMIONS.getTierScaling(x, true)
                 },
                 eff(i, t) {
-                    let x = i.add(1).log10().mul(t).div(100).add(1).softcap(1.5,0.25,0)
+                    let x = i.add(1).log10().mul(t).div(100).add(1).softcap(1.5,player.supernova.tree.includes("fn5")?0.75:0.25,0)
                     return x
                 },
                 desc(x) {
@@ -146,7 +172,7 @@ const FERMIONS = {
                     return FERMIONS.getTierScaling(x, true)
                 },
                 eff(i, t) {
-                    let x = t.pow(1.5).add(1).pow(i.add(1).log10()).softcap(1e6,0.75,0)
+                    let x = t.pow(1.5).add(1).pow(i.add(1).log10().softcap(10,0.75,0)).softcap(1e6,0.75,0)
                     return x
                 },
                 desc(x) {
@@ -167,14 +193,35 @@ const FERMIONS = {
                     return FERMIONS.getTierScaling(x, true)
                 },
                 eff(i, t) {
-                    let x = t.pow(0.8).mul(0.025).add(1).pow(i.add(1).log10()).softcap(3,0.5,0)
+                    let x = t.pow(0.8).mul(0.025).add(1).pow(i.add(1).log10())
                     return x
                 },
                 desc(x) {
-                    return `Tickspeed is ${format(x)}x cheaper`+(x.gte('3')?"<span class='soft'>(softcapped)</span>":"")
+                    return `Tickspeed is ${format(x)}x cheaper (before Meta scaling)`
                 },
                 inc: "Dark Matter",
                 cons: "You are trapped in Challenges 8-9",
+            },{
+                maxTier: 15,
+                nextTierAt(x) {
+                    let t = FERMIONS.getTierScaling(x)
+                    return E('e400').pow(t.pow(1.5)).mul("e1600")
+                },
+                calcTier() {
+                    let res = player.stars.points
+                    if (res.lt('e1600')) return E(0)
+                    let x = res.div('e1600').max(1).log('e400').max(0).root(1.5).add(1).floor()
+                    return FERMIONS.getTierScaling(x, true)
+                },
+                eff(i, t) {
+                    let x = i.max(1).log10().add(1).mul(t).div(200).add(1).softcap(1.5,0.5,0)
+                    return x
+                },
+                desc(x) {
+                    return `Tier requirement is ${format(x)}x cheaper`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
+                },
+                inc: "Collapsed Star",
+                cons: "Star generators are decreased to ^0.5",
             },
 
             /*
@@ -231,6 +278,7 @@ function updateFermionsTemp() {
         for (let x = 0; x < FERMIONS.types[i].length; x++) {
             let f = FERMIONS.types[i][x]
 
+            tmp.fermions.maxTier[i][x] = typeof f.maxTier == "function" ? f.maxTier() : f.maxTier||1/0
             tmp.fermions.tiers[i][x] = f.calcTier()
             tmp.fermions.effs[i][x] = f.eff(player.supernova.fermions.points[i], player.supernova.fermions.tiers[i][x])
         }
@@ -254,7 +302,7 @@ function updateFermionsHTML() {
             tmp.el[id+"_div"].setClasses({fermion_btn: true, [FERMIONS.names[i]]: true, choosed: tmp.fermions.ch[0] == i && tmp.fermions.ch[1] == x})
             tmp.el[id+"_nextTier"].setTxt(fm(f.nextTierAt(player.supernova.fermions.tiers[i][x])))
             tmp.el[id+"_tier_scale"].setTxt(getScalingName('fTier', i, x))
-            tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(f.maxTier?"，上限为"+format(f.maxTier,0):""))
+            tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(tmp.fermions.maxTier[i][x] < Infinity?"，上限为"+format(tmp.fermions.maxTier[i][x],0):""))
             tmp.el[id+"_desc"].setHTML(f.desc(tmp.fermions.effs[i][x]))
         }
     }

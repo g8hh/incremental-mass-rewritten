@@ -33,7 +33,7 @@ function setupHTML() {
 			<button id="ranks_auto_${x}" class="btn" style="width: 80px;" onclick="RANKS.autoSwitch('${rn}')">OFF</button>
 			<span id="ranks_scale_${x}""></span>${RANKS.fullNames[x]}<span id="ranks_amt_${x}">X</span><br><br>
 			<button onclick="RANKS.reset('${rn}')" class="btn reset" id="ranks_${x}">
-				重置${x>0?RANKS.fullNames[x-1]:'质量和质量升级'}，但<span id="ranks_desc_${x}">X</span><br>
+				重置${x>0?RANKS.fullNames[x-1]:'质量和质量升级'}，但提升${RANKS.fullNames[x]}。<span id="ranks_desc_${x}"></span><br>
 				Req: <span id="ranks_req_${x}">X</span>
 			</button>
 		</div>`
@@ -68,7 +68,7 @@ function setupHTML() {
 		table += `<div id="ranks_reward_div_${x}">`
 		let keys = Object.keys(RANKS.desc[rn])
 		for (let y = 0; y < keys.length; y++) {
-			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]}${keys[y]}:</b>${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?` Currently: <span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
+			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]}${keys[y]}:</b>${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?`目前效果：<span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
 		}
 		table += `</div>`
 	}
@@ -195,10 +195,19 @@ function updateRanksHTML() {
 		let unl = RANKS.unl[rn]?RANKS.unl[rn]():true
 		tmp.el["ranks_div_"+x].setDisplay(unl)
 		if (unl) {
+			let keys = Object.keys(RANKS.desc[rn])
+			let desc = ""
+			for (let i = 0; i < keys.length; i++) {
+				if (player.ranks[rn].lt(keys[i])) {
+					desc = `在${RANKS.fullNames[x]}${format(keys[i],0)}，将${RANKS.desc[rn][keys[i]]}`
+					break
+				}
+			}
+
 			tmp.el["ranks_scale_"+x].setTxt(getScalingName(rn))
 			tmp.el["ranks_amt_"+x].setTxt(format(player.ranks[rn],0))
 			tmp.el["ranks_"+x].setClasses({btn: true, reset: true, locked: !tmp.ranks[rn].can})
-			tmp.el["ranks_desc_"+x].setTxt(tmp.ranks[rn].desc,0)
+			tmp.el["ranks_desc_"+x].setTxt(desc)
 			tmp.el["ranks_req_"+x].setTxt(x==0?formatMass(tmp.ranks[rn].req):RANKS.fullNames[x-1]+format(tmp.ranks[rn].req,0))
 			tmp.el["ranks_auto_"+x].setDisplay(RANKS.autoUnl[rn]())
 			tmp.el["ranks_auto_"+x].setTxt(player.auto_ranks[rn]?"ON":"OFF")
@@ -313,7 +322,6 @@ function updateHTML() {
 	updateSupernovaEndingHTML()
 	updateTabsHTML()
 	if ((!tmp.supernova.reached || player.supernova.post_10) && tmp.tab != 5) {
-		updateStarsScreenHTML()
 		updateUpperHTML()
 		if (tmp.tab == 0) {
 			if (tmp.stab[0] == 0) {

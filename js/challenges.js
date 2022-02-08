@@ -2,7 +2,7 @@ function setupChalHTML() {
     let chals_table = new Element("chals_table")
 	let table = ""
 	for (let x = 1; x <= CHALS.cols; x++) {
-        table += `<div id="chal_div_${x}" style="margin: 5px;"><img id="chal_btn_${x}" onclick="player.chal.choosed = ${x}" class="img_chal" src="images/chal_${x}.png"><br><span id="chal_comp_${x}">X</span></div>`
+        table += `<div id="chal_div_${x}" style="width: 120px; margin: 5px;"><img id="chal_btn_${x}" onclick="CHALS.choose(${x})" class="img_chal" src="images/chal_${x}.png"><br><span id="chal_comp_${x}">X</span></div>`
 	}
 	chals_table.setHTML(table)
 }
@@ -17,13 +17,13 @@ function updateChalHTML() {
             tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+"/"+format(tmp.chal.max[x],0))
         }
     }
-    tmp.el.chal_enter.setVisible(player.chal.active == 0)
+    tmp.el.chal_enter.setVisible(player.chal.active != player.chal.choosed)
     tmp.el.chal_exit.setVisible(player.chal.active != 0)
-    tmp.el.chal_exit.setTxt(tmp.chal.canFinish ? "Finish Challenge for +"+tmp.chal.gain+" Completions" : "Exit Challenge")
+    tmp.el.chal_exit.setTxt(tmp.chal.canFinish && !player.supernova.tree.includes("qol6") ? "Finish Challenge for +"+tmp.chal.gain+" Completions" : "Exit Challenge")
     tmp.el.chal_desc_div.setDisplay(player.chal.choosed != 0)
     if (player.chal.choosed != 0) {
         let chal = CHALS[player.chal.choosed]
-        tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${player.chal.comps[player.chal.choosed].gte(player.chal.choosed>8?10:75)?player.chal.comps[player.chal.choosed].gte(player.chal.choosed==8?200:300)?"疯狂·":"硬化-":""}${chal.title}[完成${player.chal.comps[player.chal.choosed]+"次，次数上限为"+tmp.chal.max[player.chal.choosed]}]`)
+        tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${CHALS.getScaleName(player.chal.choosed)}${chal.title}[完成了${player.chal.comps[player.chal.choosed]+"次，次数上限为"+tmp.chal.max[player.chal.choosed]}次]`)
         tmp.el.chal_ch_desc.setHTML(chal.desc)
         tmp.el.chal_ch_reset.setTxt(CHALS.getReset(player.chal.choosed))
         tmp.el.chal_ch_goal.setTxt("目标："+CHALS.getFormat(player.chal.choosed)(tmp.chal.goal[player.chal.choosed])+CHALS.getResName(player.chal.choosed))
@@ -54,23 +54,35 @@ function updateChalTemp() {
 }
 
 const CHALS = {
+    choose(x) {
+        if (player.chal.choosed == x) {
+            this.enter()
+        }
+        player.chal.choosed = x
+    },
     inChal(x) { return player.chal.active == x },
     reset(x, chal_reset=true) {
         if (x < 5) FORMS.bh.doReset()
         else if (x < 9) ATOM.doReset(chal_reset)
         else SUPERNOVA.reset(true, true)
     },
-    exit() {
+    exit(auto=false) {
         if (!player.chal.active == 0) {
             if (tmp.chal.canFinish) {
                 player.chal.comps[player.chal.active] = player.chal.comps[player.chal.active].add(tmp.chal.gain)
             }
-            this.reset(player.chal.active)
-            player.chal.active = 0
+            if (!auto) {
+                this.reset(player.chal.active)
+                player.chal.active = 0
+            }
         }
     },
     enter() {
         if (player.chal.active == 0) {
+            player.chal.active = player.chal.choosed
+            this.reset(player.chal.choosed, false)
+        } else if (player.chal.choosed != player.chal.active) {
+            this.exit(true)
             player.chal.active = player.chal.choosed
             this.reset(player.chal.choosed, false)
         }
@@ -100,8 +112,15 @@ const CHALS = {
         if (player.atom.elements.includes(60) && (i==7)) x = x.add(100)
         if (player.atom.elements.includes(33) && (i==8)) x = x.add(50)
         if (player.atom.elements.includes(56) && (i==8)) x = x.add(200)
+        if (player.atom.elements.includes(65) && (i==7||i==8)) x = x.add(200)
         if (player.supernova.tree.includes("chal1") && (i==7||i==8))  x = x.add(100)
         return x.floor()
+    },
+    getScaleName(i) {
+        if (player.chal.comps[i].gte(1000)) return "无望~"
+        if (player.chal.comps[i].gte(i==8?200:i>8?50:300)) return "疯狂·"
+        if (player.chal.comps[i].gte(i>8?10:75)) return "硬化-"
+        return ""
     },
     getPower(i) {
         let x = E(1)
@@ -113,12 +132,19 @@ const CHALS = {
         let x = E(1)
         return x
     },
+    getPower3(i) {
+        let x = E(1)
+        return x
+    },
     getChalData(x, r=E(-1)) {
         let res = !CHALS.inChal(0)?this.getResource(x):E(0)
         let lvl = r.lt(0)?player.chal.comps[x]:r
         let chal = this[x]
         let s1 = x > 8 ? 10 : 75
-        let s2 = x == 8 ? 200 : 300
+        let s2 = 300
+        if (x == 8) s2 = 200
+        if (x > 8) s2 = 50
+        let s3 = 1000
         let pow = chal.pow
         if (player.atom.elements.includes(10) && (x==3||x==4)) pow = pow.mul(0.95)
         chal.pow = chal.pow.max(1)
@@ -160,6 +186,34 @@ const CHALS = {
                 .root(exp)
                 .times(start2.pow(exp2.sub(1)))
                 .root(exp2)
+                .add(1)
+                .floor();
+        }
+        if (lvl.max(bulk).gte(s3)) {
+            let start = E(s1);
+            let exp = E(3).pow(this.getPower());
+            let start2 = E(s2);
+            let exp2 = E(4.5).pow(this.getPower2())
+            let start3 = E(s3);
+            let exp3 = E(1.001).pow(this.getPower3())
+            goal =
+            chal.inc.pow(
+                    exp3.pow(lvl.sub(start3)).mul(start3)
+                    .pow(exp2).div(start2.pow(exp2.sub(1))).pow(exp).div(start.pow(exp.sub(1))).pow(pow)
+                ).mul(chal.start)
+            bulk = res
+                .div(chal.start)
+                .max(1)
+                .log(chal.inc)
+                .root(pow)
+                .times(start.pow(exp.sub(1)))
+                .root(exp)
+                .times(start2.pow(exp2.sub(1)))
+                .root(exp2)
+                .div(start3)
+			    .max(1)
+			    .log(exp3)
+			    .add(start3)
                 .add(1)
                 .floor();
         }
@@ -208,6 +262,7 @@ const CHALS = {
         pow: E(1.25),
         start: E(2.9835e49),
         effect(x) {
+            if (player.atom.elements.includes(64)) x = x.mul(1.5)
             let ret = x.root(1.5).mul(0.01).add(1)
             return ret
         },
@@ -223,6 +278,7 @@ const CHALS = {
         pow: E(1.25),
         start: E(1.736881338559743e133),
         effect(x) {
+            if (player.atom.elements.includes(64)) x = x.mul(1.5)
             let ret = x.root(1.5).mul(0.01).add(1)
             return ret
         },
@@ -284,6 +340,7 @@ const CHALS = {
         pow: E(1.3),
         start: E(1.989e38),
         effect(x) {
+            if (player.atom.elements.includes(64)) x = x.mul(1.5)
             let ret = x.root(1.75).mul(0.02).add(1)
             return ret
         },

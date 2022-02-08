@@ -48,55 +48,6 @@ var cnItems = {
     'Rank up.': '提升级别。',
     'Tier up.': '提升阶层。',
     'Tetr up.': '提升三重阶层。',
-    'unlock mass upgrade 1.': '解锁质量升级1。',
-    'unlock mass upgrade 2, reduce mass upgrade 1 cost scaled by 20%.': '解锁质量升级2，使质量升级1的花费折算弱化20%。',
-    'unlock mass upgrade 3, reduce mass upgrade 2 cost scaled by 20%, mass upgrade 1 boosts itself.': '解锁质量升级3，使质量升级2的花费折算弱化20%，质量升级1的效果对自身生效。',
-    'unlock mass upgrade 3, reduce mass upgrade 2 cost scaled by 20%, mass upgrade 1 boosts itself. Currently': '解锁质量升级3，使质量升级2的花费折算弱化20%，质量升级1的效果对自身生效。目前效果',
-    'reduce mass upgrade 3 cost scale by 20%.': '使质量升级3的花费折算弱化20%。',
-    'mass upgrade 2 boosts itself.': '质量升级2的效果对自身生效。',
-    'mass upgrade 2 boosts itself. Currently': '质量升级2的效果对自身生效。目前效果',
-    'make mass gain is boosted by (x+1)^2, where x is rank.': '使质量获取速度乘以(级别+1)的平方。',
-    'make mass gain is boosted by (x+1)^2, where x is rank. Currently': '使质量获取速度乘以(级别+1)的平方。目前效果',
-    'triple mass gain.': '使质量获取速度变为原来的3倍。',
-    'double Rage Powers gain.': '使狂怒能量获取速度翻倍。',
-    'make rank 6 reward effect is better. [(x+1)^2 -> (x+1)^x^1/3]': '使级别6的奖励公式变得更好。即原公式的指数从2变为级别的1/3次方。',
-    'make mass upgrade 3 softcap start 1.2x later.': '使质量升级3的软上限延迟1.2倍出现。',
-    'adds tickspeed power based on ranks.': '基于级别的数值，增加时间速度倍率。',
-    'adds tickspeed power based on ranks. Currently': '基于级别的数值，增加时间速度倍率。目前效果',
-    'ranks boosts Rage Powers gain.': '级别可以加成狂怒能量获取速度。',
-    'ranks boosts Rage Powers gain. Currently': '级别可以加成狂怒能量获取速度。目前效果',
-    'rank 40 reward is stronger.': '级别40的奖励变得更好。',
-    'mass gain is raised by 1.025.': '质量获取速度变为原来的1.025次方。',
-    'rank 40 reward is overpowered.': '级别40的奖励变得滥强。',
-    'rank multiplie quark gain.': '级别可以加成夸克获取速度。',
-    'rank multiplie quark gain. Currently': '级别可以加成夸克获取速度。目前效果',
-    'rank multiplie mass gain.': '级别可以加成质量获取速度。',
-    'rank multiplie mass gain. Currently': '级别可以加成质量获取速度。目前效果',
-    'make mass gain softcap 0.25% weaker based on rank.': '基于级别的数值，使质量获取速度的软上限弱化0.25%。',
-    'make mass gain softcap 0.25% weaker based on rank. Currently': '基于级别的数值，使质量获取速度的软上限弱化0.25%。目前效果',
-    'reduce rank reqirements by 20%.': '使级别的需求减少20%。',
-    'raise mass gain by 1.15': '质量获取速度变为原来的1.15次方。',
-    'reduce all mass upgrades cost scale by 20%.': '使所有质量升级的花费折算弱化20%。',
-    'adds +5% tickspeed power for every tier you have, softcaps at +40%.': '每有1个阶层，时间速度倍率就增加5%，在增加40%时达到软上限。',
-    'adds +5% tickspeed power for every tier you have, softcaps at +40%. Currently': '每有1个阶层，时间速度倍率就增加5%，在增加40%时达到软上限。目前效果',
-    'make rage powers boosted by tiers.': '阶层可以加成狂怒能量。',
-    'make rage powers boosted by tiers. Currently': '阶层可以加成狂怒能量。目前效果',
-    'make tier 6\'s reward effect stronger by dark matters.': '使阶层6的奖励效果基于暗物质的数值变得更强。',
-    'make tier 6\'s reward effect stronger by dark matters. Currently': '使阶层6的奖励效果基于暗物质的数值变得更强。目前效果',
-    'make tier 4\'s reward effect twice effective and remove softcap.': '使阶层4的奖励效果翻倍，且移除软上限。',
-    'stronger effect\'s softcap is 10% weaker.': '强化器效果的软上限弱化10%。',
-    'make rank 380\'s effect stronger based on tier.': '使级别380的效果基于阶层的数值变得更强。',
-    'make rank 380\'s effect stronger based on tier. Currently': '使级别380的效果基于阶层的数值变得更强。目前效果',
-    'Super Tetr scale 5 later.': '使三重阶层的超级折算延迟5次出现。',
-    'reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.': '使阶层的需求减少25%，级别的究级折算弱化15%。',
-    'mass upgrade 3 boosts itself.': '质量升级3的效果对自身生效。',
-    'mass upgrade 3 boosts itself. Currently': '质量升级3的效果对自身生效。目前效果',
-    'raise tickspeed effect by 1.05.': '时间速度效果变为原来的1.05次方。',
-    'Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.': '级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。',
-    'Super Rank scale weaker based on Tier, Super Tier scale 20% weaker. Currently': '级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。目前效果',
-    'Hyper/Ultra Tickspeed starts later based on tetr.': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。',
-    'Hyper/Ultra Tickspeed starts later based on tetr. Currently': '使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。目前效果',
-    'Mass gain softcap^2 starts ^1.5 later.': '质量获取速度的二重软上限延迟1.5次方出现。',
     'Super': '超级折算',
     'Hyper': '究级折算',
     'Ultra': '超究折算',
@@ -196,7 +147,7 @@ var cnItems = {
     //升级结束
 
     //挑战
-    'Hint: Click any image to show challenge description.': '提示：点击图片以查看挑战详情。',
+    'Hint: Click any image to show challenge description. Click again to enter any challenge': '提示：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
     'Exit Challenge': '退出挑战',
     'Enter Challenge': '进入挑战',
     'Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.': '级别和质量升级的超级折算在25次就开始出现。另外，时间速度的超级折算在50次就开始出现。',
@@ -303,15 +254,19 @@ var cnItems = {
     '[Barium] Add 200 more C8 maximum completions.': '[钡]挑战8的次数上限增加200。',
     '[Lanthanum] Tickspeed power boost base from Star Booster at a reduced rate.': '[镧]时间速度倍率可以加成星辰发生器的基础加成，只是效果倍率降低。',
     '[Cerium] Ultra Rank & Tickspeed scales weaker based on Tier.': '[铈]级别和时间速度的超究折算基于阶层的数值而弱化。',
-    '[Praseodymium] The power from the mass of the BH formula is increased to 0.5.': '[镨]黑洞质量公式中，指数增加为0.5。',
+    '[Praseodymium] The power from the mass of the BH formula is increased to 0.45.': '[镨]黑洞质量公式中，指数增加为0.45。',
     '[Neodymium] Add 100 more C7 maximum completions.': '[钕]挑战7的次数上限增加100。',
     '[Promethium] Multiply Particle Powers gain by ^0.5 of its Particle\'s amount after softcap.': '[钷]使粒子能量的获取速度在到达软上限以后，乘以粒子数量的0.5次方。',
     '[Samarium] Ultra Rank scale 3 later for every Supernova.': '[钐]每有一次成为超新星，级别的超究折算就延迟3次出现。',
     '[Europium] Non-bonus Tickspeed is 25x effective.': '[铕]非加成的时间速度效果变为原来的25倍。',
+    '[Gadolinium] Rewards from Challenges 3-4 & 8 are 50% effective.': '[钆]挑战3、挑战4和挑战8的奖励增加50%。',
+    '[Terbium] Add 200 more C7 & c8 maximum completions.': '[铽]挑战7和挑战8的次数上限增加200。',
+    '[Dysprosium] Lanthanum\'s effect is twice stronger.': '[镝]镧(57La)的效果翻倍。',
+    '[Holmium] Collapsed star boost quarks gain.': '[钬]坍缩星辰可以加成夸克获取速度。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
-    'Double relativistic particles gain.': '使相对论粒子获取数量翻倍。',
+    'Double relativistic particles gain.': '使相对论粒子获取速度翻倍。',
     'Dilated mass also boost Stronger\'s power.': '膨胀质量可以加成强化器倍率。',
     'Mass Dilation upgrade 3 scales 10% weaker.': '质量膨胀升级3的折算弱化10%。',
     'Increase the exponent of the RP formula.': '增加相对论粒子公式的指数。',
@@ -345,6 +300,7 @@ var cnItems = {
     '[sn4] Tree “sn2”\'s effect base is increased by Supernova.': '[sn4]中子树sn2的基础效果基于超新星次数而增加。',
     '[m1] Neutron star multiplies Mass gain.': '[m1]中子星可以加成质量获取速度。',
     '[m2] Multiplies the Mass requirement for softcap^2 by 1.5': '[m2]使质量获取速度的二重软上限阈值变为原来的1.5倍。',
+    '[m3] Mass gain softcap^2-3 starts later based on Supernovas.': '[m3]使质量获取速度的二重软上限和三重软上限基于超新星次数而延迟出现。',
     '[t1] Tickspeed Power is raised to the 1.15th.': '[t1]时间速度倍率变为原来的1.15次方。',
     '[rp1] Neutron Stars multiplies Rage Powers gain': '[rp1]中子星可以加成狂怒能量获取速度。',
     '[bh1] Neutron Star multiplies Dark Matters gain.': '[bh1]中子星可以加成暗物质获取速度。',
@@ -358,6 +314,8 @@ var cnItems = {
     '[qol3] Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '[qol3]初始状态下就解锁锝(Tc43)，并且相应的元素效果更好。您可以自动从质量中获得相对论粒子。',
     '[qol4] You can now automatically buy Star unlockers & boosters.': '[qol4]您可以自动购买星辰解锁和星辰加成。',
     '[qol5] Tetrs no longer resets anything.': '[qol5]三重阶层不再重置任何东西。',
+    '[qol6] While in any challenge, you can now automatically complete it before exiting.': '[qol6]不需要退出挑战也可以自动完成它。',
+    '[qol7] You can now automatically buy Photon & Gluon upgrades, they no longer spent their amount.': '[qol7]您可以自动购买光子和胶子升级，购买它们不再消耗相应资源。',
     '[chal1] Add 100 more C7 & C8 maximum completions.': '[chal1]挑战7和挑战8的次数上限增加100。',
     '[chal2] Keep challenge 1-4 completions on reset.': '[chal2]重置时保留挑战1-挑战4的完成次数。',
     '[chal3] Keep challenge 5-8 completions on reset.': '[chal3]重置时保留挑战5-挑战8的完成次数。',
@@ -373,6 +331,10 @@ var cnItems = {
     '[fn1] Tickspeed affect each Fermions gain at a reduced rate.': '[fn1]时间速度可以加成所有费米子获取速度，只是效果倍率降低。',
     '[fn2] Unlock 2 new types of U-Quark & U-Fermion.': '[fn2]解锁两种新的U-夸克和U-轻子。',
     '[fn3] Super Fermion\'s Tier scaling is 7.5% weaker.': '[fn3]费米子阶层的超级折算弱化7.5%。',
+    '[fn4] 2nd Photon & Gluon upgrades are slightly stronger.': '[fn4]光子和胶子升级2的效果略微增强。',
+    '[fn5] [Electron] max tier is increased by 35. Its effect softcap is weaker.': '[fn5][电子]的阶层上限增加35。它的软上限效果弱化。',
+    '[fn6] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn6]解锁两种新的U-夸克和U-轻子。',
+    '[d1] Generating Relativistic particles outside Mass dilation is 25% stronger.': '[d1]未进行质量膨胀时，相对论粒子获取速度增加25%。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -411,6 +373,8 @@ var cnItems = {
     '(Increased by Quark': '(单位为夸克',
     '(Increased by Mass of Black Hole': '(单位为黑洞质量',
     '(Increased by Dark Matter': '(单位为暗物质',
+    '(Increased by Rage Power': '(单位为狂怒能量',
+    '(Increased by Collapsed Star': '(单位为坍缩星辰',
     'Effect': '效果',
     'On Active: ^0.6 to the exponent of Atomic Powers gain': '激活时，使原子能量的获取速度指数变为原来的0.6次方',
     'On Active: The exponent of the RP formula is divided by 10': '激活时，使相对论粒子公式的指数除以10',
@@ -418,6 +382,8 @@ var cnItems = {
     'On Active: ^0.625 to the exponent of Atoms gain': '激活时，使原子的获取速度指数变为原来的0.625次方',
     'On Active: The power from the mass of the BH formula is always -1': '激活时，黑洞质量公式中，指数始终为-1',
     'On Active: You are trapped in Challenges 8-9': '激活时，强制进行挑战8和挑战9',
+    'On Active: You are trapped in Mass Dilation and Challenges 3-5': '激活时，强制进行质量膨胀，和挑战3-挑战5',
+    'On Active: Star generators are decreased to ^0.5': '激活时，星辰发生器的效果变为原来的0.5次方',
     //超新星结束
     
     //选项
@@ -450,7 +416,7 @@ var cnItems = {
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
     'You have beated Challenge 10!': '您已经通过了挑战10！',
     'Fermions are unlocked in Supernova tab!': '超新星选项卡下解锁了费米子！',
-    'Incremental Mass Rewritten v0.4.2.2 - made by MrRedShark77': '质量增量重制版v0.4.2.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.2.5 - made by MrRedShark77': '质量增量重制版v0.4.2.5 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -592,12 +558,13 @@ var cnRegReplace = new Map([
     [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
     [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
     [/^\s+Supernova requirement is decreased based on Gluon.$/, '基于胶子的数值，降低超新星的需求。'], //超新星等
-    [/^Currently: (.+)x to Photon, (.+)x to Gluon$/, '目前效果：光子获取速度变为$1倍，胶子获取速度变为$2倍'], //超新星等
     [/^\s+Currently$/, '目前效果'], //超新星等
     [/^Adds (.+) free Gamma Rays$/, '增加$1个免费伽马射线'], //超新星等
     [/^x(.+) to Relativistic Particles gain$/, '相对论粒子获取速度变为$1倍'], //超新星等
     [/^ Boson's first effect is (.+)% stronger$/, '玻色子的第一个效果强化$1%'], //超新星等
     [/^Collapse Stars gain softcap starts \^(.+) later$/, '坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
     [/^x(.+) to Higgs Bosons & Gravitons gain$/, '希格斯玻色子和引力子的获取速度变为$1倍'], //超新星等
-    [/^Tickspeed is (.+)x cheaper$/, '时间速度便宜$1倍'], //超新星等
+    [/^4th Photon & Gluon upgrades are (.+)x stronger$/, '光子和胶子升级4强化$1倍'], //超新星等
+    [/^Tier requirement is (.+)x cheaper$/, '阶层的需求便宜$1倍'], //超新星等
+    [/^Tickspeed is (.+)x cheaper \(before Meta scaling$/, '时间速度便宜$1倍(在元折算前生效'], //超新星等
 ]);

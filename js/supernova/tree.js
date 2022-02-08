@@ -1,11 +1,11 @@
 const TREE_IDS = [
     ["","","","","qol1","","s3","s2","s1","c","sn1","sn2","sn3","","chal1","","","",""],
     ["","","","qol2","qol3","qol4","s4","","m1","rp1","bh1","","sn4","chal2","chal4a","chal3","","",""],
-    ["","","","","qol5","","","m2","t1","","bh2","gr1","","","chal4","","","",""],
-    ["","","","","","","","","","","","","gr2","","chal5","","","",""],
+    ["","","","qol7","qol6","qol5","","m2","t1","","bh2","gr1","","","chal4","","","",""],
+    ["","","","","","","m3","","","d1","","","gr2","","chal5","","","",""],
     ["","","","","","","","bs4","bs2","bs1","bs3","","","","","","","",""],
-    ["","","","","","","","","","fn1","","","","","","","","",""],
-    ["","","","","","","","","fn2","fn3","","","","","","","","",""],
+    ["","","","","","","","","","fn1","fn5","","","","","","","",""],
+    ["","","","","","","","fn6","fn2","fn3","fn4","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
@@ -42,17 +42,17 @@ const TREE_UPGS = {
                 let x = player.tickspeed.add(1).pow(0.25)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         sn2: {
             branch: ["sn1"],
             desc: `Supernova boosts Neutron Star gain.`,
             cost: E(350),
             effect() {
-                let x = E(2).add(player.supernova.tree.includes("sn4")?tmp.supernova.tree_eff.sn4:0).pow(player.supernova.times.softcap(15,0.8,0))
+                let x = E(2).add(player.supernova.tree.includes("sn4")?tmp.supernova.tree_eff.sn4:0).pow(player.supernova.times.softcap(15,0.8,0).softcap(25,0.5,0))
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         sn3: {
             branch: ["sn2"],
@@ -64,7 +64,7 @@ const TREE_UPGS = {
                 let x = player.stars.generators[4].max(1).log10().add(1)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         sn4: {
             branch: ["sn3"],
@@ -87,12 +87,23 @@ const TREE_UPGS = {
                 let x = E(1e100).pow(player.supernova.stars.add(1).log10().pow(5).softcap(1e3,0.25,0))
                 return x
             },
-            effDesc(x) { return format(x)+"x"+(x.max(1).log(1e100).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
+            effDesc(x) { return format(x)+"倍"+(x.max(1).log(1e100).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
         },
         m2: {
             branch: ["m1"],
             desc: `Multiplies the Mass requirement for softcap^2 by 1.5`,
             cost: E(800),
+        },
+        m3: {
+            branch: ["m2"],
+            unl() { return player.supernova.fermions.unl && player.supernova.tree.includes("fn1") },
+            desc: `Mass gain softcap^2-3 starts later based on Supernovas.`,
+            cost: E(1e46),
+            effect() {
+                let x = player.supernova.times.mul(0.0125).add(1)
+                return x
+            },
+            effDesc(x) { return "延迟^"+format(x)+"" },
         },
         t1: {
             branch: ["m1", 'rp1'],
@@ -109,7 +120,7 @@ const TREE_UPGS = {
                 let x = E(1e50).pow(player.supernova.stars.add(1).log10().pow(5).softcap(1e3,0.25,0))
                 return x
             },
-            effDesc(x) { return format(x)+"x"+(x.max(1).log(1e50).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
+            effDesc(x) { return format(x)+"倍"+(x.max(1).log(1e50).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
         },
         bh1: {
             branch: ["c"],
@@ -119,7 +130,7 @@ const TREE_UPGS = {
                 let x = E(1e35).pow(player.supernova.stars.add(1).log10().pow(5).softcap(1e3,0.25,0))
                 return x
             },
-            effDesc(x) { return format(x)+"x"+(x.max(1).log(1e35).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
+            effDesc(x) { return format(x)+"倍"+(x.max(1).log(1e35).gte(1e3)?"<span class='soft'>(softcapped)</span>":"") },
         },
         bh2: {
             branch: ['bh1'],
@@ -136,7 +147,7 @@ const TREE_UPGS = {
                 let x = player.supernova.stars.add(1).pow(1.4)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         s2: {
             branch: ["s1"],
@@ -194,11 +205,25 @@ const TREE_UPGS = {
         },
         qol5: {
             branch: ["qol4"],
-            unl() { return player.supernova.post_10 },
             req() { return player.supernova.times.gte(16) },
             reqDesc: `16次超新星。`,
             desc: `Tetrs no longer resets anything.`,
             cost: E(1e13),
+        },
+        qol6: {
+            branch: ["qol5"],
+            req() { return player.supernova.times.gte(17) },
+            reqDesc: `17次超新星。`,
+            desc: `While in any challenge, you can now automatically complete it before exiting.`,
+            cost: E(1e15),
+        },
+        qol7: {
+            branch: ["qol6"],
+            unl() { return player.supernova.fermions.unl && player.supernova.tree.includes("fn2") },
+            req() { return player.supernova.times.gte(40) },
+            reqDesc: `40次超新星。`,
+            desc: `You can now automatically buy Photon & Gluon upgrades, they no longer spent their amount.`,
+            cost: E(1e48),
         },
         chal1: {
             req() { return player.supernova.times.gte(4) },
@@ -252,7 +277,7 @@ const TREE_UPGS = {
                 let x = tmp.bh?tmp.bh.condenser_eff.pow.max(1).root(3):E(1)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         gr2: {
             unl() { return player.supernova.fermions.unl },
@@ -270,7 +295,7 @@ const TREE_UPGS = {
                 let x = player.tickspeed.add(1).pow(0.6)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         bs2: {
             branch: ["bs1"],
@@ -281,7 +306,7 @@ const TREE_UPGS = {
                 let y = expMult(player.supernova.bosons.gluon,1/2,2)
                 return [x,y]
             },
-            effDesc(x) { return format(x[1])+"x to Photon, "+format(x[0])+"x to Gluon" },
+            effDesc(x) { return "光子获取速度变为"+format(x[1])+"倍，胶子获取速度变为"+format(x[0])+"倍" },
         },
         bs3: {
             branch: ["bs1"],
@@ -291,7 +316,7 @@ const TREE_UPGS = {
                 let x = tmp.bosons.effect.graviton[0].add(1).root(2)
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         bs4: {
             unl() { return player.supernova.fermions.unl },
@@ -308,21 +333,48 @@ const TREE_UPGS = {
                 let x = E(1.25).pow(player.tickspeed.pow(0.4))
                 return x
             },
-            effDesc(x) { return format(x)+"x" },
+            effDesc(x) { return format(x)+"倍" },
         },
         fn2: {
             branch: ["fn1"],
             req() { return player.mass.div('1.5e56').gte("ee6") && player.md.active && FERMIONS.onActive("01") },
-            reqDesc() { return `当选择[下夸克]并进行质量膨胀时，到达${formatMass(E('e1e6').mul(1.5e56))}的质量` },
+            reqDesc() { return `当选择[下夸克]并进行质量膨胀时，到达${formatMass(E('e1e6').mul(1.5e56))}的质量。` },
             desc: `Unlock 2 new types of U-Quark & U-Fermion.`,
             cost: E(1e33),
         },
         fn3: {
             branch: ["fn1"],
             req() { return player.supernova.fermions.points[0].gte(1e7) || player.supernova.fermions.points[1].gte(1e7) },
-            reqDesc() { return `任意费米子到达${format(1e7)}` },
+            reqDesc() { return `任意费米子到达${format(1e7)}。` },
             desc: `Super Fermion's Tier scaling is 7.5% weaker.`,
             cost: E(1e30),
+        },
+        fn4: {
+            unl() { return player.supernova.tree.includes("fn2") },
+            branch: ["fn1"],
+            desc: `2nd Photon & Gluon upgrades are slightly stronger.`,
+            cost: E(1e39),
+        },
+        fn5: {
+            unl() { return player.supernova.tree.includes("fn2") },
+            branch: ["fn1"],
+            req() { return player.atom.quarks.gte("e12500") && FERMIONS.onActive("10") },
+            reqDesc() { return `当选择[电子]时，到达${format("e12500")}的夸克。` },
+            desc: `[Electron] max tier is increased by 35. Its effect softcap is weaker.`,
+            cost: E(1e42),
+        },
+        fn6: {
+            branch: ["fn2"],
+            req() { return player.mass.gte(uni('e4e4')) && FERMIONS.onActive("02") && CHALS.inChal(5) },
+            reqDesc() { return `当选择[粲夸克]并进行挑战5时，到达${formatMass(uni("e4e4"))}的质量。` },
+            desc: `Unlock 2 new more types of U-Quark & U-Fermion.`,
+            cost: E(1e48),
+        },
+        d1: {
+            unl() { return player.supernova.tree.includes("fn6") },
+            branch: ["rp1"],
+            desc: `Generating Relativistic particles outside Mass dilation is 25% stronger.`,
+            cost: E(1e51),
         },
         /*
         x: {
@@ -425,7 +477,7 @@ function updateTreeHTML() {
         : `<div style="font-size: 12px; font-weight: bold;"><span class="gray">(click again to buy if affordable)</span>${req}</div>
         <span class="sky">[${tmp.supernova.tree_choosed}] ${TREE_UPGS.ids[tmp.supernova.tree_choosed].desc}</span><br>
         <span>Cost: ${format(TREE_UPGS.ids[tmp.supernova.tree_choosed].cost,2)} Neutron star</span><br>
-        <span class="green">${TREE_UPGS.ids[tmp.supernova.tree_choosed].effDesc?"Currently: "+TREE_UPGS.ids[tmp.supernova.tree_choosed].effDesc(tmp.supernova.tree_eff[tmp.supernova.tree_choosed]):""}</span>
+        <span class="green">${TREE_UPGS.ids[tmp.supernova.tree_choosed].effDesc?"目前效果："+TREE_UPGS.ids[tmp.supernova.tree_choosed].effDesc(tmp.supernova.tree_eff[tmp.supernova.tree_choosed]):""}</span>
         `
     )
     for (let x = 0; x < tmp.supernova.tree_had.length; x++) {
