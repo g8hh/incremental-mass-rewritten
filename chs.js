@@ -36,6 +36,7 @@ var cnItems = {
     'Neutron Tree': '中子树',
     'Bosons': '玻色子',
     'Fermions': '费米子',
+    'Radiation': '射线',
     'Buy Max': '最大化购买',
     'ON': '开启',
     'OFF': '关闭',
@@ -78,10 +79,10 @@ var cnItems = {
     ' Atomic Power': '原子能量',
     'Which provides ': '它使您获得了',
     ' free Tickspeeds': '个免费时间速度升级',
-    'Gamma Rays [': '伽马射线[',
+    'Cosmic Rays [': '宇宙射线[',
     ' Atoms': '原子',
-    'Gamma Ray Power': '伽马射线倍率',
-    'Gamma Ray Effect': '伽马射线效果',
+    'Cosmic Ray Power': '宇宙射线倍率',
+    'Cosmic Ray Effect': '宇宙射线效果',
     'You collapsed ': '您已经坍缩了',
     ' stars, which makes mass gain is multiplied based on every type of Ranks': '星辰，质量获取速度基于级别的种类而增加',
     ' of collapsed stars gain will softcap collapsed stars gain!': '的坍缩星辰以后，星辰获取速度将受到软上限限制！',
@@ -94,7 +95,7 @@ var cnItems = {
     'Mass Upgrades': '质量升级',
     'Tickspeed': '时间速度',
     'Black Hole Condenser': '黑洞压缩器',
-    'Gamma Ray': '伽马射线',
+    'Cosmic Ray': '宇宙射线',
     '): Starts at ': ')：开始次数为',
     //统计结束
 
@@ -135,14 +136,14 @@ var cnItems = {
     'Start with Mass upgrades unlocked.': '初始状态下就解锁质量升级。',
     'You can automatically buy BH Condenser and upgrades. Tickspeed no longer spent Rage Powers.': '您可以自动购买黑洞压缩器和黑洞升级。购买时间速度不再花费狂怒能量。',
     '[Tetr Era] Unlock Tetr.': '[三重阶层纪元]解锁三重阶层。',
-    'Keep 1-4 Challenge on reset. BH Condensers adds Gamma Rays Power at a reduced rate.': '重置时保留挑战1-挑战4的完成次数。黑洞压缩器可以增加伽马射线的数量，只是效果倍率降低。',
+    'Keep 1-4 Challenge on reset. BH Condensers adds Cosmic Rays Power at a reduced rate.': '重置时保留挑战1-挑战4的完成次数。黑洞压缩器可以增加宇宙射线的数量，只是效果倍率降低。',
     'You can automatically Tetr up. Super Tier starts 10 later.': '您可以自动提升三重阶层。阶层的超级折算延迟10次出现。',
     'Gain 100% of Dark Matters gained from reset per second. Mass gain from Black Hole softcap starts later based on Atomic Powers.': '每秒获得暗物质，数量为重置时获取数量的100%。黑洞质量获取速度的软上限基于原子能量的数值而延迟出现。',
     'Tickspeed boost each particle powers gain.': '时间速度可以加成粒子能量的获取速度。',
     'Atomic Powers boosts Quark gain.': '原子能量可以加成夸克的获取速度。',
     'Stronger effect softcap is 15% weaker.': '强化器效果的软上限弱化15%。',
     'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '阶层的需求减半。级别的究级折算基于目前的阶层数值而延迟出现。',
-    'Dilated mass also boost BH Condenser & Gamma Ray powers at a reduced rate.': '膨胀质量可以加成黑洞压缩器倍率和伽马射线倍率，只是效果倍率降低。',
+    'Dilated mass also boost BH Condenser & Cosmic Ray powers at a reduced rate.': '膨胀质量可以加成黑洞压缩器倍率和宇宙射线倍率，只是效果倍率降低。',
     'Mass from Black Hole effect is better.': '黑洞质量效果变得更好。',
     //升级结束
 
@@ -210,10 +211,10 @@ var cnItems = {
     '[Magnesium] Power\'s gain from each particle formula is better.': '[镁]所有粒子的能量获取公式变得更好。',
     '[Aluminium] For every c7 completion, add 2 c5 & 6 completion.': '[铝]每完成1次挑战7，就使挑战5和挑战6的次数上限增加2。',
     '[Silicon] Passively gain 5% of the quarks you would get from resetting each second.': '[硅]每秒获得夸克，数量为重置时获取数量的5%。',
-    '[Phosphorus] Super BH Condenser & Gamma Ray scales 20% weaker.': '[磷]黑洞压缩器和伽马射线的超级折算弱化20%。',
+    '[Phosphorus] Super BH Condenser & Cosmic Ray scales 20% weaker.': '[磷]黑洞压缩器和宇宙射线的超级折算弱化20%。',
     '[Sulfur] Silicon now gets +2% for each element bought.': '[硫]每购买1种元素，就使硅(14Si)的效果数值增加2%。',
     '[Chlorine] Raise Atom\'s gain by 1.1.': '[氯]使原子的获取速度变为原来的1.1次方。',
-    '[Argon] You can now automatically buy gamma rays. Gamma ray raise tickspeed effect at an extremely reduced rate.': '[氩]您可以自动购买伽马射线。伽马射线可以增加时间速度效果，只是效果倍率极度降低。',
+    '[Argon] You can now automatically buy Cosmic Rays. Cosmic Ray raise tickspeed effect at an extremely reduced rate.': '[氩]您可以自动购买宇宙射线。宇宙射线可以增加时间速度效果，只是效果倍率极度降低。',
     '[Potassium] 2nd Neutron\'s effect is better.': '[钾]中子的第2个效果变得更好。',
     '[Calcium] Adds 50 more C7 maximum completions.': '[钙]挑战7的次数上限增加50。',
     '[Scandium] Unlock Mass Dilation.': '[钪]解锁质量膨胀。',
@@ -233,7 +234,7 @@ var cnItems = {
     '[Bromine] Mass from Black Hole boost dilated mass gain.': '[溴]黑洞质量可以加成膨胀质量获取速度。',
     '[Krypton] Unlock Stars.': '[氪]解锁星辰。',
     '[Rubidium] Super Tier scale weaker based on Tetr.': '[铷]阶层的超级折算基于三重阶层的数值而弱化。',
-    '[Strontium] Gamma ray\'s free tickspeeds now adds to RU7.': '[锶]通过伽马射线获得的免费时间速度升级计入狂怒升级7。',
+    '[Strontium] Cosmic Ray\'s free tickspeeds now adds to RU7.': '[锶]通过宇宙射线获得的免费时间速度升级计入狂怒升级7。',
     '[Yttrium] Remove softcap from C2 & C6 effects.': '[钇]移除挑战2和挑战6奖励效果的软上限。',
     '[Zirconium] Collapsed star boost dilated mass gain.': '[锆]坍缩星辰可以加成膨胀质量获取速度。',
     '[Niobium] Add 50 more C7 maximum completions.': '[铌]挑战7的次数上限增加50。',
@@ -250,7 +251,7 @@ var cnItems = {
     '[Tellurium] Mass of black hole boost atomic powers gain at a reduced rate.': '[碲]黑洞质量可以加成原子能量，只是效果倍率降低。',
     '[Iodine] Mass Dilation upgrade 6 is 75% stronger.': '[碘]质量膨胀升级6的效果增加75%。',
     '[Xenon] Collapsed stars boost all-star resources at a reduced rate.': '[氙]坍缩星辰可以加成所有星辰相关资源，只是效果倍率降低。',
-    '[Caesium] Hyper/Ultra BH Condenser & Gamma Ray scale 25% weaker.': '[铯]黑洞压缩器和伽马射线的究级和超究折算弱化25%。',
+    '[Caesium] Hyper/Ultra BH Condenser & Cosmic Ray scale 25% weaker.': '[铯]黑洞压缩器和宇宙射线的究级和超究折算弱化25%。',
     '[Barium] Add 200 more C8 maximum completions.': '[钡]挑战8的次数上限增加200。',
     '[Lanthanum] Tickspeed power boost base from Star Booster at a reduced rate.': '[镧]时间速度倍率可以加成星辰发生器的基础加成，只是效果倍率降低。',
     '[Cerium] Ultra Rank & Tickspeed scales weaker based on Tier.': '[铈]级别和时间速度的超究折算基于阶层的数值而弱化。',
@@ -263,6 +264,7 @@ var cnItems = {
     '[Terbium] Add 200 more C7 & c8 maximum completions.': '[铽]挑战7和挑战8的次数上限增加200。',
     '[Dysprosium] Lanthanum\'s effect is twice stronger.': '[镝]镧(57La)的效果翻倍。',
     '[Holmium] Collapsed star boost quarks gain.': '[钬]坍缩星辰可以加成夸克获取速度。',
+    '[Erbium] Meta-Tickspeed start 2x later.': '[铒]时间速度的元折算延迟2倍出现。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -322,8 +324,8 @@ var cnItems = {
     '[chal4] Unlock new challenge.': '[chal4]解锁新的挑战。',
     '[chal4a] Make 9th Challenges effect better.': '[chal4a]使挑战9的奖励效果变得更好。',
     '[chal5] Unlock new challenge.': '[chal5]解锁新的挑战。',
-    '[gr1] BH Condensers power boost Gamma Rays power.': '[gr1]黑洞压缩器倍率可以加成伽马射线倍率。',
-    '[gr2] Gamma Rays Power is raised to 1.25th power.': '[gr2]伽马射线倍率变为原来的1.25次方。',
+    '[gr1] BH Condensers power boost Cosmic Rays power.': '[gr1]黑洞压缩器倍率可以加成宇宙射线倍率。',
+    '[gr2] Cosmic Rays Power is raised to 1.25th power.': '[gr2]宇宙射线倍率变为原来的1.25次方。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
     '[bs2] Photon, Gluon powers up each other.': '[bs2]光子和胶子互相加成彼此的获取速度。',
     '[bs3] Neutrons gain is affected by Graviton\'s effect at a reduced rate.': '[bs3]引力子可以加成中子获取速度，只是效果倍率降低。',
@@ -335,6 +337,9 @@ var cnItems = {
     '[fn5] [Electron] max tier is increased by 35. Its effect softcap is weaker.': '[fn5][电子]的阶层上限增加35。它的软上限效果弱化。',
     '[fn6] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn6]解锁两种新的U-夸克和U-轻子。',
     '[d1] Generating Relativistic particles outside Mass dilation is 25% stronger.': '[d1]未进行质量膨胀时，相对论粒子获取速度增加25%。',
+    '[uni1] Unlock Radiation.': '[uni1]解锁射线。',
+    '[rad1] Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.': '[rad1]频率获取速度基于超新星次数而增加，如果您解锁了下一种射线，还会使之前射线的波长获取速度也增加。',
+    '[rad2] Gain x10 any more Radiation.': '[rad2]射线的距离获取速度变为原来的10倍。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -384,6 +389,27 @@ var cnItems = {
     'On Active: You are trapped in Challenges 8-9': '激活时，强制进行挑战8和挑战9',
     'On Active: You are trapped in Mass Dilation and Challenges 3-5': '激活时，强制进行质量膨胀，和挑战3-挑战5',
     'On Active: Star generators are decreased to ^0.5': '激活时，星辰发生器的效果变为原来的0.5次方',
+    'Your frequency is ': '您的频率为',
+    ' Hz, which multiples any Fermions gain by ': '赫兹，将使费米子获取速度变为原来的',
+    'At ': '当频率到达',
+    ' of frequency, unlock ': '赫兹时，将解锁',
+    ' meter.': '米。',
+    ' meters': '米',
+    ' Aplitude': '振幅',
+    ' Velocity': '波速',
+    'Radio Boost [': '无线电波加成[',
+    'Tickspeed Boost [': '时间速度加成[',
+    'Mass-Softcap Boost [': '质量软上限加成[',
+    'Microwave Boost [': '微波加成[',
+    'BH-Exponent Boost [': '黑洞指数加成[',
+    'BH-Condenser Boost [': '黑洞压缩器加成[',
+    'Infrared Boost [': '红外线加成[',
+    'Photo-Gluon Boost [': '光子胶子加成[',
+    'Meta-Boost I [': '元加成 I [',
+    'Visible Boost [': '可见光加成[',
+    'Cosmic-Ray Boost [': '宇宙射线加成[',
+    'Neturon-Star Boost [': '中子星加成[',
+    ']: ': ']：',
     //超新星结束
     
     //选项
@@ -416,7 +442,7 @@ var cnItems = {
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
     'You have beated Challenge 10!': '您已经通过了挑战10！',
     'Fermions are unlocked in Supernova tab!': '超新星选项卡下解锁了费米子！',
-    'Incremental Mass Rewritten v0.4.2.5 - made by MrRedShark77': '质量增量重制版v0.4.2.5 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.3.1 - made by MrRedShark77': '质量增量重制版v0.4.3.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -491,6 +517,7 @@ var cnExcludeWhole = [
     /^[e\.\,\d]+ \+ [e\.\,\d]+$/, //处理数字及单位
     /^[A-Z][a-z]?$/, //单独处理短文字
     /^(.*)[\u4E00-\u9FFF]+(.*)$/, //不抓取内容
+    /^e\d\.[e\d]+e\d$/, //不抓取内容
 ];
 var cnExcludePostfix = [
 ]
@@ -555,16 +582,28 @@ var cnRegReplace = new Map([
     [/^\s+Photons gain is boosted by Collapsed Star.$/, '使坍缩星辰可以加成光子获取速度。'], //超新星等
     [/^\s+All-Star resources gain is boosted by Photon.$/, '使光子可以加成所有星辰相关资源的获取速度。'], //超新星等
     [/^\s+Gain more Atoms & Atomic Powers based on Gluon.$/, '基于胶子的数值，增加原子获取速度及原子能量。'], //超新星等
-    [/^\s+Boost Gamma Ray Power.$/, '增加伽马射线倍率。'], //超新星等
+    [/^\s+Boost Cosmic Ray Power.$/, '增加宇宙射线倍率。'], //超新星等
     [/^\s+Gluons gain is boosted by Quark.$/, '使夸克可以加成胶子获取速度。'], //超新星等
     [/^\s+Supernova requirement is decreased based on Gluon.$/, '基于胶子的数值，降低超新星的需求。'], //超新星等
     [/^\s+Currently$/, '目前效果'], //超新星等
-    [/^Adds (.+) free Gamma Rays$/, '增加$1个免费伽马射线'], //超新星等
-    [/^x(.+) to Relativistic Particles gain$/, '相对论粒子获取速度变为$1倍'], //超新星等
+    [/^Adds (.+) free Cosmic Rays$/, '增加$1个免费宇宙射线'], //超新星等
+    [/^x(.+) to Relativistic Particles gain$/, '相对论粒子获取速度变为原来的$1倍'], //超新星等
     [/^ Boson's first effect is (.+)% stronger$/, '玻色子的第一个效果强化$1%'], //超新星等
-    [/^Collapse Stars gain softcap starts \^(.+) later$/, '坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
-    [/^x(.+) to Higgs Bosons & Gravitons gain$/, '希格斯玻色子和引力子的获取速度变为$1倍'], //超新星等
     [/^4th Photon & Gluon upgrades are (.+)x stronger$/, '光子和胶子升级4强化$1倍'], //超新星等
-    [/^Tier requirement is (.+)x cheaper$/, '阶层的需求便宜$1倍'], //超新星等
+    [/^Collapse Stars gain softcap starts \^(.+) later$/, '坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
+    [/^x(.+) to Higgs Bosons & Gravitons gain$/, '希格斯玻色子和引力子的获取速度变为原来的$1倍'], //超新星等
     [/^Tickspeed is (.+)x cheaper \(before Meta scaling$/, '时间速度便宜$1倍(在元折算前生效'], //超新星等
+    [/^Tier requirement is (.+)x cheaper$/, '阶层的需求便宜$1倍'], //超新星等
+    [/^Radiowave is boosted by (.+)x \(based on Frequency$/, '无线电波的获取速度变为原来的$1倍(基于频率的数值'], //超新星等
+    [/^Non-bonus tickspeed is (.+)x stronger$/, '非加成的时间速度强化$1倍'], //超新星等
+    [/^Softcap\^3 from mass gain start \^(.+) later$/, '质量获取速度的三重软上限延迟$1次方出现'], //超新星等
+    [/^Microwave is boosted by (.+)x \(based on Radio$/, '微波的获取速度变为原来的$1倍(基于无线电波的数值'], //超新星等
+    [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.3$/, '黑洞质量公式中，指数增加$1(硬上限为0.3'], //超新星等
+    [/^Non-bonus BH condenser is (.+)x stronger$/, '非加成的黑洞压缩器强化$1倍'], //超新星等
+    [/^Infrared is boosted by (.+)x \(based on Microwave$/, '红外线的获取速度变为原来的$1倍(基于微波的数值'], //超新星等
+    [/^1st Photon & Gluon upgrades are (.+)x stronger$/, '光子和胶子升级1强化$1倍'], //超新星等
+    [/^Add (.+) levels to all above boosts$/, '上方所有加成的等级增加$1级'], //超新星等
+    [/^Visible is boosted by (.+)x \(based on Infrared$/, '可见光的获取速度变为原来的$1倍(基于红外线的数值'], //超新星等
+    [/^Cosmic Ray power is boosted by (.+)x$/, '宇宙射线倍率变为原来的$1倍'], //超新星等
+    [/^Neutron Star is boosted by (.+)x \(based on Frequency$/, '中子星的获取速度变为原来的$1倍(基于频率的数值'], //超新星等
 ]);

@@ -3,6 +3,7 @@ const FERMIONS = {
     gain(i) {
         if (!player.supernova.fermions.unl) return E(0)
         let x = E(1)
+        if (tmp.radiation.unl) x = x.mul(tmp.radiation.hz_effect)
         for (let j = 0; j < FERMIONS.types[i].length; j++) x = x.mul(E(1.25).pow(player.supernova.fermions.tiers[i][j]))
         if (player.supernova.tree.includes("fn1") && tmp.supernova) x = x.mul(tmp.supernova.tree_eff.fn1)
         return x
@@ -25,18 +26,37 @@ const FERMIONS = {
         let x = t
         if (bulk) {
             if (x.sub(1).gte(getScalingStart('super',"fTier"))) {
-                x = x.sub(1)
                 let start = getScalingStart('super',"fTier")
                 let power = getScalingPower('super',"fTier")
                 let exp = E(2.5).pow(power)
                 x = t.mul(start.pow(exp.sub(1))).root(exp).add(1).floor()
             }
+            if (x.sub(1).gte(getScalingStart('hyper',"fTier"))) {
+                let start = getScalingStart('super',"fTier")
+                let power = getScalingPower('super',"fTier")
+                let exp = E(2.5).pow(power)
+                let start2 = getScalingStart('hyper',"fTier")
+                let power2 = getScalingPower('hyper',"fTier")
+                let exp2 = E(4).pow(power2)
+                x = t.mul(start.pow(exp.sub(1))).root(exp)
+                .mul(start2.pow(exp2.sub(1))).root(exp2).add(1).floor()
+            }
         } else {
-            if (x.sub(1).gte(getScalingStart('super',"fTier"))) {
+            if (t.sub(1).gte(getScalingStart('super',"fTier"))) {
                 let start = getScalingStart('super',"fTier")
                 let power = getScalingPower('super',"fTier")
                 let exp = E(2.5).pow(power)
                 x = t.pow(exp).div(start.pow(exp.sub(1))).floor()
+            }
+            if (t.sub(1).gte(getScalingStart('hyper',"fTier"))) {
+                let start = getScalingStart('super',"fTier")
+                let power = getScalingPower('super',"fTier")
+                let exp = E(2.5).pow(power)
+                let start2 = getScalingStart('hyper',"fTier")
+                let power2 = getScalingPower('hyper',"fTier")
+                let exp2 = E(4).pow(power2)
+                x = t.pow(exp2).div(start2.pow(exp2.sub(1)))
+                .pow(exp).div(start.pow(exp.sub(1))).floor()
             }
         }
         return x
@@ -67,7 +87,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `Adds ${format(x,0)} free Gamma Rays`
+                    return `Adds ${format(x,0)} free Cosmic Rays`
                 },
                 inc: "Atomic Powers",
                 cons: "^0.6 to the exponent of Atomic Powers gain",
@@ -297,13 +317,13 @@ function updateFermionsHTML() {
 
             tmp.el[id+"_div"].setDisplay(unl)
 
-            if (!unl) break
-
-            tmp.el[id+"_div"].setClasses({fermion_btn: true, [FERMIONS.names[i]]: true, choosed: tmp.fermions.ch[0] == i && tmp.fermions.ch[1] == x})
-            tmp.el[id+"_nextTier"].setTxt(fm(f.nextTierAt(player.supernova.fermions.tiers[i][x])))
-            tmp.el[id+"_tier_scale"].setTxt(getScalingName('fTier', i, x))
-            tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(tmp.fermions.maxTier[i][x] < Infinity?"，上限为"+format(tmp.fermions.maxTier[i][x],0):""))
-            tmp.el[id+"_desc"].setHTML(f.desc(tmp.fermions.effs[i][x]))
+            if (unl) {
+                tmp.el[id+"_div"].setClasses({fermion_btn: true, [FERMIONS.names[i]]: true, choosed: tmp.fermions.ch[0] == i && tmp.fermions.ch[1] == x})
+                tmp.el[id+"_nextTier"].setTxt(fm(f.nextTierAt(player.supernova.fermions.tiers[i][x])))
+                tmp.el[id+"_tier_scale"].setTxt(getScalingName('fTier', i, x))
+                tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(tmp.fermions.maxTier[i][x] < Infinity?"，上限为"+format(tmp.fermions.maxTier[i][x],0):""))
+                tmp.el[id+"_desc"].setHTML(f.desc(tmp.fermions.effs[i][x]))
+            }
         }
     }
 }

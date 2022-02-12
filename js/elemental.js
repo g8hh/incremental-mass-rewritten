@@ -126,7 +126,7 @@ const ELEMENTS = {
             cost: E(1e33),
         },
         {
-            desc: `Super BH Condenser & Gamma Ray scales 20% weaker.`,
+            desc: `Super BH Condenser & Cosmic Ray scales 20% weaker.`,
             cost: E(1e34),
         },
         {
@@ -143,7 +143,7 @@ const ELEMENTS = {
             cost: E(1e40),
         },
         {
-            desc: `You can now automatically buy gamma rays. Gamma ray raise tickspeed effect at an extremely reduced rate.`,
+            desc: `You can now automatically buy Cosmic Rays. Cosmic Ray raise tickspeed effect at an extremely reduced rate.`,
             cost: E(1e44),
             effect() {
                 let x = player.atom.gamma_ray.pow(0.35).mul(0.01).add(1)
@@ -263,7 +263,7 @@ const ELEMENTS = {
             effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
         },
         {
-            desc: `Gamma ray's free tickspeeds now adds to RU7.`,
+            desc: `Cosmic Ray's free tickspeeds now adds to RU7.`,
             cost: E(1e260),
             effect() {
                 let x = tmp.atom?tmp.atom.atomicEff:E(0)
@@ -371,7 +371,7 @@ const ELEMENTS = {
             effDesc(x) { return format(x)+"x" },
         },
         {
-            desc: `Hyper/Ultra BH Condenser & Gamma Ray scale 25% weaker.`,
+            desc: `Hyper/Ultra BH Condenser & Cosmic Ray scale 25% weaker.`,
             cost: E('e1.6e4'),
         },
         {
@@ -443,6 +443,10 @@ const ELEMENTS = {
             },
             effDesc(x) { return format(x)+"x" },
         },
+        {
+            desc: `Meta-Tickspeed start 2x later.`,
+            cost: E('e4.8e6'),
+        },
     ],
     /*
     {
@@ -466,6 +470,7 @@ const ELEMENTS = {
         }
         if (player.supernova.post_10) u += 3
         if (player.supernova.fermions.unl) u += 10
+        if (tmp.radiation.unl) u += 16
         return u
     },
 }

@@ -1,21 +1,56 @@
-var tmp = {
-    sn_tab: 0,
-    tab: 0,
-    stab: [],
-    pass: true,
-    notify: [],
-    popup: [],
-    saving: 0,
+var tmp = {}
 
-    fermions: {
-        ch: [0,0],
-        gains: [E(0),E(0)],
-        maxTier: [[],[]],
-        tiers: [[],[]],
-        effs:  [[],[]],
-    },
+function resetTemp() {
+    tmp = {
+        sn_tab: 0,
+        tab: 0,
+        stab: [],
+        pass: true,
+        notify: [],
+        popup: [],
+        saving: 0,
+    
+        fermions: {
+            ch: [0,0],
+            gains: [E(0),E(0)],
+            maxTier: [[],[]],
+            tiers: [[],[]],
+            effs:  [[],[]],
+        },
+    
+        supernova: {
+            time: 0,
+            tree_choosed: "",
+            tree_had: [],
+            tree_eff: {},
+            tree_unlocked: {},
+            tree_afford: {},
+        },
+    
+        radiation: {
+            unl: false,
+            ds_gain: [],
+            ds_eff: [],
+            bs: {
+                sum: [],
+                lvl: [],
+                bonus_lvl: [],
+                cost: [],
+                bulk: [],
+                eff: [],
+            },
+        },
+    }
+    for (let x = 0; x < TABS[1].length; x++) tmp.stab.push(0)
+    for (let i = 0; i < 19; i++) {
+        for (let j = 0; j < 19; j++) {
+            let id = TREE_IDS[i][j]
+            if (TREE_UPGS.ids[id]) tmp.supernova.tree_had.push(id)
+        }
+    }
 }
-for (let x = 0; x < TABS[1].length; x++) tmp.stab.push(0)
+
+resetTemp()
 
 function updateMassTemp() {
     tmp.massSoftPower = FORMS.massSoftPower()
@@ -171,7 +206,7 @@ function updateBlackHoleTemp() {
     tmp.bh.dm_can = tmp.bh.dm_gain.gte(1)
     tmp.bh.effect = FORMS.bh.effect()
 
-    tmp.bh.condenser_bouns = FORMS.bh.condenser.bouns()
+    tmp.bh.condenser_bonus = FORMS.bh.condenser.bonus()
     tmp.bh.condenser_cost = E(1.75).pow(player.bh.condenser).floor()
     tmp.bh.condenser_bulk = player.bh.dm.max(1).log(1.75).add(1).floor()
     if (player.bh.dm.lt(1)) tmp.bh.condenser_bulk = E(0)
@@ -256,6 +291,7 @@ function updateBlackHoleTemp() {
 function updateTemp() {
     tmp.offlineActive = player.offline.time > 1
     tmp.offlineMult = tmp.offlineActive?player.offline.time+1:1
+    updateRadiationTemp()
     updateFermionsTemp()
     updateBosonsTemp()
     updateSupernovaTemp()

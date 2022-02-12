@@ -54,7 +54,7 @@ const ATOM = {
             return x
         },
         effect() {
-            let x = player.atom.atomic.max(1).log(player.atom.elements.includes(23)?1.5:1.75).softcap(5e4,0.75,0)
+            let x = player.atom.atomic.max(1).log(player.atom.elements.includes(23)?1.5:1.75).softcap(5e4,0.75,0).softcap(4e6,0.25,0)
             return x.floor()
         },
     },
@@ -72,16 +72,18 @@ const ATOM = {
             }
         },
         effect() {
+            let t = player.atom.gamma_ray
+            t = t.mul(tmp.radiation.bs.eff[10])
             let pow = E(2)
             if (player.mainUpg.atom.includes(4)) pow = pow.add(tmp.upgs.main?tmp.upgs.main[3][4].effect:E(0))
             if (player.mainUpg.atom.includes(11)) pow = pow.mul(tmp.upgs.main?tmp.upgs.main[3][11].effect:E(1))
             if (player.supernova.tree.includes("gr1")) pow = pow.mul(tmp.supernova.tree_eff.gr1)
             pow = pow.mul(tmp.bosons.upgs.gluon[1].effect)
             if (player.supernova.tree.includes("gr2")) pow = pow.pow(1.25)
-            let eff = pow.pow(player.atom.gamma_ray.add(tmp.atom.gamma_ray_bouns)).sub(1)
+            let eff = pow.pow(t.add(tmp.atom.gamma_ray_bonus)).sub(1)
             return {pow: pow, eff: eff}
         },
-        bouns() {
+        bonus() {
             let x = tmp.fermions.effs[0][0]||E(0)
             return x
         },
@@ -248,7 +250,7 @@ function updateAtomTemp() {
 			.floor();
 	}
     tmp.atom.gamma_ray_can = player.atom.points.gte(tmp.atom.gamma_ray_cost)
-    tmp.atom.gamma_ray_bouns = ATOM.gamma_ray.bouns()
+    tmp.atom.gamma_ray_bonus = ATOM.gamma_ray.bonus()
     tmp.atom.gamma_ray_eff = ATOM.gamma_ray.effect()
 
     for (let x = 0; x < ATOM.particles.names.length; x++) {
@@ -281,7 +283,7 @@ function updateAtomicHTML() {
     tmp.el.atomicAmt.setHTML(format(player.atom.atomic)+formatGain(player.atom.atomic, tmp.atom.atomicGain))
 	tmp.el.atomicEff.setHTML(format(tmp.atom.atomicEff,0)+(tmp.atom.atomicEff.gte(5e4)?"<span class='soft'>(softcapped)</span>":""))
 
-	tmp.el.gamma_ray_lvl.setTxt(format(player.atom.gamma_ray,0)+(tmp.atom.gamma_ray_bouns.gte(1)?" + "+format(tmp.atom.gamma_ray_bouns,0):""))
+	tmp.el.gamma_ray_lvl.setTxt(format(player.atom.gamma_ray,0)+(tmp.atom.gamma_ray_bonus.gte(1)?" + "+format(tmp.atom.gamma_ray_bonus,0):""))
 	tmp.el.gamma_ray_btn.setClasses({btn: true, locked: !tmp.atom.gamma_ray_can})
 	tmp.el.gamma_ray_scale.setTxt(getScalingName('gamma_ray'))
 	tmp.el.gamma_ray_cost.setTxt(format(tmp.atom.gamma_ray_cost,0))

@@ -1,12 +1,12 @@
 const TREE_IDS = [
     ["","","","","qol1","","s3","s2","s1","c","sn1","sn2","sn3","","chal1","","","",""],
     ["","","","qol2","qol3","qol4","s4","","m1","rp1","bh1","","sn4","chal2","chal4a","chal3","","",""],
-    ["","","","qol7","qol6","qol5","","m2","t1","","bh2","gr1","","","chal4","","","",""],
-    ["","","","","","","m3","","","d1","","","gr2","","chal5","","","",""],
+    ["","","","qol5","qol6","qol7","","m2","t1","","bh2","gr1","","","chal4","","","",""],
+    ["","","","","unl1","","m3","","","d1","","","gr2","","chal5","","","",""],
     ["","","","","","","","bs4","bs2","bs1","bs3","","","","","","","",""],
     ["","","","","","","","","","fn1","fn5","","","","","","","",""],
     ["","","","","","","","fn6","fn2","fn3","fn4","","","","","","","",""],
-    ["","","","","","","","","","","","","","","","","","",""],
+    ["","","","","","","","","rad2","rad1","","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
     ["","","","","","","","","","","","","","","","","","",""],
@@ -108,7 +108,7 @@ const TREE_UPGS = {
         t1: {
             branch: ["m1", 'rp1'],
             req() { return player.supernova.chal.noTick && player.mass.gte(E("1.5e1.650056e6").pow(player.supernova.tree.includes('bh2')?1.46:1)) },
-            reqDesc() {return `在超新星中，未购买过时间速度的前提下，到达${formatMass(E("1.5e1.650056e6").pow(player.supernova.tree.includes('bh2')?1.46:1))}的质量。您仍然可以通过伽马射线获得免费时间速度升级。`},
+            reqDesc() {return `在超新星中，未购买过时间速度的前提下，到达${formatMass(E("1.5e1.650056e6").pow(player.supernova.tree.includes('bh2')?1.46:1))}的质量。您仍然可以通过宇宙射线获得免费时间速度升级。`},
             desc: `Tickspeed Power is raised to the 1.15th.`,
             cost: E(1500),
         },
@@ -269,7 +269,7 @@ const TREE_UPGS = {
         },
         gr1: {
             branch: ["bh1"],
-            desc: `BH Condensers power boost Gamma Rays power.`,
+            desc: `BH Condensers power boost Cosmic Rays power.`,
             req() { return player.supernova.times.gte(7) },
             reqDesc: `7次超新星。`,
             cost: E(1e6),
@@ -282,7 +282,7 @@ const TREE_UPGS = {
         gr2: {
             unl() { return player.supernova.fermions.unl },
             branch: ["gr1"],
-            desc: `Gamma Rays Power is raised to 1.25th power.`,
+            desc: `Cosmic Rays Power is raised to 1.25th power.`,
             cost: E(1e20),
         },
         bs1: {
@@ -375,6 +375,29 @@ const TREE_UPGS = {
             branch: ["rp1"],
             desc: `Generating Relativistic particles outside Mass dilation is 25% stronger.`,
             cost: E(1e51),
+        },
+        unl1: {
+            branch: ["qol7"],
+            unl() { return player.supernova.tree.includes("fn6") },
+            req() { return player.supernova.times.gte(44) },
+            reqDesc: `44次超新星。`,
+            desc: `Unlock Radiation.`,
+            cost: E(5e52),
+        },
+        rad1: {
+            unl() { return tmp.radiation.unl },
+            desc: `Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.`,
+            cost: E(1e54),
+            effect() {
+                let x = player.supernova.times.add(1)
+                return x
+            },
+            effDesc(x) { return format(x)+"倍" },
+        },
+        rad2: {
+            branch: ["rad1"],
+            desc: `Gain x10 any more Radiation.`,
+            cost: E(1e72),
         },
         /*
         x: {
