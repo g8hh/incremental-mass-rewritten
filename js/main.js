@@ -30,8 +30,8 @@ const FORMS = {
         if (player.ranks.tier.gte(2)) x = x.pow(1.15)
         if (player.ranks.rank.gte(180)) x = x.pow(1.025)
         if (!CHALS.inChal(3) || CHALS.inChal(10) || FERMIONS.onActive("03")) x = x.pow(tmp.chal.eff[3])
-        if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03")) {
-            x = expMult(x,FERMIONS.onActive("02")?0.64:0.8)
+        if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) {
+            x = expMult(x,tmp.md.pen)
             if (player.atom.elements.includes(28)) x = x.pow(1.5)
         }
         if (CHALS.inChal(9) || FERMIONS.onActive("12")) x = expMult(x,0.9)
@@ -109,7 +109,10 @@ const FORMS = {
                 step = step.mul(tmp.md.mass_eff)
             step = step.mul(tmp.bosons.effect.z_boson[0])
             if (player.supernova.tree.includes("t1")) step = step.pow(1.15)
-            step = step.softcap(1e50,0.1,0)
+
+            let ss = E(1e50).mul(tmp.radiation.bs.eff[13])
+            step = step.softcap(ss,0.1,0)
+            
             let eff = step.pow(t.add(bonus))
             if (player.atom.elements.includes(18)) eff = eff.pow(tmp.elements.effect[18])
             if (player.ranks.tetr.gte(3)) eff = eff.pow(1.05)
@@ -131,7 +134,7 @@ const FORMS = {
             if (player.mainUpg.bh.includes(8)) gain = gain.pow(1.15)
             gain = gain.pow(tmp.chal.eff[4])
             if (CHALS.inChal(4) || CHALS.inChal(10) || FERMIONS.onActive("03")) gain = gain.root(10)
-            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03")) gain = expMult(gain,FERMIONS.onActive("02")?0.64:0.8)
+            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) gain = expMult(gain,tmp.md.pen)
             return gain.floor()
         },
         reset() {
@@ -161,7 +164,7 @@ const FORMS = {
             gain = gain.mul(tmp.atom.particles[2].powerEffect.eff1)
             if (CHALS.inChal(8) || CHALS.inChal(10) || FERMIONS.onActive("12")) gain = gain.root(8)
             gain = gain.pow(tmp.chal.eff[8])
-            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03")) gain = expMult(gain,FERMIONS.onActive("02")?0.64:0.8)
+            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) gain = expMult(gain,tmp.md.pen)
             return gain.floor()
         },
         massPowerGain() {
@@ -172,14 +175,15 @@ const FORMS = {
             return x
         },
         massGain() {
-            let x = player.bh.mass.add(1).pow(tmp.bh.massPowerGain).mul(this.condenser.effect().eff)
+            let x = player.bh.mass.add(1).pow(tmp.bh.massPowerGain).softcap(uni("e3e9"),0.95,2)
+            .mul(this.condenser.effect().eff)
             if (player.mainUpg.rp.includes(11)) x = x.mul(tmp.upgs.main?tmp.upgs.main[1][11].effect:E(1))
             if (player.mainUpg.bh.includes(14)) x = x.mul(tmp.upgs.main?tmp.upgs.main[2][14].effect:E(1))
             if (player.atom.elements.includes(46)) x = x.mul(tmp.elements.effect[46])
             x = x.mul(tmp.bosons.upgs.photon[0].effect)
             if (CHALS.inChal(8) || CHALS.inChal(10) || FERMIONS.onActive("12")) x = x.root(8)
             x = x.pow(tmp.chal.eff[8])
-            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03")) x = expMult(x,FERMIONS.onActive("02")?0.64:0.8)
+            if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) x = expMult(x,tmp.md.pen)
             return x.softcap(tmp.bh.massSoftGain, tmp.bh.massSoftPower, 0)
         },
         massSoftGain() {
@@ -936,8 +940,6 @@ function formatTime(ex,type="s") {
     if (ex.gte(60)||type=="h") return (ex.div(60).gte(10)||type!="h"?"":"0")+format(ex.div(60).floor(),0)+":"+formatTime(ex.mod(60),'m')
     return (ex.gte(10)||type!="m" ?"":"0")+format(ex)
 }
-
-function uni(x) { return E(1.5e56).mul(x) }
 
 function expMult(a,b,base=10) { return E(a).gte(1) ? E(base).pow(E(a).log(base).pow(b)) : E(0) }
 

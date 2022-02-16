@@ -92,6 +92,7 @@ var cnItems = {
     'Rank': '级别',
     'Tier': '阶层',
     'Tetr': '三重阶层',
+    'Pent': '五重阶层',
     'Mass Upgrades': '质量升级',
     'Tickspeed': '时间速度',
     'Black Hole Condenser': '黑洞压缩器',
@@ -175,6 +176,8 @@ var cnItems = {
     'All challenges 1-8 are applied at once. In addtional, you are trapped in Mass Dilation!': '挑战1-挑战8同时触发，并强制进行质量膨胀。',
     'Reward: The exponent of the RP formula is multiplied by completions. (this effect doesn\'t work while in this challenge': '奖励：相对论粒子公式的指数乘以该挑战的完成次数。(在该挑战内此奖励无效',
     'On first completion, unlock Fermions!': '当完成第1次该挑战时，解锁费米子！',
+    'You cannot gain relativistic particles or dilated mass. However, you are stuck in Mass Dilation.': '您无法获得相对论粒子和膨胀质量。强制进行质量膨胀。',
+    'Reward: Star Booster is stonger by completions.': '奖励：星辰发生器的效果随着完成次数变得更好。',
     'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗物质重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
     'Entering challenge will reset without being Supernova!': '进入挑战时将同时在未成为超新星的前提下重置！',
@@ -265,6 +268,8 @@ var cnItems = {
     '[Dysprosium] Lanthanum\'s effect is twice stronger.': '[镝]镧(57La)的效果翻倍。',
     '[Holmium] Collapsed star boost quarks gain.': '[钬]坍缩星辰可以加成夸克获取速度。',
     '[Erbium] Meta-Tickspeed start 2x later.': '[铒]时间速度的元折算延迟2倍出现。',
+    '[Thulium] Pent is now added in mass gain formula from collapsed stars.': '[铥]坍缩星辰的质量获取速度公式根据五重阶层的数值变得更好。',
+    '[Ytterbium] Add 200 more C7 & c8 maximum completions.': '[镱]挑战7和挑战8的次数上限增加200。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -318,12 +323,14 @@ var cnItems = {
     '[qol5] Tetrs no longer resets anything.': '[qol5]三重阶层不再重置任何东西。',
     '[qol6] While in any challenge, you can now automatically complete it before exiting.': '[qol6]不需要退出挑战也可以自动完成它。',
     '[qol7] You can now automatically buy Photon & Gluon upgrades, they no longer spent their amount.': '[qol7]您可以自动购买光子和胶子升级，购买它们不再消耗相应资源。',
+    '[qol8] You can now automatically Pent up, Pent no longer resets anything.': '[qol8]您可以自动提升五重阶层，五重阶层不再重置任何东西。',
     '[chal1] Add 100 more C7 & C8 maximum completions.': '[chal1]挑战7和挑战8的次数上限增加100。',
     '[chal2] Keep challenge 1-4 completions on reset.': '[chal2]重置时保留挑战1-挑战4的完成次数。',
     '[chal3] Keep challenge 5-8 completions on reset.': '[chal3]重置时保留挑战5-挑战8的完成次数。',
     '[chal4] Unlock new challenge.': '[chal4]解锁新的挑战。',
     '[chal4a] Make 9th Challenges effect better.': '[chal4a]使挑战9的奖励效果变得更好。',
     '[chal5] Unlock new challenge.': '[chal5]解锁新的挑战。',
+    '[chal6] Unlock new challenges.': '[chal6]解锁新的挑战。',
     '[gr1] BH Condensers power boost Cosmic Rays power.': '[gr1]黑洞压缩器倍率可以加成宇宙射线倍率。',
     '[gr2] Cosmic Rays Power is raised to 1.25th power.': '[gr2]宇宙射线倍率变为原来的1.25次方。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
@@ -340,6 +347,7 @@ var cnItems = {
     '[unl1] Unlock Radiation.': '[unl1]解锁射线。',
     '[rad1] Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.': '[rad1]频率获取速度基于超新星次数而增加，如果您解锁了下一种射线，还会使之前射线的波长获取速度也增加。',
     '[rad2] Gain x10 any more Radiation.': '[rad2]射线的距离获取速度变为原来的10倍。',
+    '[rad3] Radiation Boosts are 1.1x cheaper.': '[rad3]射线的加成便宜1.1倍。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -409,6 +417,9 @@ var cnItems = {
     'Visible Boost [': '可见光加成[',
     'Cosmic-Ray Boost [': '宇宙射线加成[',
     'Neturon-Star Boost [': '中子星加成[',
+    'Ultraviolet Boost [': '紫外线加成[',
+    'Tickspeed-Softcap Boost [': '时间速度软上限加成[',
+    'Meta-Rank Boost [': '级别元折算加成[',
     ']: ': ']：',
     //超新星结束
     
@@ -442,7 +453,7 @@ var cnItems = {
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
     'You have beated Challenge 10!': '您已经通过了挑战10！',
     'Fermions are unlocked in Supernova tab!': '超新星选项卡下解锁了费米子！',
-    'Incremental Mass Rewritten v0.4.3.1 - made by MrRedShark77': '质量增量重制版v0.4.3.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.3.2 - made by MrRedShark77': '质量增量重制版v0.4.3.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -606,4 +617,7 @@ var cnRegReplace = new Map([
     [/^Visible is boosted by (.+)x \(based on Infrared$/, '可见光的获取速度变为原来的$1倍(基于红外线的数值'], //超新星等
     [/^Cosmic Ray power is boosted by (.+)x$/, '宇宙射线倍率变为原来的$1倍'], //超新星等
     [/^Neutron Star is boosted by (.+)x \(based on Frequency$/, '中子星的获取速度变为原来的$1倍(基于频率的数值'], //超新星等
+    [/^Visible is boosted by (.+)x \(based on Visible$/, '紫外线的获取速度变为原来的$1倍(基于可见光的数值'], //超新星等
+    [/^Tickspeed power's softcap starts (.+)x later$/, '速度倍率的软上限延迟$1倍出现'], //超新星等
+    [/^Meta-Rank starts (.+)x later$/, '级别的元折算延迟$1倍出现'], //超新星等
 ]);
