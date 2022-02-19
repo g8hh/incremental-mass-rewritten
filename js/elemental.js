@@ -25,7 +25,7 @@ const ELEMENTS = {
         'Niobium','Molybdenum','Technetium','Ruthenium','Rhodium','Palladium','Silver','Cadmium','Indium','Tin',
         'Antimony','Tellurium','Iodine','Xenon','Caesium','Barium','Lanthanum','Cerium','Praseodymium','Neodymium',
         'Promethium','Samarium','Europium','Gadolinium','Terbium','Dysprosium','Holmium','Erbium','Thulium','Ytterbium',
-        'Lutetium','Hafnium','Titanium','Tungsten','Rhenium','Osmium','Iridium','Platinum','Gold','Mercury',
+        'Lutetium','Hafnium','Tantalum','Tungsten','Rhenium','Osmium','Iridium','Platinum','Gold','Mercury',
         'Thallium','Lead','Bismuth','Polonium','Astatine','Radon','Francium','Radium','Actinium','Thorium',
         'Protactinium','Uranium','Neptunium','Plutonium','Americium','Curium','Berkelium','Californium','Einsteinium','Fermium',
         'Mendelevium','Nobelium','Lawrencium','Ruthefordium','Dubnium','Seaborgium','Bohrium','Hassium','Meitnerium','Darmstadium',
@@ -454,6 +454,28 @@ const ELEMENTS = {
         {
             desc: `Add 200 more C7 & c8 maximum completions.`,
             cost: E('e6.9e7'),
+        },
+        {
+            desc: `From BH the formulas softcap starts later based on Supernovas.`,
+            cost: E('e1.6e8'),
+            effect() {
+                let x = player.supernova.times.add(1).root(4)
+                return x
+            },
+            effDesc(x) { return "^"+format(x)+" later" },
+        },
+        {
+            desc: `Tetrs are 15% cheaper.`,
+            cost: E('e5.75e8'),
+        },
+        {
+            desc: `Add more C5-6 & C8 maximum completions based on Supernovas.`,
+            cost: E('e1.3e9'),
+            effect() {
+                let x = player.supernova.times.mul(5)
+                return x
+            },
+            effDesc(x) { return "+"+format(x,0) },
         },
     ],
     /*
