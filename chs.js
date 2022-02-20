@@ -68,6 +68,7 @@ var cnItems = {
     ' of mass gain will softcap mass gain!': '的质量获取速度以后，质量获取速度将受到软上限限制！',
     ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到二重软上限限制！',
     ' of mass gain will softcap^3 mass gain!': '的质量获取速度以后，质量获取速度将受到三重软上限限制！',
+    ' of mass gain will softcap^4 mass gain!': '的质量获取速度以后，质量获取速度将受到四重软上限限制！',
     'You have ': '您拥有',
     ' of Black Hole': '黑洞',
     'Which multiplies mass gain by ': '它将质量获取速度乘以',
@@ -180,6 +181,8 @@ var cnItems = {
     'On first completion, unlock Fermions!': '当完成第1次该挑战时，解锁费米子！',
     'You cannot gain relativistic particles or dilated mass. However, you are stuck in Mass Dilation.': '您无法获得相对论粒子和膨胀质量。强制进行质量膨胀。',
     'Reward: Star Booster is stonger by completions.': '奖励：星辰发生器的效果随着完成次数变得更好。',
+    'You cannot gain Atoms & Quarks.': '您无法获得原子和夸克。',
+    'Reward: Completions add free Radiation Boosters.': '奖励：每次完成该挑战，就获得免费的射线升级。',
     'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗物质重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
     'Entering challenge will reset without being Supernova!': '进入挑战时将同时在未成为超新星的前提下重置！',
@@ -275,6 +278,9 @@ var cnItems = {
     '[Lutetium] From BH the formulas softcap starts later based on Supernovas.': '[镥]黑洞质量获取公式的软上限基于超新星次数而延迟出现。',
     '[Hafnium] Tetrs are 15% cheaper.': '[铪]三重阶层的需求便宜15%。',
     '[Tantalum] Add more C5-6 & C8 maximum completions based on Supernovas.': '[钽]挑战5、挑战6和挑战8的次数上限基于超新星次数而增加。',
+    '[Tungsten] Super Tetr scales 25% weaker.': '[钨]三重阶层的超级折算弱化25%。',
+    '[Rhenium] Remove 2 softcaps from Atomic Power\'s effect.': '[铼]移除原子能量效果的两重软上限。',
+    '[Osmium] Collapsed Star’s effect is 25% stronger.': '[锇]坍缩星辰的效果增加25%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -336,6 +342,7 @@ var cnItems = {
     '[chal4a] Make 9th Challenges effect better.': '[chal4a]使挑战9的奖励效果变得更好。',
     '[chal5] Unlock new challenge.': '[chal5]解锁新的挑战。',
     '[chal6] Unlock new challenges.': '[chal6]解锁新的挑战。',
+    '[chal7] Unlock 12th Challenge.': '[chal7]解锁挑战12。',
     '[gr1] BH Condensers power boost Cosmic Rays power.': '[gr1]黑洞压缩器倍率可以加成宇宙射线倍率。',
     '[gr2] Cosmic Rays Power is raised to 1.25th power.': '[gr2]宇宙射线倍率变为原来的1.25次方。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
@@ -349,12 +356,15 @@ var cnItems = {
     '[fn5] [Electron] max tier is increased by 35. Its effect softcap is weaker.': '[fn5][电子]的阶层上限增加35。它的软上限效果弱化。',
     '[fn6] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn6]解锁两种新的U-夸克和U-轻子。',
     '[fn7] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn7]解锁两种新的U-夸克和U-轻子。',
+    '[fn8] Unlock 2 new final types of U-Quark & U-Fermion.': '[fn8]解锁最后两种新的U-夸克和U-轻子。',
+    '[fn9] [Strange] & [Neutrion] max tier is increased by 2.': '[fn9][奇夸克]和[电中微子]的阶层上限增加2。',
     '[d1] Generating Relativistic particles outside Mass dilation is 25% stronger.': '[d1]未进行质量膨胀时，相对论粒子获取速度增加25%。',
     '[unl1] Unlock Radiation.': '[unl1]解锁射线。',
     '[rad1] Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.': '[rad1]频率获取速度基于超新星次数而增加，如果您解锁了下一种射线，还会使之前射线的波长获取速度也增加。',
     '[rad2] Gain x10 any more Radiation.': '[rad2]射线的距离获取速度变为原来的10倍。',
     '[rad3] Radiation Boosts are 1.1x cheaper.': '[rad3]射线的加成便宜1.1倍。',
     '[rad4] All Meta-Boosts are twice effective.': '[rad4]所有元加成的效果翻倍。',
+    '[rad5] All Radiation gains are increased by 10% for every Supernovas you have become.': '[rad5]每有一次成为超新星，所有射线的距离获取速度就增加10%。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -392,23 +402,27 @@ var cnItems = {
     '(Increased by Mass': '(单位为质量',
     '(Increased by Rage Power': '(单位为狂怒能量',
     '(Increased by Dilated Mass': '(单位为膨胀质量',
+    '(Increased by Tickspeed Effect': '(单位为时间速度效果',
     '(Increased by Quark': '(单位为夸克',
     '(Increased by Mass of Black Hole': '(单位为黑洞质量',
     '(Increased by Dark Matter': '(单位为暗物质',
     '(Increased by Collapsed Star': '(单位为坍缩星辰',
     '(Increased by Atom': '(单位为原子',
+    '(Increased by Tickspeed Power': '(单位为时间速度倍率',
     'Effect': '效果',
     'On Active: ^0.6 to the exponent of Atomic Powers gain': '激活时，使原子能量的获取速度指数变为原来的0.6次方',
     'On Active: The exponent of the RP formula is divided by 10': '激活时，使相对论粒子公式的指数除以10',
     'On Active: You are trapped in Mass Dilation, but they are twice effective': '激活时，强制进行质量膨胀，但它的效果翻倍',
     'On Active: You are trapped in Mass Dilation and Challenges 3-5': '激活时，强制进行质量膨胀，和挑战3-挑战5',
     'On Active: U-Quarks, Photons & Gluons do nothing': '激活时，U-夸克，光子和胶子失效',
+    'On Active: Challenges are disabled': '激活时，挑战奖励失效',
     'On Active: ^0.625 to the exponent of Atoms gain': '激活时，使原子的获取速度指数变为原来的0.625次方',
     'On Active: The power from the mass of the BH formula is always -1': '激活时，黑洞质量公式中，指数始终为-1',
     'On Active: You are trapped in Challenges 8-9': '激活时，强制进行挑战8和挑战9',
     'On Active: Star generators are decreased to ^0.5': '激活时，星辰发生器的效果变为原来的0.5次方',
     'On Active: U-Leptons, Z': '激活时，U-轻子，Z',
     ' bosons do nothing': '玻色子失效',
+    'On Active: Radiation Boosts are disabled': '激活时，射线加成失效',
     'Your frequency is ': '您的频率为',
     ' Hz, which multiples any Fermions gain by ': '赫兹，将使费米子获取速度变为原来的',
     'At ': '当频率到达',
@@ -471,7 +485,7 @@ var cnItems = {
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
     'You have beated Challenge 10!': '您已经通过了挑战10！',
     'Fermions are unlocked in Supernova tab!': '超新星选项卡下解锁了费米子！',
-    'Incremental Mass Rewritten v0.4.3.3 - made by MrRedShark77': '质量增量重制版v0.4.3.3 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.4.3.4.1 - made by MrRedShark77': '质量增量重制版v0.4.3.4.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -621,16 +635,18 @@ var cnRegReplace = new Map([
     [/^ Boson's first effect is (.+)% stronger$/, '玻色子的第一个效果强化$1%'], //超新星等
     [/^4th Photon & Gluon upgrades are (.+)x stronger$/, '光子和胶子升级4强化$1倍'], //超新星等
     [/^Radiation Boosters are (.+)x cheaper$/, '射线升级便宜$1倍'], //超新星等
+    [/^Meta-Tickspeed starts (.+)x later$/, '时间速度的元折算延迟$1倍出现'], //超新星等
     [/^Collapse Stars gain softcap starts \^(.+) later$/, '坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
     [/^x(.+) to Higgs Bosons & Gravitons gain$/, '希格斯玻色子和引力子的获取速度变为原来的$1倍'], //超新星等
     [/^Tickspeed is (.+)x cheaper \(before Meta scaling$/, '时间速度便宜$1倍(在元折算前生效'], //超新星等
     [/^Tier requirement is (.+)x cheaper$/, '阶层的需求便宜$1倍'], //超新星等
     [/^Pre-Meta-Supernova Scalings are (.+)% weaker$/, '超新星元折算之前的所有折算弱化$1%'], //超新星等
+    [/^BH Condensers & Cosmic Rays are (.+)x cheaper$/, '黑洞压缩器和宇宙射线便宜$1倍'], //超新星等
     [/^Radiowave is boosted by (.+)x \(based on Frequency$/, '无线电波的获取速度变为原来的$1倍(基于频率的数值'], //超新星等
     [/^Non-bonus tickspeed is (.+)x stronger$/, '非加成的时间速度强化$1倍'], //超新星等
     [/^Softcap\^3 from mass gain start \^(.+) later$/, '质量获取速度的三重软上限延迟$1次方出现'], //超新星等
     [/^Microwave is boosted by (.+)x \(based on Radio$/, '微波的获取速度变为原来的$1倍(基于无线电波的数值'], //超新星等
-    [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.3$/, '黑洞质量公式中，指数增加$1(硬上限为0.3'], //超新星等
+    [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.15$/, '黑洞质量公式中，指数增加$1(硬上限为0.15'], //超新星等
     [/^Non-bonus BH condenser is (.+)x stronger$/, '非加成的黑洞压缩器强化$1倍'], //超新星等
     [/^Infrared is boosted by (.+)x \(based on Microwave$/, '红外线的获取速度变为原来的$1倍(基于微波的数值'], //超新星等
     [/^1st Photon & Gluon upgrades are (.+)x stronger$/, '光子和胶子升级1强化$1倍'], //超新星等

@@ -100,6 +100,7 @@ const RANKS = {
             '1': "使三重阶层的需求减少15%，级别的元折算延迟1.1倍出现。",
             '2': "使三重阶层可以加成射线的获取速度。",
             '4': "使时间速度的元折算基于超新星次数而延迟出现。",
+            '5': "使级别的元折算基于五重阶层的数值而延迟出现。",
         },
     },
     effect: {
@@ -183,6 +184,10 @@ const RANKS = {
                 let ret = player.supernova.times.add(1).root(5)
                 return ret
             },
+            '5'() {
+                let ret = E(1.05).pow(player.ranks.pent)
+                return ret
+            },
         },
     },
     effDesc: {
@@ -210,6 +215,7 @@ const RANKS = {
         pent: {
             2(x) { return format(x)+"倍" },
             4(x) { return "延迟"+format(x)+"倍出现" },
+            5(x) { return "延迟"+format(x)+"倍出现" },
         },
     },
     fp: {
