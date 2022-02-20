@@ -280,7 +280,7 @@ var cnItems = {
     '[Tantalum] Add more C5-6 & C8 maximum completions based on Supernovas.': '[钽]挑战5、挑战6和挑战8的次数上限基于超新星次数而增加。',
     '[Tungsten] Super Tetr scales 25% weaker.': '[钨]三重阶层的超级折算弱化25%。',
     '[Rhenium] Remove 2 softcaps from Atomic Power\'s effect.': '[铼]移除原子能量效果的两重软上限。',
-    '[Osmium] Collapsed Star’s effect is 25% stronger.': '[锇]坍缩星辰的效果增加25%。',
+    '[Osmium] Collapsed Star\'s effect is 25% stronger.': '[锇]坍缩星辰的效果增加25%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
