@@ -568,7 +568,7 @@ var cnItems = {
     'Uhh Oh': '啊这……',
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
-    'Incremental Mass Rewritten v0.5 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.0.1 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.1 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',

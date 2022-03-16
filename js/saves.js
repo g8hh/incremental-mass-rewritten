@@ -317,6 +317,7 @@ function export_copy() {
 
 function importy() {
     let loadgame = prompt("在方框内输入您的存档代码。注意：会覆盖现有游戏的进度。")
+    if (ssf[2](loadgame)) return
     if (loadgame == 'monke') {
         addNotify('monke<br><img style="width: 100%; height: 100%" src="./images/cbc.jpg">')
         return
