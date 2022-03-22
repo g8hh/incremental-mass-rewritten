@@ -66,6 +66,7 @@ var cnItems = {
     'Muscler [': '锻体器[',
     'Booster [': '助推器[',
     'Stronger [': '强化器[',
+    'Exponent [': '指数[',
     'Tickspeeds [': '时间速度[',
     ' Rage Points': '狂怒能量',
     'Tickspeed Power': '时间速度倍率',
@@ -298,6 +299,7 @@ var cnItems = {
     '[Platinum] Meta-Supernova scales 20% weaker.': '[铂]使超新星的元折算弱化20%。',
     '[Gold] Neutronium-0 affects Aluminium-13 & Tantalum-73.': '[金]使零号中子的效果对铝(13Al)和钽(73Ta)也生效。',
     '[Mercury] Stronger & Tickspeed are 10x stronger.': '[汞]使强化器和时间速度的效果变为原来的10倍。',
+    '[Thallium] Strontium-38 is thrice effective.': '[铊]使锶(38Sr)的效果变为原来的3倍。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -377,6 +379,7 @@ var cnItems = {
     '[fn7] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn7]解锁两种新的U-夸克和U-轻子。',
     '[fn8] Unlock 2 new final types of U-Quark & U-Fermion.': '[fn8]解锁最后两种新的U-夸克和U-轻子。',
     '[fn9] [Strange] & [Neutrion] max tier is increased by 2.': '[fn9]使[奇夸克]和[电中微子]的阶层上限增加2。',
+    '[fn10] Break [Electron] maximum tier, its effect is overpowered.': '[fn10]移除[电子]的阶层上限，使它的效果变得滥强。',
     '[d1] Generating Relativistic particles outside Mass dilation is 25% stronger.': '[d1]未进行质量膨胀时，使相对论粒子获取速度增加25%。',
     '[rad1] Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.': '[rad1]使频率获取速度基于超新星次数而增加，如果您解锁了下一种辐射波，还会使之前辐射波的波长获取速度也增加。',
     '[rad2] Gain x10 any more Radiation.': '[rad2]使辐射波的波长获取速度变为原来的10倍。',
@@ -391,6 +394,7 @@ var cnItems = {
     '[qu3] From BH the formula\'s softcap is 30% weaker.': '[qu3]使黑洞质量获取公式的软上限弱化30%。',
     '[qu4] Remove effect\'s softcaps from [sn2].': '[qu4]移除[sn2]效果的软上限。',
     '[qu5] Blueprint Particles & Chromas are affected by Tickspeed Effect at a reduced rate.': '[qu5]使时间速度可以加成蓝图粒子和色度获取速度，只是效果倍率降低。',
+    '[qu6] Quantum times boost Cosmic string\'s power.': '[qu6]使前往量子次数可以加成宇宙弦的倍率。',
     '[qu_qol1] You can now automatically purchase supernova tree except with cost of quantum foam.': '[qu_qol1]您可以自动购买不需要量子泡沫的中子树升级。',
     '[qu_qol2] Keep U-Quark Tiers on going Quantum.': '[qu_qol2]前往量子时保留U-夸克的相关阶层。',
     '[qu_qol3] You can now automatically complete Challenges 1-4 any Challenge.': '[qu_qol3]您可以自动完成挑战1-挑战4中的任意挑战。',
@@ -570,7 +574,7 @@ var cnItems = {
     'Uhh Oh': '啊这……',
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
-    'Incremental Mass Rewritten v0.5.0.3 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.3 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.0.4 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.4 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -645,7 +649,8 @@ var cnExcludeWhole = [
     /^[e\.\,\d]+ \+ [e\.\,\d]+$/, //处理数字及单位
     /^[A-Z][a-z]?$/, //单独处理短文字
     /^(.*)[\u4E00-\u9FFF]+(.*)$/, //不抓取内容
-    /^e\d\.[e\d]+e\d$/, //不抓取内容
+    /^e\d\.[e\d]+e\d+$/, //不抓取内容
+    /^e[\d,]+$/, //不抓取内容
 ];
 var cnExcludePostfix = [
 ]
@@ -668,6 +673,9 @@ var cnRegReplace = new Map([
     [/^\s*Stronger Power$/, '强化器倍率'], //主界面等
     [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
+    [/^\s*Exponent Power$/, '指数倍率'], //主界面等
+    [/^\s*Exponent Effect$/, '指数效果'], //主界面等
+    [/^\^(.+) to Stronger\s*$/, '强化器^$1'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩星辰不少于$1时就可以成为超新星了'], //主界面等
