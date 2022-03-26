@@ -24,6 +24,7 @@ var cnItems = {
     'Supernova': '超新星',
     'Quantum': '量子',
     'Fermion Tier': '费米子阶层',
+    'Cosmic String': '宇宙弦',
     'Options': '选项',
     'Mass': '质量',
     'Black Hole': '黑洞',
@@ -66,7 +67,6 @@ var cnItems = {
     'Muscler [': '锻体器[',
     'Booster [': '助推器[',
     'Stronger [': '强化器[',
-    'Exponent [': '指数[',
     'Tickspeeds [': '时间速度[',
     ' Rage Points': '狂怒能量',
     'Tickspeed Power': '时间速度倍率',
@@ -299,7 +299,8 @@ var cnItems = {
     '[Platinum] Meta-Supernova scales 20% weaker.': '[铂]使超新星的元折算弱化20%。',
     '[Gold] Neutronium-0 affects Aluminium-13 & Tantalum-73.': '[金]使零号中子的效果对铝(13Al)和钽(73Ta)也生效。',
     '[Mercury] Stronger & Tickspeed are 10x stronger.': '[汞]使强化器和时间速度的效果变为原来的10倍。',
-    '[Thallium] Strontium-38 is thrice effective.': '[铊]使锶(38Sr)的效果变为原来的3倍。',
+    '[Thallium] Stronger is ^1.1 stronger.': '[铊]使强化器的效果变为原来的1.1次方。',
+    '[Lead] Strontium-38 is thrice effective.': '[铅]使锶(38Sr)的效果变为原来的3倍。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -378,16 +379,18 @@ var cnItems = {
     '[fn6] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn6]解锁两种新的U-夸克和U-轻子。',
     '[fn7] Unlock 2 new more types of U-Quark & U-Fermion.': '[fn7]解锁两种新的U-夸克和U-轻子。',
     '[fn8] Unlock 2 new final types of U-Quark & U-Fermion.': '[fn8]解锁最后两种新的U-夸克和U-轻子。',
-    '[fn9] [Strange] & [Neutrion] max tier is increased by 2.': '[fn9]使[奇夸克]和[电中微子]的阶层上限增加2。',
+    '[fn9] [Strange] & [Neutrino] max tier is increased by 2.': '[fn9]使[奇夸克]和[中微子]的阶层上限增加2。',
     '[fn10] Break [Electron] maximum tier, its effect is overpowered.': '[fn10]移除[电子]的阶层上限，使它的效果变得滥强。',
+    '[fn11] [Strange], [Top], [Bottom], [Neutrino], [Neut-Muon] max tier is increased by 5.': '[fn11]使[奇夸克]、[顶夸克]、[底夸克]、[中微子]和[缪中微子]的阶层上限增加5。',
     '[d1] Generating Relativistic particles outside Mass dilation is 25% stronger.': '[d1]未进行质量膨胀时，使相对论粒子获取速度增加25%。',
     '[rad1] Gain more frequency based on Supernova, any more radiation if you unlocked next radiation.': '[rad1]使频率获取速度基于超新星次数而增加，如果您解锁了下一种辐射波，还会使之前辐射波的波长获取速度也增加。',
     '[rad2] Gain x10 any more Radiation.': '[rad2]使辐射波的波长获取速度变为原来的10倍。',
     '[rad3] Radiation Boosts are 1.1x cheaper.': '[rad3]使辐射波的加成便宜1.1倍。',
     '[rad4] All Meta-Boosts are twice effective.': '[rad4]使所有元加成的效果翻倍。',
     '[rad5] All Radiation gains are increased by 10% for every Supernovas you have become.': '[rad5]每有一次成为超新星，所有辐射波的波长获取速度就增加10%。',
-    '[rad6] Bonus radiation boosts are stronger for every radiation index.': '[rad6]使每种辐射波获取速度的加成随着辐射波类型变得越来越强。',
-    '[qf1] Gain more Quantum Foams based on Supernovas': '[qf1]使量子泡沫获取速度基于超新星次数而增加。',
+    '[rad6] Bonus radiation boosts are stronger based on radiation type.': '[rad6]使每种辐射波获取速度的加成随着辐射波类型变得越来越强。',
+    '[qf1] Gain more Quantum Foams based on Supernovas.': '[qf1]使量子泡沫获取速度基于超新星次数而增加。',
+    '[qf2] Quantum Foams are boosted by Neutron Stars.': '[qf2]使中子星可以加成量子泡沫获取速度。',
     '[qu0] Good luck with new era!': '[qu0]祝您新时代好运！',
     '[qu1] Fermion\'s requirement is decreased by 15%.': '[qu1]使费米子的需求减少15%。',
     '[qu2] W+ Boson\'s 1st effect is overpowered.': '[qu2]使W+玻色子的第一个效果变得滥强。',
@@ -433,7 +436,7 @@ var cnItems = {
     '[Electron]': '[电子]',
     '[Muon]': '[缪子]',
     '[Tau]': '[陶子]',
-    '[Neutrion]': '[电中微子]',
+    '[Neutrino]': '[中微子]',
     '[Neut-Muon]': '[缪中微子]',
     '[Neut-Tau]': '[陶中微子]',
     'Tier ': '阶层',
@@ -516,7 +519,11 @@ var cnItems = {
     'You start with QoL (qol8-9 & unl1), Radiation unlocked.': '初始状态下就解锁[qol8]、[qol9]和[unl1]中子树升级，以及辐射波。',
     'Double Quantum Foam gain.': '使量子泡沫获取速度翻倍。',
     'Pre-Quantum global speed can affect Blueprint Particle & Chroma at a reduced rate.': '使量子之前所有资源获取速度可以加成蓝图粒子和色度获取速度，只是效果倍率降低。',
-    'Supernova stars are boosted by Quantum times (capped at 1e10).': '使前往量子次数可以加成超新星星辰(上限为1e10)。',
+    'Supernova stars are boosted by Quantum times (capped at 1e10). Unlock Auto-Quantum.': '使前往量子次数可以加成超新星星辰(上限为1e10)。解锁自动前往量子。',
+    'Auto-Quantum': '自动前往量子',
+    'Auto-Quantum Mode': '自动前往量子模式',
+    'Amount': '数量',
+    'Time': '时间',
     ' Primordium Theorem (based on Blueprint Particles': '原基定理可供使用(基于蓝图粒子数量',
     '(+1 at ': '(下个需要',
     'Give 1 random Particle': '随机给予1个粒子',
@@ -574,7 +581,7 @@ var cnItems = {
     'Uhh Oh': '啊这……',
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
-    'Incremental Mass Rewritten v0.5.0.4 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.4 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.0.6 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.6 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -673,9 +680,6 @@ var cnRegReplace = new Map([
     [/^\s*Stronger Power$/, '强化器倍率'], //主界面等
     [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
-    [/^\s*Exponent Power$/, '指数倍率'], //主界面等
-    [/^\s*Exponent Effect$/, '指数效果'], //主界面等
-    [/^\^(.+) to Stronger\s*$/, '强化器^$1'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩星辰不少于$1时就可以成为超新星了'], //主界面等

@@ -6,11 +6,12 @@ const QUANTUM = {
 
         if (tmp.qu.mil_reached[4]) x = x.mul(2)
         if (hasTree("qf1")) x = x.mul(tmp.supernova.tree_eff.qf1||1)
+        if (hasTree("qf2")) x = x.mul(treeEff("qf2"))
         return x.floor()
     },
-    enter() {
+    enter(auto=false) {
         if (tmp.qu.gain.gte(1)) {
-            if (player.confirms.qu) if (confirm("你确定要前往量子吗？除了部分qol升级以外您将失去绝大部分进度")?!confirm("您真的确定了吗？？？"):true) return
+            if (player.confirms.qu&&!auto) if (confirm("你确定要前往量子吗？除了部分qol升级以外您将失去绝大部分进度")?!confirm("您真的确定了吗？？？"):true) return
             if (player.qu.times.gte(10)) {
                 player.qu.points = player.qu.points.add(tmp.qu.gain)
                 player.qu.times = player.qu.times.add(1)
@@ -35,13 +36,14 @@ const QUANTUM = {
                     document.body.style.animation = ""
                 },2000)
             }
+            player.qu.auto.time = 0
         }
     },
     doReset() {
         player.supernova.times = E(0)
         player.supernova.stars = E(0)
 
-        let keep = ['qol1','qol2','qol3','qol4','qol5','qol6','fn2','fn5','fn6','fn7','fn8','fn9','fn10']
+        let keep = ['qol1','qol2','qol3','qol4','qol5','qol6','fn2','fn5','fn6','fn7','fn8','fn9','fn10','fn11']
         for (let x = 0; x < tmp.supernova.tree_had.length; x++) if (TREE_UPGS.ids[tmp.supernova.tree_had[x]].qf) keep.push(tmp.supernova.tree_had[x])
         if (tmp.qu.mil_reached[2]) keep.push('chal1','chal2','chal3','chal4','chal4a','chal5','chal6','chal7','c','qol7','chal4b')
         if (tmp.qu.mil_reached[3]) keep.push('qol8','qol9','unl1')
@@ -116,8 +118,25 @@ const QUANTUM = {
         [E(5), `You start with QoL (qol8-9 & unl1), Radiation unlocked.`],
         [E(6), `Double Quantum Foam gain.`],
         [E(8), `Pre-Quantum global speed can affect Blueprint Particle & Chroma at a reduced rate.`],
-        [E(10), `Supernova stars are boosted by Quantum times (capped at 1e10).`],
+        [E(10), `Supernova stars are boosted by Quantum times (capped at 1e10). Unlock Auto-Quantum.`],
     ],
+    auto: {
+        mode: ["Amount","Time"],
+        switch() { player.qu.auto.enabled = !player.qu.auto.enabled; player.qu.auto.time = 0 },
+        switchMode() { player.qu.auto.mode = (player.qu.auto.mode+1)%this.mode.length; player.qu.auto.time = 0 },
+        temp() {
+            let n, i = player.qu.auto.input
+            if (player.qu.auto.mode==0) {
+                n = E(i)
+                if (isNaN(n.mag) || n.lt(0)) n = E(1)
+                n = n.floor()
+            } else if (player.qu.auto.mode==1) {
+                n = Number(i)
+                if (isNaN(n) || n < 0 || !isFinite(n)) n = 1
+            }
+            return n
+        }
+    },
 }
 
 function quUnl() { return player.qu.times.gte(1) }
@@ -125,6 +144,12 @@ function quUnl() { return player.qu.times.gte(1) }
 function getQUSave() {
     return {
         reached: false,
+        auto: {
+            enabled: false,
+            time: 0,
+            mode: 0,
+            input: "1",
+        },
         points: E(0),
         times: E(0),
         bp: E(0),
@@ -153,6 +178,15 @@ function calcQuantum(dt, dt_offline) {
         if (PRIM.unl()) {
             player.qu.prim.theorems = player.qu.prim.theorems.max(tmp.prim.theorems)
         }
+
+        if (player.qu.auto.enabled) {
+            player.qu.auto.time += dt_offline
+
+            let can = false
+            if (player.qu.auto.mode == 0) can = tmp.qu.gain.gte(tmp.qu.auto_input)
+            else if (player.qu.auto.mode == 1) can = player.qu.auto.time >= tmp.qu.auto_input
+            if (can) QUANTUM.enter(true)
+        }
     }
 
     if (hasTree("qu_qol1")) for (let x = 0; x < tmp.supernova.auto_tree.length; x++) TREE_UPGS.buy(tmp.supernova.auto_tree[x], true)
@@ -170,6 +204,26 @@ function updateQuantumTemp() {
     tmp.qu.cosmic_str_cost = E(2).pow(player.qu.cosmic_str.add(1)).floor()
     tmp.qu.cosmic_str_bulk = player.qu.points.max(1).log(2).floor()
 
+    if (scalingActive("cosmic_str", player.qu.cosmic_str.max(tmp.qu.cosmic_str_bulk), "super")) {
+		let start = getScalingStart("super", "cosmic_str");
+		let power = getScalingPower("super", "cosmic_str");
+		let exp = E(2).pow(power);
+		tmp.qu.cosmic_str_cost =
+			E(2).pow(
+                player.qu.cosmic_str
+                .pow(exp)
+			    .div(start.pow(exp.sub(1)))
+                .add(1)
+            ).floor()
+            tmp.qu.cosmic_str_bulk = player.qu.points
+            .max(1)
+            .log(2)
+			.mul(start.pow(exp.sub(1)))
+			.root(exp)
+            .add(1)
+			.floor();
+	}
+
     tmp.qu.cosmic_str_can = player.qu.points.gte(tmp.qu.cosmic_str_cost)
     tmp.qu.cosmic_str_eff = QUANTUM.cosmic_str.eff()
 
@@ -177,6 +231,8 @@ function updateQuantumTemp() {
     tmp.qu.bpEff = QUANTUM.bpEff()
 
     for (let x = 0; x < QUANTUM.mils.length; x++) tmp.qu.mil_reached[x] = player.qu.times.gte(QUANTUM.mils[x][0])
+
+    tmp.qu.auto_input = QUANTUM.auto.temp()
 }
 
 function updateQuantumHTML() {
@@ -189,7 +245,7 @@ function updateQuantumHTML() {
 
         tmp.el.cosmic_str_lvl.setTxt(format(player.qu.cosmic_str,0))//+(tmp.qu.cosmic_str_bonus.gte(1)?" + "+format(tmp.qu.cosmic_str_bonus,0):"")
         tmp.el.cosmic_str_btn.setClasses({btn: true, locked: !tmp.qu.cosmic_str_can})
-        //tmp.el.cosmic_str_scale.setTxt(getScalingName('cosmic_str'))
+        tmp.el.cosmic_str_scale.setTxt(getScalingName('cosmic_str'))
         tmp.el.cosmic_str_cost.setTxt(format(tmp.qu.cosmic_str_cost,0))
         tmp.el.cosmic_str_pow.setTxt(format(tmp.qu.cosmic_str_eff.pow))
         tmp.el.cosmic_str_eff.setHTML(format(tmp.qu.cosmic_str_eff.eff))
@@ -205,7 +261,12 @@ function updateQuantumHTML() {
                 tmp.el['qu_mil_goal'+x].setTxt(format(QUANTUM.mils[x][0],0))
             }
         }
-        if (tmp.stab[6] == 2) updatePrimordiumHTML()
+        if (tmp.stab[6] == 2) {
+            tmp.el.auto_qu.setTxt(player.qu.auto.enabled?"ON":"OFF")
+            tmp.el.auto_qu_mode.setTxt(QUANTUM.auto.mode[player.qu.auto.mode])
+            tmp.el.auto_qu_res.setTxt(player.qu.auto.mode==0?format(tmp.qu.auto_input,0):formatTime(tmp.qu.auto_input,1)+"s")
+        }
+        if (tmp.stab[6] == 3) updatePrimordiumHTML()
     }
 
     if (hasTree("qu_qol4")) SUPERNOVA.reset(false,false,true)
