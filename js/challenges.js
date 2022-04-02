@@ -15,7 +15,7 @@ function updateChalHTML() {
             tmp.el["chal_div_"+x].setDisplay(unl)
             tmp.el["chal_btn_"+x].setClasses({img_chal: true, ch: CHALS.inChal(x), chal_comp: player.chal.comps[x].gte(tmp.chal.max[x])})
             if (unl) {
-                tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+" / "+format(tmp.chal.max[x],0))
+                tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+"/"+format(tmp.chal.max[x],0))
             }
         }
         tmp.el.chal_enter.setVisible(player.chal.active != player.chal.choosed)
