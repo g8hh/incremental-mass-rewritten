@@ -20,6 +20,7 @@ var cnItems = {
     'Stats': '统计',
     'Upgrades': '升级',
     'Challenges': '挑战',
+    'Quantum Challenge': '量子挑战',
     'Atom': '原子',
     'Supernova': '超新星',
     'Quantum': '量子',
@@ -165,7 +166,7 @@ var cnItems = {
     //升级结束
 
     //挑战
-    'Hint: Click any image to show challenge description. Click again to enter any challenge': '提示：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
+    'Note 1: Click any image to show challenge description. Click again to enter any challenge': '提示1：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
     'Exit Challenge': '退出挑战',
     'Enter Challenge': '进入挑战',
     'Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.': '级别和质量升级的超级折算在25次就开始出现。另外，时间速度的超级折算在50次就开始出现。',
@@ -200,6 +201,24 @@ var cnItems = {
     'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗物质重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
     'Entering challenge will reset without being Supernova!': '进入挑战时将同时在未成为超新星的前提下重置！',
+    ' Quantum Shard, which raises to ': '量子碎片，基础效果的指数为',
+    'Translated to ': '相当于使量子泡沫获取速度变为',
+    'x multiplier of Quantum Foams': '倍',
+    'Enter the Quantum Challenge': '进入量子挑战',
+    'Exit the Quantum Challenge': '退出量子挑战',
+    'Modifications': '挑战限制',
+    'Presets': '挑战预设',
+    ' Note 1: Click any image to show challenge description': '提示1：点击图片以查看挑战详情。',
+    ' Note 2: While in Quantum challenge, you need to go to Quantum to complete the Quantum Challenge': '提示2：在量子挑战中，您需要前往量子才能完成它。',
+    'Add present as your modifications': '将目前的挑战限制设置为挑战预设',
+    'New Preset': '新预设',
+    'Preset Saved': '预设已保存',
+    'Preset Loaded to Modifiers': '预设已载入至挑战限制',
+    'Preset Renamed': '预设已重命名',
+    'Preset Deleted': '预设已删除',
+    'Load': '载入',
+    'Rename': '重命名',
+    'Delete': '删除',
     //挑战结束
 
     //原子
@@ -301,6 +320,7 @@ var cnItems = {
     '[Mercury] Stronger & Tickspeed are 10x stronger.': '[汞]使强化器和时间速度的效果变为原来的10倍。',
     '[Thallium] Stronger is ^1.1 stronger.': '[铊]使强化器的效果变为原来的1.1次方。',
     '[Lead] Strontium-38 is thrice effective.': '[铅]使锶(38Sr)的效果变为原来的3倍。',
+    '[Bismuth] Mass Dilation upgrade 2 effect is overpowered.': '[铋]使质量膨胀升级2的效果变得滥强。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -392,7 +412,7 @@ var cnItems = {
     '[qf1] Gain more Quantum Foams based on Supernovas.': '[qf1]使量子泡沫获取速度基于超新星次数而增加。',
     '[qf2] Quantum Foams are boosted by Neutron Stars.': '[qf2]使中子星可以加成量子泡沫获取速度。',
     '[qu0] Good luck with new era!': '[qu0]祝您新时代好运！',
-    '[qu1] Fermion\'s requirement is decreased by 15%.': '[qu1]使费米子的需求减少15%。',
+    '[qu1] Fermion\'s requirement is decreased by 20%.': '[qu1]使费米子的需求减少20%。',
     '[qu2] W+ Boson\'s 1st effect is overpowered.': '[qu2]使W+玻色子的第一个效果变得滥强。',
     '[qu3] From BH the formula\'s softcap is 30% weaker.': '[qu3]使黑洞质量获取公式的软上限弱化30%。',
     '[qu4] Remove effect\'s softcaps from [sn2].': '[qu4]移除[sn2]效果的软上限。',
@@ -409,6 +429,7 @@ var cnItems = {
     '[prim2] Theta Particle’s second effect is now added.': '[prim2]西塔[Θ]粒子增加第二个效果。',
     '[unl1] Unlock Radiation.': '[unl1]解锁辐射波。',
     '[unl2] Unlock Primordium.': '[unl2]解锁原基。',
+    '[unl3] Unlock Quantum Challenge.': '[unl3]解锁量子挑战。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -581,7 +602,7 @@ var cnItems = {
     'Uhh Oh': '啊这……',
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
-    'Incremental Mass Rewritten v0.5.0.6 - Quantum Update - made by MrRedShark77': '质量增量重制版v0.5.0.6 - 量子升级 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.1 - made by MrRedShark77': '质量增量重制版v0.5.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -697,6 +718,16 @@ var cnRegReplace = new Map([
     [/^Finish Challenge for \+(.+) Completions$/, '完成挑战，使完成次数增加$1次'], //挑战等
     [/^Currently: \+(.+) later to Super Ranks, Super Tickspeed scaling (.+)% weaker$/, '目前效果：使级别的超级折算延迟$1次出现，时间速度的超级折算弱化$2%'], //挑战等
     [/^Currently: \+(.+)%\s?$/, '目前效果：增加$1%'], //挑战等
+    [/^\^(.+) to exponent from All-Stars resources.$/, '使所有星辰相关资源的获取速度变为原来的$1次方。'], //挑战等
+    [/^\^(.+) to strength of star generators.$/, '使星辰发生器的效果变为原来的$1次方。'], //挑战等
+    [/^\/(.+) to pre-Quantum global speed.$/, '使量子之前所有资源获取速度除以$1。'], //挑战等
+    [/^x(.+) to requirements of any Fermions.$/, '使所有费米子的需求变为$1倍。'], //挑战等
+    [/^\^(.+) to multiplier from Bosonic & Radiation resources.$/, '使玻色子和辐射波的加成变为原来的$1次方。'], //挑战等
+    [/^\^(.+) to multiplier from pre-Supernova resources, except All-Stars resources.$/, '使超新星之前所有资源(除了星辰相关资源)的加成变为原来的$1次方。'], //挑战等
+    [/^x(.+) to requirements of any pre-Quantum Challenges.$/, '使所有量子之前的挑战需求变为$1倍。'], //挑战等
+    [/^\^(.+) to Mass Dilation’s penalty.$/, '使质量膨胀的惩罚变为原来的$1次方。'], //挑战等
+    [/^\^(.+) to starting of pre-Quantum scaling.$/, '使所有量子之前的折算提前$1次方开始出现。'], //挑战等
+    [/^(.+)% to strength of pre-Quantum scaling.$/, '使所有量子之前的折算效果变为原来的$1%。'], //挑战等
     [/^Currently: \^(.+) later$/, '目前效果：延迟$1次方出现'], //原子等，前置
     [/^Currently: \^(.*)$/, '目前效果：^$1'], //挑战等
     [/^Currently: (.+)% weaker\s?$/, '目前效果：降低$1%'], //挑战等
@@ -775,5 +806,5 @@ var cnRegReplace = new Map([
     [/^Boost all Radiations gains by (.+)x$/, '使辐射波的波长获取速度变为$1倍'], //量子等
     [/^Boost all Radiations gains by (.+)x \/$/, '使辐射波的波长获取速度变为$1倍/'], //量子等
     [/^ Make all Radiations effects (.+)x stronger$/, '使辐射波的效果变为$1倍'], //量子等
-    [/^Make Meta-Supernova starts (.+) later$/, '使超新星的元折算延迟$1次出现'], //量子等
+    [/^Make all Supernova's scalings start (.+) later$/, '使超新星的所有折算延迟$1次出现'], //量子等
 ]);

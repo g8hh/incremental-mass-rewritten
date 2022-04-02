@@ -21,6 +21,7 @@ const FORMS = {
         let x = E(1)
         if (tmp.qu.mil_reached[1]) x = x.mul(10)
         if (quUnl()) x = x.mul(tmp.qu.bpEff)
+        if (QCs.active()) x = x.div(tmp.qu.qc_eff[1])
         return x
     },
     massGain() {
@@ -46,6 +47,7 @@ const FORMS = {
             x = expMult(x,tmp.md.pen)
             if (hasElement(28)) x = x.pow(1.5)
         }
+        if (QCs.active()) x = x.pow(tmp.qu.qc_eff[4])
         if (CHALS.inChal(9) || FERMIONS.onActive("12")) x = expMult(x,0.9)
         return x.softcap(tmp.massSoftGain,tmp.massSoftPower,0)
         .softcap(tmp.massSoftGain2,tmp.massSoftPower2,0)
@@ -162,6 +164,7 @@ const FORMS = {
             if (CHALS.inChal(4) || CHALS.inChal(10) || FERMIONS.onActive("03")) gain = gain.root(10)
             gain = gain.pow(tmp.prim.eff[1][0])
 
+            if (QCs.active()) gain = gain.pow(tmp.qu.qc_eff[4])
             if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) gain = expMult(gain,tmp.md.pen)
             return gain.floor()
         },
@@ -194,6 +197,7 @@ const FORMS = {
             gain = gain.pow(tmp.chal.eff[8])
             gain = gain.pow(tmp.prim.eff[2][0])
 
+            if (QCs.active()) gain = gain.pow(tmp.qu.qc_eff[4])
             if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) gain = expMult(gain,tmp.md.pen)
             return gain.floor()
         },
@@ -213,6 +217,8 @@ const FORMS = {
             x = x.mul(tmp.bosons.upgs.photon[0].effect)
             if (CHALS.inChal(8) || CHALS.inChal(10) || FERMIONS.onActive("12")) x = x.root(8)
             x = x.pow(tmp.chal.eff[8])
+
+            if (QCs.active()) x = x.pow(tmp.qu.qc_eff[4])
             if (player.md.active || CHALS.inChal(10) || FERMIONS.onActive("02") || FERMIONS.onActive("03") || CHALS.inChal(11)) x = expMult(x,tmp.md.pen)
             return x.softcap(tmp.bh.massSoftGain, tmp.bh.massSoftPower, 0)
         },
@@ -313,7 +319,7 @@ const FORMS = {
                 return
             }
             if (id=="qu") {
-                player.reset_msg = "需要质量超过"+formatMass(mlt(1e4))+"才能前往量子"
+                player.reset_msg = "需要质量超过"+formatMass(mlt(1e4))+"才能"+(QCs.active()?"完成量子挑战":"前往量子")
                 return
             }
             player.reset_msg = this.msgs[id]
@@ -1016,8 +1022,8 @@ function formatGain(amt, gain, isMass=false) {
     let rate
     if (next.div(amt).gte(10) && amt.gte(1e100)) {
         let ooms = next.div(amt).log10().mul(20)
-        if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6)) rate = "(+"+format(ooms.div(1e9)) + "数量级/秒)"
-        else rate = "(x"+format(ooms) + "/秒)"
+        if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6)) rate = "(+"+format(ooms.div(1e9)) + "多宇宙/秒)"
+        else rate = "(+"+format(ooms) + "数量级/秒)"
     }
     else rate = "(+"+f(gain)+"/秒)"
     return rate
