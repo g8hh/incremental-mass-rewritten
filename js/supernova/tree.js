@@ -598,7 +598,7 @@ const TREE_UPGS = {
                 let x = player.qu.qc.shard+1
                 return x
             },
-            effDesc(x) { return format(x,0)+"x" },
+            effDesc(x) { return format(x,0)+"倍" },
         },
         qu_qol1: {
             qf: true,
