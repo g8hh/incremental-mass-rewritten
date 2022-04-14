@@ -351,6 +351,9 @@ var cnItems = {
     ' stars': '星辰',
     ' Neutron star.': '中子星。',
     'You become Supernova!': '您成为了超新星！',
+    'Quality of life': '游戏体验',
+    'Challenge': '挑战',
+    'Post-Supernova': '超新星之后',
     '[c] Start generating 0.1 Neutron Star per second (not affected by offline production).': '[c]开始每秒产生0.1中子星(不受离线产量影响)。',
     '[sn1] Tickspeed affects Neutron Star gain at a reduced rate.': '[sn1]使时间速度可以加成中子星获取速度，只是效果倍率降低。',
     '[sn2] Supernova boosts Neutron Star gain.': '[sn2]使超新星次数可以加成中子星获取速度。',
@@ -386,6 +389,7 @@ var cnItems = {
     '[chal5] Unlock new challenge.': '[chal5]解锁新的挑战。',
     '[chal6] Unlock new challenges.': '[chal6]解锁新的挑战。',
     '[chal7] Unlock 12th Challenge.': '[chal7]解锁挑战12。',
+    '[chal7a] Make 12th Challenges effect better.': '[chal7a]使挑战12的奖励效果变得更好。',
     '[gr1] BH Condensers power boost Cosmic Rays power.': '[gr1]使黑洞压缩器倍率可以加成宇宙射线倍率。',
     '[gr2] Cosmic Rays Power is raised to 1.25th power.': '[gr2]使宇宙射线倍率变为原来的1.25次方。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]使时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
@@ -429,8 +433,10 @@ var cnItems = {
     '[qu_qol6] Keep U-Lepton Tiers on going Quantum.': '[qu_qol6]前往量子时保留U-轻子的相关阶层。',
     '[qu_qol7] Keep challenge 9-12 completions on going Quantum.': '[qu_qol7]前往量子时保留挑战9-挑战12的完成次数。',
     '[qu_qol8] You can now automatically get all Fermions Tiers outside any Fermion, except during Quantum Challenge.': '[qu_qol8]您可以自动获得费米子阶层，但在进行量子挑战时无效。',
+    '[qu_qol9] Start with Polonium–84 unlocked when entering in Quantum Challenge.': '[qu_qol9]进行量子挑战时，初始状态下就解锁钋(Po84)。',
     '[prim1] Primordium Theorem’s base requirement is reduced by 1.': '[prim1]原基定理的基础需求减少1。',
     '[prim2] Theta Particle’s second effect is now added.': '[prim2]西塔[Θ]粒子增加第二个效果。',
+    '[prim3] Epsilon Particle’s second effect is now added, stronger if you are in Quantum Challenge.': '[prim3]艾普西隆[E]粒子增加第二个效果，在量子挑战中效果变得更好。',
     '[qc1] Mass gain softcap^4 starts later based on Quantum Shards.': '[qc1]使质量获取速度的四重软上限基于量子碎片数量而延迟出现。',
     '[unl1] Unlock Radiation.': '[unl1]解锁辐射波。',
     '[unl2] Unlock Primordium.': '[unl2]解锁原基。',
@@ -607,7 +613,7 @@ var cnItems = {
     'Uhh Oh': '啊这……',
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
-    'Incremental Mass Rewritten v0.5.1.1 - made by MrRedShark77': '质量增量重制版v0.5.1.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.2.1 - made by MrRedShark77': '质量增量重制版v0.5.2.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -808,6 +814,8 @@ var cnRegReplace = new Map([
     [/^ Boost Cosmic Ray Power by (.+)x$/, '使宇宙射线倍率变为$1倍'], //量子等
     [/^Boost Higgs Boson's effect by (.+)x$/, '使希格斯玻色子的效果变为$1倍'], //量子等
     [/^Add (.+) to base from Fermions gain $/, '使费米子获取速度的基础数量增加$1'], //量子等
+    [/^Add (.+) to base from Fermions gain  \/$/, '使费米子获取速度的基础数量增加$1/'], //量子等
+    [/^ Add (.+) free tiers to Fermions$/, '使费米子阶层额外增加$1'], //量子等
     [/^Boost all Radiations gains by (.+)x$/, '使辐射波的波长获取速度变为$1倍'], //量子等
     [/^Boost all Radiations gains by (.+)x \/$/, '使辐射波的波长获取速度变为$1倍/'], //量子等
     [/^ Make all Radiations effects (.+)x stronger$/, '使辐射波的效果变为$1倍'], //量子等
