@@ -589,7 +589,7 @@ var cnItems = {
     'Atomic Power’s effect is ': '原子能量的效果指数强化',
     ' exponentially stronger.': '。',
     'Entropic Evaporation': '熵消耗',
-    'Make evaporated resources gain ': '使消耗资源的熵获取速度变为原来的',
+    'Make evaporated resources gain ': '消耗资源后，使相应资源获取速度变为原来的',
     ' faster.': '。',
     'Entropic Converter': '熵转化',
     'Tickspeed Power gives ': '时间速度倍率使黑洞压缩器和宇宙射线的倍率增加',
