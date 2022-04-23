@@ -592,7 +592,7 @@ var cnItems = {
     'Make evaporated resources gain ': '消耗资源后，使相应资源获取速度变为原来的',
     ' faster.': '。',
     'Entropic Converter': '熵转化',
-    'Tickspeed Power gives ': '时间速度倍率使黑洞压缩器和宇宙射线的倍率增加',
+    'Tickspeed Power gives ': '使黑洞压缩器和宇宙射线的倍率增加时间速度倍率的',
     ' boost to BHC & Cosmic Ray Powers.': '。',
     'Stop Evaporating to get': '停止消耗，获得',
     'best Enthalpy': '焓(以最高一次为准)',
