@@ -128,6 +128,17 @@ const POPUP_GROUPS = {
             'font-size': "14px",
         },
     },
+    en: {
+        html() { return `
+            Congratulations!<br><br>您的质量已经到达了${formatMass(mlt(7.5e6))}！<br><br>
+            <b>Entropy is unlocked in Quantum tab!</b>
+        `},
+        width: 400,
+        height: 150,
+        otherStyle: {
+            'font-size': "14px",
+        },
+    },
 }
 
 function addPopup(data) {
