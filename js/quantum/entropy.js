@@ -77,6 +77,17 @@ const ENTROPY = {
                 return [x,y]
             },
             desc(x) { return `Tickspeed Power gives <b>${x[0].format(2)}次方</b> boost to BHC & Cosmic Ray Powers.<br>Currently: <b>${x[1].format()}倍</b>` },
+        },{
+            title: "Entropic Booster",
+
+            start: E(250000),
+            inc: E(2),
+
+            eff(i) {
+                let x = i.div(20).add(1)
+                return x
+            },
+            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
         },
 
         /*
