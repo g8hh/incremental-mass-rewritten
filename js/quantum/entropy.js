@@ -88,6 +88,17 @@ const ENTROPY = {
                 return x
             },
             desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
+        },{
+            title: "Entropic Scaling",
+
+            start: E(1e7),
+            inc: E(10),
+
+            eff(i) {
+                let x = i.root(2).div(10).add(1).pow(-1)
+                return x
+            },
+            desc(x) { return `All pre-Supernova scaling is <b>${formatReduction(x)}</b> weaker before Meta scaling (not including Pent).` },
         },
 
         /*

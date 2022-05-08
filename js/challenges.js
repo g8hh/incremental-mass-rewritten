@@ -24,7 +24,7 @@ function updateChalHTML() {
         tmp.el.chal_desc_div.setDisplay(player.chal.choosed != 0)
         if (player.chal.choosed != 0) {
             let chal = CHALS[player.chal.choosed]
-            tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${CHALS.getScaleName(player.chal.choosed)}${chal.title}[完成了${player.chal.comps[player.chal.choosed]+"次，次数上限为"+tmp.chal.max[player.chal.choosed]}次]`)
+            tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${CHALS.getScaleName(player.chal.choosed)}${chal.title}[完成了${format(player.chal.comps[player.chal.choosed],0)+"次，次数上限为"+format(tmp.chal.max[player.chal.choosed],0)}次]`)
             tmp.el.chal_ch_desc.setHTML(chal.desc)
             tmp.el.chal_ch_reset.setTxt(CHALS.getReset(player.chal.choosed))
             tmp.el.chal_ch_goal.setTxt("目标："+CHALS.getFormat(player.chal.choosed)(tmp.chal.goal[player.chal.choosed])+CHALS.getResName(player.chal.choosed))
