@@ -85,9 +85,9 @@ const ENTROPY = {
 
             eff(i) {
                 let x = i.div(20).add(1)
-                return x
+                return x.softcap(2,0.5,0)
             },
-            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
+            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。${x.softcapHTML(2)}` },
         },{
             title: "Entropic Scaling",
 

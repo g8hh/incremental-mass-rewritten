@@ -399,6 +399,7 @@ var cnItems = {
     '[bs2] Photon, Gluon powers up each other.': '[bs2]使光子和胶子互相加成彼此的获取速度。',
     '[bs3] Neutrons gain is affected by Graviton\'s effect at a reduced rate.': '[bs3]使引力子可以加成中子获取速度，只是效果倍率降低。',
     '[bs4] Raise Z Bosons gain to the 1.5th power.': '[bs4]使Z玻色子获取速度变为原来的1.5次方。',
+    '[bs5] Z Bosons also affect BHC + CR powers.': '[bs5]使Z玻色子可以加成黑洞压缩器倍率和宇宙射线倍率。',
     '[fn1] Tickspeed affect each Fermions gain at a reduced rate.': '[fn1]使时间速度可以加成所有费米子获取速度，只是效果倍率降低。',
     '[fn2] Unlock 2 new types of U-Quark & U-Fermion.': '[fn2]解锁两种新的U-夸克和U-轻子。',
     '[fn3] Super Fermion\'s Tier scaling is 7.5% weaker.': '[fn3]使费米子阶层的超级折算弱化7.5%。',
@@ -431,6 +432,7 @@ var cnItems = {
     '[qu6] Quantum times boost Cosmic string\'s power.': '[qu6]使前往量子次数可以加成宇宙弦的倍率。',
     '[qu7] Gain more Quantizes based on Quantum Shards.': '[qu7]使前往量子次数基于量子碎片数量而增加。',
     '[qu8] Chromas are affected by Quantum Shard’s effect.': '[qu8]使量子碎片可以加成色度获取速度。',
+    '[qu9] Gain more Quantizes based on total Primordium Particles.': '[qu9]使前往量子次数基于原基定理总数而增加。',
     '[qu_qol1] You can now automatically purchase supernova tree except with cost of quantum foam.': '[qu_qol1]您可以自动购买不需要量子泡沫的中子树升级。',
     '[qu_qol2] Keep U-Quark Tiers on going Quantum.': '[qu_qol2]前往量子时保留U-夸克的相关阶层。',
     '[qu_qol3] You can now automatically complete Challenges 1-4 any Challenge.': '[qu_qol3]您可以自动完成挑战1-挑战4中的任意挑战。',
@@ -444,6 +446,7 @@ var cnItems = {
     '[prim2] Theta Particle’s second effect is now added.': '[prim2]西塔[Θ]粒子增加第二个效果。',
     '[prim3] Epsilon Particle’s second effect is now added, stronger if you are in Quantum Challenge.': '[prim3]艾普西隆[E]粒子增加第二个效果，在量子挑战中效果变得更好。',
     '[qc1] Mass gain softcap^4 starts later based on Quantum Shards.': '[qc1]使质量获取速度的四重软上限基于量子碎片数量而延迟出现。',
+    '[qc2] Get 1 extra shard when a nerf reach 10.': '[qc2]当一项挑战到达10时，可以额外获得1量子碎片。',
     '[unl1] Unlock Radiation.': '[unl1]解锁辐射波。',
     '[unl2] Unlock Primordium.': '[unl2]解锁原基。',
     '[unl3] Unlock Quantum Challenge.': '[unl3]解锁量子挑战。',
@@ -747,6 +750,7 @@ var cnRegReplace = new Map([
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
+    [/^Base: (.+)x$/, '基础值：$1倍'], //主界面等
     [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩星辰不少于$1时就可以成为超新星了'], //主界面等
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
