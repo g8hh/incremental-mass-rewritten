@@ -9,8 +9,14 @@ const ENTROPY = {
             player.qu.en[i][1] = E(0)
         }
     },
+    reset(x) {
+        let i = this.ids[x]
+        player.qu.en[i][0] = false
+        player.qu.en[i][1] = E(0)
+        player.qu.en[i][3] = 0
+    },
     gain() {
-        let x = tmp.en.eff.eth
+        let x = tmp.en.eff.eth.mul(getEnRewardEff(6))
         return x
     },
     cap() {
@@ -60,6 +66,8 @@ const ENTROPY = {
             start: E(1000),
             inc: E(10),
 
+            scale: {s: 10, p: 2},
+
             eff(i) {
                 let x = E(3).pow(i)
                 return x
@@ -84,10 +92,10 @@ const ENTROPY = {
             inc: E(2),
 
             eff(i) {
-                let x = i.div(20).add(1)
-                return x.softcap(2,0.5,0)
+                let x = i.pow(2).div(20).add(1)
+                return x
             },
-            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。${x.softcapHTML(2)}` },
+            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
         },{
             title: "Entropic Scaling",
 
@@ -99,6 +107,30 @@ const ENTROPY = {
                 return x
             },
             desc(x) { return `All pre-Supernova scaling is <b>${formatReduction(x)}</b> weaker before Meta scaling (not including Pent).` },
+        },{
+            title: "Entropic Condenser",
+
+            start: E(1e6),
+            inc: E(100),
+
+            eff(i) {
+                let x = player.qu.en.amt.add(1).log10().mul(2).add(1).pow(i.pow(0.8))
+                return x
+            },
+            desc(x) { return `Entropy boosts itself by <b>${x.format(2)}倍</b>.` },
+        },{
+            title: "Entropic Radiation",
+
+            start: E(1e10),
+            inc: E(1.5),
+
+            scale: {s: 20, p: 2.5},
+
+            eff(i) {
+                let x = player.qu.en.amt.add(1).log10().pow(0.75).mul(i).div(1500).add(1)
+                return x
+            },
+            desc(x) { return `Radiation effects are also boosted by <b>${x.format()}次方</b> (based on Entropy).` },
         },
 
         /*
@@ -120,7 +152,7 @@ const ENTROPY = {
         let rc = this.rewards[i]
         let r = player.qu.en.rewards[i]
 
-        if (rc.scale) r = r.scale(rc.scale.s, rc.scale.p)
+        if (rc.scale) r = r.scale(rc.scale.s, rc.scale.p,0)
         let x = rc.inc.pow(r).mul(rc.start)
         return x
     },
@@ -131,7 +163,7 @@ const ENTROPY = {
         let x = E(0)
         if (en.gte(rc.start)) {
             x = en.div(rc.start).max(1).log(rc.inc)
-            if (rc.scale) x = x.scale(rc.scale.s, rc.scale.p, true)
+            if (rc.scale) x = x.scale(rc.scale.s, rc.scale.p,0, true)
             x = x.add(1).floor()
         }
         return x
@@ -144,14 +176,14 @@ function calcEntropy(dt, dt_offline) {
     if (player.qu.en.eth[0]) {
         player.qu.en.eth[3] += dt
         player.qu.en.eth[1] = player.qu.en.eth[1].add(tmp.en.gain.eth.mul(dt))
-        let s = player.supernova.radiation.hz.div(player.supernova.radiation.hz.pow(dt).pow(player.qu.en.eth[3]**(2/3))).sub(1)
+        let s = player.supernova.radiation.hz.div(player.supernova.radiation.hz.max(1).pow(dt).pow(player.qu.en.eth[3]**(2/3))).sub(1)
         if (s.lt(1)) ENTROPY.switch(0)
         else player.supernova.radiation.hz = s
     }
     if (player.qu.en.hr[0]) {
         player.qu.en.hr[3] += dt
         player.qu.en.hr[1] = player.qu.en.hr[1].add(tmp.en.gain.hr.mul(dt))
-        let s = player.bh.mass.div(player.bh.mass.pow(dt).pow(player.qu.en.hr[3]**(2/3))).sub(1)
+        let s = player.bh.mass.div(player.bh.mass.max(1).pow(dt).pow(player.qu.en.hr[3]**(2/3))).sub(1)
         if (s.lt(1)) ENTROPY.switch(1)
         else player.bh.mass = s
     }
@@ -199,8 +231,10 @@ function updateEntropyHTML() {
     )
 
     for (let x = 0; x < ENTROPY.rewards.length; x++) {
+        let rs = player.qu.en.rewards[x]
         let rc = ENTROPY.rewards[x]
-        tmp.el["en_reward"+x].setTxt(player.qu.en.rewards[x].format(0))
+        tmp.el["en_reward"+x].setTxt(rs.format(0))
+        tmp.el["en_scale"+x].setTxt(rc.scale?rs.gte(rc.scale.s)?"2":"":"")
         tmp.el["en_reward_next"+x].setTxt(ENTROPY.nextReward(x).format())
         tmp.el["en_reward_eff"+x].setHTML(rc.desc(getEnRewardEff(x)))
     }
@@ -214,7 +248,7 @@ function setupEntropyHTML() {
         html += `
         <div class="en_reward_div">
             <div style="text-align: left; width: 312px;">
-                <b class="en_sub_reward">${rc.title}:</b> <span id="en_reward${x}">0</span><br>
+                <b class="en_sub_reward">${rc.title}<sup id="en_scale${x}"></sup>:</b> <span id="en_reward${x}">0</span><br>
                 <b class="en_sub_reward">Next at: </b> <span id="en_reward_next${x}">0</span>
             </div>
             <div class="en_reward">
