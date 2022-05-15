@@ -1,5 +1,7 @@
 function E(x){return new Decimal(x)};
 
+const EINF = Decimal.dInf
+
 function uni(x) { return E(1.5e56).mul(x) }
 function mlt(x) { return uni("ee9").pow(x) }
 
@@ -112,6 +114,7 @@ function calc(dt, dt_offline) {
 
         if (hasTree("qol6")) CHALS.exit(true)
         if (CHALS.inChal(0)) {
+    
             if (hasTree("qu_qol3")) for (let x = 1; x <= 4; x++) player.chal.comps[x] = player.chal.comps[x].max(tmp.chal.bulk[x].min(tmp.chal.max[x]))
             if (hasTree("qu_qol5")) for (let x = 5; x <= 8; x++) player.chal.comps[x] = player.chal.comps[x].max(tmp.chal.bulk[x].min(tmp.chal.max[x]))
         }
@@ -399,6 +402,7 @@ function importy() {
                 save()
                 resetTemp()
                 loadGame(false)
+                location.reload()
             }, 200)
         } catch (error) {
             addNotify("Error Importing")

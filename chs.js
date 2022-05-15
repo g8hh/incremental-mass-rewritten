@@ -38,6 +38,7 @@ var cnItems = {
     'Particles': '粒子',
     'Elements': '元素',
     'Mass Dilation': '质量膨胀',
+    'Break Dilation': '撕裂膨胀',
     'Neutron Tree': '中子树',
     'Bosons': '玻色子',
     'Fermions': '费米子',
@@ -56,6 +57,7 @@ var cnItems = {
     'Require over 1e20 Rage Power to reset all previous features for gain Dark Matters': '需要超过1e20狂怒能量才可以进行暗物质重置，重置之前的所有内容，获得暗物质',
     'Require over 1e100 uni of black hole to reset all previous features for gain Atoms & Quarks': '需要黑洞质量超过1e100宇宙才可以进行原子重置，重置之前的所有内容，获得原子和夸克',
     'Dilate mass, then cancel': '使质量膨胀，然后再取消',
+    'Big Rip the Dimension, then go back': '使维度大撕裂，然后再返回',
     'Rank up.': '提升级别。',
     'Tier up.': '提升阶层。',
     'Tetr up.': '提升三重阶层。',
@@ -165,6 +167,10 @@ var cnItems = {
     'Tier requirement is halved. Hyper Rank starts later based on Tiers you have.': '使阶层的需求减半。使级别的究级折算基于目前的阶层数值而延迟出现。',
     'Dilated mass also boost BH Condenser & Cosmic Ray powers at a reduced rate.': '使膨胀质量可以加成黑洞压缩器倍率和宇宙射线倍率，只是效果倍率降低。',
     'Mass from Black Hole effect is better.': '使黑洞质量效果变得更好。',
+    'Big Rip Upgrades': '大撕裂升级',
+    'Start with Hydrogen-1 unlocked.': '初始状态下就解锁氢(1H)。',
+    'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
+    'Pre-Quantum Global Speed is raised based on Death Shards (before division).': '使量子之前所有资源获取速度基于死寂碎片数量而增加(在计算削弱之前生效)。',
     //升级结束
 
     //挑战
@@ -326,6 +332,8 @@ var cnItems = {
     '[Polonium] Pre-Ultra Mass Upgrades scale weaker based on Cosmic Ray\'s free tickspeeds.': '[钋]使超究折算之前的质量升级折算基于宇宙射线的免费时间速度升级数量而弱化。',
     '[Astatine] Stronger’s Power softcap starts 3x later, is 10% weaker.': '[砹]使强化器倍率的软上限延迟3倍出现，且弱化10%。',
     '[Radon] Tickspeed’s Power softcap starts ^2 later, scales 50% weaker.': '[氡]使时间速度倍率的软上限延迟2次方出现，且折算弱化50%。',
+    '[Francium] Carbon-6’s effect is overpowered, but Sodium-11 don’t work.': '[钫]使碳(6C)的效果变得滥强，但钠(11Na)失效。',
+    '[Radium] All scaling from Tickspeed start 100x later (after nerf from 8th QC modifier).': '[镭]使时间速度的所有折算延迟100倍出现(在计算量子挑战8的削弱之后生效)。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -452,6 +460,7 @@ var cnItems = {
     '[unl1] Unlock Radiation.': '[unl1]解锁辐射波。',
     '[unl2] Unlock Primordium.': '[unl2]解锁原基。',
     '[unl3] Unlock Quantum Challenge.': '[unl3]解锁量子挑战。',
+    '[unl4] Unlock Big Rip.': '[unl4]解锁大撕裂。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -656,7 +665,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.2.3 part 2 - made by MrRedShark77': '质量增量重制版v0.5.2.3 第二部分 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.3 - made by MrRedShark77': '质量增量重制版v0.5.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -762,12 +771,17 @@ var cnRegReplace = new Map([
     [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
     [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
     [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
+    [/^Cost: (.+) Death Shard$/, '花费：$1死寂碎片'], //升级等
     [/^Currently: \+(.+) Musclers$/, '目前效果：增加$1锻体器'], //升级等
     [/^Currently: \+(.+) Boosters$/, '目前效果：增加$1助推器'], //升级等
     [/^Currently: \+(.+) Stronger$/, '目前效果：增加$1强化器'], //升级等
     [/^Currently: x(.*)$/, '目前效果：倍率为$1'], //升级等
     [/^Currently: \+(.+) later\s*$/, '目前效果：延迟$1次出现'], //升级等
     [/^Currently: (.+)x later$/, '目前效果：延迟$1倍出现'], //升级等
+    [/^You have (.+) Rage Power$/, '您拥有$1狂怒能量'], //升级等
+    [/^You have (.+) Dark Matter$/, '您拥有$1暗物质'], //升级等
+    [/^You have (.+) Atom$/, '您拥有$1原子'], //升级等
+    [/^You have (.+) Death Shard$/, '您拥有$1死寂碎片'], //升级等
     [/^(.+) Completions \(\+1 at (.+) of Black Hole$/, '本次挑战可增加$1次完成次数(下一个完成次数在$2黑洞质量'], //挑战等
     [/^(.+) Completions \(\+1 at\s*(.*)$/, '本次挑战可增加$1次完成次数(下一个完成次数在$2'], //挑战等
     [/^Finish Challenge for \+(.+) Completions$/, '完成挑战，使完成次数增加$1次'], //挑战等
