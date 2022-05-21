@@ -30,13 +30,13 @@ const TREE_IDS = [
         ['qol9','unl1','qol8','unl2','unl3','qu_qol8','qu_qol9','unl4'],
         ['chal5','chal6','chal7'],
         ['fn12','fn11','fn6','fn10','rad6',""],
-        ['qu5'],
+        ['en1','qu5',''],
     ],[
         ['s4','sn5','sn4'],
         [],
         [],
         ['fn7','fn8'],
-        ['qu6','qu7','qu8','qu9','qu10'],
+        ['qu6','qu7','qu8','qu9','qu10','qu11'],
     ],[
         [],
         [],
@@ -684,6 +684,12 @@ const TREE_UPGS = {
             },
             effDesc(x) { return format(x)+"倍" },
         },
+        qu11: {
+            qf: true,
+            branch: ['qu10'],
+            desc: `Quantum Foams gain formula is better.`,
+            cost: E(1e43),
+        },
         qu_qol1: {
             qf: true,
             unl() { return quUnl() },
@@ -808,6 +814,13 @@ const TREE_UPGS = {
             reqDesc() { return `使用可以获得70量子碎片的挑战限制进入量子挑战，并到达${formatMass(uni('ee5'))}质量。` },
             desc: `Get 1 extra shard when a nerf reach 10.`,
             cost: E(1e27),
+        },
+        en1: {
+            unl() { return player.qu.rip.first },
+            qf: true,
+            branch: ['qu5'],
+            desc: `Evaporating frequency & mass of black hole is twice effective, its effects are stronger.`,
+            cost: E(1e55),
         },
 
         // Other
