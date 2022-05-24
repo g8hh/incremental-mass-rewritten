@@ -28,9 +28,9 @@ const TREE_IDS = [
     ],[
         ['s3','m3','gr2','sn3'],
         ['qol9','unl1','qol8','unl2','unl3','qu_qol8','qu_qol9','unl4'],
-        ['chal5','chal6','chal7'],
+        ['chal5','chal6','chal7','chal8'],
         ['fn12','fn11','fn6','fn10','rad6',""],
-        ['en1','qu5',''],
+        ['en1','qu5','br1'],
     ],[
         ['s4','sn5','sn4'],
         [],
@@ -352,6 +352,12 @@ const TREE_UPGS = {
             branch: ["chal7"],
             desc: `Make 12th Challenges effect better.`,
             cost: E('e900'),
+        },
+        chal8: {
+            unl() { return player.qu.rip.first },
+            branch: ["chal7"],
+            desc: `Add 200 more C9-12 completions.`,
+            cost: E('e35000'),
         },
         gr1: {
             branch: ["bh1"],
@@ -811,7 +817,7 @@ const TREE_UPGS = {
             qf: true,
             branch: ['qc1'],
             req() { return tmp.qu.qc_s >= 70 && player.mass.gte(uni('ee5')) && QCs.active() },
-            reqDesc() { return `使用可以获得70量子碎片的挑战限制进入量子挑战，并到达${formatMass(uni('ee5'))}质量。` },
+            reqDesc() { return `使用可以获得70量子碎片的挑战限制(升级加成不计入)进入量子挑战，并到达${formatMass(uni('ee5'))}质量。` },
             desc: `Get 1 extra shard when a nerf reach 10.`,
             cost: E(1e27),
         },
@@ -821,6 +827,20 @@ const TREE_UPGS = {
             branch: ['qu5'],
             desc: `Evaporating frequency & mass of black hole is twice effective, its effects are stronger.`,
             cost: E(1e55),
+        },
+        br1: {
+            unl() { return player.qu.rip.first },
+            qf: true,
+            branch: ['qu5'],
+            req() { return tmp.qu.qc_s >= 76 && player.mass.gte(uni('e7500')) && QCs.active() },
+            reqDesc() { return `使用可以获得76量子碎片的挑战限制(升级加成不计入)进入量子挑战，并到达${formatMass(uni('e7500'))}质量。` },
+            desc: `Quantum Shard boost Death Shard gain.`,
+            cost: E(1e58),
+            effect() {
+                let x = (player.qu.qc.shard+1)**0.5
+                return x
+            },
+            effDesc(x) { return "x"+format(x) },
         },
 
         // Other

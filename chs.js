@@ -172,6 +172,8 @@ var cnItems = {
     'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
     'Pre-Quantum Global Speed is raised based on Death Shards (before division).': '使量子之前所有资源获取速度基于死寂碎片数量而增加(在计算削弱之前生效)。',
     'Start with 2 tiers of each Fermion in Big Rip.': '在大撕裂中，初始状态下就获得所有费米子各2阶层。',
+    'Reduce Star Booster’s starting cost to ^0.1. Star Booster’s base is increased based on Death Shards.': '使星辰发生器的初始花费变为原来的0.1次方，效果基于死寂碎片数量而增加。',
+    'Start with all Radiations unlocked.': '初始状态夏就解锁所有辐射波。',
     //升级结束
 
     //挑战
@@ -336,6 +338,7 @@ var cnItems = {
     '[Francium] Carbon-6’s effect is overpowered, but Sodium-11 don’t work.': '[钫]使碳(6C)的效果变得滥强，但钠(11Na)失效。',
     '[Radium] All scaling from Tickspeed start 100x later (after nerf from 8th QC modifier).': '[镭]使时间速度的所有折算延迟100倍出现(在计算量子挑战8的削弱之后生效)。',
     '[Actinium] Mass of Black Hole effect raises itself at a reduced logarithm rate.': '[锕]使黑洞质量的效果基于自身数量的对数强化自身。',
+    '[Thorium] Death Shard is boosted by Dilated Mass.': '[钍]使死寂碎片获取速度基于膨胀质量的数值而增加。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -404,6 +407,7 @@ var cnItems = {
     '[chal6] Unlock new challenges.': '[chal6]解锁新的挑战。',
     '[chal7] Unlock 12th Challenge.': '[chal7]解锁挑战12。',
     '[chal7a] Make 12th Challenges effect better.': '[chal7a]使挑战12的奖励效果变得更好。',
+    '[chal8] Add 200 more C9-12 completions.': '[chal8]使挑战9-挑战12的次数上限增加200。',
     '[gr1] BH Condensers power boost Cosmic Rays power.': '[gr1]使黑洞压缩器倍率可以加成宇宙射线倍率。',
     '[gr2] Cosmic Rays Power is raised to 1.25th power.': '[gr2]使宇宙射线倍率变为原来的1.25次方。',
     '[bs1] Tickspeed affect Higgs Bosons gain at a reduced rate.': '[bs1]使时间速度可以加成希格斯玻色子获取速度，只是效果倍率降低。',
@@ -461,6 +465,7 @@ var cnItems = {
     '[qc1] Mass gain softcap^4 starts later based on Quantum Shards.': '[qc1]使质量获取速度的四重软上限基于量子碎片数量而延迟出现。',
     '[qc2] Get 1 extra shard when a nerf reach 10.': '[qc2]当一项挑战到达10时，可以额外获得1量子碎片。',
     '[en1] Evaporating frequency & mass of black hole is twice effective, its effects are stronger.': '[en1]消耗频率和黑洞质量的效率翻倍，且效果变得更好。',
+    '[br1] Quantum Shard boost Death Shard gain.': '[br1]使量子碎片可以加成死寂碎片获取速度。',
     '[unl1] Unlock Radiation.': '[unl1]解锁辐射波。',
     '[unl2] Unlock Primordium.': '[unl2]解锁原基。',
     '[unl3] Unlock Quantum Challenge.': '[unl3]解锁量子挑战。',
@@ -669,7 +674,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.3.1 - made by MrRedShark77': '质量增量重制版v0.5.3.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.3.2 - made by MrRedShark77': '质量增量重制版v0.5.3.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
