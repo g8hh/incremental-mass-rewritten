@@ -173,7 +173,8 @@ var cnItems = {
     'Pre-Quantum Global Speed is raised based on Death Shards (before division).': '使量子之前所有资源获取速度基于死寂碎片数量而增加(在计算削弱之前生效)。',
     'Start with 2 tiers of each Fermion in Big Rip.': '在大撕裂中，初始状态下就获得所有费米子各2阶层。',
     'Reduce Star Booster’s starting cost to ^0.1. Star Booster’s base is increased based on Death Shards.': '使星辰发生器的初始花费变为原来的0.1次方，效果基于死寂碎片数量而增加。',
-    'Start with all Radiations unlocked.': '初始状态夏就解锁所有辐射波。',
+    'Start with all Radiation features unlocked.': '初始状态下就解锁所有辐射波。',
+    'Hybridized Uran-Astatine is twice effective, while Big Ripped.': '在大撕裂中，铀砹混合物的效果翻倍。',
     //升级结束
 
     //挑战
@@ -339,6 +340,9 @@ var cnItems = {
     '[Radium] All scaling from Tickspeed start 100x later (after nerf from 8th QC modifier).': '[镭]使时间速度的所有折算延迟100倍出现(在计算量子挑战8的削弱之后生效)。',
     '[Actinium] Mass of Black Hole effect raises itself at a reduced logarithm rate.': '[锕]使黑洞质量的效果基于自身数量的对数强化自身。',
     '[Thorium] Death Shard is boosted by Dilated Mass.': '[钍]使死寂碎片获取速度基于膨胀质量的数值而增加。',
+    '[Protactinium] Entropic Accelerator & Booster nerfing is 10% weaker.': '[镤]使熵加速和熵助推的削弱弱化10%。',
+    '[Uranium] Insane Challenges scale 25% weaker.': '[铀]使挑战的疯狂折算弱化25%。',
+    '[Neptunium] Entropy gain is increased by 66.7% every OoM^2 of normal mass.': '[镎]质量每有一个数量级的二次方，就使熵获取速度增加66.7%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -674,7 +678,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.3.2 - made by MrRedShark77': '质量增量重制版v0.5.3.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.3.3 - made by MrRedShark77': '质量增量重制版v0.5.3.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
