@@ -175,6 +175,7 @@ var cnItems = {
     'Reduce Star Booster’s starting cost to ^0.1. Star Booster’s base is increased based on Death Shards.': '使星辰发生器的初始花费变为原来的0.1次方，效果基于死寂碎片数量而增加。',
     'Start with all Radiation features unlocked.': '初始状态下就解锁所有辐射波。',
     'Hybridized Uran-Astatine is twice effective, while Big Ripped.': '在大撕裂中，铀砹混合物的效果翻倍。',
+    'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
     //升级结束
 
     //挑战
@@ -223,6 +224,7 @@ var cnItems = {
     ' Note 1: Click any image to show challenge description': '提示1：点击图片以查看挑战详情。',
     ' Note 2: While in Quantum challenge, you need to go to Quantum to complete the Quantum Challenge': '提示2：在量子挑战中，您需要前往量子才能完成它。',
     'Add present as your modifications': '将目前的挑战限制设置为挑战预设',
+    'You cannot add QC Preset because of maxmium length of presets': '预设数量已达上限，无法再增加新预设',
     'New Preset': '新预设',
     'Preset Saved': '预设已保存',
     'Preset Loaded to Modifiers': '预设已载入至挑战限制',
@@ -342,7 +344,9 @@ var cnItems = {
     '[Thorium] Death Shard is boosted by Dilated Mass.': '[钍]使死寂碎片获取速度基于膨胀质量的数值而增加。',
     '[Protactinium] Entropic Accelerator & Booster nerfing is 10% weaker.': '[镤]使熵加速和熵助推的削弱弱化10%。',
     '[Uranium] Insane Challenges scale 25% weaker.': '[铀]使挑战的疯狂折算弱化25%。',
-    '[Neptunium] Entropy gain is increased by 66.7% every OoM^2 of normal mass.': '[镎]质量每有一个数量级的二次方，就使熵获取速度增加66.7%。',
+    '[Neptunium] Entropy gain is increased by 66.7% for every OoM^2 of normal mass.': '[镎]质量每有一个数量级的二次方，就使熵获取速度增加66.7%。',
+    '[Plutonium] Death Shard is increased by 10% for every supernova.': '[钚]每有一次成为超新星，死寂碎片获取速度就增加10%。',
+    '[Americium] Epsilon Particles are worked in Big Rip, but 90% weaker.': '[镅]艾普西隆[E]粒子可以在大撕裂中生效，但弱化90%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -678,7 +682,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.3.3 - made by MrRedShark77': '质量增量重制版v0.5.3.3 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.3.4.2 - made by MrRedShark77': '质量增量重制版v0.5.3.4.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',

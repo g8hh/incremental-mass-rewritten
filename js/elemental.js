@@ -31,7 +31,7 @@ const ELEMENTS = {
         'Mendelevium','Nobelium','Lawrencium','Ruthefordium','Dubnium','Seaborgium','Bohrium','Hassium','Meitnerium','Darmstadium',
         'Roeritgenium','Copernicium','Nihonium','Flerovium','Moscovium','Livermorium','Tennessine','Oganesson'
     ],
-    canBuy(x) { return player.atom.quarks.gte(this.upgs[x].cost) && !hasElement(x) && (player.qu.rip.active ? true : x <= 86) },
+    canBuy(x) { return player.atom.quarks.gte(this.upgs[x].cost) && !hasElement(x) && (player.qu.rip.active ? true : x <= 86) && !tmp.elements.cannot.includes(x) },
     buyUpg(x) {
         if (this.canBuy(x)) {
             player.atom.quarks = player.atom.quarks.sub(this.upgs[x].cost)
@@ -574,7 +574,7 @@ const ELEMENTS = {
             cost: E('e4800'),
         },
         {
-            desc: `Entropy gain is increased by 66.7% every OoM^2 of normal mass.`,
+            desc: `Entropy gain is increased by 66.7% for every OoM^2 of normal mass.`,
             cost: E('e29500'),
             effect() {
                 let x = E(5/3).pow(player.mass.add(1).log10().add(1).log10())
@@ -583,12 +583,17 @@ const ELEMENTS = {
             effDesc(x) { return "x"+x.format() },
         },
         {
-            desc: `Placeholder.`,
-            cost: EINF,
+            desc: `Death Shard is increased by 10% for every supernova.`,
+            cost: E("e32000"),
+            effect() {
+                let x = E(1.1).pow(player.supernova.times)
+                return x
+            },
+            effDesc(x) { return "x"+x.format() },
         },
         {
-            desc: `Placeholder.`,
-            cost: EINF,
+            desc: `Epsilon Particles are worked in Big Rip, but 90% weaker.`,
+            cost: E("e34500"),
         },
         {
             desc: `Placeholder.`,
@@ -765,6 +770,10 @@ function updateElementsHTML() {
 }
 
 function updateElementsTemp() {
+    let cannot = []
+    if (player.qu.rip.active) cannot.push(58)
+    tmp.elements.cannot = cannot
+
     if (!tmp.elements.upg_length) tmp.elements.upg_length = ELEMENTS.upgs.length-1
     for (let x = tmp.elements.upg_length; x >= 1; x--) if (ELEMENTS.upgs[x].effect) {
         tmp.elements.effect[x] = ELEMENTS.upgs[x].effect()
