@@ -33,8 +33,11 @@ var cnItems = {
     'Atomic Generator': '原子发生器',
     'Stars': '星辰',
     'Indescribable Matter': '无法形容之物',
+    'Ranks': '级别',
+    'Prestiges': '转生',
     'Ranks Rewards': '级别奖励',
     'Scaling': '折算',
+    'Prestige Rewards': '转生奖励',
     'Particles': '粒子',
     'Elements': '元素',
     'Mass Dilation': '质量膨胀',
@@ -81,6 +84,9 @@ var cnItems = {
     ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到二重软上限限制！',
     ' of mass gain will softcap^3 mass gain!': '的质量获取速度以后，质量获取速度将受到三重软上限限制！',
     ' of mass gain will softcap^4 mass gain!': '的质量获取速度以后，质量获取速度将受到四重软上限限制！',
+    ' of mass gain will softcap^5 mass gain!': '的质量获取速度以后，质量获取速度将受到五重软上限限制！',
+    ' Your Prestige base is ': '您的转生基础值为',
+    ' (based on products of Rank tiers': '(基于级别、阶层、三重阶层和五重阶层的数值而定',
     'You have ': '您拥有',
     ' of Black Hole': '黑洞',
     'Which multiplies mass gain by ': '它将质量获取速度乘以',
@@ -176,6 +182,7 @@ var cnItems = {
     'Start with all Radiation features unlocked.': '初始状态下就解锁所有辐射波。',
     'Hybridized Uran-Astatine is twice effective, while Big Ripped.': '在大撕裂中，铀砹混合物的效果翻倍。',
     'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
+    'Unlock Break Dilation.': '解锁撕裂膨胀。',
     //升级结束
 
     //挑战
@@ -347,6 +354,7 @@ var cnItems = {
     '[Neptunium] Entropy gain is increased by 66.7% for every OoM^2 of normal mass.': '[镎]质量每有一个数量级的二次方，就使熵获取速度增加66.7%。',
     '[Plutonium] Death Shard is increased by 10% for every supernova.': '[钚]每有一次成为超新星，死寂碎片获取速度就增加10%。',
     '[Americium] Epsilon Particles are worked in Big Rip, but 90% weaker.': '[镅]艾普西隆[E]粒子可以在大撕裂中生效，但弱化90%。',
+    '[Curium] Entropic Converter nerfing is 10% weaker.': '[锔]使熵转化的削弱弱化10%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -361,6 +369,11 @@ var cnItems = {
     'Add 0.015 Mass Dilation upgrade 6\'s base.': '使质量膨胀升级6的基础效果增加0.015。',
     'First 3 Mass Dilation upgrades are stronger.': '使前3个质量膨胀升级的效果变得更好。',
     'Currently': '目前效果',
+    ' Relativistic Energy': '相对论能量',
+    ' of Relativistic mass': '相对论质量',
+    'Fix Dilation': '修复膨胀',
+    'Double Relativistic Mass gain.': '使相对论质量获取速度翻倍。',
+    'Increase the exponent of the Dilated Mass formula.': '增加相对论质量获取公式的指数。',
     //原子结束
 
     //超新星
@@ -682,7 +695,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.3.4.2 - made by MrRedShark77': '质量增量重制版v0.5.3.4.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.4 - made by MrRedShark77': '质量增量重制版v0.5.4 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
