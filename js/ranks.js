@@ -243,7 +243,7 @@ const RANKS = {
 }
 
 const PRESTIGES = {
-    fullNames: ["转生等级"],
+    fullNames: ["转生等级", "荣耀"],
     base() {
         let x = E(1)
 
@@ -255,7 +255,10 @@ const PRESTIGES = {
         let x = EINF, y = player.prestiges[i]
         switch (i) {
             case 0:
-                x = Decimal.pow(1.1,y.pow(1.05)).mul(2e13)
+                x = Decimal.pow(1.1,y.pow(1.1)).mul(2e13)
+                break;
+            case 1:
+                x = y.pow(1.25).mul(3).add(4)
                 break;
             default:
                 x = EINF
@@ -267,8 +270,11 @@ const PRESTIGES = {
         let x = E(0), y = i==0?tmp.prestiges.base:player.prestiges[i-1]
         switch (i) {
             case 0:
-                if (y.gte(2e13)) x = y.div(2e13).max(1).log(1.1).max(0).root(1.05).add(1)
+                if (y.gte(2e13)) x = y.div(2e13).max(1).log(1.1).max(0).root(1.1).add(1)
                 break;
+            case 1:
+                if (y.gte(4)) x = y.sub(4).div(2).max(0).root(1.5).add(1)
+                break
             default:
                 x = E(0)
                 break;
@@ -277,12 +283,18 @@ const PRESTIGES = {
     },
     unl: [
         _=>{ return true },
+        _=>{ return true },
     ],
     rewards: [
         {
             "1": `使到五重质量软上限为止的所有质量软上限延迟10次方出现。`,
             "2": `量子碎片的基础效果指数增加0.5。`,
             "3": `使量子泡沫和死寂碎片获取速度变为原来的4倍。`,
+            "5": `使量子之前所有资源获取速度变为原来的2次方(在计算削弱之前生效)。`,
+            "6": `使时间速度倍率的软上限延迟100次方出现。`,
+        },
+        {
+            "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
         },
     ],
     rewardEff: [
@@ -297,10 +309,16 @@ const PRESTIGES = {
             }],
             */
         },
+        {
+
+        },
     ],
     reset(i) {
         if (i==0?tmp.prestiges.base.gte(tmp.prestiges.req[i]):player.prestiges[i-1].gte(tmp.prestiges.req[i])) {
             player.prestiges[i] = player.prestiges[i].add(1)
+            for (let j = i-1; j >= 0; j--) {
+                player.prestiges[j] = E(0)
+            }
             QUANTUM.enter(false,true,false,true)
             updateRanksTemp()
         }

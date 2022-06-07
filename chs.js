@@ -183,6 +183,7 @@ var cnItems = {
     'Hybridized Uran-Astatine is twice effective, while Big Ripped.': '在大撕裂中，铀砹混合物的效果翻倍。',
     'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
     'Unlock Break Dilation.': '解锁撕裂膨胀。',
+    'Chromas are 10% stronger.': '色度的效果强化10%。',
     //升级结束
 
     //挑战
@@ -695,7 +696,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.4 - made by MrRedShark77': '质量增量重制版v0.5.4 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.4.1 - made by MrRedShark77': '质量增量重制版v0.5.4.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
