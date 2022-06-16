@@ -11,7 +11,7 @@
 var cnItems = {
     _OTHER_: [],
 
-    //主界面等
+    //#region 主界面等
     '.': '。',
     'Loading game...': '载入游戏中……',
     'Loading Offline Progress... (': '计算离线进度……(',
@@ -113,9 +113,8 @@ var cnItems = {
     ' Quantum Foam': '量子泡沫',
     'Cosmic Strings Power': '宇宙弦倍率',
     'Cosmic Strings Effect': '宇宙弦效果',
-    //主界面等结束
-
-    //统计
+    //#endregion
+    //#region 统计
     'Rank': '级别',
     'Tier': '阶层',
     'Tetr': '三重阶层',
@@ -125,9 +124,8 @@ var cnItems = {
     'Black Hole Condenser': '黑洞压缩器',
     'Cosmic Ray': '宇宙射线',
     '): Starts at ': ')：开始次数为',
-    //统计结束
-
-    //升级
+    //#endregion
+    //#region 升级
     'Rage Upgrades': '狂怒升级',
     'Boosters adds Musclers.': '使助推器可以增加锻体器数量。',
     'Strongers adds Boosters.': '使强化器可以增加助推器数量。',
@@ -183,10 +181,9 @@ var cnItems = {
     'Hybridized Uran-Astatine is twice effective, while Big Ripped.': '在大撕裂中，铀砹混合物的效果翻倍。',
     'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
     'Unlock Break Dilation.': '解锁撕裂膨胀。',
-    'Chromas are 10% stronger.': '色度的效果强化10%。',
-    //升级结束
-
-    //挑战
+    'Chromas are 10% stronger.': '色度的效果增加10%。',
+    //#endregion
+    //#region 挑战
     'Note 1: Click any image to show challenge description. Click again to enter any challenge': '提示1：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
     'Exit Challenge': '退出挑战',
     'Enter Challenge': '进入挑战',
@@ -241,15 +238,14 @@ var cnItems = {
     'Load': '载入',
     'Rename': '重命名',
     'Delete': '删除',
-    //挑战结束
-
-    //原子
+    //#endregion
+    //#region 原子
     ' unassigned Quarks': '尚未分配的夸克',
     'Distribute': '分配',
     'Ratio Mode': '比例模式',
     ' Quark': '夸克',
     ' Relativistic particles': '相对论粒子',
-    ' of dilated mass, which makes Tickspeed ': '膨胀质量，使时间速度强化',
+    ' of dilated mass, which makes Tickspeed ': '膨胀质量，使时间速度增加',
     ' stronger': '',
     'Dilate Mass': '质量膨胀',
     'Assign': '分配',
@@ -356,6 +352,8 @@ var cnItems = {
     '[Plutonium] Death Shard is increased by 10% for every supernova.': '[钚]每有一次成为超新星，死寂碎片获取速度就增加10%。',
     '[Americium] Epsilon Particles are worked in Big Rip, but 90% weaker.': '[镅]艾普西隆[E]粒子可以在大撕裂中生效，但弱化90%。',
     '[Curium] Entropic Converter nerfing is 10% weaker.': '[锔]使熵转化的削弱弱化10%。',
+    '[Berkelium] Increase Entropic Evaporation’s base by 1.': '[锫]使熵消耗的基础效果增加1。',
+    '[Californium] 8th QC modifier in Big Rip is 20% weaker.': '[锎]大撕裂中，使量子挑战8的削弱弱化20%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -375,9 +373,10 @@ var cnItems = {
     'Fix Dilation': '修复膨胀',
     'Double Relativistic Mass gain.': '使相对论质量获取速度翻倍。',
     'Increase the exponent of the Dilated Mass formula.': '增加相对论质量获取公式的指数。',
-    //原子结束
-
-    //超新星
+    'Multiplier from DM effect is transformed to Exponent (at a reduced rate, is weaker while Big Ripped), but second MD upgrade\'s cost is exponentally increased. Purchasing this upgrade will reset it.': '膨胀质量的效果变为对指数生效，只是效果倍率降低，进行大撕裂时效果更弱，但质量膨胀升级2的花费也变为指数型增长。购买此升级后将重置质量膨胀升级2的等级。',
+    '11th MD Upgrade is 50% stronger, its effected level softcaps at 1e18.': '质量膨胀升级11的效果增加50%，效果的等级软上限变为1e18。',
+    //#endregion
+    //#region 超新星
     'You have become SUPERNOVA!': '您终于成为了超新星！',
     'But will reset everything, and gain SUPERNOVA!': '迄今为止的一切都将重置，但可以获得超新星！',
     'You can pass it...': '继续前行吧……',
@@ -580,9 +579,8 @@ var cnItems = {
     'U-Quark Boost [': 'U-夸克加成[',
     'BH-Exponent Boost II [': '黑洞指数加成 II [',
     ']: ': ']：',
-    //超新星结束
-
-    //量子
+    //#endregion
+    //#region 量子
     ' Quantum Theory (based on every going quantum': '量子理论(基于前往量子次数',
     'Require Quantum Theory to start generating Pyro-Radioactive Plasma': '需要量子理论才可获得热放射性等离子体',
     'Require Quantum Theory to start generating Hybridized Uran-Astatine': '需要量子理论才可获得铀砹混合物',
@@ -632,7 +630,7 @@ var cnItems = {
     'Meta Tickspeed, BHC & Cosmic Ray start ': '时间速度、黑洞压缩器和宇宙射线的元折算延迟',
     ' later.': '出现。',
     'Entropic Accelerator': '熵加速',
-    'Atomic Power’s effect is ': '原子能量的效果指数强化',
+    'Atomic Power’s effect is ': '原子能量的效果指数增加',
     ' exponentially stronger.': '。',
     'Entropic Evaporation': '熵消耗',
     'Make evaporated resources gain ': '消耗资源后，使相应资源获取速度变为原来的',
@@ -645,16 +643,15 @@ var cnItems = {
     'All pre-Supernova scaling is ': '使超新星之前所有资源的折算在元折算之前弱化',
     ' weaker before Meta scaling (not including Pent).': '(不包括五重阶层)。',
     'Entropic Condenser': '熵压缩',
-    'Entropy boosts itself by ': '熵使自身强化',
+    'Entropy boosts itself by ': '熵使自身增加',
     'Entropic Radiation': '熵辐射',
     'Radiation effects are also boosted by ': '使辐射波的效果变为原来的',
     ' (based on Entropy).': '(基于熵数量)',
     'Stop Evaporating to get': '停止消耗，获得',
     'best Enthalpy': '焓(以最高一次为准)',
     'best Hawking Radiation': '黑洞辐射(以最高一次为准)',
-    //量子结束
-
-    //选项
+    //#endregion
+    //#region 选项
     'Save': '保存',
     'Game Saved': '游戏进度已保存',
     'Error Exporting, because it got NaNed': '导出失败，游戏数据有误',
@@ -696,11 +693,11 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.4.1 - made by MrRedShark77': '质量增量重制版v0.5.4.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.4.2 - made by MrRedShark77': '质量增量重制版v0.5.4.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
-    //选项结束
+    //#endregion
 }
 
 
@@ -844,7 +841,7 @@ var cnRegReplace = new Map([
     [/^ Neutrons Powers, which:\s*$/, '中子能量，因此获得以下效果：'], //原子等
     [/^ Electrons Powers, which:\s*$/, '电子能量，因此获得以下效果：'], //原子等
     [/^Currently: (.+)x\s?$/, '目前效果：$1倍'], //原子等
-    [/^Currently: (.+)x stronger$/, '目前效果：强化$1倍'], //原子等
+    [/^Currently: (.+)x stronger$/, '目前效果：增加$1倍'], //原子等
     [/^Currently: (.+) later$/, '目前效果：延迟$1次出现'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
@@ -861,8 +858,8 @@ var cnRegReplace = new Map([
     [/^\s+Currently$/, '目前效果'], //超新星等
     [/^Adds (.+) free Cosmic Rays$/, '增加$1个免费宇宙射线'], //超新星等
     [/^x(.+) to Relativistic Particles gain$/, '使相对论粒子获取速度变为原来的$1倍'], //超新星等
-    [/^ Boson's first effect is (.+)% stronger$/, '使玻色子的第一个效果强化$1%'], //超新星等
-    [/^4th Photon & Gluon upgrades are (.+)x stronger$/, '使光子和胶子升级4强化$1倍'], //超新星等
+    [/^ Boson's first effect is (.+)% stronger$/, '使玻色子的第一个效果增加$1%'], //超新星等
+    [/^4th Photon & Gluon upgrades are (.+)x stronger$/, '使光子和胶子升级4增加$1倍'], //超新星等
     [/^Radiation Boosters are (.+)x cheaper$/, '使辐射波升级便宜$1倍'], //超新星等
     [/^Meta-Tickspeed starts (.+)x later$/, '使时间速度的元折算延迟$1倍出现'], //超新星等
     [/^Collapse Stars gain softcap starts \^(.+) later$/, '使坍缩星辰获取速度的软上限延迟$1次方出现'], //超新星等
@@ -872,13 +869,13 @@ var cnRegReplace = new Map([
     [/^Pre-Meta-Supernova Scalings are (.+)% weaker$/, '使超新星元折算之前的所有折算弱化$1%'], //超新星等
     [/^Pre-Meta BH Condensers & Cosmic Rays are (.+)x cheaper$/, '使黑洞压缩器和宇宙射线在元折算之前的部分便宜$1倍'], //超新星等
     [/^Radiowave is boosted by (.+)x \(based on Frequency$/, '使无线电波的获取速度变为原来的$1倍(基于频率的数值'], //超新星等
-    [/^Non-bonus tickspeed is (.+)x stronger$/, '使非加成的时间速度强化$1倍'], //超新星等
+    [/^Non-bonus tickspeed is (.+)x stronger$/, '使非加成的时间速度增加$1倍'], //超新星等
     [/^Softcap\^3 from mass gain start \^(.+) later$/, '使质量获取速度的三重软上限延迟$1次方出现'], //超新星等
     [/^Microwave is boosted by (.+)x \(based on Radio$/, '使微波的获取速度变为原来的$1倍(基于无线电波的数值'], //超新星等
     [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.15$/, '黑洞质量公式中，使指数增加$1(硬上限为0.15'], //超新星等
-    [/^Non-bonus BH condenser is (.+)x stronger$/, '使非加成的黑洞压缩器强化$1倍'], //超新星等
+    [/^Non-bonus BH condenser is (.+)x stronger$/, '使非加成的黑洞压缩器增加$1倍'], //超新星等
     [/^Infrared is boosted by (.+)x \(based on Microwave$/, '使红外线的获取速度变为原来的$1倍(基于微波的数值'], //超新星等
-    [/^1st Photon & Gluon upgrades are (.+)x stronger$/, '使光子和胶子升级1强化$1倍'], //超新星等
+    [/^1st Photon & Gluon upgrades are (.+)x stronger$/, '使光子和胶子升级1增加$1倍'], //超新星等
     [/^Add (.+) levels to all above boosts$/, '使上方所有加成的等级增加$1级'], //超新星等
     [/^Visible is boosted by (.+)x \(based on Infrared$/, '使可见光的获取速度变为原来的$1倍(基于红外线的数值'], //超新星等
     [/^Cosmic Ray power is boosted by (.+)x$/, '使宇宙射线倍率变为原来的$1倍'], //超新星等
@@ -887,13 +884,13 @@ var cnRegReplace = new Map([
     [/^Tickspeed power's softcap starts (.+)x later$/, '使时间速度倍率的软上限延迟$1倍出现'], //超新星等
     [/^Meta-Rank starts (.+)x later$/, '使级别的元折算延迟$1倍出现'], //超新星等
     [/^X-ray is boosted by (.+)x \(based on Ultraviolet$/, '使X射线的获取速度变为原来的$1倍(基于紫外线的数值'], //超新星等
-    [/^U-Leptons are (.+)x stronger$/, '使U-轻子强化$1倍'], //超新星等
+    [/^U-Leptons are (.+)x stronger$/, '使U-轻子增加$1倍'], //超新星等
     [/^Gamma-ray is boosted by (.+)x \(based on X-ray$/, '使伽马射线的获取速度变为原来的$1倍(基于X射线的数值'], //超新星等
-    [/^U-Quarks are (.+)x stronger$/, '使U-夸克强化$1倍'], //超新星等
+    [/^U-Quarks are (.+)x stronger$/, '使U-夸克增加$1倍'], //超新星等
     [/^From BH the formulas softcap starts \^(.+) later$/, '使黑洞质量获取公式的软上限延迟$1次方出现'], //超新星等
     [/^Tickspeed power is \^(.+) better$/, '使时间速度倍率变为原来的$1次方'], //量子等
     [/^Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前的级别和阶层需求减少$1倍'], //量子等
-    [/^Rewards from Challenges 1-8 are (.+)x stronger$/, '使挑战1-挑战8的奖励效果强化$1倍'], //量子等
+    [/^Rewards from Challenges 1-8 are (.+)x stronger$/, '使挑战1-挑战8的奖励效果增加$1倍'], //量子等
     [/^Boost Stronger Power by (.+)x$/, '使强化器倍率变为$1倍'], //量子等
     [/^Boost Rage Powers gain by \^(.+) \/$/, '使狂怒能量获取速度变为$1次方/'], //量子等
     [/^ Boost Non-Bonus Tickspeed by (.+)x$/, '使非加成的时间速度变为$1倍'], //量子等

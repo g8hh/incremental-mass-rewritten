@@ -600,12 +600,12 @@ const ELEMENTS = {
             cost: E('e202000'),
         },
         {
-            desc: `Placeholder.`,
-            cost: EINF,
+            desc: `Increase Entropic Evaporation’s base by 1.`,
+            cost: E('e8.5e6'),
         },
         {
-            desc: `Placeholder.`,
-            cost: EINF,
+            desc: `8th QC modifier in Big Rip is 20% weaker.`,
+            cost: E('e1.2e7'),
         },
         {
             desc: `Placeholder.`,
@@ -752,7 +752,7 @@ function updateElementsHTML() {
     tmp.el.elem_ch_div.setVisible(ch>0)
     if (ch) {
         tmp.el.elem_desc.setTxt("["+ELEMENTS.fullNames[ch]+"] "+ELEMENTS.upgs[ch].desc)
-        tmp.el.elem_cost.setTxt(format(ELEMENTS.upgs[ch].cost,0))
+        tmp.el.elem_cost.setTxt(format(ELEMENTS.upgs[ch].cost,0)+"夸克"+(ch>86?"(需进入大撕裂)":"")+(player.qu.rip.active&&ch==58?"[无法购买]":""))
         tmp.el.elem_eff.setHTML(ELEMENTS.upgs[ch].effDesc?"Currently: "+ELEMENTS.upgs[ch].effDesc(tmp.elements.effect[ch]):"")
     }
     tmp.el.element_la_1.setVisible(tmp.elements.unl_length>57)

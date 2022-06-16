@@ -21,7 +21,7 @@ const QUANTUM = {
     enter(auto=false,force=false,rip=false,bd=false) {
         if (tmp.qu.gain.gte(1) || force) {
             if (player.confirms.qu&&!auto&&!force) if (confirm("你确定要前往量子吗？除了部分qol升级以外您将失去绝大部分进度")?!confirm("您真的确定了吗？？？"):true) return
-            if (QCs.active() && !rip && !bd) {
+            if (QCs.active() && !rip && !bd && !player.qu.rip.active) {
                 player.qu.qc.shard = tmp.qu.qc_s+tmp.qu.qc_s_bouns
                 player.qu.qc.active = false
             }
