@@ -183,6 +183,7 @@ var cnItems = {
     'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
     'Unlock Break Dilation.': '解锁撕裂膨胀。',
     'Chromas are 10% stronger.': '色度的效果增加10%。',
+    'Prestige Level no longer resets anything.': '转生等级不再重置任何东西。',
     //#endregion
     //#region 挑战
     'Note 1: Click any image to show challenge description. Click again to enter any challenge': '提示1：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
@@ -357,6 +358,8 @@ var cnItems = {
     '[Californium] 8th QC modifier in Big Rip is 20% weaker.': '[锎]大撕裂中，使量子挑战8的削弱弱化20%。',
     '[Einsteinium] Remove softcap^3 from Photon Upgrade 3 effect, its softcap^2 is weaker.': '[锿]移除光子升级3效果的三重软上限，并使它的二重软上限弱化。',
     '[Fermium] Prestige Base is raised based on Pent.': '[镄]使转生基础值基于五重阶层而增加。',
+    '[Mendelevium] Blueprint Particles effect is overpowered.': '[钔]使蓝图粒子的效果变得滥强。',
+    '[Nobelium] Tickspeed Power’s softcap starts ^100 later.': '[锘]使时间速度倍率的软上限延迟100次方出现。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -698,7 +701,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.5.4.3 - made by MrRedShark77': '质量增量重制版v0.5.4.3 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.5.4.4 - made by MrRedShark77': '质量增量重制版v0.5.4.4 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',

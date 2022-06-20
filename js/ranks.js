@@ -253,7 +253,11 @@ const PRESTIGES = {
     base() {
         let x = E(1)
 
-        for (let i = 0; i < RANKS.names.length; i++) x = x.mul(player.ranks[RANKS.names[i]].add(1))
+        for (let i = 0; i < RANKS.names.length; i++) {
+            let r = player.ranks[RANKS.names[i]]
+            if (hasPrestige(0,18) && i == 0) r = r.mul(2)
+            x = x.mul(r.add(1))
+        }
 
         return x.sub(1)
     },
@@ -288,8 +292,12 @@ const PRESTIGES = {
         return x.floor()
     },
     unl: [
-        _=>{ return true },
-        _=>{ return true },
+        _=>true,
+        _=>true,
+    ],
+    noReset: [
+        _=>hasUpgrade('br',11),
+        _=>false,
     ],
     rewards: [
         {
@@ -302,12 +310,14 @@ const PRESTIGES = {
             "10": `使相对论能量的获取速度基于转生次数而增加。`,
             "12": `使强化器效果的二重软上限弱化7.04%。`,
             "15": `使三重阶层2的奖励变得滥强。`,
+            "18": `使计算转生基础值时级别的数值翻倍。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
             "2": `使超新星的元折算延迟100次出现。`,
             "3": `使玻色子的加成基于转生基础值而增加。`,
             "4": `所有原基粒子获得5级免费等级。`,
+            "5": `使五重阶层5的奖励基于转生基础值变得更强。`,
         },
     ],
     rewardEff: [
@@ -334,15 +344,23 @@ const PRESTIGES = {
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(2)
                 return x
             },x=>""+x.format()+"次方"],
+            "5": [_=>{
+                let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(3)
+                return x
+            },x=>""+x.format()+"倍"],
         },
     ],
     reset(i) {
         if (i==0?tmp.prestiges.base.gte(tmp.prestiges.req[i]):player.prestiges[i-1].gte(tmp.prestiges.req[i])) {
             player.prestiges[i] = player.prestiges[i].add(1)
-            for (let j = i-1; j >= 0; j--) {
-                player.prestiges[j] = E(0)
+
+            if (!this.noReset[i]()) {
+                for (let j = i-1; j >= 0; j--) {
+                    player.prestiges[j] = E(0)
+                }
+                QUANTUM.enter(false,true,false,true)
             }
-            QUANTUM.enter(false,true,false,true)
+            
             updateRanksTemp()
         }
     },
