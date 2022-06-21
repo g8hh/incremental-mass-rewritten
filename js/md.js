@@ -187,6 +187,7 @@ const MASS_DILATION = {
             x = x.add(1).pow(x.add(1).log10()).sub(1)
 
             if (hasPrestige(0,10)) x = x.mul(prestigeEff(0,10))
+            x = x.mul(tmp.bd.upgs[5].eff||1)
 
             return x
         },
@@ -220,9 +221,9 @@ const MASS_DILATION = {
                     effect(y) {
                         let x = Decimal.pow(2,y)
 
-                        return x
+                        return x.softcap(1e15,0.5,0)
                     },
-                    effDesc(x) { return format(x,0)+"倍" },
+                    effDesc(x) { return format(x,0)+"倍"+x.softcapHTML(1e15) },
                 },{
                     desc: `Increase the exponent of the Dilated Mass formula.`,
                     cost(x) { return E(10).pow(x.pow(1.25)).mul(1e7) },
