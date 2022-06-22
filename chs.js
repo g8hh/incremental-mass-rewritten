@@ -363,7 +363,7 @@ var cnItems = {
     '[Nobelium] Tickspeed Power’s softcap starts ^100 later.': '[锘]使时间速度倍率的软上限延迟100次方出现。',
     '[Lawrencium] Pre-Quantum Global Speed is effective based on Honor.': '[铹]使量子之前所有资源获取速度基于荣耀数值而效果变得更好。',
     '[Ruthefordium] Add 200 more C9-12 maximum completions.': '[𬬻]使挑战9-挑战12的次数上限增加200。',
-    '[Dubnium] Each Particle Power’s 1st effect is exponentially overpowered.': '[𬭊]使每种粒子第一个效果的指数变得滥强。',
+    '[Dubnium] Each Particle Power’s 1st effect is exponentially overpowered.': '[𬭊]使每种粒子能量的第一个效果变为指数加成。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
