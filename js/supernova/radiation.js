@@ -279,7 +279,7 @@ function setupRadiationHTML() {
         table += `
         <div id="${id}_div" class="table_center radiation">
             <div class="sub_rad" style="width: 450px">
-                ${name}的波长为<span id="${id}_distance">0</span> meter.<br>它使${x==0?"频率":RADIATION.names[x-1]+"波长"}的获取速度变为<span id="${id}_disEff">1</span>倍
+                ${name}的波长为<span id="${id}_distance">0</span> meter.<br>它使${x==0?"频率":RADIATION.names[x-1]+"波长"}的获取速度变为原来的<span id="${id}_disEff">1</span>倍
             </div><div class="table_center sub_rad" style="align-items: center">
                 <button id="${b1}_btn" class="btn rad" onclick="RADIATION.buyBoost(${2*x})">
                     Aplitude: <span id="${b1}_lvl1">0</span><br>

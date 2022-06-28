@@ -246,9 +246,10 @@ const RANKS = {
 const PRESTIGES = {
     fullNames: ["转生等级", "荣耀"],
     baseExponent() {
-        let x = 1
-        if (hasElement(100)) x *= tmp.elements.effect[100]
-        return x
+        let x = 0
+        if (hasElement(100)) x += tmp.elements.effect[100]
+        if (hasPrestige(0,32)) x += prestigeEff(0,32,0)
+        return x+1
     },
     base() {
         let x = E(1)
@@ -268,7 +269,7 @@ const PRESTIGES = {
                 x = Decimal.pow(1.1,y.scaleEvery('prestige0').pow(1.1)).mul(2e13)
                 break;
             case 1:
-                x = y.pow(1.25).mul(3).add(4)
+                x = y.scaleEvery('prestige1').pow(1.25).mul(3).add(4)
                 break;
             default:
                 x = EINF
@@ -283,7 +284,7 @@ const PRESTIGES = {
                 if (y.gte(2e13)) x = y.div(2e13).max(1).log(1.1).max(0).root(1.1).scaleEvery('prestige0',true).add(1)
                 break;
             case 1:
-                if (y.gte(4)) x = y.sub(4).div(2).max(0).root(1.5).add(1)
+                if (y.gte(4)) x = y.sub(4).div(2).max(0).root(1.5).scaleEvery('prestige1',true).add(1)
                 break
             default:
                 x = E(0)
@@ -306,13 +307,15 @@ const PRESTIGES = {
             "3": `使量子泡沫和死寂碎片获取速度变为原来的4倍。`,
             "5": `使量子之前所有资源获取速度变为原来的2次方(在计算削弱之前生效)。`,
             "6": `使时间速度倍率的软上限延迟100次方出现。`,
-            "8": `使质量获取速度的五重软上限基于转生次数而延迟出现。`,
-            "10": `使相对论能量的获取速度基于转生次数而增加。`,
+            "8": `使质量获取速度的五重软上限基于转生等级而延迟出现。`,
+            "10": `使相对论能量的获取速度基于转生等级而增加。`,
             "12": `使强化器效果的二重软上限弱化7.04%。`,
             "15": `使三重阶层2的奖励变得滥强。`,
             "18": `使计算转生基础值时级别的数值翻倍。`,
             "24": `使宇宙弦的超级折算弱化20%。`,
             "28": `移除胶子升级4的所有软上限。`,
+            "32": `使转生基础值的指数基于转生等级而增加。`,
+            "40": `使铬(24Cr)的效果略微增加。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -320,6 +323,7 @@ const PRESTIGES = {
             "3": `使玻色子的加成基于转生基础值而增加。`,
             "4": `所有原基粒子获得5级免费等级。`,
             "5": `使五重阶层5的奖励基于转生基础值变得更强。`,
+            "7": `使夸克获取速度基于荣耀的数值而增加。`,
         },
     ],
     rewardEff: [
@@ -332,6 +336,10 @@ const PRESTIGES = {
                 let x = Decimal.pow(2,player.prestiges[0])
                 return x
             },x=>x.format()+"倍"],
+            "32": [_=>{
+                let x = player.prestiges[0].div(1e4).toNumber()
+                return x
+            },x=>"+"+format(x)+"次方"],
             /*
             "1": [_=>{
                 let x = E(1)
@@ -350,6 +358,10 @@ const PRESTIGES = {
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(3)
                 return x
             },x=>""+x.format()+"倍"],
+            "7": [_=>{
+                let x = player.prestiges[1].add(1).root(3)
+                return x
+            },x=>""+x.format()+"次方"],
         },
     ],
     reset(i) {

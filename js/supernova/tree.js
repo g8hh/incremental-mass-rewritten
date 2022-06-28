@@ -399,7 +399,7 @@ const TREE_UPGS = {
                 let y = expMult(player.supernova.bosons.gluon,hasElement(113) ? 0.95 : 1/2,2).max(1)
                 return [x,y]
             },
-            effDesc(x) { return "光子获取速度变为"+format(x[1])+"倍，胶子获取速度变为"+format(x[0])+"倍" },
+            effDesc(x) { return "光子获取速度变为原来的"+format(x[1])+"倍，胶子获取速度变为原来的"+format(x[0])+"倍" },
         },
         bs3: {
             branch: ["bs1"],
