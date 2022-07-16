@@ -209,7 +209,7 @@ const FORMS = {
             return gain.floor()
         },
         reset() {
-            if (tmp.rp.can) if (player.confirms.rp?confirm("Are you sure to reset?"):true) {
+            if (tmp.rp.can) if (player.confirms.rp?confirm("您确定要重置吗？"):true) {
                 player.rp.points = player.rp.points.add(tmp.rp.gain)
                 player.rp.unl = true
                 this.doReset()
@@ -288,7 +288,7 @@ const FORMS = {
             return E(1).div(p.add(1))
         },
         reset() {
-            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("Are you sure to reset?"):true) {
+            if (tmp.bh.dm_can) if (player.confirms.bh?confirm("您确定要重置吗？"):true) {
                 player.bh.dm = player.bh.dm.add(tmp.bh.dm_gain)
                 player.bh.unl = true
                 this.doReset()
@@ -365,7 +365,7 @@ const FORMS = {
                 return
             }
             if (id=="qu") {
-                player.reset_msg = "Require over "+formatMass(mlt(1e4))+" of mass to "+(QCs.active()?"complete Quantum Challenge":"go Quantum")
+                player.reset_msg = "需要质量超过"+formatMass(mlt(1e4))+"才能"+(QCs.active()?"完成量子挑战":"前往量子")
                 return
             }
             player.reset_msg = this.msgs[id]
@@ -449,26 +449,26 @@ function format(ex, acc=4, max=12, type=player.options.notation) {
 
 function turnOffline() { player.offline.active = !player.offline.active }
 
-const ARV = ['mlt','mgv','giv','tev','pev','exv','zev','yov']
+const ARV = ['多宇宙','兆宇宙','吉宇宙','太宇宙','拍宇宙','艾宇宙','泽宇宙','尧宇宙']
 
 function formatARV(ex,gain=false) {
     if (gain) ex = uni("ee9").pow(ex)
     let mlt = ex.div(1.5e56).log10().div(1e9)
     let arv = mlt.log10().div(15).floor()
-    return format(mlt.div(Decimal.pow(1e15,arv))) + " " + (arv.gte(8)?"arv^"+format(arv.add(2),0):ARV[arv.toNumber()])
+    return format(mlt.div(Decimal.pow(1e15,arv))) + (arv.gte(8)?"arv^"+format(arv.add(2),0):ARV[arv.toNumber()])
 }
 
 function formatMass(ex) {
     ex = E(ex)
     if (ex.gte(E(1.5e56).mul('ee9'))) return formatARV(ex)
-    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + ' uni'
-    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + ' MMWG'
-    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + ' M☉'
-    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + ' M⊕'
-    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + ' MME'
-    if (ex.gte(1e6)) return format(ex.div(1e6)) + ' tonne'
-    if (ex.gte(1e3)) return format(ex.div(1e3)) + ' kg'
-    return format(ex) + ' g'
+    if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + '宇宙'
+    if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + '银河质量'
+    if (ex.gte(1.989e33)) return format(ex.div(1.989e33)) + '太阳质量'
+    if (ex.gte(5.972e27)) return format(ex.div(5.972e27)) + '地球质量'
+    if (ex.gte(1.619e20)) return format(ex.div(1.619e20)) + '珠峰质量'
+    if (ex.gte(1e6)) return format(ex.div(1e6)) + '吨'
+    if (ex.gte(1e3)) return format(ex.div(1e3)) + '千克'
+    return format(ex) + '克'
 }
 
 function formatGain(amt, gain, isMass=false) {
@@ -478,15 +478,15 @@ function formatGain(amt, gain, isMass=false) {
     let ooms = next.max(1).log10().div(amt.max(1).log10())
     if (ooms.gte(10) && amt.gte('ee10') && !isMass) {
         ooms = ooms.log10().mul(20)
-        rate = "(+"+format(ooms) + " OoMs^2/sec)"
+        rate = "(+"+format(ooms) + "二重数量级/秒)"
     }
     ooms = next.div(amt)
     if (ooms.gte(10) && amt.gte(1e100)) {
         ooms = ooms.log10().mul(20)
-        if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6)) rate = "(+"+formatARV(ooms.div(1e9),true) + "/sec)"
-        else rate = "(+"+format(ooms) + " OoMs/sec)"
+        if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6)) rate = "(+"+formatARV(ooms.div(1e9),true) + "/秒)"
+        else rate = "(+"+format(ooms) + "数量级/秒)"
     }
-    else rate = "(+"+f(gain)+"/sec)"
+    else rate = "(+"+f(gain)+"/秒)"
     return rate
 }
 

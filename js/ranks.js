@@ -1,6 +1,6 @@
 const RANKS = {
     names: ['rank', 'tier', 'tetr', 'pent'],
-    fullNames: ['Rank', 'Tier', 'Tetr', 'Pent'],
+    fullNames: ['级别', '阶层', '三重阶层', '五重阶层'],
     reset(type) {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].add(1)
@@ -57,52 +57,52 @@ const RANKS = {
     },
     desc: {
         rank: {
-            '1': "unlock mass upgrade 1.",
-            '2': "unlock mass upgrade 2, reduce mass upgrade 1 cost scaled by 20%.",
-            '3': "unlock mass upgrade 3, reduce mass upgrade 2 cost scaled by 20%, mass upgrade 1 boosts itself.",
-            '4': "reduce mass upgrade 3 cost scale by 20%.",
-            '5': "mass upgrade 2 boosts itself.",
-            '6': "make mass gain is boosted by (x+1)^2, where x is rank.",
-            '13': "triple mass gain.",
-            '14': "double Rage Powers gain.",
-            '17': "make rank 6 reward effect is better. [(x+1)^2 -> (x+1)^x^1/3]",
-            '34': "make mass upgrade 3 softcap start 1.2x later.",
-            '40': "adds tickspeed power based on ranks.",
-            '45': "ranks boosts Rage Powers gain.",
-            '90': "rank 40 reward is stronger.",
-            '180': "mass gain is raised by 1.025.",
-            '220': "rank 40 reward is overpowered.",
-            '300': "rank multiplie quark gain.",
-            '380': "rank multiplie mass gain.",
-            '800': "make mass gain softcap 0.25% weaker based on rank.",
+            '1': "解锁质量升级1。",
+            '2': "解锁质量升级2，使质量升级1的花费折算弱化20%。",
+            '3': "解锁质量升级3，使质量升级2的花费折算弱化20%，质量升级1的效果对自身生效。",
+            '4': "使质量升级3的花费折算弱化20%。",
+            '5': "使质量升级2的效果对自身生效。",
+            '6': "使质量获取速度乘以(级别+1)的平方。",
+            '13': "使质量获取速度变为原来的3倍。",
+            '14': "使狂怒能量获取速度翻倍。",
+            '17': "使级别6的奖励公式变得更好。即原公式的指数从2变为级别的1/3次方。",
+            '34': "使质量升级3的软上限延迟1.2倍出现。",
+            '40': "基于级别的数值，增加时间速度倍率。",
+            '45': "使级别可以加成狂怒能量获取速度。",
+            '90': "使级别40的奖励变得更好。",
+            '180': "使质量获取速度变为原来的1.025次方。",
+            '220': "使级别40的奖励变得滥强。",
+            '300': "使级别可以加成夸克获取速度。",
+            '380': "使级别可以加成质量获取速度。",
+            '800': "基于级别的数值，使质量获取速度的软上限弱化0.25%。",
         },
         tier: {
-            '1': "reduce rank reqirements by 20%.",
-            '2': "raise mass gain by 1.15",
-            '3': "reduce all mass upgrades cost scale by 20%.",
-            '4': "adds +5% tickspeed power for every tier you have, softcaps at +40%.",
-            '6': "make rage powers boosted by tiers.",
-            '8': "make tier 6's reward effect stronger by dark matters.",
-            '12': "make tier 4's reward effect twice effective and remove softcap.",
-            '30': "stronger effect's softcap is 10% weaker.",
-            '55': "make rank 380's effect stronger based on tier.",
-            '100': "Super Tetr scale 5 later.",
+            '1': "使级别的需求减少20%。",
+            '2': "使质量获取速度变为原来的1.15次方。",
+            '3': "使所有质量升级的花费折算弱化20%。",
+            '4': "每有1个阶层，时间速度倍率就增加5%，在增加40%时达到软上限。",
+            '6': "使阶层可以加成狂怒能量。",
+            '8': "使阶层6的奖励效果基于暗物质的数值变得更强。",
+            '12': "使阶层4的奖励效果翻倍，且移除软上限。",
+            '30': "使强化器效果的软上限弱化10%。",
+            '55': "使级别380的效果基于阶层的数值变得更强。",
+            '100': "使三重阶层的超级折算延迟5次出现。",
         },
         tetr: {
-            '1': "reduce tier reqirements by 25%, make Hyper Rank scaling is 15% weaker.",
-            '2': "mass upgrade 3 boosts itself.",
-            '3': "raise tickspeed effect by 1.05.",
-            '4': "Super Rank scale weaker based on Tier, Super Tier scale 20% weaker.",
-            '5': "Hyper/Ultra Tickspeed starts later based on tetr.",
-            '8': "Mass gain softcap^2 starts ^1.5 later.",
+            '1': "使阶层的需求减少25%，级别的究级折算弱化15%。",
+            '2': "使质量升级3的效果对自身生效。",
+            '3': "使时间速度效果变为原来的1.05次方。",
+            '4': "使级别的超级折算基于阶层的数值而弱化，阶层的超级折算弱化20%。",
+            '5': "使时间速度的究级折算和超究折算基于三重阶层的数值而延迟出现。",
+            '8': "使质量获取速度的二重软上限延迟1.5次方出现。",
         },
         pent: {
-            '1': "reduce tetr reqirements by 15%, make Meta-Rank starts 1.1x later.",
-            '2': "tetr boost all radiations gain.",
-            '4': "Meta-Tickspeeds start later based on Supernovas.",
-            '5': "Meta-Ranks start later based on Pent.",
-            '8': "Mass gain softcap^4 starts later based on Pent.",
-            '15': "remove 3rd softcap of Stronger's effect.",
+            '1': "使三重阶层的需求减少15%，级别的元折算延迟1.1倍出现。",
+            '2': "使三重阶层可以加成射线的获取速度。",
+            '4': "使时间速度的元折算基于超新星次数而延迟出现。",
+            '5': "使级别的元折算基于五重阶层的数值而延迟出现。",
+            '8': "使质量获取速度的四重软上限基于五重阶层的数值而延迟出现。",
+            '15': "移除强化器效果的三重软上限。",
         },
     },
     effect: {
@@ -201,29 +201,29 @@ const RANKS = {
         rank: {
             3(x) { return "+"+format(x) },
             5(x) { return "+"+format(x) },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             40(x) {  return "+"+format(x.mul(100))+"%" },
-            45(x) { return format(x)+"x" },
-            300(x) { return format(x)+"x" },
-            380(x) { return format(x)+"x" },
-            800(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
+            45(x) { return format(x)+"倍" },
+            300(x) { return format(x)+"倍" },
+            380(x) { return format(x)+"倍" },
+            800(x) { return "弱化"+format(E(1).sub(x).mul(100))+"%" },
         },
         tier: {
             4(x) { return "+"+format(x.mul(100))+"%" },
-            6(x) { return format(x)+"x" },
+            6(x) { return format(x)+"倍" },
             8(x) { return "^"+format(x) },
             55(x) { return "^"+format(x) },
         },
         tetr: {
             2(x) { return "+"+format(x) },
-            4(x) { return format(E(1).sub(x).mul(100))+"% weaker" },
-            5(x) { return "+"+format(x,0)+" later" },
+            4(x) { return "弱化"+format(E(1).sub(x).mul(100))+"%" },
+            5(x) { return "延迟"+format(x,0)+"次出现" },
         },
         pent: {
-            2(x) { return format(x)+"x" },
-            4(x) { return format(x)+"x later" },
-            5(x) { return format(x)+"x later" },
-            8(x) { return "^"+format(x)+" later" },
+            2(x) { return format(x)+"倍" },
+            4(x) { return "延迟"+format(x)+"倍出现" },
+            5(x) { return "延迟"+format(x)+"倍出现" },
+            8(x) { return "延迟"+format(x)+"次方出现" },
         },
     },
     fp: {
@@ -244,7 +244,7 @@ const RANKS = {
 }
 
 const PRESTIGES = {
-    fullNames: ["Prestige Level", "Honor"],
+    fullNames: ["转生等级", "荣耀"],
     baseExponent() {
         let x = 0
         if (hasElement(100)) x += tmp.elements.effect[100]
@@ -302,28 +302,28 @@ const PRESTIGES = {
     ],
     rewards: [
         {
-            "1": `All Mass softcaps up to ^5 start ^10 later.`,
-            "2": `Quantum Shard Base is increased by 0.5.`,
-            "3": `Quadruple Quantum Foam and Death Shard gain.`,
-            "5": `Pre-Quantum Global Speed is raised by ^2 (before division).`,
-            "6": `Tickspeed Power softcap starts ^100 later.`,
-            "8": `Mass softcap^5 starts later based on Prestige.`,
-            "10": `Gain more Relativistic Energies based on Prestige.`,
-            "12": `Stronger Effect's softcap^2 is 7.04% weaker.`,
-            "15": `Tetr 2's reward is overpowered.`,
-            "18": `Gain 100% more Ranks to Prestige Base.`,
-            "24": `Super Cosmic Strings scale 20% weaker.`,
-            "28": `Remove all softcaps from Gluon Upgrade 4's effect.`,
-            "32": `Prestige Base’s exponent is increased based on Prestige Level.`,
-            "40": `Chromium-24 is slightly stronger.`,
+            "1": `使到五重质量软上限为止的所有质量软上限延迟10次方出现。`,
+            "2": `量子碎片的基础效果指数增加0.5。`,
+            "3": `使量子泡沫和死寂碎片获取速度变为原来的4倍。`,
+            "5": `使量子之前所有资源获取速度变为原来的2次方(在计算削弱之前生效)。`,
+            "6": `使时间速度倍率的软上限延迟100次方出现。`,
+            "8": `使质量获取速度的五重软上限基于转生等级而延迟出现。`,
+            "10": `使相对论能量的获取速度基于转生等级而增加。`,
+            "12": `使强化器效果的二重软上限弱化7.04%。`,
+            "15": `使三重阶层2的奖励变得滥强。`,
+            "18": `使计算转生基础值时级别的数值翻倍。`,
+            "24": `使宇宙弦的超级折算弱化20%。`,
+            "28": `移除胶子升级4的所有软上限。`,
+            "32": `使转生基础值的指数基于转生等级而增加。`,
+            "40": `使铬(24Cr)的效果略微增加。`,
         },
         {
-            "1": `All-Star resources are raised by ^2.`,
-            "2": `Meta-Supernova starts 100 later.`,
-            "3": `Bosonic resources are boosted based on Prestige Base.`,
-            "4": `Gain 5 free levels of each Primordium Particle.`,
-            "5": `Pent 5's reward is stronger based on Prestige Base.`,
-            "7": `Quarks are boosted based on Honor.`,
+            "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
+            "2": `使超新星的元折算延迟100次出现。`,
+            "3": `使玻色子的加成基于转生基础值而增加。`,
+            "4": `所有原基粒子获得5级免费等级。`,
+            "5": `使五重阶层5的奖励基于转生基础值变得更强。`,
+            "7": `使夸克获取速度基于荣耀的数值而增加。`,
         },
     ],
     rewardEff: [
@@ -331,15 +331,15 @@ const PRESTIGES = {
             "8": [_=>{
                 let x = player.prestiges[0].root(2).div(2).add(1)
                 return x
-            },x=>"^"+x.format()+" later"],
+            },x=>"延迟"+x.format()+"次方"],
             "10": [_=>{
                 let x = Decimal.pow(2,player.prestiges[0])
                 return x
-            },x=>x.format()+"x"],
+            },x=>x.format()+"倍"],
             "32": [_=>{
                 let x = player.prestiges[0].div(1e4).toNumber()
                 return x
-            },x=>"+^"+format(x)],
+            },x=>"+"+format(x)+"次方"],
             /*
             "1": [_=>{
                 let x = E(1)
@@ -353,15 +353,15 @@ const PRESTIGES = {
             "3": [_=>{
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(2)
                 return x
-            },x=>"^"+x.format()],
+            },x=>""+x.format()+"次方"],
             "5": [_=>{
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(3)
                 return x
-            },x=>"x"+x.format()],
+            },x=>""+x.format()+"倍"],
             "7": [_=>{
                 let x = player.prestiges[1].add(1).root(3)
                 return x
-            },x=>"^"+x.format()],
+            },x=>""+x.format()+"次方"],
         },
     ],
     reset(i) {
@@ -450,7 +450,7 @@ function updateRanksHTML() {
                 let desc = ""
                 for (let i = 0; i < keys.length; i++) {
                     if (player.ranks[rn].lt(keys[i])) {
-                        desc = ` At ${RANKS.fullNames[x]} ${format(keys[i],0)}, ${RANKS.desc[rn][keys[i]]}`
+                        desc = `在${RANKS.fullNames[x]}${format(keys[i],0)}，将${RANKS.desc[rn][keys[i]]}`
                         break
                     }
                 }
@@ -479,7 +479,7 @@ function updateRanksHTML() {
                 let desc = ""
                 for (let i = 0; i < keys.length; i++) {
                     if (p.lt(keys[i])) {
-                        desc = ` At ${PRESTIGES.fullNames[x]} ${format(keys[i],0)}, ${PRESTIGES.rewards[x][keys[i]]}`
+                        desc = `在${PRESTIGES.fullNames[x]}${format(keys[i],0)}，将${PRESTIGES.rewards[x][keys[i]]}`
                         break
                     }
                 }
@@ -488,7 +488,7 @@ function updateRanksHTML() {
                 tmp.el["pres_amt_"+x].setTxt(format(p,0))
                 tmp.el["pres_"+x].setClasses({btn: true, reset: true, locked: x==0?tmp.prestiges.base.lt(tmp.prestiges.req[x]):player.prestiges[x-1].lt(tmp.prestiges.req[x])})
                 tmp.el["pres_desc_"+x].setTxt(desc)
-                tmp.el["pres_req_"+x].setTxt(x==0?format(tmp.prestiges.req[x],0)+" of Prestige Base":PRESTIGES.fullNames[x-1]+" "+format(tmp.prestiges.req[x],0))
+                tmp.el["pres_req_"+x].setTxt(x==0?format(tmp.prestiges.req[x],0)+"转生基础值":PRESTIGES.fullNames[x-1]+" "+format(tmp.prestiges.req[x],0))
                 tmp.el["pres_auto_"+x].setDisplay(false)
                 tmp.el["pres_auto_"+x].setTxt(false?"ON":"OFF")
             }

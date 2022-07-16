@@ -60,7 +60,7 @@ const ELEMENTS = {
                 if (x.gte('e1e4')) x = expMult(x.div('e1e4'),0.9).mul('e1e4')
                 return x
             },
-            effDesc(x) { return format(x)+"x"+(x.gte('e1e4')?" <span class='soft'>(softcapped)</span>":"") },
+            effDesc(x) { return format(x)+"x"+(x.gte('e1e4')?"<span class='soft'>(softcapped)</span>":"") },
         },
         {
             desc: `Stronger's power is stronger based on Proton Powers.`,
@@ -107,7 +107,7 @@ const ELEMENTS = {
             cost: E(6.5e21),
         },
         {
-            desc: `3rd & 4th challenges' scaling is weakened.`,
+            desc: `使挑战3和挑战4的折算弱化。`,
             cost: E(1e24),
         },
         {
@@ -775,8 +775,8 @@ function updateElementsHTML() {
     let ch = tmp.elements.choosed
     tmp.el.elem_ch_div.setVisible(ch>0)
     if (ch) {
-        tmp.el.elem_desc.setHTML("<b>["+ELEMENTS.fullNames[ch]+"]</b> "+ELEMENTS.upgs[ch].desc)
-        tmp.el.elem_cost.setTxt(format(ELEMENTS.upgs[ch].cost,0)+" Quarks"+(ch>86?" in Big Rip":"")+(player.qu.rip.active&&tmp.elements.cannot.includes(ch)?" [CANNOT AFFORD in Big Rip]":""))
+        tmp.el.elem_desc.setHTML("<b>["+ELEMENTS.fullNames[ch]+"]</b>"+ELEMENTS.upgs[ch].desc)
+        tmp.el.elem_cost.setTxt(format(ELEMENTS.upgs[ch].cost,0)+"夸克"+(ch>86?"(需进入大撕裂)":"")+(player.qu.rip.active&&tmp.elements.cannot.includes(ch)?"[大撕裂中无法购买]":""))
         tmp.el.elem_eff.setHTML(ELEMENTS.upgs[ch].effDesc?"Currently: "+ELEMENTS.upgs[ch].effDesc(tmp.elements.effect[ch]):"")
     }
     tmp.el.element_la_1.setVisible(tmp.elements.unl_length>57)

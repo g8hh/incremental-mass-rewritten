@@ -67,7 +67,7 @@ function updateChromaHTML() {
         tmp.el[id+"_btn"].setClasses({btn: true, locked: !tmp.qu.pick_chr})
         tmp.el[id+"_btn"].setDisplay(!player.qu.chr_get.includes(x))
 
-        tmp.el[id+"_amt"].setTxt(format(player.qu.chroma[x],1)+" "+formatGain(player.qu.chroma[x],tmp.qu.chroma_gain[x]))
+        tmp.el[id+"_amt"].setTxt(format(player.qu.chroma[x],1)+formatGain(player.qu.chroma[x],tmp.qu.chroma_gain[x]))
         tmp.el[id+"_eff"].setHTML(CHROMA.effDesc[x](tmp.qu.chroma_eff[x]))
     }
 }

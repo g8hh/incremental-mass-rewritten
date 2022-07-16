@@ -1,5 +1,5 @@
 const RADIATION = {
-    names: ["Radio","Microwave","Infrared","Visible","Ultraviolet","X-ray","Gamma-ray"],
+    names: ["无线电波","微波","红外线","可见光","紫外线","X射线","伽马射线"],
     unls: ["0","1e6","1e13","1e20","1e26","1e33","1e49"],
     hz_gain() {
         let x = E(1)
@@ -279,7 +279,7 @@ function setupRadiationHTML() {
         table += `
         <div id="${id}_div" class="table_center radiation">
             <div class="sub_rad" style="width: 450px">
-                Your distance of ${name}'s wave is <span id="${id}_distance">0</span> meter.<br>Which multiples ${x==0?"Frequency":"distance of "+RADIATION.names[x-1]} gain by <span id="${id}_disEff">1</span>x
+                ${name}的波长为<span id="${id}_distance">0</span> meter.<br>它使${x==0?"频率":RADIATION.names[x-1]+"波长"}的获取速度变为原来的<span id="${id}_disEff">1</span>倍
             </div><div class="table_center sub_rad" style="align-items: center">
                 <button id="${b1}_btn" class="btn rad" onclick="RADIATION.buyBoost(${2*x})">
                     Aplitude: <span id="${b1}_lvl1">0</span><br>
@@ -300,7 +300,7 @@ function setupRadiationHTML() {
 }
 
 function updateRadiationHTML() {
-    tmp.el.frequency.setTxt(format(player.supernova.radiation.hz,1)+" "+formatGain(player.supernova.radiation.hz,tmp.radiation.hz_gain.mul(tmp.preQUGlobalSpeed)))
+    tmp.el.frequency.setTxt(format(player.supernova.radiation.hz,1)+formatGain(player.supernova.radiation.hz,tmp.radiation.hz_gain.mul(tmp.preQUGlobalSpeed)))
     tmp.el.frequency_eff.setTxt(format(tmp.radiation.hz_effect))
 
     let rad_id = 1
@@ -322,7 +322,7 @@ function updateRadiationHTML() {
 
         tmp.el[id+"_div"].setDisplay(unl)
         if (unl) {
-            tmp.el[id+"_distance"].setTxt(format(player.supernova.radiation.ds[x],1)+" "+formatGain(player.supernova.radiation.ds[x],tmp.radiation.ds_gain[x].mul(tmp.preQUGlobalSpeed)))
+            tmp.el[id+"_distance"].setTxt(format(player.supernova.radiation.ds[x],1)+formatGain(player.supernova.radiation.ds[x],tmp.radiation.ds_gain[x].mul(tmp.preQUGlobalSpeed)))
             tmp.el[id+"_disEff"].setTxt(format(tmp.radiation.ds_eff[x]))
 
             for (let y = 0; y < 2; y++) {

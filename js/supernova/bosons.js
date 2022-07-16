@@ -91,7 +91,7 @@ const BOSONS = {
                 cost(x) { return E(1.5).pow(x.pow(1.25)).mul(10) },
                 bulk(x=player.supernova.bosons.photon) { return x.gte(10) ? x.div(10).max(1).log(1.5).root(1.25).add(1).floor() : E(0) },
                 effect(x) { return player.supernova.bosons.photon.add(1).pow(x.mul(tmp.radiation.bs.eff[7]).pow(0.8).mul(100)) },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },{
                 desc: "Boost BH Condenser Power.",
                 cost(x) { return E(2).pow(x.pow(1.25)).mul(100) },
@@ -101,13 +101,13 @@ const BOSONS = {
                     if (hasTree("fn4")) a = a.pow(2)
                     return a
                 },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },{
                 desc: "Photons gain is boosted by Collapsed Star.",
                 cost(x) { return E(5).pow(x.pow(1.25)).mul(500) },
                 bulk(x=player.supernova.bosons.photon) { return x.gte(500) ? x.div(500).max(1).log(5).root(1.25).add(1).floor() : E(0) },
                 effect(x) { return player.stars.points.add(1).log10().add(1).pow(x.mul(0.2)).softcap(1e15,0.6,0) },
-                effDesc(x) { return format(x)+"x"+(x.gte(1e15)?" <span class='soft'>(softcapped)</span>":"") },
+                effDesc(x) { return format(x)+"倍"+(x.gte(1e15)?"<span class='soft'>(softcapped)</span>":"") },
             },{
                 desc: "All-Star resources gain is boosted by Photon.",
                 cost(x) { return E(5).pow(x.pow(1.25)).mul(1e5) },
@@ -117,7 +117,7 @@ const BOSONS = {
                     if (!hasElement(99)) x = x.softcap("e4e15",0.5,2)
                     return x
                 },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },
         ],
         gluon: [
@@ -126,7 +126,7 @@ const BOSONS = {
                 cost(x) { return E(1.5).pow(x.pow(1.25)).mul(10) },
                 bulk(x=player.supernova.bosons.gluon) { return x.gte(10) ? x.div(10).max(1).log(1.5).root(1.25).add(1).floor() : E(0) },
                 effect(x) { return player.supernova.bosons.gluon.add(1).pow(x.mul(tmp.radiation.bs.eff[7]).pow(0.8).mul(100)) },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },{
                 desc: "Boost Cosmic Ray Power.",
                 cost(x) { return E(2).pow(x.pow(1.25)).mul(100) },
@@ -136,13 +136,13 @@ const BOSONS = {
                     if (hasTree("fn4")) a = a.pow(2)
                     return a
                 },
-                effDesc(x) { return format(x)+"x" },
+                effDesc(x) { return format(x)+"倍" },
             },{
                 desc: "Gluons gain is boosted by Quark.",
                 cost(x) { return E(5).pow(x.pow(1.25)).mul(500) },
                 bulk(x=player.supernova.bosons.gluon) { return x.gte(500) ? x.div(500).max(1).log(5).root(1.25).add(1).floor() : E(0) },
                 effect(x) { return player.atom.quarks.add(1).log10().add(1).pow(x.mul(0.125)).softcap(1e15,0.6,0) },
-                effDesc(x) { return format(x)+"x"+(x.gte(1e15)?" <span class='soft'>(softcapped)</span>":"") },
+                effDesc(x) { return format(x)+"倍"+(x.gte(1e15)?"<span class='soft'>(softcapped)</span>":"") },
             },{
                 desc: "Supernova requirement is decreased based on Gluon.",
                 cost(x) { return E(10).pow(x.pow(1.25)).mul(1e5) },
@@ -152,7 +152,7 @@ const BOSONS = {
                     if (!hasPrestige(0,28)) y = y.softcap(5.5,0.25,0).softcap(10,0.25,0)
                     return y
                 },
-                effDesc(x) { return "/"+format(x)+(x.gte(5.5)&&!hasPrestige(0,28)?" <span class='soft'>(softcapped)</span>":"") },
+                effDesc(x) { return "/"+format(x)+(x.gte(5.5)&&!hasPrestige(0,28)?"<span class='soft'>(softcapped)</span>":"") },
             },
         ],
     },
@@ -209,7 +209,7 @@ function updateBosonsTemp() {
 function updateBosonsHTML() {
     for (let x in BOSONS.names) {
         let id = BOSONS.names[x]
-        tmp.el[id+"_amt"].setTxt(format(player.supernova.bosons[id])+" "+formatGain(player.supernova.bosons[id],tmp.bosons.gain[id].mul(tmp.preQUGlobalSpeed)))
+        tmp.el[id+"_amt"].setTxt(format(player.supernova.bosons[id])+formatGain(player.supernova.bosons[id],tmp.bosons.gain[id].mul(tmp.preQUGlobalSpeed)))
         if (tmp.bosons.effect[id]) for (let y in tmp.bosons.effect[id]) tmp.el[id+"_eff"+y].setTxt(format(tmp.bosons.effect[id][y]))
 
         if (BOSONS.upgs.ids.includes(id)) for (let y in BOSONS.upgs[id]) {

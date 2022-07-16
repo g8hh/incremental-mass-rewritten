@@ -31,7 +31,7 @@ const ssf = [
     x=>{
         if (x == ss[1]) {
             localStorage.setItem("imr_secret",ss[1])
-            window.open("https://mrredshark77.github.io/incremental-mass-rewritten/hidden.html","_self")
+            window.open("./hidden.html","_self")
             return true
         }
         return false

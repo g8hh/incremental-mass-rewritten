@@ -11,12 +11,12 @@ const QCs = {
             }
             if (is_zero) return
         }
-        if (player.qu.qc.active ? true : confirm("Are you sure to enter the Quantum Challenge? Entering it will force reset!")) {
+        if (player.qu.qc.active ? true : confirm("您确定要进入量子挑战吗？这将强制前往量子！")) {
             player.qu.qc.active = !player.qu.qc.active
             QUANTUM.doReset(player.qu.qc.active)
         }
     },
-    names: ["Black Dwarf","Time Anomaly","Hypertiered","Melted Interactions","Intense Catalyst","Ex-Challenge","Spatial Dilation","Extreme Scaling"],
+    names: ["黑矮星","时间异常","阶层超量","熔化作用","强力催化","超级挑战","空间膨胀","极端折算"],
     ctn: [
         {
             eff(i) {
@@ -103,14 +103,14 @@ function loadQCPreset(x) {
 }
 
 function renameQCPreset(x) {
-    let renamed = prompt("Input the preset name")
+    let renamed = prompt("输入预设名称")
     player.qu.qc.presets[x].p_name = renamed
     addNotify("Preset Renamed")
     updateQCModPresets()
 }
 
 function deleteQCPreset(x) {
-    if (confirm("Are you sure to delete the preset?")) {
+    if (confirm("您确定要删除预设吗？")) {
         let represets = []
         for (let y = 0; y < player.qu.qc.presets.length; y++) if (x != y) represets.push(player.qu.qc.presets[y])
         player.qu.qc.presets = represets
@@ -182,7 +182,7 @@ function updateQCTemp() {
 }
 
 function updateQCHTML() {
-    tmp.el.qc_shard.setTxt(player.qu.qc.shard+(tmp.qu.qc_s+tmp.qu.qc_s_bouns!=player.qu.qc.shard?(` (${tmp.qu.qc_s+tmp.qu.qc_s_bouns>=player.qu.qc.shard?"+":""}${tmp.qu.qc_s+tmp.qu.qc_s_bouns-player.qu.qc.shard})`):""))
+    tmp.el.qc_shard.setTxt(player.qu.qc.shard+(tmp.qu.qc_s+tmp.qu.qc_s_bouns!=player.qu.qc.shard?(`(${tmp.qu.qc_s+tmp.qu.qc_s_bouns>=player.qu.qc.shard?"+":""}${tmp.qu.qc_s+tmp.qu.qc_s_bouns-player.qu.qc.shard})`):""))
     tmp.el.qc_shard_b.setTxt(tmp.qu.qc_s_b.format(1))
     tmp.el.qc_shard_eff.setTxt(tmp.qu.qc_s_eff.format(1))
 
@@ -199,7 +199,7 @@ function updateQCHTML() {
         tmp.el.qc_desc_div.setDisplay(tmp.qc_ch >= 0)
         if (tmp.qc_ch >= 0) {
             let x = tmp.qc_ch
-            tmp.el.qc_ch_title.setTxt(`[${x+1}] ${QCs.names[x]} [${QCs.getMod(x)}/10]`)
+            tmp.el.qc_ch_title.setTxt(`[${x+1}]${QCs.names[x]}[目前为${QCs.getMod(x)}，上限为10]`)
             tmp.el.qc_ch_desc.setHTML(QCs.ctn[x].effDesc(tmp.qu.qc_eff[x]))
         }
     }

@@ -1,6 +1,6 @@
 const SUPERNOVA = {
     reset(force=false, chal=false, post=false, fermion=false) {
-        if (!chal && !post && !fermion) if ((force && player.confirms.sn)?!confirm("Are you sure to reset without being Supernova?"):false) return
+        if (!chal && !post && !fermion) if ((force && player.confirms.sn)?!confirm("您确定要在未成为超新星的前提下重置吗？"):false) return
         if (tmp.supernova.reached || force || fermion) {
             tmp.el.supernova_scene.setDisplay(false)
             if (!force && !fermion) {
@@ -178,7 +178,7 @@ function updateSupernovaEndingHTML() {
         tmp.el.supernova_rank.setTxt(format(player.supernova.times,0))
         tmp.el.supernova_next.setTxt(format(tmp.supernova.maxlimit,2))
         if (tmp.stab[5] == 0) {
-            tmp.el.neutronStar.setTxt(format(player.supernova.stars,2)+" "+formatGain(player.supernova.stars,tmp.supernova.star_gain.mul(tmp.preQUGlobalSpeed)))
+            tmp.el.neutronStar.setTxt(format(player.supernova.stars,2)+formatGain(player.supernova.stars,tmp.supernova.star_gain.mul(tmp.preQUGlobalSpeed)))
             updateTreeHTML()
         }
         if (tmp.stab[5] == 1) updateBosonsHTML()

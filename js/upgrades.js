@@ -74,7 +74,7 @@ const UPGS = {
             effDesc(eff) {
                 return {
                     step: "+"+formatMass(eff.step),
-                    eff: "+"+formatMass(eff.eff)+" to mass gain"
+                    eff: "+"+formatMass(eff.eff)+"质量获取速度"
                 }
             },
             bonus() {
@@ -99,7 +99,7 @@ const UPGS = {
             },
             effDesc(eff) {
                 return {
-                    step: "+"+format(eff.step)+"x",
+                    step: "+"+format(eff.step)+"倍",
                     eff: "x"+format(eff.eff)+" to Muscler Power"
                 }
             },
@@ -143,8 +143,8 @@ const UPGS = {
             },
             effDesc(eff) {
                 return {
-                    step: "+^"+format(eff.step),
-                    eff: "^"+format(eff.eff)+" to Booster Power"+(eff.eff.gte(eff.ss)?` <span class='soft'>(softcapped${eff.eff.gte(1.8e5)?eff.eff.gte(5e15)&&!player.ranks.pent.gte(15)?"^3":"^2":""})</span>`:"")
+                    step: "+"+format(eff.step)+"次方",
+                    eff: "^"+format(eff.eff)+" to Booster Power"+(eff.eff.gte(eff.ss)?`<span class='soft'>(softcapped${eff.eff.gte(1.8e5)?eff.eff.gte(5e15)&&!player.ranks.pent.gte(15)?"^3":"^2":""})</span>`:"")
                 }
             },
             bonus() {
@@ -239,7 +239,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.9).gte(2.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.9).gte(2.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             9: {
@@ -261,7 +261,7 @@ const UPGS = {
                     return ret//.softcap("ee13",0.9,2)
                 },
                 effDesc(x=this.effect()) {
-                    return format(x)+"x"+(x.gte("e4000")?" <span class='soft'>(softcapped)</span>":"")
+                    return format(x)+"x"+(x.gte("e4000")?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             12: {
@@ -273,7 +273,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return "+^"+format(x)+(x.gte(0.2)?" <span class='soft'>(softcapped)</span>":"")
+                    return "+^"+format(x)+(x.gte(0.2)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             13: {
@@ -343,7 +343,7 @@ const UPGS = {
                     return ret.min(400)
                 },
                 effDesc(x=this.effect()) {
-                    return "+"+format(x,0)+" later"+(x.gte(100)?" <span class='soft'>(softcapped)</span>":"")
+                    return "+"+format(x,0)+" later"+(x.gte(100)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             4: {
@@ -403,7 +403,7 @@ const UPGS = {
                     return ret
                 },
                 effDesc(x=this.effect()) {
-                    return format(x)+"x"+(x.max(1).log2().gte(11600)?" <span class='soft'>(softcapped)</span>":"")
+                    return format(x)+"x"+(x.max(1).log2().gte(11600)?"<span class='soft'>(softcapped)</span>":"")
                 },
             },
             11: {

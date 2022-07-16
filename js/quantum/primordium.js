@@ -93,7 +93,7 @@ function giveRandomPParticles(v, max=false) {
 }
 
 function respecPParticles() {
-    if (confirm("Are you sure you want to respec all Particles?")) {
+    if (confirm("您确定要返还所有粒子吗？")) {
         for (let i =0; i < 8; i++) player.qu.prim.particles[i] = E(0)
         QUANTUM.doReset()
     }
@@ -124,8 +124,8 @@ function updatePrimordiumTemp() {
 }
 
 function updatePrimordiumHTML() {
-    tmp.el.prim_theorem.setTxt(format(tmp.prim.unspent,0)+" / "+format(player.qu.prim.theorems,0))
-    tmp.el.prim_next_theorem.setTxt(format(player.qu.bp,1)+" / "+format(tmp.prim.next_theorem,1))
+    tmp.el.prim_theorem.setTxt(format(player.qu.prim.theorems,0)+"原基定理，其中有"+format(tmp.prim.unspent,0))
+    tmp.el.prim_next_theorem.setTxt(format(tmp.prim.next_theorem,1)+"蓝图粒子，目前有"+format(player.qu.bp,1)+"蓝图粒子")
     for (let i = 0; i < player.qu.prim.particles.length; i++) {
         tmp.el["prim_part"+i].setTxt(format(player.qu.prim.particles[i],0))
         tmp.el["prim_part_eff"+i].setHTML(PRIM.particle.effDesc[i](tmp.prim.eff[i]))
