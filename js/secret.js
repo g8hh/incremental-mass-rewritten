@@ -10,8 +10,8 @@ const ssf = [
             ss[0] = ""
             addPopup({
                 html: `
-                    "Secret Invasion"?<br><br>Ok, here code is ${ss[1]}<br><br>
-                    <b>The code expires in next nearest hour, and is happening!</b>
+                    "Secret Invasion"?<br><br>好的，神秘代码是${ss[1]}<br><br>
+                    <b>将代码以存档的形式导入以开始。代码在下一个小时过期！</b>
                 `,
                 width: 400,
                 height: 150,
