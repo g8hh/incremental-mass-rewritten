@@ -16,7 +16,7 @@ const FERMIONS = {
         }
     },
     choose(i,x) {
-        if (player.confirms.sn) if (!confirm("Are you sure to switch any type of any Fermion?")) return
+        if (player.confirms.sn) if (!confirm("您确定要切换费米子类型吗？")) return
         let id = i+""+x
         if (player.supernova.fermions.choosed != id) {
             player.supernova.fermions.choosed = id
@@ -92,7 +92,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `x${format(x)} to Relativistic Particles gain`+(x.gte('ee3')?" <span class='soft'>(softcapped)</span>":"")
+                    return `x${format(x)} to Relativistic Particles gain`+(x.gte('ee3')?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Relativistic Particle",
                 cons: "The exponent of the RP formula is divided by 10",
@@ -112,7 +112,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `Z<sup>0</sup> Boson's first effect is ${format(x.sub(1).mul(100))}% stronger`+(x.gte(5)?" <span class='soft'>(softcapped)</span>":"")
+                    return `Z<sup>0</sup> Boson's first effect is ${format(x.sub(1).mul(100))}% stronger`+(x.gte(5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Mass",
                 cons: "You are trapped in Mass Dilation, but they are twice effective",
@@ -139,7 +139,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `4th Photon & Gluon upgrades are ${format(x)}x stronger`+(x.gte(1.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return `4th Photon & Gluon upgrades are ${format(x)}x stronger`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Rage Power",
                 cons: "You are trapped in Mass Dilation and Challenges 3-5",
@@ -164,7 +164,7 @@ const FERMIONS = {
                     return x.softcap(1.15,0.5,0).softcap(1.8,1/3,0).min(2)
                 },
                 desc(x) {
-                    return `Radiation Boosters are ${format(x)}x cheaper`+(x.gte(1.15)?" <span class='soft'>(softcapped)</span>":"")
+                    return `Radiation Boosters are ${format(x)}x cheaper`+(x.gte(1.15)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Dilated Mass",
                 cons: "U-Quarks, Photons & Gluons do nothing",
@@ -220,7 +220,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `Collapse Stars gain softcap starts ^${format(x)} later`+(x.gte(1.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return `Collapse Stars gain softcap starts ^${format(x)} later`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Quark",
                 cons: "^0.625 to the exponent of Atoms gain",
@@ -240,7 +240,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `x${format(x)} to Higgs Bosons & Gravitons gain`+(x.gte(1e6)?" <span class='soft'>(softcapped)</span>":"")
+                    return `x${format(x)} to Higgs Bosons & Gravitons gain`+(x.gte(1e6)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 isMass: true,
                 inc: "Mass of Black Hole",
@@ -287,7 +287,7 @@ const FERMIONS = {
                     return x
                 },
                 desc(x) {
-                    return `Tier requirement is ${format(x)}x cheaper`+(x.gte(1.5)?" <span class='soft'>(softcapped)</span>":"")
+                    return `Tier requirement is ${format(x)}x cheaper`+(x.gte(1.5)?"<span class='soft'>(softcapped)</span>":"")
                 },
                 inc: "Collapsed Star",
                 cons: "Star generators are decreased to ^0.5",
@@ -406,7 +406,7 @@ function updateFermionsTemp() {
 
 function updateFermionsHTML() {
     for (i = 0; i < 2; i++) {
-        tmp.el["f"+FERMIONS.names[i]+"Amt"].setTxt(format(player.supernova.fermions.points[i],2)+" "+formatGain(player.supernova.fermions.points[i],tmp.fermions.gains[i].mul(tmp.preQUGlobalSpeed)))
+        tmp.el["f"+FERMIONS.names[i]+"Amt"].setTxt(format(player.supernova.fermions.points[i],2)+formatGain(player.supernova.fermions.points[i],tmp.fermions.gains[i].mul(tmp.preQUGlobalSpeed)))
         let unls = FERMIONS.getUnlLength(i)
         for (let x = 0; x < FERMIONS.types[i].length; x++) {
             let unl = x < unls
@@ -421,12 +421,12 @@ function updateFermionsHTML() {
                 tmp.el[id+"_div"].setClasses({fermion_btn: true, [FERMIONS.names[i]]: true, choosed: active})
                 tmp.el[id+"_nextTier"].setTxt(fm(f.nextTierAt(player.supernova.fermions.tiers[i][x])))
                 tmp.el[id+"_tier_scale"].setTxt(getScalingName('fTier', i, x))
-                tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(tmp.fermions.maxTier[i][x] < Infinity?" / "+format(tmp.fermions.maxTier[i][x],0):"") + (tmp.fermions.bonuses[i][x].gt(0)?" + "+tmp.fermions.bonuses[i][x].format():""))
+                tmp.el[id+"_tier"].setTxt(format(player.supernova.fermions.tiers[i][x],0)+(tmp.fermions.maxTier[i][x] < Infinity?"，上限为"+format(tmp.fermions.maxTier[i][x],0):"") + (tmp.fermions.bonuses[i][x].gt(0)?"，额外阶层为"+tmp.fermions.bonuses[i][x].format():""))
                 tmp.el[id+"_desc"].setHTML(f.desc(tmp.fermions.effs[i][x]))
 
                 tmp.el[id+"_cur"].setDisplay(active)
                 if (active) {
-                    tmp.el[id+"_cur"].setTxt(`Currently: ${fm(
+                    tmp.el[id+"_cur"].setTxt(`当前为：${fm(
                         [
                             [player.atom.atomic, player.md.particles, player.mass, player.rp.points, player.md.mass, tmp.tickspeedEffect.eff],
                             [player.atom.quarks, player.bh.mass, player.bh.dm, player.stars.points, player.atom.points, tmp.tickspeedEffect.step]

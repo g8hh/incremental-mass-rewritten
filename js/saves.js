@@ -61,7 +61,7 @@ Decimal.prototype.format = function (acc=4, max=12) { return format(this.clone()
 
 Decimal.prototype.formatGain = function (gain, mass=false) { return formatGain(this.clone(), gain, mass) }
 
-function softcapHTML(x, start) { return E(x).gte(start)?` <span class='soft'>(softcapped)</span>`:"" }
+function softcapHTML(x, start) { return E(x).gte(start)?`<span class='soft'>(softcapped)</span>`:"" }
 
 Decimal.prototype.softcapHTML = function (start) { return softcapHTML(this.clone(), start) }
 
@@ -389,18 +389,18 @@ function export_copy() {
 }
 
 function importy() {
-    let loadgame = prompt("Paste in your save WARNING: WILL OVERWRITE YOUR CURRENT SAVE")
+    let loadgame = prompt("在方框内输入您的存档代码。注意：会覆盖现有游戏的进度。")
     if (ssf[2](loadgame)) return
     if (loadgame == 'monke') {
-        addNotify('monke<br><img style="width: 100%; height: 100%" src="https://i.kym-cdn.com/photos/images/original/001/132/314/cbc.jpg">')
+        addNotify('monke<br><img style="width: 100%; height: 100%" src="./images/cbc.jpg">')
         return
     }
     if (loadgame == 'matt parker') {
-        addNotify('2+2=5<br><img src="https://cdn2.penguin.com.au/authors/400/106175au.jpg">')
+        addNotify('2+2=5<br><img src="./images/106175au.jpg">')
         return
     }
     if (loadgame == 'SUPERNOVA.get()') {
-        addNotify('<img src="https://steamuserimages-a.akamaihd.net/ugc/83721257582613769/22687C6536A50ADB3489A721A264E0EF506A89B3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false">',6)
+        addNotify('<img src="./images/22687C6536A50ADB3489A721A264E0EF506A89B3.gif">',6)
         return
     }
     if (loadgame != null) {

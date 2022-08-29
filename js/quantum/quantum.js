@@ -20,7 +20,7 @@ const QUANTUM = {
     },
     enter(auto=false,force=false,rip=false,bd=false) {
         if (tmp.qu.gain.gte(1) || force) {
-            if (player.confirms.qu&&!auto&&!force) if (confirm("Are you sure to go Quantum? Going Quantum will reset all previous except QoL mechanicals")?!confirm("ARE YOU SURE ABOUT IT???"):true) return
+            if (player.confirms.qu&&!auto&&!force) if (confirm("你确定要前往量子吗？除了部分qol升级以外您将失去绝大部分进度")?!confirm("您真的确定了吗？？？"):true) return
             if (QCs.active() && !rip && !bd && !player.qu.rip.active) {
                 player.qu.qc.shard = tmp.qu.qc_s+tmp.qu.qc_s_bouns
                 player.qu.qc.active = false
@@ -299,7 +299,7 @@ function updateQuantumHTML() {
     if (unl) tmp.el.brAmt.setHTML(player.qu.rip.amt.format(0)+"<br>"+(player.qu.rip.active?gain2?player.qu.rip.amt.formatGain(tmp.rip.gain.div(10)):`(+${tmp.rip.gain.format(0)})`:"(inactive)"))
 
     if (tmp.tab == 0 && tmp.stab[0] == 4) {
-        tmp.el.bpAmt.setTxt(format(player.qu.bp,1)+" "+formatGain(player.qu.bp,tmp.qu.bpGain))
+        tmp.el.bpAmt.setTxt(format(player.qu.bp,1)+formatGain(player.qu.bp,tmp.qu.bpGain))
         tmp.el.bpEff.setTxt(format(tmp.qu.bpEff))
 
         tmp.el.cosmic_str_lvl.setTxt(format(player.qu.cosmic_str,0))//+(tmp.qu.cosmic_str_bonus.gte(1)?" + "+format(tmp.qu.cosmic_str_bonus,0):"")

@@ -15,7 +15,7 @@ function updateChalHTML() {
             tmp.el["chal_div_"+x].setDisplay(unl)
             tmp.el["chal_btn_"+x].setClasses({img_chal: true, ch: CHALS.inChal(x), chal_comp: player.chal.comps[x].gte(tmp.chal.max[x])})
             if (unl) {
-                tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+" / "+format(tmp.chal.max[x],0))
+                tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+"/"+format(tmp.chal.max[x],0))
             }
         }
         tmp.el.chal_enter.setVisible(player.chal.active != player.chal.choosed)
@@ -24,10 +24,10 @@ function updateChalHTML() {
         tmp.el.chal_desc_div.setDisplay(player.chal.choosed != 0)
         if (player.chal.choosed != 0) {
             let chal = CHALS[player.chal.choosed]
-            tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${CHALS.getScaleName(player.chal.choosed)} ${chal.title} [${format(player.chal.comps[player.chal.choosed],0)+"/"+format(tmp.chal.max[player.chal.choosed],0)} Completions]`)
+            tmp.el.chal_ch_title.setTxt(`[${player.chal.choosed}]${CHALS.getScaleName(player.chal.choosed)}${chal.title}[完成了${format(player.chal.comps[player.chal.choosed],0)+"次，次数上限为"+format(tmp.chal.max[player.chal.choosed],0)}次]`)
             tmp.el.chal_ch_desc.setHTML(chal.desc)
             tmp.el.chal_ch_reset.setTxt(CHALS.getReset(player.chal.choosed))
-            tmp.el.chal_ch_goal.setTxt("Goal: "+CHALS.getFormat(player.chal.choosed)(tmp.chal.goal[player.chal.choosed])+CHALS.getResName(player.chal.choosed))
+            tmp.el.chal_ch_goal.setTxt("目标："+CHALS.getFormat(player.chal.choosed)(tmp.chal.goal[player.chal.choosed])+CHALS.getResName(player.chal.choosed))
             tmp.el.chal_ch_reward.setHTML("Reward: "+chal.reward)
             tmp.el.chal_ch_eff.setHTML("Currently: "+chal.effDesc(tmp.chal.eff[player.chal.choosed]))
         }
@@ -99,7 +99,7 @@ const CHALS = {
     },
     getResName(x) {
         if (x < 5 || x > 8) return ''
-        return ' of Black Hole'
+        return '黑洞质量'
     },
     getFormat(x) {
         return formatMass
@@ -128,9 +128,9 @@ const CHALS = {
         return x.floor()
     },
     getScaleName(i) {
-        if (player.chal.comps[i].gte(1000)) return " Impossible"
-        if (player.chal.comps[i].gte(i==8?200:i>8?50:300)) return " Insane"
-        if (player.chal.comps[i].gte(i>8?10:75)) return " Hardened"
+        if (player.chal.comps[i].gte(1000)) return "无望~"
+        if (player.chal.comps[i].gte(i==8?200:i>8?50:300)) return "疯狂·"
+        if (player.chal.comps[i].gte(i>8?10:75)) return "硬化-"
         return ""
     },
     getPower(i) {
@@ -234,7 +234,7 @@ const CHALS = {
         return {goal: goal, bulk: bulk}
     },
     1: {
-        title: "Instant Scale",
+        title: "即时折算",
         desc: "Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.",
         reward: `Super Ranks starts later, Super Tickspeed scaling weaker by completions.`,
         max: E(100),
@@ -250,7 +250,7 @@ const CHALS = {
     },
     2: {
         unl() { return player.chal.comps[1].gte(1) || player.atom.unl },
-        title: "Anti-Tickspeed",
+        title: "反对时速",
         desc: "You cannot buy Tickspeed.",
         reward: `For every completions adds +7.5% to Tickspeed Power.`,
         max: E(100),
@@ -264,11 +264,11 @@ const CHALS = {
             let ret = x.mul(0.075).add(1).softcap(1.3,sp,0).sub(1)
             return ret
         },
-        effDesc(x) { return "+"+format(x.mul(100))+"%"+(x.gte(0.3)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return "+"+format(x.mul(100))+"%"+(x.gte(0.3)?"<span class='soft'>(softcapped)</span>":"") },
     },
     3: {
         unl() { return player.chal.comps[2].gte(1) || player.atom.unl },
-        title: "Melted Mass",
+        title: "质量熔化",
         desc: "Mass gain softcap is divided by 1e150, and is stronger.",
         reward: `Mass gain are raised by completions, but cannot append while in this challenge!`,
         max: E(100),
@@ -280,11 +280,11 @@ const CHALS = {
             let ret = x.root(1.5).mul(0.01).add(1)
             return ret.softcap(3,0.25,0)
         },
-        effDesc(x) { return "^"+format(x)+(x.gte(3)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return "^"+format(x)+(x.gte(3)?"<span class='soft'>(softcapped)</span>":"") },
     },
     4: {
         unl() { return player.chal.comps[3].gte(1) || player.atom.unl },
-        title: "Weakened Rage",
+        title: "怒意减弱",
         desc: "Rage Points gain is rooted by 10. In addtional, mass gain softcap is divided by 1e100.",
         reward: `Rage Powers gain are raised by completions.`,
         max: E(100),
@@ -296,11 +296,11 @@ const CHALS = {
             let ret = x.root(1.5).mul(0.01).add(1)
             return ret.softcap(3,0.25,0)
         },
-        effDesc(x) { return "^"+format(x)+(x.gte(3)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return "^"+format(x)+(x.gte(3)?"<span class='soft'>(softcapped)</span>":"") },
     },
     5: {
         unl() { return player.atom.unl },
-        title: "No Rank",
+        title: "移除级别",
         desc: "You cannot rank up.",
         reward: `Rank requirement are weaker by completions.`,
         max: E(50),
@@ -311,11 +311,11 @@ const CHALS = {
             let ret = E(0.97).pow(x.root(2).softcap(5,0.5,0))
             return ret
         },
-        effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.97).gte(5)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return format(E(1).sub(x).mul(100))+"% weaker"+(x.log(0.97).gte(5)?"<span class='soft'>(softcapped)</span>":"") },
     },
     6: {
         unl() { return player.chal.comps[5].gte(1) || player.supernova.times.gte(1) || quUnl() },
-        title: "No Tickspeed & Condenser",
+        title: "无时不压",
         desc: "You cannot buy Tickspeed & BH Condenser.",
         reward: `For every completions adds +10% to Tickspeed & BH Condenser Power.`,
         max: E(50),
@@ -326,11 +326,11 @@ const CHALS = {
             let ret = x.mul(0.1).add(1).softcap(1.5,hasElement(39)?1:0.5,0).sub(1)
             return ret
         },
-        effDesc(x) { return "+"+format(x)+"x"+(x.gte(0.5)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return "+"+format(x)+"x"+(x.gte(0.5)?"<span class='soft'>(softcapped)</span>":"") },
     },
     7: {
         unl() { return player.chal.comps[6].gte(1) || player.supernova.times.gte(1) || quUnl() },
-        title: "No Rage Powers",
+        title: "明镜止水",
         desc: "You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.<br>In addtional, mass gain softcap is stronger.",
         reward: `Completions adds 2 maximum completions of 1-4 Challenge.<br><span class="yellow">On 16th completion, unlock Elements</span>`,
         max: E(50),
@@ -346,7 +346,7 @@ const CHALS = {
     },
     8: {
         unl() { return player.chal.comps[7].gte(1) || player.supernova.times.gte(1) || quUnl() },
-        title: "White Hole",
+        title: "宇宙白洞",
         desc: "Dark Matter & Mass from Black Hole gains are rooted by 8.",
         reward: `Dark Matter & Mass from Black Hole gains are raised by completions.<br><span class="yellow">On first completion, unlock 3 rows of Elements</span>`,
         max: E(50),
@@ -358,11 +358,11 @@ const CHALS = {
             let ret = x.root(1.75).mul(0.02).add(1)
             return ret.softcap(2.3,0.25,0)
         },
-        effDesc(x) { return "^"+format(x)+(x.gte(2.3)?" <span class='soft'>(softcapped)</span>":"") },
+        effDesc(x) { return "^"+format(x)+(x.gte(2.3)?"<span class='soft'>(softcapped)</span>":"") },
     },
     9: {
         unl() { return hasTree("chal4") },
-        title: "No Particles",
+        title: "粒子消失",
         desc: "You cannot assign quarks. In addtional, mass gains exponent is raised to 0.9th power.",
         reward: `Improve Magnesium-12 better.`,
         max: E(100),
@@ -377,7 +377,7 @@ const CHALS = {
     },
     10: {
         unl() { return hasTree("chal5") },
-        title: "The Reality I",
+        title: "现实 I",
         desc: "All challenges 1-8 are applied at once. In addtional, you are trapped in Mass Dilation!",
         reward: `The exponent of the RP formula is multiplied by completions. (this effect doesn't work while in this challenge)<br><span class="yellow">On first completion, unlock Fermions!</span>`,
         max: E(100),
@@ -392,7 +392,7 @@ const CHALS = {
     },
     11: {
         unl() { return hasTree("chal6") },
-        title: "Absolutism",
+        title: "绝对论",
         desc: "You cannot gain relativistic particles or dilated mass. However, you are stuck in Mass Dilation.",
         reward: `Star Booster is stonger by completions.`,
         max: E(100),
@@ -407,7 +407,7 @@ const CHALS = {
     },
     12: {
         unl() { return hasTree("chal7") },
-        title: "Decay of Atom",
+        title: "原子衰变",
         desc: "You cannot gain Atoms & Quarks.",
         reward: `Completions add free Radiation Boosters.<br><span class="yellow">On first completion, unlock new prestige layer!</span>`,
         max: E(100),

@@ -1,9 +1,9 @@
 const BIG_RIP = {
     rip() {
-        if (!player.qu.rip.active && player.confirms.br) if (!confirm(`Are you sure you want to Big Rip the Dimension?
-        When Big Rip the Dimension, Entropy Rewards don’t work, all Primordium effects are 50% weaker except Epsilon Particles that don’t work, tree [qu2, qu10] doesn’t work, and you are trapped in Quantum Challenge with modifiers [10,2,10,10,5,0,2,10].
-        Death Shards are gained based on your normal mass while Big Ripped.
-        Unlock various upgrades from Big Rip.`)) return
+        if (!player.qu.rip.active && player.confirms.br) if (!confirm(`您确定要使维度大撕裂吗？
+        大撕裂维度后，熵的加成失效，所有原基粒子的效果减半，艾普西隆粒子完全失效，中子树升级[qu2]和[qu10]失效，并且您强制以[10,2,10,10,5,0,2,10]的配置进行量子挑战。
+        但大撕裂维度后，您可以根据质量获得死寂碎片。
+        您可以使用死寂碎片解锁新升级。`)) return
         if (player.qu.rip.active) player.qu.rip.amt = player.qu.rip.amt.add(tmp.rip.gain)
         player.qu.qc.active = false
         player.qu.rip.first = true

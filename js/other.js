@@ -28,17 +28,17 @@ function updateNotify() {
 const POPUP_GROUPS = {
     help: {
         html: `
-        <h1>Mass</h1><br>
-        g (gram): 1 g<br>
-        kg (kilogram): 1,000 g<br>
-        tonne (tonne): 1,000 kg = 1,000,000 g<br>
-        MME (mass of Mount Everest): 1.619e14 tonne = 1.619e20 g<br>
-        M⊕ (mass of Earth): 36,886,967 MME = 5.972e27 g<br>
-        M☉ (mass of Sun): 333,054 M⊕ = 1.989e33 g<br>
-        MMWG (mass of Milky Way Galaxy): 1.5e12 M☉ = 2.9835e45 g<br>
-        uni (mass of Universe): 50,276,520,864 MMWG = 1.5e56 g<br>
-        mlt (mass of Multiverse): 1e1e9 uni (logarithmic)<br>
-        mgv (mass of Megaverse): 1e15 mlt<br>
+        <h1>质量</h1><br>
+        克：1克<br>
+        千克：1000克<br>
+        吨：1000千克 = 1000000克<br>
+        珠峰质量：1.619e14吨 = 1.619e20克<br>
+        地球质量：36886967珠峰质量 = 5.972e27克<br>
+        太阳质量：333054地球质量 = 1.989e33克<br>
+        银河质量：1.5e12太阳质量 = 2.9835e45克<br>
+        宇宙：50276520864银河质量 = 1.5e56克<br>
+        多宇宙：1e1e9宇宙<br>
+        兆宇宙：1e15多宇宙<br>
         `,
     },
     fonts: {
@@ -100,7 +100,7 @@ const POPUP_GROUPS = {
     },
     qu: {
         html() { return `
-            Congratulations!<br><br>You have reached ${formatMass(mlt(1e4))} of mass after beating Challenge 12!<br><br>
+            Congratulations!<br><br>您在通过挑战12以后质量已经到达了${formatMass(mlt(1e4))}！<br><br>
             <b>You need to go Quantum!</b>
         `},
         width: 400,
@@ -131,7 +131,7 @@ const POPUP_GROUPS = {
     },
     en: {
         html() { return `
-            Congratulations!<br><br>You have reached ${formatMass(mlt(7.5e6))} of mass!<br><br>
+            Congratulations!<br><br>您的质量已经到达了${formatMass(mlt(7.5e6))}！<br><br>
             <b>Entropy is unlocked in Quantum tab!</b>
         `},
         width: 400,

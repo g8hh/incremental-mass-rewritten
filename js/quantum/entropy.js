@@ -55,7 +55,7 @@ const ENTROPY = {
                 let x = hasElement(114) ? i.add(1).root(1.5) : i.div(2).add(1).root(3)
                 return x
             },
-            desc(x) { return `Meta Tickspeed, BHC & Cosmic Ray start <b>${x.format()}x</b> later.` },
+            desc(x) { return `Meta Tickspeed, BHC & Cosmic Ray start <b>${x.format()}倍</b> later.` },
         },{
             title: "Entropic Accelerator",
 
@@ -81,7 +81,7 @@ const ENTROPY = {
                 let x = Decimal.pow(b,i)
                 return x
             },
-            desc(x) { return `Make evaporated resources gain <b>${x.format(1)}x</b> faster.` },
+            desc(x) { return `Make evaporated resources gain <b>${x.format(1)}倍</b> faster.` },
         },{
             title: "Entropic Converter",
 
@@ -93,7 +93,7 @@ const ENTROPY = {
                 let y = tmp.tickspeedEffect?tmp.tickspeedEffect.step.pow(x):E(1)
                 return [x,y]
             },
-            desc(x) { return `Tickspeed Power gives <b>^${x[0].format(2)}</b> boost to BHC & Cosmic Ray Powers.<br>Currently: <b>${x[1].format()}x</b>` },
+            desc(x) { return `Tickspeed Power gives <b>${x[0].format(2)}次方</b> boost to BHC & Cosmic Ray Powers.<br>Currently: <b>${x[1].format()}倍</b>` },
         },{
             title: "Entropic Booster",
 
@@ -104,7 +104,7 @@ const ENTROPY = {
                 let x = i.pow(2).div(20).add(1)
                 return x
             },
-            desc(x) { return `<b>x${x.format(2)}</b> extra Mass upgrades, Tickspeed, BHC and Cosmic Ray.` },
+            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
         },{
             title: "Entropic Scaling",
 
@@ -128,7 +128,7 @@ const ENTROPY = {
                 let x = player.qu.en.amt.add(1).log10().mul(2).add(1).pow(i.pow(0.8))
                 return x
             },
-            desc(x) { return `Entropy boosts itself by <b>${x.format(2)}x</b>.` },
+            desc(x) { return `Entropy boosts itself by <b>${x.format(2)}倍</b>.` },
         },{
             title: "Entropic Radiation",
 
@@ -141,7 +141,7 @@ const ENTROPY = {
                 let x = player.qu.en.amt.add(1).log10().pow(0.75).mul(i).div(1500).add(1)
                 return x
             },
-            desc(x) { return `Radiation effects are also boosted by <b>^${x.format()}</b> (based on Entropy).` },
+            desc(x) { return `Radiation effects are also boosted by <b>${x.format()}次方</b> (based on Entropy).` },
         },
 
         /*
@@ -244,7 +244,7 @@ function updateEntropyHTML() {
     tmp.el.enEva2.setTxt(formatMass(player.bh.mass))
 
     tmp.el.enAmt1.setTxt(player.qu.en.eth[2].format())
-    tmp.el.enAmt2.setTxt(player.qu.en.amt.format(1) + " / " + tmp.en.cap.format(1))
+    tmp.el.enAmt2.setTxt(player.qu.en.amt.format(1) + "熵，上限为" + tmp.en.cap.format(1))
     tmp.el.enAmt3.setTxt(player.qu.en.hr[2].format())
 
     tmp.el.enGain.setTxt(player.qu.en.amt.formatGain(tmp.en.gain.amt))

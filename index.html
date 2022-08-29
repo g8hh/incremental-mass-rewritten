@@ -51,9 +51,11 @@
 
     <script src="js/main.js"></script>
 
-    <title>Incremental Mass Rewritten</title>
+    <title>质量增量重制版 - Incremental Mass Rewritten</title>
 </head>
 <body onload="loadGame()">
+<script src="chs.js?20220524"></script>
+<script src="core.js?20220524"></script>
     <input id="copy" style="position: absolute; top: 0; left: 0; user-select: all; visibility: hidden;">
     <div id="loading" class='table_center' style="align-items: center; height: 100%;">
         <div>
@@ -87,7 +89,7 @@
             <button class="btn" onclick="SUPERNOVA.reset(true)">Reset without being Supernova</button>
         </div>
         <div style="min-height: 70px; margin-top: 15px;">
-            <h2>You become <span id="supernova_rank"></span> <span id="supernova_scale"></span>Supernova</h2><br>
+            <h2>You become <span id="supernova_rank"></span>次成为<span id="supernova_scale"></span>超新星了</h2><br>
             Next Supernova at <span id="supernova_next">X</span> stars
         </div>
         <div style="width: 100%; border-bottom: solid 2px white; height: 5px; margin-bottom: 13px;"></div>
@@ -122,12 +124,12 @@
                     </div>
                 </div><div class="table_center">
                     <div class="w_boson sub_b">
-                        You have <span id="pos_w_amt">X</span> W<sup>+</sup> Boson, which multiplies Mass gain by <span id="pos_w_eff0">Y</span>,<br> multiplies W<sup>-</sup> Bosons gain by <span id="pos_w_eff1">Y</span>
+                        You have <span id="pos_w_amt">X</span>W<sup>+</sup> Boson, which multiplies Mass gain by <span id="pos_w_eff0">Y</span>,<br> multiplies W<sup>-</sup> Bosons gain by <span id="pos_w_eff1">Y</span>
                         <br><br>
-                        You have <span id="neg_w_amt">X</span> W<sup>-</sup> Boson, which makes Mass gains softcap^2 starts ^<span id="neg_w_eff0">Y</span> later,<br> multiplies W<sup>+</sup> Bosons gain by <span id="neg_w_eff1">Y</span>
+                        You have <span id="neg_w_amt">X</span>W<sup>-</sup> Boson, which makes Mass gains softcap^2 starts ^<span id="neg_w_eff0">Y</span> later,<br> multiplies W<sup>+</sup> Bosons gain by <span id="neg_w_eff1">Y</span>
                     </div>
                     <div class="z_boson sub_b">
-                        You have <span id="z_boson_amt">X</span> Z<sup>0</sup> Boson, which multiplies Tickspeed Power by <span id="z_boson_eff0">Y</span>,<br> multiplies W Bosons gain by <span id="z_boson_eff1">Y</span>
+                        You have <span id="z_boson_amt">X</span>Z<sup>0</sup> Boson, which multiplies Tickspeed Power by <span id="z_boson_eff0">Y</span>,<br> multiplies W Bosons gain by <span id="z_boson_eff1">Y</span>
                     </div>
                 </div>
             </div>
@@ -145,7 +147,7 @@
                 </div>
             </div>
         </div><div id="stab_frame5_3">
-            Your frequency is <span id="frequency">0</span> Hz, which multiples any Fermions gain by <span id="frequency_eff">1</span>x<br>
+            Your frequency is <span id="frequency">0</span> Hz, which multiples any Fermions gain by <span id="frequency_eff">1</span>倍<br>
             <span id="nr_div">At <span id="next_radiation">0</span> of frequency, unlock <span id="unl_radiation">X</span></span><br><br>
             <div id="radiation_table"></div>
         </div>
@@ -159,37 +161,37 @@
                 <div style="width: 100px;"></div>
                 <div id="table_resources" class="top_text">
                     <div class="resources sml">
-                        <div tooltip="Mass" t-size="small"><img class="res_img" src="images/mass.png"></div>
+                        <div tooltip="质量" t-size="small"><img class="res_img" src="images/mass.png"></div>
                         <span style="margin-left: 5px; text-align: left;" id="mass">X</span>
                     </div><div class="resources sml red" id="rp_div">
-                        <div tooltip="Rage Power" t-size="small"><img class="res_img" src="images/rp.png" onclick="FORMS.rp.reset()" onmousemove="FORMS.reset_msg.set('rp')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="狂怒能量" t-size="small"><img class="res_img" src="images/rp.png" onclick="FORMS.rp.reset()" onmousemove="FORMS.reset_msg.set('rp')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="rpAmt">X</span>
                     </div><div class="resources sml yellow" id="dm_div">
-                        <div tooltip="Dark Matter" t-size="small"><img class="res_img" src="images/dm.png" onclick="FORMS.bh.reset()" onmousemove="FORMS.reset_msg.set('dm')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="暗物质" t-size="small"><img class="res_img" src="images/dm.png" onclick="FORMS.bh.reset()" onmousemove="FORMS.reset_msg.set('dm')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="dmAmt">X</span>
                     </div><div class="resources sml yellow" id="bh_div">
-                        <div tooltip="Black Hole" t-size="small"><img class="res_img" src="images/bh.png"></div>
+                        <div tooltip="黑洞" t-size="small"><img class="res_img" src="images/bh.png"></div>
                         <span style="margin-left: 5px; text-align: left;" id="bhMass">X</span>
                     </div><div class="resources sml" id="atom_div">
-                        <div tooltip="Atom" t-size="small"><img class="res_img" src="images/atom.png" onclick="ATOM.reset()" onmousemove="FORMS.reset_msg.set('atom')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="原子" t-size="small"><img class="res_img" src="images/atom.png" onclick="ATOM.reset()" onmousemove="FORMS.reset_msg.set('atom')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="atomAmt">X</span>
                     </div><div class="resources sml quark_color" id="quark_div">
-                        <div tooltip="Quark" t-size="small"><img class="res_img" src="images/quark.png"></div>
+                        <div tooltip="夸克" t-size="small"><img class="res_img" src="images/quark.png"></div>
                         <span style="margin-left: 5px; text-align: left;" id="quarkAmt">X</span>
                     </div><div class="resources sml green" id="md_div">
-                        <div tooltip="Mass Dilation" t-size="small"><img class="res_img" src="images/md.png" onclick="MASS_DILATION.onactive()" onmousemove="FORMS.reset_msg.set('md')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="质量膨胀" t-size="small"><img class="res_img" src="images/md.png" onclick="MASS_DILATION.onactive()" onmousemove="FORMS.reset_msg.set('md')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="md_massAmt">X</span>
                     </div> <div class="resources sml magenta" id="sn_div">
-                        <div tooltip="Supernova" t-size="small"><img class="res_img" src="images/sn.png" onclick="SUPERNOVA.reset(false,false,true)" onmousemove="FORMS.reset_msg.set('sn')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="超新星" t-size="small"><img class="res_img" src="images/sn.png" onclick="SUPERNOVA.reset(false,false,true)" onmousemove="FORMS.reset_msg.set('sn')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="supernovaAmt">X</span>
                     </div><div class="resources sml light_green" id="qu_div">
-                        <div tooltip="Quantum Foam" t-size="small"><img class="res_img" src="images/qu.png" onclick="QUANTUM.enter()" onmousemove="FORMS.reset_msg.set('qu')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="量子泡沫" t-size="small"><img class="res_img" src="images/qu.png" onclick="QUANTUM.enter()" onmousemove="FORMS.reset_msg.set('qu')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="quAmt">X</span>
                     </div><div class="resources sml orange" id="gs1_div">
-                        <div tooltip="Pre-Quantum Global Speed" t-size="medium"><img class="res_img" src="images/preQGSpeed.png"></div>
+                        <div tooltip="量子之前所有资源获取速度" t-size="medium"><img class="res_img" src="images/preQGSpeed.png"></div>
                         <span style="margin-left: 5px; text-align: left;" id="preQGSpeed">X</span>
                     </div><div class="resources sml light_red" id="br_div">
-                        <div tooltip="Death Shard" t-size="small"><img class="res_img" src="images/br.png" onclick="BIG_RIP.rip()" onmousemove="FORMS.reset_msg.set('br')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
+                        <div tooltip="死寂碎片" t-size="small"><img class="res_img" src="images/br.png" onclick="BIG_RIP.rip()" onmousemove="FORMS.reset_msg.set('br')" onmouseleave="FORMS.reset_msg.reset()" style="cursor: pointer;"></div>
                         <span style="margin-left: 5px; text-align: left;" id="brAmt">X</span>
                     </div>
                 </div>
@@ -250,7 +252,7 @@
                     <button class="btn" style="width: 120px;" onclick="FORMS.bh.condenser.buyMax()">Buy Max</button>
                     <button id="bhCondenser_auto" class="btn" style="width: 80px;" onclick="FORMS.bh.condenser.autoSwitch()">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        BH Condenser Power: <span id="bhCondenser_pow">X</span>x<br>
+                        BH Condenser Power: <span id="bhCondenser_pow">X</span>倍<br>
                     </div>
                 </div><br><div>
                     <span id="massSoft2" class="red">After <b id="massSoftStart2">X</b> worth of mass gain from Black Hole, mass gain will be softcapped!</span><br>
@@ -271,19 +273,19 @@
                     <button class="btn" style="width: 120px;" onclick="ATOM.gamma_ray.buyMax()">Buy Max</button>
                     <button id="gamma_ray_auto" class="btn" style="width: 80px;" onclick="player.atom.auto_gr = !player.atom.auto_gr">OFF</button>
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        Cosmic Ray Power: <span id="gamma_ray_pow">X</span>x<br>
+                        Cosmic Ray Power: <span id="gamma_ray_pow">X</span>倍<br>
                         Cosmic Ray Effect: <span id="gamma_ray_eff">X</span>
                     </div>
                 </div>
             </div><div id="stab_frame0_3">
                 You collapsed <span id="stars_Amt">X</span> stars, which makes mass gain is multiplied based on every type of Ranks<br>
-                <span class="green">Currently: <span id="stars_Eff">X</span>x</span><br><br>
+                <span class="green">Currently: <span id="stars_Eff">X</span>倍</span><br><br>
                 <button id="star_btn" class="btn" onclick="STARS.generators.unl()">X</button><br><br>
                 <div id="stars_table" class="table_center"></div><br><br>
                 <span id="starSoft1" class="red">After <b id="starSoftStart1">X</b> of collapsed stars gain will softcap collapsed stars gain!</span><br>
             </div><div id="stab_frame0_4">
                 You have <span id="bpAmt">0</span> Blueprint Particle<br>
-                <span class="green">Which increases pre-Quantum global speed by <span id="bpEff">1</span>x</span><br><br>
+                <span class="green">Which increases pre-Quantum global speed by <span id="bpEff">1</span>倍</span><br><br>
                 <div style="width: 100%; margin-bottom: 5px;" class="table_center">
                     <div style="width: 400px">
                         <div class="resources">
@@ -294,8 +296,8 @@
                     <button class="btn" style="width: 120px;" onclick="QUANTUM.cosmic_str.buyMax()">Buy Max</button>
                     <!--<button id="cosmic_str_auto" class="btn" style="width: 80px;" onclick="player.atom.auto_gr = !player.atom.auto_gr">OFF</button>-->
                     <div style="margin-left: 5px; text-align: left; width: 400px">
-                        Cosmic Strings Power: <span id="cosmic_str_pow">X</span>x<br>
-                        Cosmic Strings Effect: <span id="cosmic_str_eff">X</span>x
+                        Cosmic Strings Power: <span id="cosmic_str_pow">X</span>倍<br>
+                        Cosmic Strings Effect: <span id="cosmic_str_eff">X</span>倍
                     </div>
                 </div>
             </div>
@@ -374,7 +376,7 @@
             </div><div id="stab_frame4_2">
                 You have <span id="md_particles">X</span> Relativistic particles<br>
                 You have <span id="md_mass">X</span> of dilated mass, which makes Tickspeed <span id="md_eff">X</span> stronger<br><br>
-                <button onclick="MASS_DILATION.onactive()" id="md_btn" class="btn full md" tooltip="When dilating mass, will reset for atom. While mass is dilated: all pre-atom resources, atomic power gains get multiplier's exponent raised to 0.8;">Dilate Mass</button><br><br>
+                <button onclick="MASS_DILATION.onactive()" id="md_btn" class="btn full md" tooltip="进行质量膨胀时将同时进行一次原子重置，质量膨胀时，所有原子之前的资源，及原子能量获取速度变为原来的0.8次方。">Dilate Mass</button><br><br>
                 <div class="table_center">
                     <div id="md_upg_table" class="table_center" style="width: 1000px;"></div>
                 </div><br><div>
@@ -383,7 +385,7 @@
             </div><div id="stab_frame4_3">
                 You have <span id="bd_energy">X</span> Relativistic Energy<br>
                 You have <span id="bd_mass">X</span> of Relativistic mass<br><br>
-                <button onclick="MASS_DILATION.break.toggle()" id="bd_btn" class="btn half_full bd" tooltip="When breaking dilation, while in Big Rip, BH Condensers & Cosmic Rays are no longer nerfed by 8th QC modifier, 7th QC modifier is disabled, you can gain Relativistic Energy based on dilated mass. Relativistic Energy gains Relativistic Mass. Fixing Dilation resets your relativistic energy & its mass, also forces a Quantum reset.">Break Dilation</button><br><br>
+                <button onclick="MASS_DILATION.break.toggle()" id="bd_btn" class="btn half_full bd" tooltip="进行撕裂膨胀时，在大撕裂中黑洞压缩器和宇宙射线不再受到量子挑战8的削弱，量子挑战7失效，您可以根据膨胀质量获得相对论能量。相对论能量可以产生相对论质量。修复膨胀后，相对论能量和相对论质量将被重置，并强制前往量子。">Break Dilation</button><br><br>
                 <div class="table_center">
                     <div id="bd_upg_table" class="table_center" style="width: 1000px;"></div>
                 </div>
@@ -426,7 +428,7 @@
             </div>
         </div><div id="tab_frame7">
             <button class="btn" onclick="save()">Save</button>
-            <button class="btn" onclick="if (confirm('Are you sure you want to RESET your progress to new game?')) {wipe(true)}">Hard Reset</button>
+            <button class="btn" onclick="if (confirm('您想要彻底重置当前的进度，从头开始玩吗？')) {wipe(true)}">Hard Reset</button>
             <button class="btn" onclick="exporty()">Export</button>
             <button class="btn" onclick="export_copy()">Export to clipboard</button>
             <button class="btn" onclick="importy()">Import</button>
@@ -452,6 +454,15 @@
                 <img id="omega_badge" src="images/omega.png">
             </div>
         </div>
+    </div>
+<!--客服 开始-->
+<script src="https://www.g8hh.com/js/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.g8hh.com/css/kf.css" type="text/css" media="screen" charset="utf-8">
+<script src="https://www.g8hh.com/js/kf.js"></script>
+<!-- 客服 结束 -->
+<!--站长统计-->
+    <div style="display: none">
+       <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280006740&web_id=1280006740"></script>
     </div>
 </body>
 </html>

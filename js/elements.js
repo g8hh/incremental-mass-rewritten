@@ -31,9 +31,9 @@ function setupHTML() {
 		let rn = RANKS.names[x]
 		table += `<div style="width: 300px" id="ranks_div_${x}">
 			<button id="ranks_auto_${x}" class="btn" style="width: 80px;" onclick="RANKS.autoSwitch('${rn}')">OFF</button>
-			<span id="ranks_scale_${x}""></span>${RANKS.fullNames[x]} <span id="ranks_amt_${x}">X</span><br><br>
+			<span id="ranks_scale_${x}""></span>${RANKS.fullNames[x]}<span id="ranks_amt_${x}">X</span><br><br>
 			<button onclick="RANKS.reset('${rn}')" class="btn reset" id="ranks_${x}">
-				Reset your ${x>0?RANKS.fullNames[x-1]+"s":'mass and upgrades'}, but ${RANKS.fullNames[x]} up.<span id="ranks_desc_${x}"></span><br>
+				重置${x>0?RANKS.fullNames[x-1]+"":'质量和质量升级'}，但提升${RANKS.fullNames[x]}。<span id="ranks_desc_${x}"></span><br>
 				Req: <span id="ranks_req_${x}">X</span>
 			</button>
 		</div>`
@@ -45,9 +45,9 @@ function setupHTML() {
 	for (let x = 0; x < PRES_LEN; x++) {
 		table += `<div style="width: 300px" id="pres_div_${x}">
 			<button id="pres_auto_${x}" class="btn" style="width: 80px;" onclick="RANKS.autoSwitch(${x})">OFF</button>
-			<span id="pres_scale_${x}""></span>${PRESTIGES.fullNames[x]} <span id="pres_amt_${x}">X</span><br><br>
+			<span id="pres_scale_${x}""></span>${PRESTIGES.fullNames[x]}<span id="pres_amt_${x}">X</span><br><br>
 			<button onclick="PRESTIGES.reset(${x})" class="btn reset" id="pres_${x}">
-				${x>0?"Reset your "+PRESTIGES.fullNames[x-1]+"s":'Force a Quantum reset'}, but ${PRESTIGES.fullNames[x]} up.<span id="pres_desc_${x}"></span><br>
+				${x>0?"重置"+PRESTIGES.fullNames[x-1]+"":'强制前往量子'}，但提升${PRESTIGES.fullNames[x]}。<span id="pres_desc_${x}"></span><br>
 				Req: <span id="pres_req_${x}">X</span>
 			</button>
 		</div>`
@@ -82,7 +82,7 @@ function setupHTML() {
 		table += `<div id="ranks_reward_div_${x}">`
 		let keys = Object.keys(RANKS.desc[rn])
 		for (let y = 0; y < keys.length; y++) {
-			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]} ${keys[y]}:</b> ${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?` Currently: <span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
+			table += `<span id="ranks_reward_${rn}_${y}"><b>${RANKS.fullNames[x]}${keys[y]}:</b>${RANKS.desc[rn][keys[y]]}${RANKS.effect[rn][keys[y]]?`目前效果：<span id='ranks_eff_${rn}_${y}'></span></span>`:""}<br>`
 		}
 		table += `</div>`
 	}
@@ -94,7 +94,7 @@ function setupHTML() {
 		table += `<div id="pres_reward_div_${x}">`
 		let keys = Object.keys(PRESTIGES.rewards[x])
 		for (let y = 0; y < keys.length; y++) {
-			table += `<span id="pres_reward_${x}_${y}"><b>${PRESTIGES.fullNames[x]} ${keys[y]}:</b> ${PRESTIGES.rewards[x][keys[y]]}${PRESTIGES.rewardEff[x][keys[y]]?` Currently: <span id='pres_eff_${x}_${y}'></span></span>`:""}<br>`
+			table += `<span id="pres_reward_${x}_${y}"><b>${PRESTIGES.fullNames[x]}${keys[y]}:</b>${PRESTIGES.rewards[x][keys[y]]}${PRESTIGES.rewardEff[x][keys[y]]?`目前效果：<span id='pres_eff_${x}_${y}'></span></span>`:""}<br>`
 		}
 		table += `</div>`
 	}
@@ -120,7 +120,7 @@ function setupHTML() {
 		table += `<div id="scaling_div_${x}">`
 		let key = Object.keys(SCALE_START[SCALE_TYPE[x]])
 		for (let y = 0; y < key.length; y++) {
-			table += `<div id="scaling_${x}_${key[y]}_div" style="margin-bottom: 10px;"><b>${NAME_FROM_RES[key[y]]}</b> (<span id="scaling_${x}_${key[y]}_power"></span>): Starts at <span id="scaling_${x}_${key[y]}_start"></span></div>`
+			table += `<div id="scaling_${x}_${key[y]}_div" style="margin-bottom: 10px;"><b>${NAME_FROM_RES[key[y]]}</b>(<span id="scaling_${x}_${key[y]}_power"></span>): Starts at <span id="scaling_${x}_${key[y]}_start"></span></div>`
 		}
 		table += `</div>`
 	}
@@ -211,8 +211,8 @@ function updateUpperHTML() {
 	tmp.el.chal_upper.setVisible(unl)
 	if (unl) {
 		let data = CHALS.getChalData(player.chal.active, tmp.chal.bulk[player.chal.active].max(player.chal.comps[player.chal.active]))
-		tmp.el.chal_upper.setHTML(`You are now in [${CHALS[player.chal.active].title}] Challenge! Go over ${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)} to complete.
-		<br>+${tmp.chal.gain} Completions (+1 at ${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)})`)
+		tmp.el.chal_upper.setHTML(`您目前正在进行[${CHALS[player.chal.active].title}]挑战！达到${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)}以后可以完成1次挑战。
+		<br>本次挑战可增加${tmp.chal.gain}次完成次数(到达${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)}后可再增加1次)`)
 	}
 	
 	unl = player.atom.unl
@@ -254,8 +254,8 @@ function updateTickspeedHTML() {
 		tmp.el.tickspeed_lvl.setTxt(format(player.tickspeed,0)+(teff.bonus.gte(1)?" + "+format(teff.bonus,0):""))
 		tmp.el.tickspeed_btn.setClasses({btn: true, locked: !FORMS.tickspeed.can()})
 		tmp.el.tickspeed_cost.setTxt(format(tmp.tickspeedCost,0))
-		tmp.el.tickspeed_step.setHTML((teff.step.gte(10)?format(teff.step)+"x":format(teff.step.sub(1).mul(100))+"%")
-		+(teff.step.gte(teff.ss)?" <span class='soft'>(softcapped)</span>":""))
+		tmp.el.tickspeed_step.setHTML((teff.step.gte(10)?format(teff.step)+"倍":format(teff.step.sub(1).mul(100))+"%")
+		+(teff.step.gte(teff.ss)?"<span class='soft'>(softcapped)</span>":""))
 		tmp.el.tickspeed_eff.setTxt(format(teff.eff))
 
 		tmp.el.tickspeed_auto.setDisplay(FORMS.tickspeed.autoUnl())
@@ -324,7 +324,7 @@ function updateMainUpgradesHTML() {
 }
 
 function updateBlackHoleHTML() {
-	tmp.el.bhMass2.setHTML(formatMass(player.bh.mass)+" "+formatGain(player.bh.mass, tmp.bh.mass_gain.mul(tmp.preQUGlobalSpeed), true))
+	tmp.el.bhMass2.setHTML(formatMass(player.bh.mass)+formatGain(player.bh.mass, tmp.bh.mass_gain.mul(tmp.preQUGlobalSpeed), true))
 	tmp.el.bhMassPower.setTxt(format(tmp.bh.massPowerGain))
 	tmp.el.bhFSoft1.setDisplay(tmp.bh.f.gte(tmp.bh.fSoftStart))
 	tmp.el.bhFSoftStart1.setTxt(format(tmp.bh.fSoftStart))
