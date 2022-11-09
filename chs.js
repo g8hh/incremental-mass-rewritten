@@ -915,7 +915,7 @@ var cnItems = {
     'Circle': '圆形',
     'Square': '方块',
     'Confirmation Settings': '确认窗口设置',
-    'Congratulations!': '恭喜您！',
+    '\n            Congratulations!': '恭喜您！',
     'You have becomed 10 Supernovas!': '您已经有10次成为超新星了！',
     'And you can manualy supernova!': '您可以手动成为超新星了！',
     'Bosons are unlocked in Supernova tab!': '另外，超新星选项卡下解锁了玻色子！',
