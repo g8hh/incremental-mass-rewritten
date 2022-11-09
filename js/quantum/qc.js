@@ -1,6 +1,6 @@
 const QCs = {
-    active() { return player.qu.qc.active || player.qu.rip.active },
-    getMod(x) { return player.qu.rip.active ? BIG_RIP_QC[x] : player.qu.qc.mods[x] },
+    active() { return player.qu.qc.active || player.qu.rip.active || CHALS.inChal(14) },
+    getMod(x) { return player.qu.rip.active ? BIG_RIP_QC[x] : CHALS.inChal(14) ? 5 : player.qu.qc.mods[x] },
     incMod(x,i) { if (!this.active()) player.qu.qc.mods[x] = Math.min(Math.max(player.qu.qc.mods[x]+i,0),10) },
     enter() {
         if (!player.qu.qc.active) {
@@ -11,10 +11,8 @@ const QCs = {
             }
             if (is_zero) return
         }
-        if (player.qu.qc.active ? true : confirm("您确定要进入量子挑战吗？这将强制前往量子！")) {
-            player.qu.qc.active = !player.qu.qc.active
-            QUANTUM.doReset(player.qu.qc.active)
-        }
+        if (player.qu.qc.active) CONFIRMS_FUNCTION.enterQC()
+        else createConfirm("您确定要进入量子挑战吗？这将强制前往量子！",'qc',CONFIRMS_FUNCTION.enterQC)
     },
     names: ["黑矮星","时间异常","阶层超量","熔化作用","强力催化","超级挑战","空间膨胀","极端折算"],
     ctn: [
@@ -103,20 +101,22 @@ function loadQCPreset(x) {
 }
 
 function renameQCPreset(x) {
-    let renamed = prompt("输入预设名称")
-    player.qu.qc.presets[x].p_name = renamed
-    addNotify("Preset Renamed")
-    updateQCModPresets()
+    createPrompt("输入预设名称",'renamePreset',renamed=>{
+        player.qu.qc.presets[x].p_name = renamed
+        addNotify("Preset Renamed")
+        updateQCModPresets()
+    })
 }
 
 function deleteQCPreset(x) {
-    if (confirm("您确定要删除预设吗？")) {
+    createConfirm("您确定要删除预设吗？",'removePreset',_=>{
         let represets = []
         for (let y = 0; y < player.qu.qc.presets.length; y++) if (x != y) represets.push(player.qu.qc.presets[y])
         player.qu.qc.presets = represets
         addNotify("Preset Deleted")
-    }
-    updateQCModPresets()
+
+        updateQCModPresets()
+    })
 }
 
 function setupQCHTML() {
@@ -167,6 +167,8 @@ function updateQCTemp() {
     if (hasTree("qf4")) tmp.qu.qc_s_b = tmp.qu.qc_s_b.add(.5)
     if (hasPrestige(0,2)) tmp.qu.qc_s_b = tmp.qu.qc_s_b.add(.5)
     if (hasTree("qc3")) tmp.qu.qc_s_b = tmp.qu.qc_s_b.add(treeEff('qc3',0))
+    if (hasElement(146)) tmp.qu.qc_s_b = tmp.qu.qc_s_b.add(elemEffect(146,0))
+
     tmp.qu.qc_s_eff = tmp.qu.qc_s_b.pow(player.qu.qc.shard)
 
     let s = 0
