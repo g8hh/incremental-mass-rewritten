@@ -922,9 +922,9 @@ var cnItems = {
     'You have beated Challenge 10!': '您已经通过了挑战10！',
     'Fermions are unlocked in Supernova tab!': '超新星选项卡下解锁了费米子！',
     'You need to go Quantum!': '您需要前往量子了！',
-    'Mass has collapsed while going Quantum! It looks like evaporation! But at what cost?': '前往量子时质量坍缩了！看起来就像是蒸发了一样，不知道代价又是什么？',
+    'Mass has collapsed while going Quantum! It looks like evaporation! But at what cost?\n        ': '前往量子时质量坍缩了！看起来就像是蒸发了一样，不知道代价又是什么？',
     'Uhh Oh': '啊这……',
-    'Don’t worry, new mechanics will arrive for you!': '别担心，新机制就要来了！',
+    'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
     'Incremental Mass Rewritten v0.6 final release - made by MrRedShark77': '质量增量重制版v0.6 最终发布版 - 作者为MrRedShark77，由by22dgb汉化',
@@ -1005,7 +1005,7 @@ var cnExcludeWhole = [
     /^e\d\.[e\d]+e\d+$/, //不抓取内容
     /^e[\d,]+$/, //不抓取内容
     /^[\d:]+\d+.\d$/, //不抓取内容
-    /^[x×]\d\.\d+e\d+$/, //不抓取内容
+    /^[x×]\d\.\d+e?\d+$/, //不抓取内容
     /^U[a-z]{2}$/, //不抓取内容
 ];
 var cnExcludePostfix = [
