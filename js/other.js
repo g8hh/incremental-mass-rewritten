@@ -201,7 +201,7 @@ function createConfirm(text, id, yesFunction, noFunction) {
 
     const yesButton = document.createElement('button')
     yesButton.className = 'btn'
-    yesButton.innerText = "Yes"
+    yesButton.innerText = "是"
     yesButton.onclick = _ => {
         popups[popups.indexOf(id)] = undefined
         updatePopupIndex()
@@ -211,7 +211,7 @@ function createConfirm(text, id, yesFunction, noFunction) {
 
     const noButton = document.createElement('button')
     noButton.className = 'btn'
-    noButton.innerText = "No"
+    noButton.innerText = "否"
     noButton.onclick = _ => {
         popups[popups.indexOf(id)] = undefined
         updatePopupIndex()
