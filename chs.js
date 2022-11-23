@@ -7,7 +7,7 @@
 
 */
 
-//1.汉化杂项
+//汉化杂项
 var cnItems = {
     _OTHER_: [],
 
@@ -71,10 +71,12 @@ var cnItems = {
     'Hyper': '究级折算',
     'Ultra': '超究折算',
     'Meta': '元折算',
+    'Exotic': '奇异折算',
     'Super ': '超级折算|',
     'Hyper ': '究级折算|',
     'Ultra ': '超究折算|',
     'Meta-': '元折算|',
+    'Exotic ': '奇异折算|',
     'Muscler [': '锻体器[',
     'Booster [': '助推器[',
     'Stronger [': '强化器[',
@@ -90,6 +92,10 @@ var cnItems = {
     ' of mass gain will softcap^5 mass gain!': '的质量获取速度以后，质量获取速度将受到五重软上限限制！',
     ' of mass gain will softcap^6 mass gain!': '的质量获取速度以后，质量获取速度将受到六重软上限限制！',
     ' of mass gain will softcap^7 mass gain!': '的质量获取速度以后，质量获取速度将受到七重软上限限制！',
+    ' of mass gain will softcap^8 mass gain!': '的质量获取速度以后，质量获取速度将受到八重软上限限制！',
+    'Because of mass overflow at ': '因为质量超过了',
+    ', your mass is raised by ': '，因此它变为了以下次方：',
+    ', your mass is rooted by ': '，因此它变为了以下次方根：',
     'Your Prestige base is ': '您的转生基础值为',
     ' (based on products of Rank tiers': '(基于级别、阶层、四重阶层和五重阶层的数值而定',
     'You have ': '您拥有',
@@ -102,6 +108,9 @@ var cnItems = {
     ' worth of mass gain from Black Hole, mass gain will be softcapped!': '的黑洞质量获取速度以后，质量获取速度将受到软上限限制！',
     'The formula (x + 1': '公式(x + 1',
     ' softcaps at ': '的软上限为',
+    'Because of black hole mass overflow at ': '因为黑洞质量超过了',
+    ', your mass of black hole is raised by ': '，因此它变为了以下次方：',
+    ', your mass of black hole is rooted by ': '，因此它变为了以下次方根：',
     ' Atomic Power': '原子能量',
     'Which provides ': '它使您获得了',
     ' free Tickspeeds': '个免费时间速度升级',
@@ -270,7 +279,7 @@ var cnItems = {
     'Dilate Mass': '质量膨胀',
     ' of dilated mass gain will softcap dilated mass gain!': '的膨胀质量获取速度以后，膨胀质量获取速度将受到软上限限制！',
     'Because of dilated mass overflow at ': '因为膨胀质量超过了',
-    ', your dilated mass is raised by ': '，因此它增加了以下倍数：',
+    ', your dilated mass is raised by ': '，因此它变为了以下次方：',
     ', your dilated mass is rooted by ': '，因此它变为了以下次方根：',
     'Assign': '分配',
     ' Protons': '质子',
@@ -549,6 +558,16 @@ var cnItems = {
     'Big Rip upgrade 7 is allowed outside Big Rip.': '使大撕裂升级7在大撕裂外也生效。',
     'Stronger’s effect softcap is slightly weaker.': '使强化器效果的软上限略微弱化。',
     'Stronger’s effect softcap is slightly weaker again. Tickspeed’s effect is overpowered.': '使强化器效果的软上限再度略微弱化。使时间速度效果变得滥强。',
+    'Add 75 more C13 maximum completions.': '使挑战13的次数上限增加75。',
+    'Boost Dark Ray gain based on quarks.': '使暗射线获取速度基于夸克的数值而增加。',
+    'Prestige base exponent boosts Abyssal Blot gain.': '使转生基础值的指数可以加成深渊之渍获取速度。',
+    'Hyper Prestige Level, Tetr & Pent are 10% weaker.': '使转生等级、四重阶层和五重阶层的究级折算弱化10%。',
+    'Meta-Rank Boost affects Meta-Tier starting at a reduced rate.': '使级别元折算加成可以延迟阶层的元折算，只是效果倍率降低。',
+    'Uncap Top & Neut-Muon.': '移除[顶夸克]和[缪中微子]的阶层上限。',
+    'Uncap [Neut-Muon]’s effect, and it’s better if effect is greater than 33%.': '移除[缪中微子]的效果上限，如果它的效果超过33%，还会使它的效果变得更好。',
+    'Meta-Tickspeed scaling starts ^2 later.': '使时间速度的元折算延迟2次方出现。',
+    'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，只是效果弱化20%。',
+    'Stronger Power’s softcap is weaker.': '使强化器倍率的软上限弱化。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -854,7 +873,7 @@ var cnItems = {
     'Entropic Booster': '熵助推',
     'Entropic Scaling': '熵折算',
     'All pre-Supernova scaling is ': '使超新星之前所有资源的折算在元折算之前弱化',
-    ' weaker before Meta scaling (not including Pent).': '(不包括五重阶层)。',
+    ' weaker before Meta scaling (not including Pent or further).': '(不包括五重阶层及之后的)。',
     'Entropic Condenser': '熵压缩',
     'Entropy boosts itself by ': '熵使自身增加',
     'Entropic Radiation': '熵辐射',
@@ -879,8 +898,12 @@ var cnItems = {
     ' Abyssal Blot.': '深渊之渍。',
     'Boosts dark shadows gain by ': '使黑暗之影获取速度变为原来的',
     'Makes mass gain\'s softcap^4-6, starting ': '使质量获取速度的四重软上限至六重软上限延迟',
+    'Makes mass gain\'s softcap^4-8, starting ': '使质量获取速度的四重软上限至八重软上限延迟',
     ' later': '出现',
     'Boosts hawking radiation gain by ': '使黑洞辐射获取速度变为原来的',
+    'Boosts prestige base\'s multiplier by ': '使转生基础值变为原来的',
+    'Passively gain ': '每秒获得暗射线，数量为重置时获取数量的',
+    ' of dark rays gained on reset': '',
     'Next Ray\'s effect at ': '下个暗射线效果需要',
     'Next Shadow\'s effect at ': '下个黑暗之影效果需要',
     'Next Abyssal Blot\'s effect at ': '下个深渊之渍效果需要',
@@ -927,7 +950,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6 - Darkness update - made by MrRedShark77': '质量增量重制版v0.6 - 黑暗升级 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.0.2 - made by MrRedShark77': '质量增量重制版v0.6.0.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -1132,6 +1155,7 @@ var cnRegReplace = new Map([
     [/^From BH the formulas softcap starts \^(.+) later$/, '使黑洞质量获取公式的软上限延迟$1次方出现'], //超新星等
     [/^Tickspeed power is \^(.+) better$/, '使时间速度倍率变为原来的$1次方'], //量子等
     [/^Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前的级别和阶层需求减少$1倍'], //量子等
+    [/^Pre-Exotic Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍'], //量子等
     [/^Rewards from Challenges 1-8 are (.+)x stronger$/, '使挑战1-挑战8的奖励效果增加$1倍'], //量子等
     [/^Boost Stronger Power by (.+)x$/, '使强化器倍率变为原来的$1倍'], //量子等
     [/^ Boost Non-Bonus Tickspeed by (.+)x$/, '使非加成的时间速度变为原来的$1倍'], //量子等

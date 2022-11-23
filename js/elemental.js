@@ -876,6 +876,58 @@ const ELEMENTS = {
         },{
             desc: `Stronger’s effect softcap is slightly weaker again. Tickspeed’s effect is overpowered.`,
             cost: E("ee54"),
+        },{
+            dark: true,
+            desc: `Add 75 more C13 maximum completions.`,
+            cost: E("1e68"),
+        },{
+            desc: `Boost Dark Ray gain based on quarks.`,
+            cost: E("e3.6e61"),
+            effect() {
+                let x = player.atom.quarks.add(1).log10().add(1).log10().add(1).pow(1.5)
+                return x
+            },
+            effDesc(x) { return "x"+format(x) },
+        },{
+            br: true,
+            desc: `Prestige base exponent boosts Abyssal Blot gain.`,
+            cost: E("e6e47"),
+            effect() {
+                let x = Math.max(1,tmp.prestiges.baseExp**1.5)
+                return x
+            },
+            effDesc(x) { return "^"+format(x) },
+        },{
+            desc: `Hyper Prestige Level, Tetr & Pent are 10% weaker.`,
+            cost: E("e5e64"),
+        },{
+            br: true,
+            desc: `Meta-Rank Boost affects Meta-Tier starting at a reduced rate.`,
+            cost: E("e1.3e49"),
+            effect() {
+                let x = tmp.radiation.bs.eff[14].max(1).log10().add(1)
+                return x
+            },
+            effDesc(x) { return ""+format(x)+"x later" },
+        },{
+            dark: true,
+            desc: `Uncap Top & Neut-Muon.`,
+            cost: E("1e80"),
+        },{
+            dark: true,
+            desc: `Uncap [Neut-Muon]’s effect, and it’s better if effect is greater than 33%.`,
+            cost: E("1e84"),
+        },{
+            br: true,
+            desc: `Meta-Tickspeed scaling starts ^2 later.`,
+            cost: E("e2.5e53"),
+        },{
+            desc: `Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.`,
+            cost: E("e2.2e69"),
+        },{
+            br: true,
+            desc: `Stronger Power’s softcap is weaker.`,
+            cost: E("e2.9e61"),
         },
     ],
     /*
@@ -913,7 +965,7 @@ const ELEMENTS = {
             if (hasUpgrade("br",9)) u += 23 // 23
         }
         if (tmp.chal13comp) u += 10 + 2
-        if (tmp.chal14comp) u += 6
+        if (tmp.chal14comp) u += 6 + 10
 
         return u
     },
