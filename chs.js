@@ -566,7 +566,7 @@ var cnItems = {
     'Uncap Top & Neut-Muon.': '移除[顶夸克]和[缪中微子]的阶层上限。',
     'Uncap [Neut-Muon]’s effect, and it’s better if effect is greater than 33%.': '移除[缪中微子]的效果上限，如果它的效果超过33%，还会使它的效果变得更好。',
     'Meta-Tickspeed scaling starts ^2 later.': '使时间速度的元折算延迟2次方出现。',
-    'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，只是效果弱化20%。',
+    'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，且使它们弱化20%。',
     'Stronger Power’s softcap is weaker.': '使强化器倍率的软上限弱化。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
