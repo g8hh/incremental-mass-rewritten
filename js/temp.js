@@ -27,6 +27,7 @@ function resetTemp() {
             bulk: [],
             eff: [],
             baseExp: 1,
+            base: E(1),
         },
 
         bd: {
@@ -109,6 +110,8 @@ function resetTemp() {
         dark: {
             shadowEff: {},
             rayEff: {},
+            mass_glyph_eff: [],
+            mass_glyph_gain: [],
         },
 
         overflow: {
@@ -117,6 +120,14 @@ function resetTemp() {
             bh: E(1),
             star: E(1),
         },
+
+        overflow_start: {
+            dm: E('ee30'),
+        },
+
+        mass_glyph_msg: 0,
+
+        glyph_upg_eff: [],
 
         prevSave: "",
     }
@@ -215,6 +226,7 @@ function updateTemp() {
 
     tmp.chal13comp = player.chal.comps[13].gte(1)
     tmp.chal14comp = player.chal.comps[14].gte(1)
+    tmp.darkRunUnlocked = hasElement(161)
 
     updateDarkTemp()
     updateQuantumTemp()

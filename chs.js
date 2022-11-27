@@ -52,6 +52,8 @@ var cnItems = {
     'Quantum Milestones': '量子里程碑',
     'Primordium': '原基',
     'Entropy': '熵',
+    'Dark Effects': '黑暗效果',
+    'Dark Run': '黑暗狂奔',
     'Buy Max': '最大化购买',
     'ON': '开启',
     'OFF': '关闭',
@@ -568,6 +570,13 @@ var cnItems = {
     'Meta-Tickspeed scaling starts ^2 later.': '使时间速度的元折算延迟2次方出现。',
     'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，且使它们弱化20%。',
     'Stronger Power’s softcap is weaker.': '使强化器倍率的软上限弱化。',
+    'Unlock Dark Run. Keep Oganesson-118 on darkness.': '解锁黑暗狂奔。融入黑暗时可以保留气奥(118Og).',
+    'Collapsed star’s effect is now upgraded as exponent at reduced rate. It can apply to mass of black hole gain. But nullify Palladium-46, Cadmium-48, Thulium-69 & Osmium-76.': '坍缩星辰的效果变为指数，但效果倍率降低。它可以对黑洞质量获取速度生效。使钯(46Pd)、镉(48Cd)、铥(69Tm)和锇(76Os)失效。',
+    'Spatial Dilation is slightly weaker.': '使空间膨胀(量子挑战7)略微弱化。',
+    '[m1]’s effect is overpowered.': '使[m1]的效果变得滥强。',
+    '[rp1]’s effect is another overpowered.': '使[rp1]的效果变得更加滥强。',
+    '[bh1]’s effect is another overpowered again.': '使[bh1]的效果再度变得更加滥强。',
+    'Hex’s requirement and Glory’s requirement are slightly weaker.': '使六重阶层和赞颂的需求略微降低。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -886,7 +895,7 @@ var cnItems = {
     //#region 黑暗
     'require Og-118': '需要购买气奥118Og',
     ' Dark Ray.': '暗射线。',
-    'Boosts dark shadows gain by ': '使黑暗之影获取速度变为原来的',
+    ' Boosts dark shadows gain by ': '使黑暗之影获取速度变为原来的',
     ' Dark Shadow.': '黑暗之影。',
     'Boosts mass gain by ': '使质量获取速度变为原来的',
     'Boosts dark ray gain by ': '使暗射线获取速度变为原来的',
@@ -907,6 +916,21 @@ var cnItems = {
     'Next Ray\'s effect at ': '下个暗射线效果需要',
     'Next Shadow\'s effect at ': '下个黑暗之影效果需要',
     'Next Abyssal Blot\'s effect at ': '下个深渊之渍效果需要',
+    'Start Dark Run': '开始黑暗狂奔',
+    'Exit Dark Run': '退出黑暗狂奔',
+    'Glyph Button Mode': '雕文按钮模式',
+    'Earning': '获取',
+    'Max Earning': '至多获取',
+    'Clear Glyph': '清除雕文',
+    ' to maximum gain any glyph': '至多获取雕文数量',
+    'Raise mass gain by 1.5 every level.': '每级使质量获取速度变为原来的1.5次方。',
+    'Raise mass of black hole gain by 1.5 every level.': '每级使黑洞质量获取速度变为原来的1.5次方。',
+    'Exotic rank starts x1.25 later every level.': '每级使级别的奇异折算延迟1.25倍出现。',
+    'Rank tiers\' nerf power from 8th QC modifier is weaker while dark running.': '在黑暗狂奔中，使量子挑战8对级别阶层的削弱变得更弱。',
+    'Raise atom gain by 1.5 every level.': '每级使原子获取速度变为原来的1.5次方。',
+    'Increase dark ray gain by 200% every level.': '每级使暗射线获取速度增加200%。',
+    'Gain x1.5 more Cyrillic Glyphs.': '西里尔雕文的获取数量变为原来的1.5倍。',
+    'Dilated mass\'s overflow starts ^10 later every level.': '每级使膨胀质量超过特定数值的削弱延迟10次方出现。',
     //#endregion
     //#region 选项
     'Save': '保存',
@@ -950,7 +974,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.0.2 - made by MrRedShark77': '质量增量重制版v0.6.0.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.1.1 - made by MrRedShark77': '质量增量重制版v0.6.1.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -1026,8 +1050,9 @@ var cnExcludeWhole = [
     /^[A-Z][a-z]?$/, //单独处理短文字
     /^(.*)[\u4E00-\u9FFF]+(.*)$/, //不抓取内容
     /^e\d\.[e\d]+e\d+$/, //不抓取内容
-    /^e[\d,]+$/, //不抓取内容
+    /^e[e\.\,\d]+$/, //不抓取内容
     /^×?[\d:]+\d+.\d$/, //不抓取内容
+    /^×\d+.\d+e[\,\d]+$/, //不抓取内容
     /^[x×]\d\.\d+e?\d+$/, //不抓取内容
     /^U[a-z]{2}$/, //不抓取内容
 ];
@@ -1063,6 +1088,7 @@ var cnRegReplace = new Map([
     [/^Currently: \+(.+) Musclers$/, '目前效果：增加$1锻体器'], //升级等
     [/^Currently: \+(.+) Boosters$/, '目前效果：增加$1助推器'], //升级等
     [/^Currently: \+(.+) Stronger$/, '目前效果：增加$1强化器'], //升级等
+    [/^Currently: x(.+) later$/, '目前效果：延迟$1倍出现'], //升级等
     [/^Currently: x(.*)$/, '目前效果：倍率为$1'], //升级等
     [/^Currently: \+(.+) later\s*$/, '目前效果：延迟$1次出现'], //升级等
     [/^Currently: (.+)x later$/, '目前效果：延迟$1倍出现'], //升级等

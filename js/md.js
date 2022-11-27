@@ -7,6 +7,7 @@ const MASS_DILATION = {
         return x
     },
     onactive() {
+        if (player.dark.run.active) return
         if (player.md.active) player.md.particles = player.md.particles.add(tmp.md.rp_gain)
         player.md.active = !player.md.active
         ATOM.doReset()
@@ -18,6 +19,7 @@ const MASS_DILATION = {
         if (FERMIONS.onActive("01")) x = x.div(10)
         if (QCs.active()) x = x.mul(tmp.qu.qc_eff[4])
         if (hasElement(24) && hasPrestige(0,40)) x = x.mul(tmp.elements.effect[24])
+        if (player.dark.run.active) x = x.pow(mgEff(3))
         return x
     },
     RPmultgain() {
@@ -47,11 +49,15 @@ const MASS_DILATION = {
 
         x = x.softcap(tmp.md.massSoftcap1,0.5,0)
 
+        if (player.dark.run.active) x = expMult(x,mgEff(3))
+
         let o = x
+        let os = E('ee30').pow(glyphUpgEff(8))
 
-        x = overflow(x,'ee30',0.5)
+        x = overflow(x,os,0.5)
 
-        tmp.overflow.dm = calcOverflow(o,x,'ee30')
+        tmp.overflow.dm = calcOverflow(o,x,os)
+        tmp.overflow_start.dm = os
 
         return x
     },
@@ -92,7 +98,7 @@ const MASS_DILATION = {
                 cost(x) { return tmp.md.bd3 ? E(10).pow(E(1.25).pow(x)).mul(100) : E(10).pow(x).mul(100) },
                 bulk() { return player.md.mass.gte(100)?(tmp.md.bd3 ? player.md.mass.div(100).max(1).log10().max(1).log(1.25).add(1).floor() : player.md.mass.div(100).max(1).log10().add(1).floor()):E(0) },
                 effect(x) {
-                    if (tmp.md.bd3) return x.mul(tmp.md.upgs[11].eff||1).root(player.qu.rip.active ? 3 : 2).mul(player.qu.rip.active ? 0.05 : 0.1).add(1)
+                    if (tmp.md.bd3) return x.mul(tmp.md.upgs[11].eff||1).root(player.qu.rip.active || player.dark.run.active ? 3 : 2).mul(player.qu.rip.active || player.dark.run.active ? 0.05 : 0.1).add(1)
                     if (hasElement(83)) return expMult(x,2,1.5).add(1)
                     return player.md.upgs[7].gte(1)?x.mul(tmp.md.upgs[11].eff||1).root(1.5).mul(0.25).add(1):x.mul(tmp.md.upgs[11].eff||1).root(2).mul(0.15).add(1)
                 },
@@ -473,8 +479,8 @@ function updateMDHTML() {
     tmp.el.dmSoft1.setDisplay(player.md.mass.gte(tmp.md.massSoftcap1))
     tmp.el.dmSoftStart1.setTxt(formatMass(tmp.md.massSoftcap1))
 
-    tmp.el.dmOverflow.setDisplay(player.md.mass.gte('ee30'))
-    tmp.el.dmOverflow.setHTML(`Because of dilated mass overflow at <b>${formatMass('ee30')}</b>, your dilated mass is ${overflowFormat(tmp.overflow.dm||1)}！`)
+    tmp.el.dmOverflow.setDisplay(player.md.mass.gte(tmp.overflow_start.dm))
+    tmp.el.dmOverflow.setHTML(`Because of dilated mass overflow at <b>${formatMass(tmp.overflow_start.dm)}</b>, your dilated mass is ${overflowFormat(tmp.overflow.dm||1)}！`)
 }
 
 function updateBDHTML() {

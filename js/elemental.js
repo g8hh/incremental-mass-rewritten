@@ -70,7 +70,7 @@ const ELEMENTS = {
             cost: E(2.5e16),
             effect() {
                 let x = player.atom?player.atom.powers[0].max(1).log10().pow(0.8).div(50).add(1):E(1)
-                return x
+                return x.softcap(1e45,0.1,0)
             },
             effDesc(x) { return format(x)+"x stronger" },
         },
@@ -928,6 +928,31 @@ const ELEMENTS = {
             br: true,
             desc: `Stronger Power’s softcap is weaker.`,
             cost: E("e2.9e61"),
+        },{
+            dark: true,
+            desc: `Unlock Dark Run. Keep Oganesson-118 on darkness.`,
+            cost: E("1e96"),
+        },{
+            desc: `Collapsed star’s effect is now upgraded as exponent at reduced rate. It can apply to mass of black hole gain. But nullify Palladium-46, Cadmium-48, Thulium-69 & Osmium-76.`,
+            cost: E("e4.20e69"), // nice
+        },{
+            desc: `Spatial Dilation is slightly weaker.`,
+            cost: E("e4.7e70"),
+        },{
+            br: true,
+            desc: `[m1]’s effect is overpowered.`,
+            cost: E("e4.20e69"), // nice x2
+        },{
+            br: true,
+            desc: `[rp1]’s effect is another overpowered.`,
+            cost: E("e6.3e69"),
+        },{
+            br: true,
+            desc: `[bh1]’s effect is another overpowered again.`,
+            cost: E("e2.27e70"),
+        },{
+            desc: `Hex’s requirement and Glory’s requirement are slightly weaker.`,
+            cost: E("e1.08e72"),
         },
     ],
     /*
@@ -965,7 +990,8 @@ const ELEMENTS = {
             if (hasUpgrade("br",9)) u += 23 // 23
         }
         if (tmp.chal13comp) u += 10 + 2
-        if (tmp.chal14comp) u += 6 + 10
+        if (tmp.chal14comp) u += 6 + 11
+        if (tmp.darkRunUnlocked) u += 6
 
         return u
     },
