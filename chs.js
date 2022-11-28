@@ -96,8 +96,8 @@ var cnItems = {
     ' of mass gain will softcap^7 mass gain!': '的质量获取速度以后，质量获取速度将受到七重软上限限制！',
     ' of mass gain will softcap^8 mass gain!': '的质量获取速度以后，质量获取速度将受到八重软上限限制！',
     'Because of mass overflow at ': '因为质量超过了',
-    ', your mass is raised by ': '，因此它变为了以下次方：',
-    ', your mass is rooted by ': '，因此它变为了以下次方根：',
+    ', your mass is raised by ': '，发生溢出，因此它变为了以下次方：',
+    ', your mass is rooted by ': '，发生溢出，因此它变为了以下次方根：',
     'Your Prestige base is ': '您的转生基础值为',
     ' (based on products of Rank tiers': '(基于级别、阶层、四重阶层和五重阶层的数值而定',
     'You have ': '您拥有',
@@ -111,8 +111,8 @@ var cnItems = {
     'The formula (x + 1': '公式(x + 1',
     ' softcaps at ': '的软上限为',
     'Because of black hole mass overflow at ': '因为黑洞质量超过了',
-    ', your mass of black hole is raised by ': '，因此它变为了以下次方：',
-    ', your mass of black hole is rooted by ': '，因此它变为了以下次方根：',
+    ', your mass of black hole is raised by ': '，发生溢出，因此它变为了以下次方：',
+    ', your mass of black hole is rooted by ': '，发生溢出，因此它变为了以下次方根：',
     ' Atomic Power': '原子能量',
     'Which provides ': '它使您获得了',
     ' free Tickspeeds': '个免费时间速度升级',
@@ -246,10 +246,12 @@ var cnItems = {
     'On first completion, unlock more features!': '当完成第1次该挑战时，解锁更多内容！',
     'You cannot purchase any pre-118 elements. In addtional, you are trapped in quantum challenge with modifiers [5,5,5,5,5,5,5,5].': '您无法购买118号元素之前的任何元素。另外，您强制以[5,5,5,5,5,5,5,5]的配置进行量子挑战。',
     'Reward: Gain more primordium theorems.': '奖励：增加原基定理的获取速度。',
+    'All challenges 1-12 are applied at once. In addtional, you are trapped in quantum challenge with modifiers [10,5,10,10,10,10,10,10].': '挑战1-挑战12同时触发。另外，您强制以[10,5,10,10,10,10,10,10]的配置进行量子挑战。',
+    'Reward: Normal mass\'s overflow starts later by completions.': '奖励：使质量的溢出随着完成次数延迟出现。',
     'Entering challenge will reset with Dark Matters!': '进入挑战时将同时进行暗物质重置！',
     'Entering challenge will reset with Atoms except previous challenges!': '进入挑战时将同时进行原子重置！但不会影响到之前挑战的完成次数。',
     'Entering challenge will reset without being Supernova!': '进入挑战时将同时在未成为超新星的前提下重置！',
-    'Entering challenge will force a Darkness reset!': '进入挑战时将强制进行黑暗重置！',
+    'Entering challenge will force a Darkness reset!': '进入挑战时将强制融入黑暗！',
     ' Quantum Shard, which raises to ': '量子碎片，基础效果的指数为',
     'Translated to ': '相当于使量子泡沫获取速度变为原来的',
     'x multiplier of Quantum Foams': '倍',
@@ -281,8 +283,8 @@ var cnItems = {
     'Dilate Mass': '质量膨胀',
     ' of dilated mass gain will softcap dilated mass gain!': '的膨胀质量获取速度以后，膨胀质量获取速度将受到软上限限制！',
     'Because of dilated mass overflow at ': '因为膨胀质量超过了',
-    ', your dilated mass is raised by ': '，因此它变为了以下次方：',
-    ', your dilated mass is rooted by ': '，因此它变为了以下次方根：',
+    ', your dilated mass is raised by ': '，发生溢出，因此它变为了以下次方：',
+    ', your dilated mass is rooted by ': '，发生溢出，因此它变为了以下次方根：',
     'Assign': '分配',
     ' Protons': '质子',
     ' Neutrons': '中子',
@@ -568,15 +570,24 @@ var cnItems = {
     'Uncap Top & Neut-Muon.': '移除[顶夸克]和[缪中微子]的阶层上限。',
     'Uncap [Neut-Muon]’s effect, and it’s better if effect is greater than 33%.': '移除[缪中微子]的效果上限，如果它的效果超过33%，还会使它的效果变得更好。',
     'Meta-Tickspeed scaling starts ^2 later.': '使时间速度的元折算延迟2次方出现。',
-    'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，且使它们弱化20%。',
+    'Abyssal Blot’s second effect applies to mass gain’s softcap^7-8, they are 20% weaker.': '使深渊之渍的第二个效果也对质量获取速度的七重软上限和八重软上限生效，且使它们弱化20%。',
     'Stronger Power’s softcap is weaker.': '使强化器倍率的软上限弱化。',
     'Unlock Dark Run. Keep Oganesson-118 on darkness.': '解锁黑暗狂奔。融入黑暗时可以保留气奥(118Og).',
-    'Collapsed star’s effect is now upgraded as exponent at reduced rate. It can apply to mass of black hole gain. But nullify Palladium-46, Cadmium-48, Thulium-69 & Osmium-76.': '坍缩星辰的效果变为指数，但效果倍率降低。它可以对黑洞质量获取速度生效。使钯(46Pd)、镉(48Cd)、铥(69Tm)和锇(76Os)失效。',
+    'Collapsed star’s effect is now upgraded as exponent at reduced rate. It can apply to mass of black hole gain. But nullify Palladium-46, Cadmium-48, Thulium-69 & Osmium-76.': '使坍缩星辰的效果变为指数，但效果倍率降低。它可以对黑洞质量获取速度生效。使钯(46Pd)、镉(48Cd)、铥(69Tm)和锇(76Os)失效。',
     'Spatial Dilation is slightly weaker.': '使空间膨胀(量子挑战7)略微弱化。',
     '[m1]’s effect is overpowered.': '使[m1]的效果变得滥强。',
-    '[rp1]’s effect is another overpowered.': '使[rp1]的效果变得更加滥强。',
-    '[bh1]’s effect is another overpowered again.': '使[bh1]的效果再度变得更加滥强。',
+    '[rp1]’s effect is another overpowered.': '使[rp1]的效果也变得滥强。',
+    '[bh1]’s effect is another overpowered again.': '使[bh1]的效果也变得滥强。',
     'Hex’s requirement and Glory’s requirement are slightly weaker.': '使六重阶层和赞颂的需求略微降低。',
+    'Unlock 15th Challenge.': '解锁挑战15。',
+    'Remove two softcaps of particle powers earned.': '移除粒子能量的两重软上限。',
+    'Collapsed star’s effect is even better.': '使坍缩星辰的效果变得更好。',
+    'Add 100 more C13-C14 maximum completions.': '使挑战13和挑战14的次数上限增加100。',
+    'Uncap bonus fermions from Epsilon Particles.': '移除艾普西隆粒子的费米子阶层加成上限。',
+    'Uncap Bottom.': '移除[底夸克]的阶层上限。',
+    'Neutronium-0 can affect supernova challenges at a reduced rate.': '使零号中子的效果可以对挑战9-挑战12生效，只是效果倍率降低。',
+    'Super & Hyper prestige levels start +30 later.': '使转生等级的超级折算和究级折算延迟30次出现。',
+    'Supernova boosts dark rays earned.': '使超新星次数可以加成暗射线获取速度。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -904,6 +915,8 @@ var cnItems = {
     ' more supernovas': '',
     'Boosts entropy earned by ': '使熵获取速度变为原来的',
     'Boosts abyssal blots earned by ': '使深渊之渍获取速度变为原来的',
+    'Boosts exponent from the mass of BH formula by ': '使黑洞质量公式中的指数',
+    'Uncap BH-Exponent Boost\'s effect': '移除黑洞指数加成效果的上限',
     ' Abyssal Blot.': '深渊之渍。',
     'Boosts dark shadows gain by ': '使黑暗之影获取速度变为原来的',
     'Makes mass gain\'s softcap^4-6, starting ': '使质量获取速度的四重软上限至六重软上限延迟',
@@ -911,6 +924,7 @@ var cnItems = {
     ' later': '出现',
     'Boosts hawking radiation gain by ': '使黑洞辐射获取速度变为原来的',
     'Boosts prestige base\'s multiplier by ': '使转生基础值变为原来的',
+    'Boosts cosmic string\'s power by ': '使宇宙弦倍率变为原来的',
     'Passively gain ': '每秒获得暗射线，数量为重置时获取数量的',
     ' of dark rays gained on reset': '',
     'Next Ray\'s effect at ': '下个暗射线效果需要',
@@ -930,7 +944,9 @@ var cnItems = {
     'Raise atom gain by 1.5 every level.': '每级使原子获取速度变为原来的1.5次方。',
     'Increase dark ray gain by 200% every level.': '每级使暗射线获取速度增加200%。',
     'Gain x1.5 more Cyrillic Glyphs.': '西里尔雕文的获取数量变为原来的1.5倍。',
-    'Dilated mass\'s overflow starts ^10 later every level.': '每级使膨胀质量超过特定数值的削弱延迟10次方出现。',
+    'Dilated mass\'s overflow starts ^10 later every level.': '每级使膨胀质量的溢出延迟10次方出现。',
+    'Star generators are ^1.5 stronger every level.': '每级使星辰发生器的速度变为原来的1.5次方。',
+    'Prestige base\'s exponent is increased by 0.02 per level.': '每级使转生基础值的指数增加0.02。',
     //#endregion
     //#region 选项
     'Save': '保存',
@@ -974,7 +990,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.1.1 - made by MrRedShark77': '质量增量重制版v0.6.1.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.1.2 - made by MrRedShark77': '质量增量重制版v0.6.1.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -1163,7 +1179,7 @@ var cnRegReplace = new Map([
     [/^Non-bonus tickspeed is (.+)x stronger$/, '使非加成的时间速度增加$1倍'], //超新星等
     [/^Softcap\^3 from mass gain start \^(.+) later$/, '使质量获取速度的三重软上限延迟$1次方出现'], //超新星等
     [/^Microwave is boosted by (.+)x \(based on Radio$/, '使微波的获取速度变为原来的$1倍(基于无线电波的数值'], //超新星等
-    [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.15$/, '黑洞质量公式中，使指数增加$1(硬上限为0.15'], //超新星等
+    [/^Exponent from the mass of BH formula is increased by (.+) \(hardcapped to 0.15$/, '使黑洞质量公式中的指数增加$1(硬上限为0.15'], //超新星等
     [/^Non-bonus BH condenser is (.+)x stronger$/, '使非加成的黑洞压缩器增加$1倍'], //超新星等
     [/^Infrared is boosted by (.+)x \(based on Microwave$/, '使红外线的获取速度变为原来的$1倍(基于微波的数值'], //超新星等
     [/^1st Photon & Gluon upgrades are (.+)x stronger$/, '使光子和胶子升级1增加$1倍'], //超新星等
@@ -1181,7 +1197,8 @@ var cnRegReplace = new Map([
     [/^From BH the formulas softcap starts \^(.+) later$/, '使黑洞质量获取公式的软上限延迟$1次方出现'], //超新星等
     [/^Tickspeed power is \^(.+) better$/, '使时间速度倍率变为原来的$1次方'], //量子等
     [/^Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前的级别和阶层需求减少$1倍'], //量子等
-    [/^Pre-Exotic Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍'], //量子等
+    [/^Pre-Exotic pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍'], //量子等
+    [/^All pre-Exotic pre-Hexs scalings are (.+) weaker$/, '使六重阶层之前的所有奇异折算之前的折算弱化$1'], //量子等
     [/^Rewards from Challenges 1-8 are (.+)x stronger$/, '使挑战1-挑战8的奖励效果增加$1倍'], //量子等
     [/^Boost Stronger Power by (.+)x$/, '使强化器倍率变为原来的$1倍'], //量子等
     [/^ Boost Non-Bonus Tickspeed by (.+)x$/, '使非加成的时间速度变为原来的$1倍'], //量子等

@@ -274,9 +274,9 @@ const PRESTIGES = {
         if (hasElement(100)) x += tmp.elements.effect[100]
         if (hasPrestige(0,32)) x += prestigeEff(0,32,0)
         x += tmp.fermions.effs[1][6]||0
+        x += glyphUpgEff(10,0)
 
         x += 1
-
         if (player.dark.run.active) x /= mgEff(5)
 
         return x
@@ -343,18 +343,18 @@ const PRESTIGES = {
     noReset: [
         _=>hasUpgrade('br',11),
         _=>tmp.chal13comp,
-        _=>false,
+        _=>tmp.chal15comp,
     ],
     autoUnl: [
         _=>tmp.chal13comp,
         _=>tmp.chal14comp,
-        _=>false,
+        _=>tmp.chal15comp,
     ],
     autoSwitch(x) { player.auto_pres[x] = !player.auto_pres[x] },
     rewards: [
         {
             "1": `使到五重质量软上限为止的所有质量软上限延迟10次方出现。`,
-            "2": `量子碎片的基础效果指数增加0.5。`,
+            "2": `使量子碎片的基础效果指数增加0.5。`,
             "3": `使量子泡沫和死寂碎片获取速度变为原来的4倍。`,
             "5": `使量子之前所有资源获取速度变为原来的2次方(在计算削弱之前生效)。`,
             "6": `使时间速度倍率的软上限延迟100次方出现。`,
@@ -382,6 +382,7 @@ const PRESTIGES = {
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
             "3": `使撕裂膨胀升级12变得更便宜。`,
+            "4": `使铀砹混合物解锁新的效果。`,
         },
     ],
     rewardEff: [
@@ -456,7 +457,7 @@ function prestigeEff(x,y,def=E(1)) { return tmp.prestiges.eff[x][y] || def }
 function updateRanksTemp() {
     if (!tmp.ranks) tmp.ranks = {}
     for (let x = 0; x < RANKS.names.length; x++) if (!tmp.ranks[RANKS.names[x]]) tmp.ranks[RANKS.names[x]] = {}
-    let fp2 = tmp.qu.chroma_eff[1]
+    let fp2 = tmp.qu.chroma_eff[1][0]
     let ffp = E(1)
     let ffp2 = 1
     if (player.dark.run.active) ffp2 /= mgEff(5)
