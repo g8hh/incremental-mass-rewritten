@@ -588,6 +588,9 @@ var cnItems = {
     'Neutronium-0 can affect supernova challenges at a reduced rate.': '使零号中子的效果可以对挑战9-挑战12生效，只是效果倍率降低。',
     'Super & Hyper prestige levels start +30 later.': '使转生等级的超级折算和究级折算延迟30次出现。',
     'Supernova boosts dark rays earned.': '使超新星次数可以加成暗射线获取速度。',
+    'Dark Shadow’s fifth effect also boosts entropy cap at a reduced rate.': '使黑暗之影的第五个效果可以加成熵上限，只是效果倍率降低。',
+    'Exotic rank starts later based on meta-rank starting.': '使级别的奇异折算基于级别的元折算数值延迟出现。',
+    'Entropy\'s cap is increased by 25% every prestige level. Entropic Evaporation^2 is slightly weaker.': '转生等级每有一级，就使熵上限增加25%。使熵消耗²的折算略微弱化。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -916,7 +919,7 @@ var cnItems = {
     'Boosts entropy earned by ': '使熵获取速度变为原来的',
     'Boosts abyssal blots earned by ': '使深渊之渍获取速度变为原来的',
     'Boosts exponent from the mass of BH formula by ': '使黑洞质量公式中的指数',
-    'Uncap BH-Exponent Boost\'s effect': '移除黑洞指数加成效果的上限',
+    'Uncaps BH-Exponent Boost\'s effect': '移除黑洞指数加成效果的上限',
     ' Abyssal Blot.': '深渊之渍。',
     'Boosts dark shadows gain by ': '使黑暗之影获取速度变为原来的',
     'Makes mass gain\'s softcap^4-6, starting ': '使质量获取速度的四重软上限至六重软上限延迟',
@@ -925,8 +928,10 @@ var cnItems = {
     'Boosts hawking radiation gain by ': '使黑洞辐射获取速度变为原来的',
     'Boosts prestige base\'s multiplier by ': '使转生基础值变为原来的',
     'Boosts cosmic string\'s power by ': '使宇宙弦倍率变为原来的',
-    'Passively gain ': '每秒获得暗射线，数量为重置时获取数量的',
+    'Passively gains ': '每秒获得暗射线，数量为重置时获取数量的',
     ' of dark rays gained on reset': '',
+    'Earns ': '使雕文获取数量变为原来的',
+    ' more glyphic mass': '',
     'Next Ray\'s effect at ': '下个暗射线效果需要',
     'Next Shadow\'s effect at ': '下个黑暗之影效果需要',
     'Next Abyssal Blot\'s effect at ': '下个深渊之渍效果需要',
@@ -990,7 +995,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.1.2 - made by MrRedShark77': '质量增量重制版v0.6.1.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.1.3 - made by MrRedShark77': '质量增量重制版v0.6.1.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -1146,6 +1151,7 @@ var cnRegReplace = new Map([
     [/^ Neutrons Powers, which:\s*$/, '中子能量，因此获得以下效果：'], //原子等
     [/^ Electrons Powers, which:\s*$/, '电子能量，因此获得以下效果：'], //原子等
     [/^Currently: (.+)x\s?$/, '目前效果：$1倍'], //原子等
+    [/^Currently: (.+)x, \^(.+)$/, '目前效果：$1倍，且^$2'], //原子等
     [/^Currently: (.+)x stronger$/, '目前效果：增加$1倍'], //原子等
     [/^Currently: (.+) later$/, '目前效果：延迟$1次出现'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
