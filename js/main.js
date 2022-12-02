@@ -547,7 +547,14 @@ function formatARV(ex,gain=false) {
 }
 
 function formatMass(ex) {
+    let md = player.options.massDis
     ex = E(ex)
+    if (md == 1) return format(ex) + '克'
+    else if (md == 2) return format(ex.div(1.5e56).max(1).log10().div(1e9)) + '多宇宙'
+    else if (md == 3) {
+        return ex.gte('1.5e1000000056') ? format(ex.div(1.5e56).max(1).log10().div(1e9)) + '多宇宙' : format(ex) + '克'
+    }
+
     if (ex.gte(E(1.5e56).mul('ee9'))) return formatARV(ex)
     if (ex.gte(1.5e56)) return format(ex.div(1.5e56)) + '宇宙'
     if (ex.gte(2.9835e45)) return format(ex.div(2.9835e45)) + '银河质量'
