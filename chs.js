@@ -207,7 +207,7 @@ var cnItems = {
     'Chromas are 10% stronger.': '色度的效果增加10%。',
     'Prestige Level no longer resets anything.': '转生等级不再重置任何东西。',
     'Mass gain softcap^5 starts later based on Atom.': '使质量获取速度的五重软上限基于原子的数值而延迟出现。',
-    'Death Shard gain is boosted based on Prestige Base.': '使死寂碎片获取速度基于转生基础值的数值而增加。',
+    'Death Shard gain is boosted based on Prestige Base.': '使死寂碎片获取速度基于转生基础值而增加。',
     'Super Fermion Tier starts 10 later (after QC8 nerf).': '使费米子阶层的超级折算延迟10次出现(在计算量子挑战8的削弱之后生效)。',
     'Blueprint Particles give slightly more Pre-Quantum Global Speed.': '使蓝图粒子的量子之前所有资源获取速度略微增加。',
     //#endregion
@@ -280,6 +280,9 @@ var cnItems = {
     'Distribute': '分配',
     ' Ratio Mode': '比例模式',
     ' Quark': '夸克',
+    'Because of quark overflow at ': '因为夸克超过了',
+    ', your quark is raised by ': '，发生溢出，因此它变为了以下次方：',
+    ', your quark is rooted by ': '，发生溢出，因此它变为了以下次方根：',
     ' Relativistic particles': '相对论粒子',
     ' of dilated mass, which makes Tickspeed ': '膨胀质量，使时间速度增加',
     ' stronger': '',
@@ -529,7 +532,7 @@ var cnItems = {
     'Entropic Multiplier uses a better formula.': '使熵加倍的公式变得更好。',
     'Mass Dilation upgrades are 5% stronger.': '使质量膨胀升级的效果增加5%。',
     'Prestige Base boosts Relativistic Energy gain.': '使转生基础值可以加成相对论能量获取速度。',
-    'Mass gain after all softcaps to ^5 is raised by 10.': '使五重之前所有软上限后的质量获取速度变为原来的10倍。',
+    'Mass gain after all softcaps to ^5 is raised by 10.': '使五重之前所有软上限后的质量获取速度变为原来的10次方。',
     'Unlock ': '解锁',
     'Darkness': '黑暗',
     ', you\'ll able to go Dark.': '，您将可以融入黑暗。',
@@ -596,9 +599,12 @@ var cnItems = {
     'Entropy\'s cap is increased by 25% every prestige level. Entropic Evaporation^2 is slightly weaker.': '转生等级每有一级，就使熵上限增加25%。使熵消耗²的折算略微弱化。',
     'Reduce first 12 challenges’ scaling’s strength by 30%.': '使前12个挑战的折算弱化30%。',
     'Meta-Tier starts x10 later.': '使阶层的元折算延迟10倍出现。',
-    'Raise collapsed stars gain after softcap by 10.': '使坍缩星辰获取速度在计算软上限的削弱之后变为原来的10倍。',
+    'Raise collapsed stars gain after softcap by 10.': '使坍缩星辰获取速度在计算软上限的削弱之后变为原来的10次方。',
     'Entropy boosts dark ray gain.': '使熵可以加成暗射线获取速度。',
     'Super Pent & Hex start later based on Hybridized Uran-Astatine\'s first effect.': '五重阶层和六重阶层的超级折算基于铀砹混合物的第一个效果延迟出现。',
+    'Entropy’s cap is now instead an overflow softcap.': '使熵上限变为溢出软上限。',
+    'Add 100 more C13-C15 maximum completions.': '使挑战13-挑战15的次数上限增加100。',
+    'Black hole overflow starts later based on prestige base.': '使黑洞的溢出基于转生基础值延迟出现。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -1008,7 +1014,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.1.4 - made by MrRedShark77': '质量增量重制版v0.6.1.4 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.1.5 - made by MrRedShark77': '质量增量重制版v0.6.1.5 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
@@ -1230,5 +1236,6 @@ var cnRegReplace = new Map([
     [/^Boost all Radiations gains by (.+)x$/, '使辐射波的波长获取速度变为原来的$1倍'], //量子等
     [/^Boost all Radiations gains by (.+)x \/$/, '使辐射波的波长获取速度变为原来的$1倍/'], //量子等
     [/^ Make all Radiations effects (.+)x stronger$/, '使辐射波的效果变为原来的$1倍'], //量子等
+    [/^Make pre-exotic Supernova's scalings start (.+) later$/, '使超新星所有奇异折算之前的折算延迟$1次出现'], //量子等
     [/^Make all Supernova's scalings start (.+) later$/, '使超新星的所有折算延迟$1次出现'], //量子等
 ]);
