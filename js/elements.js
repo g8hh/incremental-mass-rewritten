@@ -215,8 +215,7 @@ function updateUpperHTML() {
 	tmp.el.chal_upper.setVisible(unl)
 	if (unl) {
 		let data = CHALS.getChalData(player.chal.active, tmp.chal.bulk[player.chal.active].max(player.chal.comps[player.chal.active]))
-		tmp.el.chal_upper.setHTML(`您目前正在进行[${CHALS[player.chal.active].title}]挑战！达到${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)}以后可以完成1次挑战。
-		<br>本次挑战可增加${tmp.chal.gain}次完成次数(到达${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)}后可再增加1次)`)
+		tmp.el.chal_upper.setHTML(`您目前正在进行[${CHALS[player.chal.active].title}]挑战！达到${tmp.chal.format(tmp.chal.goal[player.chal.active])+CHALS.getResName(player.chal.active)}以后可以完成1次挑战。<br>本次挑战可增加${tmp.chal.gain}次完成次数(到达${tmp.chal.format(data.goal)+CHALS.getResName(player.chal.active)}后可再增加1次)`)
 	}
 	
 	unl = player.atom.unl
