@@ -122,6 +122,7 @@ const RANKS = {
             '36': "移除质量获取速度的五重软上限。",
             '43': "使六重阶层4的效果变得滥强。",
             '48': "移除质量获取速度的六重软上限。",
+            '62': "移除质量获取速度的七重软上限。",
         },
     },
     effect: {
@@ -378,6 +379,8 @@ const PRESTIGES = {
             "190": `使锆(40Zr)的效果略微增加。`,
             "218": `使Unquadpentium(145Uqp)的效果略微增加。`,
             "233": `使红色物质可以加成暗射线获取速度。`,
+            "382": `使物质的指数基于转生等级的数值而增加。使坍缩星辰的效果变得滥强。`,
+            "388": `使铀砹混合物的效果可以对赞颂之前(元折算之前)的转生等级生效，只是效果倍率降低。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -414,6 +417,14 @@ const PRESTIGES = {
                 let x = player.dark.matters.amt[0].add(1).log10().add(1).log10().add(1).pow(2)
                 return x
             },x=>""+format(x)+"倍"],
+            "382": [_=>{
+                let x = player.prestiges[0].max(0).root(2).div(1e3).toNumber()
+                return x
+            },x=>"+"+format(x)],
+            "388": [_=>{
+                let x = tmp.qu.chroma_eff[1][1].root(2)
+                return x
+            },x=>"弱化"+formatReduction(x)+""],
             /*
             "1": [_=>{
                 let x = E(1)
@@ -499,8 +510,8 @@ function updateRanksTemp() {
 
     let tps = 0
 
-    tmp.ranks.tetr.req = player.ranks.tetr.div(fp2).div(ffp2).scaleEvery('tetr').div(fp).pow(pow).mul(3).add(10-tps).floor()
-    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10-tps).div(3).max(0).root(pow).mul(fp).scaleEvery('tetr',true).mul(fp2).mul(ffp2).add(1).floor();
+    tmp.ranks.tetr.req = player.ranks.tetr.div(ffp2).scaleEvery('tetr',[1,1,1,fp2]).div(fp).pow(pow).mul(3).add(10-tps).floor()
+    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10-tps).div(3).max(0).root(pow).mul(fp).scaleEvery('tetr',true,[1,1,1,fp2]).mul(ffp2).add(1).floor();
 
     fp = E(1).mul(ffp)
     if (player.ranks.hex.gte(1)) fp = fp.div(0.8)

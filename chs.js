@@ -84,9 +84,13 @@ var cnItems = {
     'Booster [': '助推器[',
     'Stronger [': '强化器[',
     'Tickspeeds [': '时间速度[',
+    'Accelerators [': '加速器[',
     ' Rage Points': '狂怒能量',
     'Tickspeed Power': '时间速度倍率',
     'Tickspeed Effect': '时间速度效果',
+    ' to mass gain': '质量获取速度',
+    'Accelerator Power': '加速器倍率',
+    'Accelerator Effect': '加速器效果',
     'After ': '当到达',
     ' of mass gain will softcap mass gain!': '的质量获取速度以后，质量获取速度将受到软上限限制！',
     ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到二重软上限限制！',
@@ -181,6 +185,7 @@ var cnItems = {
     'Neutron Powers boosts mass of Black Hole gain.': '使中子能量可以加成黑洞质量获取速度。',
     'Atomic Powers adds Black Hole Condensers at a reduced rate.': '使原子能量可以增加黑洞压缩器的数量，只是效果倍率降低。',
     'Red matter\'s upgrade applies mass gain at reduced rate.': '使红色物质的升级可以对质量获取速度生效，只是效果倍率降低。',
+    'Violet matter\'s upgrade applies collapsed stars gain at reduced rate.': '使蓝紫色物质的升级可以对坍缩星辰获取速度生效，只是效果倍率降低。',
     'Atom Upgrades': '原子升级',
     'Start with Mass upgrades unlocked.': '初始状态下就解锁质量升级。',
     'You can automatically buy BH Condenser and upgrades. Tickspeed no longer spent Rage Powers.': '您可以自动购买黑洞压缩器和黑洞升级。购买时间速度不再花费狂怒能量。',
@@ -198,6 +203,7 @@ var cnItems = {
     'Tickspeed, Black Hole Condenser and Cosmic Ray scalings up to Meta start x10 later.': '使时间速度、黑洞压缩器和宇宙射线到元折算为止的所有折算延迟10倍出现。',
     'Reduce Cosmic Ray scaling by 20%.': '使宇宙射线的所有折算弱化20%。',
     'Quark Overflow starts ^10 later.': '使夸克的溢出延迟10次方出现。',
+    'Pink matter\'s upgrade applies quark gain at reduced rate.': '使粉色物质的升级可以对夸克获取速度生效，只是效果倍率降低。',
     'Big Rip Upgrades': '大撕裂升级',
     'Start with Hydrogen-1 unlocked in Big Rip.': '在大撕裂中，初始状态下就解锁氢(1H)。',
     'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
@@ -618,7 +624,10 @@ var cnItems = {
     'Hybridized Uran-Astatine’s first effect makes exotic rank and meta-tier starting later at ^0.5 rate.': '使铀砹混合物的第一个效果可以对奇异折算和元折算生效，只是效果倍率变为原来的0.5次方。',
     'Keep prestige tiers on darkness. Super and Hyper Prestige Levels start x2 later.': '融入黑暗时保留转生的相关等级阶层。使转生等级的超级折算和究极折算延迟2倍出现。',
     'Fermium-100 is slightly stronger. Automate each matter’s upgrade.': '使镄(100Fm)的效果略微增加。您可以自动购买每种物质的升级。',
-    'Add 200 more C13-C15 maximum completions.': '使挑战13-挑战15的次数上限增加200。',
+    'Add 200 more C13-C14 maximum completions.': '使挑战13-挑战14的次数上限增加200。',
+    'Exotic rank and ultra prestige level scaling is 10% weaker.': '使级别的奇异折算和转生等级的超究折算弱化10%。',
+    'Particle powers’ first effect is better.': '使粒子能量的第一个效果变得更好。',
+    'Unlock Accelerators, tickspeed now provides exponential boost, but nullify Argon-18 and Unpentnilium-150 (except in 15th Challenge).': '解锁加速器，时间速度变为指数加成，但使氩(18Ar)和Unpentnilium(150Upn)的相应效果(除了挑战15以外的情况下)失效。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -957,6 +966,7 @@ var cnItems = {
     'Boosts prestige base\'s multiplier by ': '使转生基础值变为原来的',
     'Boosts cosmic string\'s power by ': '使宇宙弦倍率变为原来的',
     'Boosts each matters gain by ': '使每种物质获取速度变为原来的',
+    'Boosts accelerator power by ': '使加速器倍率变为原来的',
     'Passively gains ': '每秒获得暗射线，数量为重置时获取数量的',
     ' of dark rays gained on reset': '',
     'Earns ': '使雕文获取数量变为原来的',
@@ -983,6 +993,7 @@ var cnItems = {
     'Prestige base\'s exponent is increased by 0.02 per level.': '每级使转生基础值的指数增加0.02。',
     'Add 0.1 to matter exponent.': '使物质的指数增加0.1。',
     'Cosmic ray effect is now exponent at super reduced rate.': '使宇宙射线效果变为指数，但效果倍率超级降低。',
+    'Green Chromas gain is squared.': '使绿色色度获取速度变为原来的平方。',
     'lg(lg(x)': 'lg(lg(x)',
     ' to each matter gain by previous matter.': '为前一种物质对后一种物质获取速度的加成。',
     'Tip: Reach ': '提示：当前物质到达',
@@ -1063,11 +1074,11 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.2 - made by MrRedShark77': '质量增量重制版v0.6.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.2.1 - made by MrRedShark77': '质量增量重制版v0.6.2.1 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Lemon': 'Lemon',
-    ' & Aarex (Artists': '和Aarex(帮助制作图片',
+    ', 16777216 & Aarex (Artists': '，16777216和Aarex(帮助制作图片',
     'Hint 1: Hover top image above tabs to show description...': '提示1：鼠标停留在选项卡上方的图片以查看详情……',
     'Total time played': '游戏总时间',
     //#endregion
@@ -1160,7 +1171,6 @@ var cnExcludePostfix = [
 //原样输出的字段：(.+)
 //换行加空格：\n(.+)
 var cnRegReplace = new Map([
-    [/^x to mass gain\s*$/, '倍质量获取速度'], //主界面等
     [/^\s*Cost$/, '需'], //主界面等
     [/^\s*Req$/, '需求'], //主界面等
     [/^\s*Muscler Power$/, '锻体器倍率'], //主界面等
