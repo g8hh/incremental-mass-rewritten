@@ -83,6 +83,7 @@ var cnItems = {
     'Muscler [': '锻体器[',
     'Booster [': '助推器[',
     'Stronger [': '强化器[',
+    'Overpower [': '降伏器[',
     'Tickspeeds [': '时间速度[',
     'Accelerators [': '加速器[',
     ' Rage Points': '狂怒能量',
@@ -103,11 +104,14 @@ var cnItems = {
     'Because of mass overflow at ': '因为质量超过了',
     ', your mass is raised by ': '，发生溢出，因此它变为了以下次方：',
     ', your mass is rooted by ': '，发生溢出，因此它变为了以下次方根：',
+    'Because of stronger overflow at ': '因为强化器超过了',
+    ', your stronger effect is raised by ': '，发生溢出，因此强化器效果变为了以下次方：',
+    ', your stronger effect is rooted by ': '，发生溢出，因此强化器效果变为了以下次方根：',
     'Your Prestige base is ': '您的转生基础值为',
     ' (based on products of Rank tiers': '(基于级别、阶层、四重阶层和五重阶层的数值而定',
     'You have ': '您拥有',
     ' of Black Hole': '黑洞',
-    'Which multiplies mass gain by ': '它将质量获取速度乘以',
+    'Which boosts mass gain by ': '它使质量获取速度增加',
     ' Black Hole mass\'s gain formula - (x + 1': '黑洞质量获取公式为：(x + 1',
     'Black Hole Condensers [': '黑洞压缩器[',
     ' Dark Matters': '暗物质',
@@ -628,6 +632,11 @@ var cnItems = {
     'Exotic rank and ultra prestige level scaling is 10% weaker.': '使级别的奇异折算和转生等级的超究折算弱化10%。',
     'Particle powers’ first effect is better.': '使粒子能量的第一个效果变得更好。',
     'Unlock Accelerators, tickspeed now provides exponential boost, but nullify Argon-18 and Unpentnilium-150 (except in 15th Challenge).': '解锁加速器，时间速度变为指数加成，但使氩(18Ar)和Unpentnilium(150Upn)的相应效果(除了挑战15以外的情况下)失效。',
+    '15th Challenge’s effect applies black hole overflow starting.': '使挑战15的效果可以对黑洞的溢出生效。',
+    'Black hole’s effect provides an exponential boost to mass. Actinium-89 is now stronger outside big rip.': '使黑洞的效果对质量获取速度的加成变为指数加成。使锕(89Ac)在大撕裂外的效果变得更好。',
+    'Unlock the fourth mass upgrade which raises Stronger.': '解锁第四个质量升级，它可以增加强化器倍率。',
+    'Booster boosts its effect.': '使助推器可以对助推器效果生效。',
+    '1st and 3rd Photon & Gluon upgrades provides an exponential boost. Keep big rip upgrades on darkness.': '使胶子和光子的第1、3个升级变为指数加成。融入黑暗时保留大撕裂升级。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -994,6 +1003,7 @@ var cnItems = {
     'Add 0.1 to matter exponent.': '使物质的指数增加0.1。',
     'Cosmic ray effect is now exponent at super reduced rate.': '使宇宙射线效果变为指数，但效果倍率超级降低。',
     'Green Chromas gain is squared.': '使绿色色度获取速度变为原来的平方。',
+    'Each matter\'s the exponent is increased by 12.5% per level.': '每级使每种物质的指数增加12.5%。',
     'lg(lg(x)': 'lg(lg(x)',
     ' to each matter gain by previous matter.': '为前一种物质对后一种物质获取速度的加成。',
     'Tip: Reach ': '提示：当前物质到达',
@@ -1074,7 +1084,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.2.1 - made by MrRedShark77': '质量增量重制版v0.6.2.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.2.2 - made by MrRedShark77': '质量增量重制版v0.6.2.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Lemon': 'Lemon',
@@ -1181,6 +1191,9 @@ var cnRegReplace = new Map([
     [/^\s*Stronger Power$/, '强化器倍率'], //主界面等
     [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
     [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
+    [/^\s*Overpower Power$/, '降伏器倍率'], //主界面等
+    [/^\s*Overpower Effect$/, '降伏器效果'], //主界面等
+    [/^\^(.+) to Stronger Power\s*$/, '^$1强化器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Base: (.+)x$/, '基础值：$1倍'], //主界面等

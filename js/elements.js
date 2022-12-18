@@ -288,7 +288,7 @@ function updateTickspeedHTML() {
 		tmp.el.accel_lvl.setTxt(format(player.accelerator,0))
 		tmp.el.accel_btn.setClasses({btn: true, locked: !FORMS.accel.can()})
 		tmp.el.accel_cost.setTxt(format(tmp.accelCost,0))
-		tmp.el.accel_step.setHTML("+^"+format(eff.step))
+		tmp.el.accel_step.setHTML("+"+format(eff.step)+"次方")
 		tmp.el.accel_eff.setHTML("^"+format(eff.eff)+"时间速度效果")
 
 		tmp.el.accel_auto.setDisplay(FORMS.accel.autoUnl())
@@ -365,7 +365,7 @@ function updateBlackHoleHTML() {
 	tmp.el.massSoft2.setDisplay(tmp.bh.mass_gain.gte(tmp.bh.massSoftGain))
 	tmp.el.massSoftStart2.setTxt(formatMass(tmp.bh.massSoftGain))
 
-	tmp.el.bhEffect.setTxt(format(tmp.bh.effect))
+	tmp.el.bhEffect.setTxt(hasElement(201)?format(tmp.bh.effect)+"次方":format(tmp.bh.effect)+"倍")
 
 	tmp.el.bhCondenser_lvl.setTxt(format(player.bh.condenser,0)+(tmp.bh.condenser_bonus.gte(1)?" + "+format(tmp.bh.condenser_bonus,0):""))
 	tmp.el.bhCondenser_btn.setClasses({btn: true, locked: !FORMS.bh.condenser.can()})
@@ -444,6 +444,9 @@ function updateHTML() {
 
 				tmp.el.massOverflow.setDisplay(player.mass.gte(tmp.overflow_start.mass))
     			tmp.el.massOverflow.setHTML(`Because of mass overflow at <b>${formatMass(tmp.overflow_start.mass)}</b>, your mass is ${overflowFormat(tmp.overflow.mass||1)}！`)
+
+				tmp.el.strongerOverflow.setDisplay(tmp.upgs.mass[3].eff.eff.gte(tmp.overflow_start.stronger))
+    			tmp.el.strongerOverflow.setHTML(`Because of stronger overflow at <b>${formatMass(tmp.overflow_start.stronger)}</b>, your stronger effect is ${overflowFormat(tmp.overflow.stronger||1)}！`)
 			}
 			if (tmp.stab[0] == 1) {
 				updateBlackHoleHTML()

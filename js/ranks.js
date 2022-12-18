@@ -123,6 +123,7 @@ const RANKS = {
             '43': "使六重阶层4的效果变得滥强。",
             '48': "移除质量获取速度的六重软上限。",
             '62': "移除质量获取速度的七重软上限。",
+            '91': "使物质的指数增加0.15。",
         },
     },
     effect: {
@@ -200,7 +201,7 @@ const RANKS = {
         },
         pent: {
             '2'() {
-                let ret = E(1.3).pow(player.ranks.tetr)
+                let ret = E(1.3).pow(player.ranks.tetr.softcap(12e10,0.1,0))
                 return ret
             },
             '4'() {
@@ -208,7 +209,7 @@ const RANKS = {
                 return ret
             },
             '5'() {
-                let ret = E(1.05).pow(player.ranks.pent)
+                let ret = E(1.05).pow(player.ranks.pent.min(1500))
                 return ret
             },
             '8'() {
@@ -381,6 +382,7 @@ const PRESTIGES = {
             "233": `使红色物质可以加成暗射线获取速度。`,
             "382": `使物质的指数基于转生等级的数值而增加。使坍缩星辰的效果变得滥强。`,
             "388": `使铀砹混合物的效果可以对赞颂之前(元折算之前)的转生阶层生效，只是效果倍率降低。`,
+            "552": `使超新星的奇异折算延迟1.25倍出现。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -391,6 +393,7 @@ const PRESTIGES = {
             "7": `使夸克获取速度基于荣耀的数值而增加。`,
             "15": `使宇宙弦的超级折算和究极折算基于荣耀的数值而弱化。`,
             "22": `使黑暗之影获取速度变为原来的1.1次方。`,
+            "33": `使铀砹混合物的效果可以对元折算之前的五重阶层需求生效，只是效果倍率降低。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -451,6 +454,10 @@ const PRESTIGES = {
                 let x = player.prestiges[1].root(1.5).div(10).add(1).pow(-1)
                 return x
             },x=>"弱化"+formatReduction(x)+""],
+            "33": [_=>{
+                let x = tmp.qu.chroma_eff[1][0].max(1).log10().add(1).pow(2)
+                return x
+            },x=>"延迟"+x.format()+"倍"],
         },
         {
             "5": [_=>{
@@ -492,7 +499,7 @@ function updateRanksTemp() {
     if (player.dark.run.active) ffp2 /= mgEff(5)
 
     let fp = RANKS.fp.rank().mul(ffp)
-    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ffp2).scaleEvery('rank',[1,1,1,1,fp2]).div(fp).pow(1.15)).mul(10)
+    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ffp2).scaleEvery('rank',false,[1,1,1,1,fp2]).div(fp).pow(1.15)).mul(10)
     tmp.ranks.rank.bulk = E(0)
     if (player.mass.gte(10)) tmp.ranks.rank.bulk = player.mass.div(10).max(1).log10().root(1.15).mul(fp).scaleEvery('rank',true,[1,1,1,1,fp2]).mul(ffp2).add(1).floor();
     tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5) && !CHALS.inChal(10) && !FERMIONS.onActive("03")
@@ -510,14 +517,15 @@ function updateRanksTemp() {
 
     let tps = 0
 
-    tmp.ranks.tetr.req = player.ranks.tetr.div(ffp2).scaleEvery('tetr',[1,1,1,fp2]).div(fp).pow(pow).mul(3).add(10-tps).floor()
+    tmp.ranks.tetr.req = player.ranks.tetr.div(ffp2).scaleEvery('tetr',false,[1,1,1,fp2]).div(fp).pow(pow).mul(3).add(10-tps).floor()
     tmp.ranks.tetr.bulk = player.ranks.tier.sub(10-tps).div(3).max(0).root(pow).mul(fp).scaleEvery('tetr',true,[1,1,1,fp2]).mul(ffp2).add(1).floor();
 
     fp = E(1).mul(ffp)
+    let fpa = hasPrestige(1,33) ? [1,1,1,prestigeEff(1,33,1)] : []
     if (player.ranks.hex.gte(1)) fp = fp.div(0.8)
     pow = 1.5
-    tmp.ranks.pent.req = player.ranks.pent.div(ffp2).scaleEvery('pent').div(fp).pow(pow).add(15-tps).floor()
-    tmp.ranks.pent.bulk = player.ranks.tetr.sub(15-tps).gte(0)?player.ranks.tetr.sub(15-tps).max(0).root(pow).mul(fp).scaleEvery('pent',true).mul(ffp2).add(1).floor():E(0);
+    tmp.ranks.pent.req = player.ranks.pent.div(ffp2).scaleEvery('pent',false,fpa).div(fp).pow(pow).add(15-tps).floor()
+    tmp.ranks.pent.bulk = player.ranks.tetr.sub(15-tps).gte(0)?player.ranks.tetr.sub(15-tps).max(0).root(pow).mul(fp).scaleEvery('pent',true,fpa).mul(ffp2).add(1).floor():E(0);
 
     fp = E(1)
     pow = 1.8
@@ -526,7 +534,7 @@ function updateRanksTemp() {
         s /= 2
         pow *= 0.9
     }
-    tmp.ranks.hex.req = player.ranks.hex.div(ffp2).div(fp).scaleEvery('hex').pow(pow).add(s-tps).floor()
+    tmp.ranks.hex.req = player.ranks.hex.div(ffp2).div(fp).scaleEvery('hex',false).pow(pow).add(s-tps).floor()
     tmp.ranks.hex.bulk = player.ranks.pent.sub(s-tps).gte(0)?player.ranks.pent.sub(s-tps).max(0).root(pow).scaleEvery('hex',true).mul(fp).mul(ffp2).add(1).floor():E(0);
 
     for (let x = 0; x < RANKS.names.length; x++) {
