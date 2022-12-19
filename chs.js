@@ -172,6 +172,7 @@ var cnItems = {
     'Hyper Tickspeed starts 50 later.': '使时间速度的究极折算延迟50次出现。',
     'Mass boost Atom gain.': '使质量可以加成原子获取速度。',
     'Remove tickspeed power\'s softcap.': '移除时间速度倍率的软上限。',
+    'Overpower power is increased by 0.005.': '使降伏器倍率增加0.005。',
     'Black Hole Upgrades': '黑洞升级',
     'Mass Upgardes no longer spends mass.': '购买质量升级不再花费质量。',
     'Tickspeeds boosts BH Condenser Power.': '使时间速度可以加成黑洞压缩器倍率。',
@@ -208,6 +209,7 @@ var cnItems = {
     'Reduce Cosmic Ray scaling by 20%.': '使宇宙射线的所有折算弱化20%。',
     'Quark Overflow starts ^10 later.': '使夸克的溢出延迟10次方出现。',
     'Pink matter\'s upgrade applies quark gain at reduced rate.': '使粉色物质的升级可以对夸克获取速度生效，只是效果倍率降低。',
+    'Neutron Power\'s second effect now provides provides an exponential boost, applies mass of black hole.': '使中子能量的第二个效果变为指数加成，且可以对黑洞质量生效。',
     'Big Rip Upgrades': '大撕裂升级',
     'Start with Hydrogen-1 unlocked in Big Rip.': '在大撕裂中，初始状态下就解锁氢(1H)。',
     'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
@@ -224,7 +226,8 @@ var cnItems = {
     'Death Shard gain is boosted based on Prestige Base.': '使死寂碎片获取速度基于转生基础值而增加。',
     'Super Fermion Tier starts 10 later (after QC8 nerf).': '使费米子阶层的超级折算延迟10次出现(在计算量子挑战8的削弱之后生效)。',
     'Blueprint Particles give slightly more Pre-Quantum Global Speed.': '使蓝图粒子的量子之前所有资源获取速度略微增加。',
-    'Unsoftcap the first effect from Alpha, Omega & Sigma particles. They\'re stronger.': '移除阿尔法粒子第一个效果、欧米伽粒子第一个效果和西格马粒子第一个效果的软上限。且它们的效果变得更好。',
+    'Unsoftcap the first effect from Alpha, Omega & Sigma particles. They\'re stronger.': '移除阿尔法粒子第一个效果、欧米伽粒子第一个效果和西格马粒子第一个效果的软上限，且它们的效果变得更好。',
+    'Dark matter raises atoms gain at a reduced rate.': '使暗物质可以加成原子获取速度，只是效果倍率降低。',
     //#endregion
     //#region 挑战
     ' Note 1: Click any image to show challenge description. Click again to enter any challenge': '提示1：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
@@ -234,7 +237,7 @@ var cnItems = {
     'Reward: Super Ranks starts later, Super Tickspeed scaling weaker by completions.': '奖励：使级别的超级折算更迟出现，时间速度的超级折算效果随着完成次数而弱化。',
     'You cannot buy Tickspeed.': '您无法购买时间速度。',
     'Reward: For every completions adds +7.5% to Tickspeed Power.': '奖励：每次完成该挑战，就使时间速度倍率增加7.5%。',
-    'Mass gain softcap is divided by 1e150, and is stronger.': '质量获取速度软上限除以1e150，并且效果变得更严重。',
+    'Mass gain softcap is divided by 1e150, and is stronger.': '质量获取速度软上限除以1e150，且效果变得更严重。',
     'Reward: Mass gain are raised by completions, but cannot append while in this challenge!': '奖励：使质量获取速度随着完成次数变为原来的一个指数，但在该挑战内此奖励无效！',
     'Rage Points gain is rooted by 10. In addtional, mass gain softcap is divided by 1e100.': '狂怒能量获取速度变为原来的十次方根。另外，质量获取速度软上限除以1e100。',
     'Reward: Rage Powers gain are raised by completions.': '奖励：使狂怒能量获取速度随着完成次数变为原来的一个指数。',
@@ -637,6 +640,9 @@ var cnItems = {
     'Unlock the fourth mass upgrade which raises Stronger.': '解锁第四个质量升级，它可以增加强化器倍率。',
     'Booster boosts its effect.': '使助推器可以对助推器效果生效。',
     '1st and 3rd Photon & Gluon upgrades provides an exponential boost. Keep big rip upgrades on darkness.': '使胶子和光子的第1、3个升级变为指数加成。融入黑暗时保留大撕裂升级。',
+    'Overpower boosts accelerator power at reduced rate.': '使降伏器可以加成加速器倍率，只是效果倍率降低。',
+    'Dark matter boosts matter exponent.': '使暗物质可以加成物质的指数。',
+    'Hybridized Uran-Astatine’s second effect applies Hex scaling. It is stronger.': '使铀砹混合物的第二个效果可以对六重阶层的折算生效，且它的效果变得更好。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -702,7 +708,7 @@ var cnItems = {
     'Beyond unlocking stars, Star Unlocker will transform into Booster.': '解锁完星辰以后，星辰解锁的功能变为星辰加成。',
     'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
     'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
-    'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，并且相应的元素效果变得更好。您可以自动从质量中获得相对论粒子。',
+    'Start with Techntium-43 unlocked, improve their element better. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，且相应的元素效果变得更好。您可以自动从质量中获得相对论粒子。',
     'You can now automatically buy Star unlockers & boosters.': '您可以自动购买星辰解锁和星辰加成。',
     'Tetrs no longer resets anything.': '四重阶层不再重置任何东西。',
     'While in any challenge, you can now automatically complete it before exiting.': '不需要退出挑战也可以自动完成它。',
@@ -976,6 +982,7 @@ var cnItems = {
     'Boosts cosmic string\'s power by ': '使宇宙弦倍率变为原来的',
     'Boosts each matters gain by ': '使每种物质获取速度变为原来的',
     'Boosts accelerator power by ': '使加速器倍率变为原来的',
+    'Atomic power & quark overflows start ': '使原子能量和夸克的溢出延迟',
     'Passively gains ': '每秒获得暗射线，数量为重置时获取数量的',
     ' of dark rays gained on reset': '',
     'Earns ': '使雕文获取数量变为原来的',
@@ -986,6 +993,7 @@ var cnItems = {
     'Start Dark Run': '开始黑暗狂奔',
     'Exit Dark Run': '退出黑暗狂奔',
     'Glyph Button Mode': '雕文按钮模式',
+    'Clear all glyphs': '清除所有雕文',
     'Earning': '获取',
     'Max Earning': '至多获取',
     'Clear Glyph': '清除雕文',
@@ -1049,6 +1057,7 @@ var cnItems = {
     'Import': '导入',
     'Error Importing': '输入有误，导入失败',
     'Join Discord': '加入Discord频道',
+    'Donate': '捐赠',
     'Help': '帮助',
     'Offline Production': '离线产量',
     'Fonts': '字体',
@@ -1084,7 +1093,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.2.2 - made by MrRedShark77': '质量增量重制版v0.6.2.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.2.3 - made by MrRedShark77': '质量增量重制版v0.6.2.3 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Lemon': 'Lemon',
@@ -1239,6 +1248,7 @@ var cnRegReplace = new Map([
     [/^Adds Tickspeed Power by (.+)%$/, '使时间速度倍率增加$1%'], //原子等
     [/^Boosts Rage Power gain by (.+)x$/, '使狂怒能量获取速度变为原来的$1倍'], //原子等
     [/^Boosts Rage Power gain by \^(.*)$/, '使狂怒能量获取速度变为原来的$1次方'], //原子等
+    [/^Makes Mass gain boosted by Rage Powers - \^(.*)$/, '使狂怒能量可以加成质量获取速度 - 倍率为$1次方'], //原子等
     [/^Makes Mass gain boosted by Rage Powers - (.+)x$/, '使狂怒能量可以加成质量获取速度 - 倍率为$1倍'], //原子等
     [/^Boosts Dark Matter gain by (.+)x$/, '使暗物质获取速度变为原来的$1倍'], //原子等
     [/^Boosts Dark Matter gain by \^(.*)$/, '使暗物质获取速度变为原来的$1次方'], //原子等
@@ -1301,6 +1311,7 @@ var cnRegReplace = new Map([
     [/^Pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前的级别和阶层需求减少$1倍'], //量子等
     [/^Pre-Exotic pre-Pents requirement is reduced by (.+)x$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍'], //量子等
     [/^All pre-Exotic pre-Hexs scalings are (.+) weaker$/, '使六重阶层之前的所有奇异折算之前的折算弱化$1'], //量子等
+    [/^All pre-Exotic Rank-Hex scalings are (.+) weaker$/, '使级别至六重阶层的所有奇异折算之前的折算弱化$1'], //量子等
     [/^Rewards from Challenges 1-8 are (.+)x stronger$/, '使挑战1-挑战8的奖励效果增加$1倍'], //量子等
     [/^Boost Stronger Power by (.+)x$/, '使强化器倍率变为原来的$1倍'], //量子等
     [/^ Boost Non-Bonus Tickspeed by (.+)x$/, '使非加成的时间速度变为原来的$1倍'], //量子等

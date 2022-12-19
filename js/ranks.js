@@ -124,6 +124,7 @@ const RANKS = {
             '48': "移除质量获取速度的六重软上限。",
             '62': "移除质量获取速度的七重软上限。",
             '91': "使物质的指数增加0.15。",
+            '157': "移除质量获取速度的八重软上限。",
         },
     },
     effect: {
@@ -383,6 +384,7 @@ const PRESTIGES = {
             "382": `使物质的指数基于转生等级的数值而增加。使坍缩星辰的效果变得滥强。`,
             "388": `使铀砹混合物的效果可以对赞颂之前(元折算之前)的转生阶层生效，只是效果倍率降低。`,
             "552": `使超新星的奇异折算延迟1.25倍出现。`,
+            "607": `使色度获取速度基于转生基础值而增加。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -400,6 +402,7 @@ const PRESTIGES = {
             "3": `使撕裂膨胀升级12变得更便宜。`,
             "4": `使铀砹混合物解锁新的效果。`,
             "5": `使赞颂可以加成雕文获取数量。`,
+            "8": `使赞颂可以减少黑洞溢出的削弱。`,
         },
     ],
     rewardEff: [
@@ -428,6 +431,10 @@ const PRESTIGES = {
                 let x = tmp.qu.chroma_eff[1][1].root(2)
                 return x
             },x=>"弱化"+formatReduction(x)+""],
+            "607": [_=>{
+                let x = tmp.prestiges.base.max(1).pow(1.5)
+                return x
+            },x=>""+format(x)+"倍"],
             /*
             "1": [_=>{
                 let x = E(1)
@@ -464,6 +471,10 @@ const PRESTIGES = {
                 let x = player.prestiges[2].root(2).div(10).add(1)
                 return x.toNumber()
             },x=>""+format(x,2)+"倍"],
+            "8": [_=>{
+                let x = player.prestiges[2].root(3).div(10).add(1).pow(-1)
+                return x.toNumber()
+            },x=>"弱化"+formatReduction(x)+""],
         },
     ],
     reset(i, bulk = false) {
