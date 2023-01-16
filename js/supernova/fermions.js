@@ -22,7 +22,7 @@ const FERMIONS = {
         }
     },
     choose(i,x) {
-        if (player.confirms.sn) createConfirm("您确定要切换费米子类型吗？",'switchF', _=>CONFIRMS_FUNCTION.switchF(i,x))
+        if (player.confirms.sn) createConfirm("您确定要切换费米子类型吗？",'switchF', ()=>CONFIRMS_FUNCTION.switchF(i,x))
         else CONFIRMS_FUNCTION.switchF(i,x)
     },
     bonus(i,j) {

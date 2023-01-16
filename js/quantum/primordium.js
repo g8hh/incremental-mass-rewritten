@@ -101,7 +101,7 @@ function giveRandomPParticles(v, max=false) {
 }
 
 function respecPParticles() {
-    createConfirm("您确定要返还所有粒子吗？",'respectPPs',_=>{
+    createConfirm("您确定要返还所有粒子吗？",'respectPPs',()=>{
         for (let i =0; i < 8; i++) player.qu.prim.particles[i] = E(0)
         QUANTUM.doReset()
     })

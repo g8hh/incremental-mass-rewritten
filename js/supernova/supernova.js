@@ -1,7 +1,7 @@
 const SUPERNOVA = {
     reset(force=false, chal=false, post=false, fermion=false) {
         if (!chal && !post && !fermion) {
-            if (force && player.confirms.sn) createConfirm("您确定要在未成为超新星的前提下重置吗？",'sn',_=>CONFIRMS_FUNCTION.sn(force,chal,post,fermion))
+            if (force && player.confirms.sn) createConfirm("您确定要在未成为超新星的前提下重置吗？",'sn',()=>CONFIRMS_FUNCTION.sn(force,chal,post,fermion))
             else CONFIRMS_FUNCTION.sn(force,chal,post,fermion)
         }
         else CONFIRMS_FUNCTION.sn(force,chal,post,fermion)

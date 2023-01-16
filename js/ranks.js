@@ -345,19 +345,19 @@ const PRESTIGES = {
         return fp
     },
     unl: [
-        _=>true,
-        _=>true,
-        _=>tmp.chal14comp,
+        ()=>true,
+        ()=>true,
+        ()=>tmp.chal14comp,
     ],
     noReset: [
-        _=>hasUpgrade('br',11),
-        _=>tmp.chal13comp,
-        _=>tmp.chal15comp,
+        ()=>hasUpgrade('br',11),
+        ()=>tmp.chal13comp,
+        ()=>tmp.chal15comp,
     ],
     autoUnl: [
-        _=>tmp.chal13comp,
-        _=>tmp.chal14comp,
-        _=>tmp.chal15comp,
+        ()=>tmp.chal13comp,
+        ()=>tmp.chal14comp,
+        ()=>tmp.chal15comp,
     ],
     autoSwitch(x) { player.auto_pres[x] = !player.auto_pres[x] },
     rewards: [
@@ -385,6 +385,7 @@ const PRESTIGES = {
             "388": `使铀砹混合物的效果可以对赞颂之前(元折算之前)的转生阶层生效，只是效果倍率降低。`,
             "552": `使超新星的奇异折算延迟1.25倍出现。`,
             "607": `使色度获取速度基于转生基础值而增加。`,
+            "651": `使六重阶层的究极折算延迟1.33倍出现。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -396,6 +397,7 @@ const PRESTIGES = {
             "15": `使宇宙弦的超级折算和究极折算基于荣耀的数值而弱化。`,
             "22": `使黑暗之影获取速度变为原来的1.1次方。`,
             "33": `使铀砹混合物的效果可以对元折算之前的五重阶层需求生效，只是效果倍率降低。`,
+            "46": `使挑战13-挑战15的次数上限增加200。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -407,36 +409,36 @@ const PRESTIGES = {
     ],
     rewardEff: [
         {
-            "8": [_=>{
+            "8": [()=>{
                 let x = player.prestiges[0].root(2).div(2).add(1)
                 return x
             },x=>"延迟"+x.format()+"次方"],
-            "10": [_=>{
+            "10": [()=>{
                 let x = Decimal.pow(2,player.prestiges[0])
                 return x
             },x=>x.format()+"倍"],
-            "32": [_=>{
+            "32": [()=>{
                 let x = player.prestiges[0].div(1e4).toNumber()
                 return x
             },x=>"+"+format(x)+"次方"],
-            "233": [_=>{
+            "233": [()=>{
                 let x = player.dark.matters.amt[0].add(1).log10().add(1).log10().add(1).pow(2)
                 return x
             },x=>""+format(x)+"倍"],
-            "382": [_=>{
+            "382": [()=>{
                 let x = player.prestiges[0].max(0).root(2).div(1e3).toNumber()
                 return x
             },x=>"+"+format(x)],
-            "388": [_=>{
+            "388": [()=>{
                 let x = tmp.qu.chroma_eff[1][1].root(2)
                 return x
             },x=>"弱化"+formatReduction(x)+""],
-            "607": [_=>{
+            "607": [()=>{
                 let x = tmp.prestiges.base.max(1).pow(1.5)
                 return x
             },x=>""+format(x)+"倍"],
             /*
-            "1": [_=>{
+            "1": [()=>{
                 let x = E(1)
                 return x
             },x=>{
@@ -445,33 +447,33 @@ const PRESTIGES = {
             */
         },
         {
-            "3": [_=>{
+            "3": [()=>{
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(2)
                 return x
             },x=>""+x.format()+"次方"],
-            "5": [_=>{
+            "5": [()=>{
                 let x = tmp.prestiges.base.max(1).log10().div(10).add(1).root(3)
                 return x
             },x=>""+x.format()+"倍"],
-            "7": [_=>{
+            "7": [()=>{
                 let x = player.prestiges[1].add(1).root(3)
                 return x
             },x=>""+x.format()+"次方"],
-            "15": [_=>{
+            "15": [()=>{
                 let x = player.prestiges[1].root(1.5).div(10).add(1).pow(-1)
                 return x
             },x=>"弱化"+formatReduction(x)+""],
-            "33": [_=>{
+            "33": [()=>{
                 let x = tmp.qu.chroma_eff[1][0].max(1).log10().add(1).pow(2)
                 return x
             },x=>"延迟"+x.format()+"倍"],
         },
         {
-            "5": [_=>{
+            "5": [()=>{
                 let x = player.prestiges[2].root(2).div(10).add(1)
                 return x.toNumber()
             },x=>""+format(x,2)+"倍"],
-            "8": [_=>{
+            "8": [()=>{
                 let x = player.prestiges[2].root(3).div(10).add(1).pow(-1)
                 return x.toNumber()
             },x=>"弱化"+formatReduction(x)+""],
@@ -566,6 +568,130 @@ function updateRanksTemp() {
             if (PRESTIGES.rewardEff[x][y]) tmp.prestiges.eff[x][y] = PRESTIGES.rewardEff[x][y][0]()
         }
     }
+
+    // Beyond
+
+    tmp.beyond_ranks.max_tier = BEYOND_RANKS.getTier()
+    tmp.beyond_ranks.latestRank = BEYOND_RANKS.getRankFromTier(tmp.beyond_ranks.max_tier)
+
+    tmp.beyond_ranks.req = BEYOND_RANKS.req()
+    tmp.beyond_ranks.bulk = BEYOND_RANKS.bulk()
+
+    for (let x in BEYOND_RANKS.rewardEff) {
+        for (let y in BEYOND_RANKS.rewardEff[x]) {
+            if (BEYOND_RANKS.rewardEff[x][y]) tmp.beyond_ranks.eff[x][y] = BEYOND_RANKS.rewardEff[x][y][0]()
+        }
+    }
+}
+
+const BEYOND_RANKS = {
+    req() {
+        let x = player.ranks.beyond.pow(1.25).mul(10).add(180).ceil()
+        return x
+    },
+    bulk() {
+        let x = player.ranks.hex.gte(180)?player.ranks.hex.sub(180).div(10).max(0).root(1.25).add(1).floor():E(0)
+        return x
+    },
+    getTier() {
+        let x = player.ranks.beyond.gt(0)?player.ranks.beyond.log10().max(0).pow(.8).add(1).floor().toNumber():1
+        return x
+    },
+    getRankFromTier(i) {
+        let hp = Decimal.pow(10,(i-1)**(1/.8)).ceil()
+
+        return player.ranks.beyond.div(hp).floor()
+    },
+    getRequirementFromTier(i,t=tmp.beyond_ranks.latestRank,mt=tmp.beyond_ranks.max_tier) {
+        return Decimal.pow(10,(mt)**(1/.8)-(mt-i)**(1/.8)).mul(Decimal.add(t,1)).ceil()
+    },
+
+    reset(auto=false) {
+        if (player.ranks.hex.gte(tmp.beyond_ranks.req) && (!auto || tmp.beyond_ranks.bulk.gt(player.ranks.beyond))) {
+            player.ranks.beyond = player.ranks.beyond.add(auto?tmp.beyond_ranks.bulk:1)
+
+            player.ranks.hex = E(0)
+            DARK.doReset()
+        }
+    },
+
+    rewards: {
+        1: {
+            1: `使物质的指数增加0.5。`,
+            2: `使所有物质的升级基于暗射线的数值变得更强。`,
+            4: `使铀砹混合物的第二个效果基于最终星辰碎片的数值变得更强。`,
+            7: `使物质的获取速度基于七重阶层(超-级别)的数值而增加。`,
+        },
+        2: {
+            1: `您可以自动购买超-级别。`,
+        },
+    },
+
+    rewardEff: {
+        1: {
+            2: [
+                ()=>{
+                    let x = player.dark.rays.add(1).log10().root(2).softcap(10,0.25,0).toNumber()/100+1
+
+                    return x
+                },
+                x=>"增加"+formatPercent(x-1)+""+softcapHTML(x,1.1),
+            ],
+            4: [
+                ()=>{
+                    let x = player.dark.matters.final**0.75/10+1
+
+                    return x
+                },
+                x=>"增加"+formatPercent(x-1)+"",
+            ],
+            7: [
+                ()=>{
+                    let x = player.ranks.beyond.add(1).root(2)
+
+                    return x
+                },
+                x=>"^"+format(x),
+            ],
+        },
+    },
+}
+
+const RTNS = [
+    ['','级别','阶层','四重阶层','五重阶层','六重阶层','七重阶层','八重阶层','九重阶层'],
+    ['','dec','icos'], // d>2 -> cont
+    ['','hect'], // h>1 -> ct
+]
+
+const RTNS2 = [
+    ['','un','do','tri','tetra','penta','hexa','hepta','octa','nona'], // d < 3
+    ['','un','du','tria','tetra','penta','hexa','hepta','octa','nona'],
+    ['','un','di','tri','tetra','penta','hexa','hepta','octa','nona'], // h
+]
+
+function getRankTierName(i) {
+    if (i >= 999) return '['+format(i,0,9,'sc')+']'
+    else {
+        if (i < 9) return RTNS[0][i]
+        i += 1
+        let m = ''
+        let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
+
+        if (d > 0) m += (d > 2 ? (o == 1 ? 'hen' : RTNS2[0][o]) + RTNS2[1][d] + 'cont' : (d == 2 && o == 3 ? "tr" : d > 1 && o == 1 ? "hen" : RTNS2[0][o]) + RTNS[1][d]) + (h > 0 ? 'a' : '');
+        if (h > 0) m += h > 1 ? RTNS2[2][h] + 'ct' : 'hect';
+
+        return capitalFirst(m)
+    }
+}
+
+function hasBeyondRank(x,y) {
+    let t = tmp.beyond_ranks.max_tier, lt = tmp.beyond_ranks.latestRank||E(0)
+    return t > x || t == x && lt.gte(y)
+}
+
+function beyondRankEffect(x,y,def=1) {
+    let e = tmp.beyond_ranks.eff[x]
+    return e?e[y]||def:def
 }
 
 function updateRanksHTML() {
@@ -577,7 +703,7 @@ function updateRanksHTML() {
     if (tmp.rank_tab == 0) {
         for (let x = 0; x < RANKS.names.length; x++) {
             let rn = RANKS.names[x]
-            let unl = RANKS.unl[rn]?RANKS.unl[rn]():true
+            let unl = (!tmp.brUnl || x > 3)&&(RANKS.unl[rn]?RANKS.unl[rn]():true)
             tmp.el["ranks_div_"+x].setDisplay(unl)
             if (unl) {
                 let keys = Object.keys(RANKS.desc[rn])
@@ -597,6 +723,61 @@ function updateRanksHTML() {
                 tmp.el["ranks_auto_"+x].setDisplay(RANKS.autoUnl[rn]())
                 tmp.el["ranks_auto_"+x].setTxt(player.auto_ranks[rn]?"ON":"OFF")
             }
+        }
+
+        let unl = tmp.brUnl
+
+        tmp.el.pre_beyond_ranks.setDisplay(unl)
+        tmp.el.beyond_ranks.setDisplay(unl)
+        if (unl) {
+            let h = ''
+            for (let x = 0; x < 4; x++) {
+                let rn = RANKS.names[x]
+                h += '<div>' + getScalingName(rn) + '<i></i>'  + RANKS.fullNames[x]+ format(player.ranks[rn],0) + '</div>'
+            }
+            tmp.el.pre_beyond_ranks.setHTML(h)
+
+            // Beyond Rank
+
+            tmp.el.br_auto.setDisplay(hasBeyondRank(2,1))
+            tmp.el.br_auto.setTxt(player.auto_ranks.beyond?"ON":"OFF")
+
+            let t = tmp.beyond_ranks.max_tier
+            h = ''
+
+            for (let x = Math.min(3,t)-1; x >= 0; x--) {
+                h += getRankTierName(t+5-x) + "" + (x == 0 ? tmp.beyond_ranks.latestRank.format(0) : BEYOND_RANKS.getRankFromTier(t-x).format(0)) + (x>0?'<br>':"")
+            }
+
+            tmp.el.br_amt.setHTML(h)
+
+            let r = '', b = false
+
+            for (tt in BEYOND_RANKS.rewards) {
+                b = false
+                for (tr in BEYOND_RANKS.rewards[tt]) {
+                    tt = Number(tt)
+                    if (tt > t || (tmp.beyond_ranks.latestRank.lt(tr) && tt == t)) {
+                        r = "在"+getRankTierName(tt+5)+""+format(tr,0)+"，将"+BEYOND_RANKS.rewards[tt][tr]
+                        b = true
+                        break
+                    }
+                }
+                if (b) break;
+            }
+
+            h = `
+                重置六重阶层(并强制融入黑暗)，但提升当前级别。${r}<br>
+                要提升${getRankTierName(t+5)}，需要${getRankTierName(t+4)}${
+                    t == 1
+                    ? tmp.beyond_ranks.req.format(0)
+                    : BEYOND_RANKS.getRequirementFromTier(1,tmp.beyond_ranks.latestRank,t-1).format(0)
+                }。<br>
+                要提升${getRankTierName(t+6)}，需要${getRankTierName(t+5)}${BEYOND_RANKS.getRequirementFromTier(1,0).format(0)}。
+            `
+
+            tmp.el.br_desc.setHTML(h)
+            tmp.el.br_desc.setClasses({btn: true, reset: true, locked: player.ranks.hex.lt(tmp.beyond_ranks.req)})
         }
     }
     if (tmp.rank_tab == 1) {

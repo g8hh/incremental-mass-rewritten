@@ -193,7 +193,7 @@ const MASS_DILATION = {
         toggle() {
             let bd = player.md.break
 
-            if (bd.active) createConfirm("您确定要修复膨胀吗？",'bd',_=>{
+            if (bd.active) createConfirm("您确定要修复膨胀吗？",'bd',()=>{
                 bd.active = false
         
                 bd.energy = E(0)
@@ -334,13 +334,13 @@ const MASS_DILATION = {
                     cost(x) { return uni(1e120) },
                     bulk() { return player.md.break.mass.gte(uni(1e120))?E(1):E(0) },
                 },{
-                    unl: _=>player.dark.unl,
+                    unl: ()=>player.dark.unl,
                     desc: `You can now automatically evaporate resources. (Stronger than manual).`,
                     maxLvl: 1,
                     cost(x) { return uni(1e240) },
                     bulk() { return player.md.break.mass.gte(uni(1e240))?E(1):E(0) },
                 },{
-                    unl: _=>player.dark.unl,
+                    unl: ()=>player.dark.unl,
                     desc: `Double dark shadows gain.`,
                     cost(x) {
                         x = x.scale(17,hasPrestige(2,3)?1.5:3,0)

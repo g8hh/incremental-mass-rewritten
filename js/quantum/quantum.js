@@ -22,7 +22,7 @@ const QUANTUM = {
     enter(auto=false,force=false,rip=false,bd=false) {
         if (tmp.qu.gain.gte(1) || force) {
             if (player.confirms.qu&&!auto&&!force) createConfirm("你确定要前往量子吗？除了部分qol升级以外您将失去绝大部分进度",'quReset',
-            _=>{createConfirm("您真的确定了吗？？？",'quReset',_=>CONFIRMS_FUNCTION.qu(auto,force,rip,bd))})
+            ()=>{createConfirm("您真的确定了吗？？？",'quReset',()=>CONFIRMS_FUNCTION.qu(auto,force,rip,bd))})
             else CONFIRMS_FUNCTION.qu(auto,force,rip,bd)
         }
     },
