@@ -306,19 +306,19 @@ const PRESTIGES = {
         return x.sub(1)
     },
     req(i) {
-        let x = EINF, fp = this.fp(i), y = player.prestiges[i].div(fp)
+        let x = EINF, fp = this.fp(i), y = player.prestiges[i]
         switch (i) {
             case 0:
-                x = Decimal.pow(1.1,y.scaleEvery('prestige0').pow(1.1)).mul(2e13)
+                x = Decimal.pow(1.1,y.scaleEvery('prestige0',false,[0,0,0,fp]).pow(1.1)).mul(2e13)
                 break;
             case 1:
-                x = y.scaleEvery('prestige1').pow(1.25).mul(3).add(4)
+                x = y.div(fp).scaleEvery('prestige1',false).pow(1.25).mul(3).add(4)
                 break;
             case 2:
-                x = hasElement(167)?y.pow(1.25).mul(3.5).add(5):y.pow(1.3).mul(4).add(6)
+                x = hasElement(167)?y.div(fp).pow(1.25).mul(3.5).add(5):y.pow(1.3).mul(4).add(6)
                 break;
             case 3:
-                x = y.pow(1.25).mul(3).add(9)
+                x = y.div(fp).pow(1.25).mul(3).add(9)
                 break;
             default:
                 x = EINF
@@ -330,7 +330,7 @@ const PRESTIGES = {
         let x = E(0), y = i==0?tmp.prestiges.base:player.prestiges[i-1], fp = this.fp(i)
         switch (i) {
             case 0:
-                if (y.gte(2e13)) x = y.div(2e13).max(1).log(1.1).max(0).root(1.1).scaleEvery('prestige0',true).mul(fp).add(1)
+                if (y.gte(2e13)) x = y.div(2e13).max(1).log(1.1).max(0).root(1.1).scaleEvery('prestige0',true,[0,0,0,fp]).add(1)
                 break;
             case 1:
                 if (y.gte(4)) x = y.sub(4).div(3).max(0).root(1.25).scaleEvery('prestige1',true).mul(fp).add(1)
@@ -351,6 +351,7 @@ const PRESTIGES = {
         let fp = 1
         if (player.prestiges[2].gte(1) && i < 2) fp *= 1.15
         if (player.prestiges[3].gte(1) && i < 3) fp *= 1.1
+        if (hasUpgrade('br',19) && i < 3) fp *= upgEffect(4,19)
         return fp
     },
     unl: [
@@ -412,6 +413,7 @@ const PRESTIGES = {
             "33": `使铀砹混合物的效果可以对元折算之前的五重阶层需求生效，只是效果倍率降低。`,
             "46": `使挑战13-挑战15的次数上限增加200。`,
             "66": `使费米子的所有折算弱化20%。`,
+            "91": `最终星辰碎片基础值变为原来的1.05次方。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -422,6 +424,7 @@ const PRESTIGES = {
         },
         {
             "1": `之前所有转生的需求降低10%。`,
+            "2": `每次名望使超新星的奇异折算延迟1.25倍出现。`,
         },
     ],
     rewardEff: [
@@ -496,7 +499,10 @@ const PRESTIGES = {
             },x=>"弱化"+formatReduction(x)+""],
         },
         {
-            
+            "2": [()=>{
+                let x = Decimal.pow(1.25,player.prestiges[3])
+                return x
+            },x=>"延迟"+x.format()+"倍"],
         },
     ],
     reset(i, bulk = false) {
@@ -630,6 +636,8 @@ const BEYOND_RANKS = {
         if (player.ranks.hex.gte(tmp.beyond_ranks.req) && (!auto || tmp.beyond_ranks.bulk.gt(player.ranks.beyond))) {
             player.ranks.beyond = auto ? player.ranks.beyond.max(tmp.beyond_ranks.bulk) : player.ranks.beyond.add(1)
 
+            if (hasBeyondRank(2,2)) return;
+
             player.ranks.hex = E(0)
             DARK.doReset()
         }
@@ -644,6 +652,7 @@ const BEYOND_RANKS = {
         },
         2: {
             1: `您可以自动购买超-级别。超-级别可以对转生基础值生效，公式不变。`,
+            2: `超-级别不再重置任何东西。使[元-轻子]的效果变为原来的8倍。`,
         },
     },
 

@@ -149,10 +149,12 @@ var cnItems = {
     'Tetr': '四重阶层',
     'Pent': '五重阶层',
     'Hex': '六重阶层',
-    'Mass Upgrades': '质量升级',
+    'Mass Upgrades 1-3': '质量升级1-质量升级3',
     'Tickspeed': '时间速度',
     'Black Hole Condenser': '黑洞压缩器',
     'Cosmic Ray': '宇宙射线',
+    'Glory': '赞颂',
+    'Overpower': '降伏器',
     '): Starts at ': ')：开始次数为',
     //#endregion
     //#region 升级
@@ -174,7 +176,7 @@ var cnItems = {
     'Mass boost Atom gain.': '使质量可以加成原子获取速度。',
     'Remove tickspeed power\'s softcap.': '移除时间速度倍率的软上限。',
     'Overpower power is increased by 0.005.': '使降伏器倍率增加0.005。',
-    'Fading matter\'s upgrade applies collapsed stars gain at reduced rate.': '使褪色物质的升级可以对坍缩星辰获取速度生效，只是效果倍率降低。',
+    'Fading matter\'s upgrade applies rage powers gain at reduced rate.': '使褪色物质的升级可以对狂怒能量获取速度生效，只是效果倍率降低。',
     'Supernovas boost overpower\'s power.': '使超新星次数可以加成降伏器倍率。',
     'Black Hole Upgrades': '黑洞升级',
     'Mass Upgardes no longer spends mass.': '购买质量升级不再花费质量。',
@@ -234,6 +236,7 @@ var cnItems = {
     'Unsoftcap the first effect from Alpha, Omega & Sigma particles. They\'re stronger.': '移除阿尔法粒子第一个效果、欧米伽粒子第一个效果和西格马粒子第一个效果的软上限，且它们的效果变得更好。',
     'Dark matter raises atoms gain at a reduced rate.': '使暗物质可以加成原子获取速度，只是效果倍率降低。',
     'Chromas gain is boosted by mass.': '使色度获取速度基于质量的数值而增加。',
+    'Red Matters reduce Pre-Renown requirements slightly.': '使红色质量可以略微减少名望之前所有转生的需求。',
     //#endregion
     //#region 挑战
     ' Note 1: Click any image to show challenge description. Click again to enter any challenge': '提示1：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
@@ -654,6 +657,9 @@ var cnItems = {
     'Stronger overflow starts later based on FSS.': '使强化器的溢出基于最终星辰碎片的数值延迟出现。',
     'Meta-Rank Boost also affects Meta-Tetr starting at a reduced rate, strengthen Unpentpentium-155.': '使级别元折算加成可以延迟四重阶层的元折算，只是效果倍率降低。使Unpentpentium(155Upp)的效果变得更好。',
     'Exotic supernova scales 25% weaker.': '使超新星的奇异折算弱化25%。',
+    '[Bottom]’s effect is changed to better, uncapping. Fourth Proton upgrade now provides an exponential boost.': '使[底夸克]的效果变得更好。使光子的第4个升级变为指数加成。',
+    'Entropic Multiplier is overpowered.': '使熵加倍变得滥强。',
+    'Entropic Evaporation^2 and Condenser^2 scale another 15% weaker.': '使熵消耗²和熵压缩²的折算再度弱化15%。',
     'inactive': '未激活',
     'Double dilated mass gain.': '使膨胀质量获取速度翻倍。',
     'Make dilated mass effect stronger.': '使膨胀质量的效果变得更好。',
@@ -994,6 +1000,7 @@ var cnItems = {
     'Boosts each matters gain by ': '使每种物质获取速度变为原来的',
     'Boosts accelerator power by ': '使加速器倍率变为原来的',
     'Atomic power & quark overflows start ': '使原子能量和夸克的溢出延迟',
+    'Final Star Shard is ': '使最终星辰碎片强化',
     'Passively gains ': '每秒获得暗射线，数量为重置时获取数量的',
     ' of dark rays gained on reset': '',
     'Earns ': '使雕文获取数量变为原来的',
@@ -1106,7 +1113,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.3.1 - made by MrRedShark77': '质量增量重制版v0.6.3.1 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.3.2 - made by MrRedShark77': '质量增量重制版v0.6.3.2 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Lemon': 'Lemon',
@@ -1228,6 +1235,7 @@ var cnRegReplace = new Map([
     [/^Currently: \+(.+) Boosters$/, '目前效果：增加$1助推器'], //升级等
     [/^Currently: \+(.+) Stronger$/, '目前效果：增加$1强化器'], //升级等
     [/^Currently: x(.+) later$/, '目前效果：延迟$1倍出现'], //升级等
+    [/^Currently: x(.+) cheaper$/, '目前效果：减少$1倍'], //升级等
     [/^Currently: x(.*)$/, '目前效果：倍率为$1'], //升级等
     [/^Currently: \+(.+) later\s*$/, '目前效果：延迟$1次出现'], //升级等
     [/^Currently: (.+)x later$/, '目前效果：延迟$1倍出现'], //升级等
