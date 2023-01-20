@@ -400,6 +400,7 @@ const PRESTIGES = {
             "607": `使色度获取速度基于转生基础值而增加。`,
             "651": `使六重阶层的究极折算延迟1.33倍出现。`,
             "867": `使锂(3Li)的效果变为指数加成。使宇宙射线的元折算延迟8次方出现。`,
+            "1337": `使量子之前所有资源获取速度可以加成物质的指数，只是效果倍率降低。使转生等级382的奖励变得更好。`,
         },
         {
             "1": `使所有星辰相关资源获取速度变为原来的2次方。`,
@@ -421,6 +422,7 @@ const PRESTIGES = {
             "4": `使铀砹混合物解锁新的效果。`,
             "5": `使赞颂可以加成雕文获取数量。`,
             "8": `使赞颂可以减少黑洞溢出的削弱。`,
+            //"19": `?!.`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
@@ -446,8 +448,9 @@ const PRESTIGES = {
                 return x
             },x=>""+format(x)+"倍"],
             "382": [()=>{
-                let x = player.prestiges[0].max(0).root(2).div(1e3).toNumber()
-                return x
+                let x = player.prestiges[0].max(0).root(2).div(1e3)
+                if (hasPrestige(0,1337)) x = x.mul(10)
+                return x.toNumber()
             },x=>"+"+format(x)],
             "388": [()=>{
                 let x = tmp.qu.chroma_eff[1][1].root(2)
@@ -457,6 +460,10 @@ const PRESTIGES = {
                 let x = tmp.prestiges.base.max(1).pow(1.5)
                 return x
             },x=>""+format(x)+"倍"],
+            "1337": [()=>{
+                let x = tmp.preQUGlobalSpeed.max(1).log10().add(1).log10().div(10)
+                return x.toNumber()
+            },x=>"+"+format(x)],
             /*
             "1": [()=>{
                 let x = E(1)
@@ -653,6 +660,7 @@ const BEYOND_RANKS = {
         2: {
             1: `您可以自动购买超-级别。超-级别可以对转生基础值生效，公式不变。`,
             2: `超-级别不再重置任何东西。使[元-轻子]的效果变为原来的8倍。`,
+            4: `加速器效果可以对时间速度、黑洞压缩器和宇宙射线倍率生效。使色度获取速度变为原来的1.1次方。`,
         },
     },
 
