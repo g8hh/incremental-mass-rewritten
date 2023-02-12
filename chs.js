@@ -1384,8 +1384,8 @@ var cnRegReplace = new Map([
     [/^U-Quarks are (.+)x stronger$/, '使U-夸克增加$1倍'], //超新星等
     [/^BH formula softcap starts \^(.+) later$/, '使黑洞质量获取公式的软上限延迟$1次方出现'], //超新星等
     [/^Makes tickspeed power raised to the (.+)th power.$/, '使时间速度倍率变为原来的$1次方。'], //量子等
-    [/^Makes all Pre-Pent requirements reduced by (.+)x$/, '使五重阶层之前的级别和阶层需求减少$1倍'], //量子等
-    [/^Makes all Pre-Exotic pre-Pent requirements reduced by (.+)x$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍'], //量子等
+    [/^Makes all Pre-Pent requirements reduced by (.+)x.$/, '使五重阶层之前的级别和阶层需求减少$1倍。'], //量子等
+    [/^Makes all Pre-Exotic pre-Pent requirements reduced by (.+)x.$/, '使五重阶层之前(奇异折算之前)的级别和阶层需求减少$1倍。'], //量子等
     [/^Also, all pre-Exotic pre-Hex scalings are (.+) weaker.$/, '另外，使六重阶层之前的所有奇异折算之前的折算弱化$1。'], //量子等
     [/^Also, all pre-Exotic Rank-Hex scalings are (.+) weaker.$/, '另外，使级别至六重阶层的所有奇异折算之前的折算弱化$1。'], //量子等
     [/^Makes rewards from Challenges 1-8 (.+)x stronger.$/, '使挑战1-挑战8的奖励效果增加$1倍。'], //量子等
