@@ -7,7 +7,7 @@ const MASS_DILATION = {
         return x
     },
     onactive() {
-        if (player.dark.run.active) return
+        if (tmp.c16active || player.dark.run.active) return
         if (player.md.active) player.md.particles = player.md.particles.add(tmp.md.rp_gain)
         player.md.active = !player.md.active
         ATOM.doReset()
@@ -19,7 +19,7 @@ const MASS_DILATION = {
         if (FERMIONS.onActive("01")) x = x.div(10)
         if (QCs.active()) x = x.mul(tmp.qu.qc_eff[4])
         if (hasElement(24) && hasPrestige(0,40)) x = x.mul(tmp.elements.effect[24])
-        if (player.dark.run.active) x = x.pow(mgEff(3))
+        if (tmp.c16active || player.dark.run.active) x = x.pow(mgEff(3))
         return x
     },
     RPmultgain() {
@@ -51,7 +51,7 @@ const MASS_DILATION = {
 
         if (hasElement(40)) x = x.pow(tmp.elements.effect[40][1])
 
-        if (player.dark.run.active) x = expMult(x,mgEff(3))
+        if (tmp.c16active || player.dark.run.active) x = expMult(x,mgEff(3))
 
         let o = x
         let os = E('ee30').pow(glyphUpgEff(8))
@@ -60,6 +60,7 @@ const MASS_DILATION = {
 
         x = overflow(x,os,0.5)
 
+        tmp.overflowBefore.dm = o
         tmp.overflow.dm = calcOverflow(o,x,os)
         tmp.overflow_start.dm = os
 
@@ -102,7 +103,7 @@ const MASS_DILATION = {
                 cost(x) { return tmp.md.bd3 ? E(10).pow(E(1.25).pow(x)).mul(100) : E(10).pow(x).mul(100) },
                 bulk() { return player.md.mass.gte(100)?(tmp.md.bd3 ? player.md.mass.div(100).max(1).log10().max(1).log(1.25).add(1).floor() : player.md.mass.div(100).max(1).log10().add(1).floor()):E(0) },
                 effect(x) {
-                    if (tmp.md.bd3) return x.mul(tmp.md.upgs[11].eff||1).root(player.qu.rip.active || player.dark.run.active ? 3 : 2).mul(player.qu.rip.active || player.dark.run.active ? 0.05 : 0.1).add(1)
+                    if (tmp.md.bd3) return x.mul(tmp.md.upgs[11].eff||1).root(player.qu.rip.active || tmp.c16active || player.dark.run.active ? 3 : 2).mul(player.qu.rip.active || tmp.c16active || player.dark.run.active ? 0.05 : 0.1).add(1)
                     if (hasElement(83)) return expMult(x,2,1.5).add(1)
                     return player.md.upgs[7].gte(1)?x.mul(tmp.md.upgs[11].eff||1).root(1.5).mul(0.25).add(1):x.mul(tmp.md.upgs[11].eff||1).root(2).mul(0.15).add(1)
                 },
@@ -152,7 +153,7 @@ const MASS_DILATION = {
                 bulk() { return player.md.mass.gte(1.5e246)?E(1):E(0) },
             },{
                 unl() { return STARS.unlocked() || player.supernova.times.gte(1) },
-                desc: `Tickspeed affect all-star resources at a reduced rate.`,
+                desc: `Tickspeed affects all-star resources at a reduced rate.`,
                 maxLvl: 1,
                 cost(x) { return E(1.5e296) },
                 bulk() { return player.md.mass.gte(1.5e296)?E(1):E(0) },
@@ -169,7 +170,7 @@ const MASS_DILATION = {
                 effDesc(x) { return format(x)+"倍"+(x.gte(1e25)?"<span class='soft'>(softcapped)</span>":"") },
             },{
                 unl() { return player.supernova.times.gte(1) },
-                desc: `Add 0.015 Mass Dilation upgrade 6's base.`,
+                desc: `Add 0.015 to mass dilation upgrade 6's base.`,
                 cost(x) { return E(1e50).pow(x.pow(1.5)).mul('1.50001e1556') },
                 bulk() { return player.md.mass.gte('1.50001e1556')?player.md.mass.div('1.50001e1556').max(1).log(1e50).max(0).root(1.5).add(1).floor():E(0) },
                 effect(i) {
@@ -422,7 +423,7 @@ function updateMDTemp() {
         tmp.md.upgs = []
         for (let x = 0; x < MASS_DILATION.upgs.ids.length; x++) tmp.md.upgs[x] = {}
     }
-    tmp.md.bd3 = player.md.break.upgs[2].gte(1)
+    tmp.md.bd3 = !tmp.c16active && player.md.break.upgs[2].gte(1)
     let mdub = 1
     if (hasElement(115)) mdub *= 1.05
     for (let x = 0; x < MASS_DILATION.upgs.ids.length; x++) {
@@ -473,9 +474,11 @@ function updateMDHTML() {
         let unl = upg.unl?upg.unl():true
         tmp.el["md_upg"+x+"_div"].setVisible(unl)
         if (unl) {
-            tmp.el["md_upg"+x+"_div"].setClasses({btn: true, full: true, md: true, locked: !tmp.md.upgs[x].can})
+            tmp.el["md_upg"+x+"_div"].setClasses({btn: true, full: true, md: true, locked: !tmp.md.upgs[x].can })
             if ((upg.maxLvl||1/0) > 1) tmp.el["md_upg"+x+"_lvl"].setTxt(format(player.md.upgs[x],0)+(upg.maxLvl!==undefined?"，上限为"+format(upg.maxLvl,0):""))
-            if (upg.effDesc) tmp.el["md_upg"+x+"_eff"].setHTML(upg.effDesc(tmp.md.upgs[x].eff))
+            if (upg.effDesc) {
+                tmp.el["md_upg"+x+"_eff"].setHTML(upg.effDesc(tmp.md.upgs[x].eff))
+            }
             tmp.el["md_upg"+x+"_cost"].setTxt(player.md.upgs[x].lt(upg.maxLvl||1/0)?"花费："+formatMass(tmp.md.upgs[x].cost):"")
         }
     }
@@ -489,6 +492,7 @@ function updateMDHTML() {
 
 function updateBDHTML() {
     let bd = player.md.break
+    let c16 = tmp.c16active
 
     tmp.el.bd_btn.setTxt(bd.active?"Fix Dilation":"Break Dilation")
 
@@ -500,7 +504,7 @@ function updateBDHTML() {
         let unl = upg.unl?upg.unl():true
         tmp.el["bd_upg"+x+"_div"].setVisible(unl)
         if (unl) {
-            tmp.el["bd_upg"+x+"_div"].setClasses({btn: true, full: true, bd: true, locked: !tmp.bd.upgs[x].can})
+            tmp.el["bd_upg"+x+"_div"].setClasses({btn: true, full: true, bd: true, locked: !tmp.bd.upgs[x].can, corrupted_text2: x == 2 && c16})
             if ((upg.maxLvl||1/0) > 1) tmp.el["bd_upg"+x+"_lvl"].setTxt(format(bd.upgs[x],0)+(upg.maxLvl!==undefined?"，上限为"+format(upg.maxLvl,0):""))
             if (upg.effDesc) tmp.el["bd_upg"+x+"_eff"].setHTML(upg.effDesc(tmp.bd.upgs[x].eff))
             tmp.el["bd_upg"+x+"_cost"].setTxt(bd.upgs[x].lt(upg.maxLvl||1/0)?"花费："+formatMass(tmp.bd.upgs[x].cost):"")

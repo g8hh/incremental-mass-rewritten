@@ -2,7 +2,7 @@ const DARK_RUN = {
     mass_glyph_name: ['西里尔雕文', '德意志雕文', '瑞典雕文', '中国雕文', '西班牙雕文', '斯洛伐克雕文'],
 
     mass_glyph_eff(i) {
-        let x, g = player.dark.run.glyphs[i]
+        let x, g = tmp.c16active ? i == 5 ? 10 : 100 : player.dark.run.glyphs[i]
 
         if (i < 4) x = 1/(g**0.5/100+1)
         else if (i == 4) x = [1/(g**0.5/100+1),1.1**(g**0.75)]
@@ -12,12 +12,12 @@ const DARK_RUN = {
     },
 
     mass_glyph_effDesc: [
-        x => `在黑暗狂奔时，使质量倍率和黑洞质量倍率的指数减少${format(x)}。\n根据质量的数值获得更多雕文。`,
-        x => `在黑暗狂奔时，使暗物质倍率和狂怒能量倍率的指数减少${format(x)}。\n根据黑洞质量的数值获得更多雕文。`,
-        x => `在黑暗狂奔时，使原子倍率、原子能量倍率和夸克倍率的指数减少${format(x)}。\n根据夸克的数值获得更多雕文。`,
-        x => `在黑暗狂奔时，使相对论粒子倍率和膨胀质量公式的指数减少${format(x)}。\n根据膨胀质量的数值获得更多雕文。`,
-        x => `在黑暗狂奔时，使星辰相关资源倍率的指数减少${format(x[0])}，使超新星的需求变为原来的${format(x[1])}倍。\n根据坍缩星辰的数值获得更多雕文。`,
-        x => `在黑暗狂奔时，使转生基础值的指数除以${format(x)}，使所有级别的需求变为原来的${format(x)}倍。\n根据转生基础值获得更多雕文。`,
+        x => `在黑暗狂奔时，使质量倍率和黑洞质量倍率的指数减少<b>${format(x)}</b>。<br class='line'>根据质量的数值获得更多雕文。`,
+        x => `在黑暗狂奔时，使暗物质倍率和狂怒能量倍率的指数减少<b>${format(x)}</b>。<br class='line'>根据黑洞质量的数值获得更多雕文。`,
+        x => `在黑暗狂奔时，使原子倍率、原子能量倍率和夸克倍率的指数减少<b>${format(x)}</b>。<br class='line'>根据夸克的数值获得更多雕文。`,
+        x => `在黑暗狂奔时，使相对论粒子倍率和膨胀质量公式的指数减少<b>${format(x)}</b>。<br class='line'>根据膨胀质量的数值获得更多雕文。`,
+        x => `在黑暗狂奔时，使星辰相关资源倍率的指数减少<b>${format(x[0])}</b>，使超新星的需求变为原来的<b>${format(x[1])}</b>倍。<br class='line'>根据坍缩星辰的数值获得更多雕文。`,
+        x => `在黑暗狂奔时，使转生基础值的指数除以<b>${format(x)}</b>，使所有级别的需求变为原来的<b>${format(x)}</b>倍。<br class='line'>根据转生基础值获得更多雕文。`,
     ],
 
     mass_glyph_gain: [
@@ -78,7 +78,7 @@ const DARK_RUN = {
             eff(i) { return 1.5**i },
             effDesc: x=>"^"+format(x,2),
         },{
-            desc: `Increase dark ray gain by 200% every level.`,
+            desc: `Triple dark ray gain for each level.`,
             cost(i) {
                 i *= Math.max(1,i-4)**0.5
                 return {0: Math.floor(20+20*i), 1: Math.floor(20+20*i), 2: Math.floor(20+20*i)}
@@ -130,7 +130,7 @@ const DARK_RUN = {
             cost(i) { return {0: 542, 2: 404} },
         },{
             max: 10,
-            desc: `Each matter's the exponent is increased by 12.5% per level.`,
+            desc: `Each matter's exponent is increased by 12.5% per level.`,
             cost(i) {
                 let j = Math.ceil(10*i**1.2)
                 return {0: 160+j, 1: 446+j, 2: 460+j, 3: 328+j, 4: 333+j, 5: 222+j}
@@ -190,13 +190,14 @@ function buyGlyphUpgrade(i) {
 
 function updateDarkRunHTML() {
     let dra = player.dark.run.active
+    let c16 = tmp.c16active
 
     tmp.el.dark_run_btn.setTxt(dra?"Exit Dark Run":"Start Dark Run")
     tmp.el.mg_btn_mode.setTxt(["Earning", "Max Earning", "Clear Glyph"][player.dark.run.gmode])
     tmp.el.mg_max_gain.setTxt(format(player.dark.run.gamount,0))
     for (let x = 0; x < MASS_GLYPHS_LEN; x++) {
-        tmp.el["mass_glyph"+x].setHTML(player.dark.run.glyphs[x] + (dra ? "(+" + format(tmp.dark.mass_glyph_gain[x],0) + ")" : ""))
-        tmp.el["mass_glyph_tooltip"+x].setTooltip(DARK_RUN.mass_glyph_name[x]+"\n"+DARK_RUN.mass_glyph_effDesc[x](tmp.dark.mass_glyph_eff[x]))
+        tmp.el["mass_glyph"+x].setHTML(c16 ? x == 5 ? 10 : 100 : player.dark.run.glyphs[x] + (dra ? "(+" + format(tmp.dark.mass_glyph_gain[x],0) + ")" : ""))
+        tmp.el["mass_glyph_tooltip"+x].setTooltip("<h3>"+DARK_RUN.mass_glyph_name[x]+"</h3><br class='line'>"+DARK_RUN.mass_glyph_effDesc[x](tmp.dark.mass_glyph_eff[x]))
     }
 
     let gum = tmp.mass_glyph_msg
@@ -207,7 +208,11 @@ function updateDarkRunHTML() {
         let ua = player.dark.run.upg[gum]||0
         let max = u.max||Infinity
 
-        msg = "[等级："+format(ua,0)+(isFinite(max)?"，上限为"+format(max,0):"")+"]<br><span class='sky'>"+(typeof u.desc == "function" ? u.desc() : u.desc)+"</span><br>"
+        let desc = "<span class='sky'>"+(typeof u.desc == "function" ? u.desc() : u.desc)+"</span>"
+
+        if (c16 && gum == 14) desc = desc.corrupt()
+
+        msg = "[等级："+format(ua,0)+(isFinite(max)?"，上限为"+format(max,0):"")+"]<br>"+desc+"<br>"
 
         if (ua<max) {
             let cr = "", cost = u.cost(ua), n = 0, cl = Object.keys(cost).length
@@ -274,7 +279,7 @@ function setupDarkRunHTML() {
     for (let x = 0; x < MASS_GLYPHS_LEN; x++) {
         html += `
         <div style="margin: 5px; width: 100px">
-            <div id="mass_glyph_tooltip${x}" style="margin-bottom: 5px;" onclick="glyphButton(${x})" tooltip="${DARK_RUN.mass_glyph_name[x]}"><img style="cursor: pointer" src="images/glyphs/glyph${x}.png"></div>
+            <div id="mass_glyph_tooltip${x}" class="tooltip" style="margin-bottom: 5px;" onclick="glyphButton(${x})" tooltip-html="${DARK_RUN.mass_glyph_name[x]}"><img style="cursor: pointer" src="images/glyphs/glyph${x}.png"></div>
             <div id="mass_glyph${x}">0</div>
         </div>
         `

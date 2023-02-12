@@ -1,6 +1,6 @@
 const QCs = {
-    active() { return player.qu.qc.active || player.qu.rip.active || CHALS.inChal(14) || CHALS.inChal(15) || player.dark.run.active },
-    getMod(x) { return CHALS.inChal(15) ? [10,5,10,10,10,10,10,10][x] : player.dark.run.active ? 8 : CHALS.inChal(14) ? 5 : player.qu.rip.active ? BIG_RIP_QC[x] : player.qu.qc.mods[x] },
+    active() { return player.qu.qc.active || player.qu.rip.active || CHALS.inChal(14) || CHALS.inChal(15) || tmp.c16active || player.dark.run.active },
+    getMod(x) { return CHALS.inChal(15) ? [10,5,10,10,10,10,10,10][x] : tmp.c16active || player.dark.run.active ? 8 : CHALS.inChal(14) ? 5 : player.qu.rip.active ? BIG_RIP_QC[x] : player.qu.qc.mods[x] },
     incMod(x,i) { if (!this.active()) player.qu.qc.mods[x] = Math.min(Math.max(player.qu.qc.mods[x]+i,0),10) },
     enter() {
         if (!player.qu.qc.active) {
@@ -20,51 +20,51 @@ const QCs = {
             eff(i) {
                 return [1-0.03*i,2/(i+2)]
             },
-            effDesc(x) { return `^${format(x[0])} to exponent from All-Stars resources.<br>^${format(x[1])} to strength of star generators.` },
+            effDesc(x) { return `使所有星辰相关资源的获取速度变为原来的<b>${format(x[0])}次方</b>。<br>使星辰发生器的效果变为原来的<b>${format(x[1])}次方</b>。` },
         },{
             eff(i) {
                 let x = E(2).pow(i**2)
                 return x
             },
-            effDesc(x) { return `/${format(x,0)} to pre-Quantum global speed.` },
+            effDesc(x) { return `使量子之前所有资源获取速度除以<b>${format(x,0)}</b>。` },
         },{
             eff(i) {
                 let x = i**1.5*0.15+1
                 return x
             },
-            effDesc(x) { return `x${format(x)} to requirements of any Fermions.` },
+            effDesc(x) { return `使所有费米子的需求变为原来的<b>${format(x)}倍</b>。` },
         },{
             eff(i) {
                 let x = 0.9**(i**1.25)
                 return x
             },
-            effDesc(x) { return `^${format(x)} to multiplier from Bosonic & Radiation resources.` },
+            effDesc(x) { return `使玻色子和辐射波的加成变为原来的<b>${format(x)}次方</b>。` },
         },{
             eff(i) {
                 let x = 0.8**(i**1.25)
                 return x
             },
-            effDesc(x) { return `^${format(x)} to multiplier from pre-Supernova resources, except All-Stars resources.` },
+            effDesc(x) { return `使超新星之前所有资源(除了星辰相关资源)的加成变为原来的<b>${format(x)}次方</b>。` },
         },{
             eff(i) {
                 let x = 1.2**i
                 return x
             },
-            effDesc(x) { return `x${format(x)} to requirements of any pre-Quantum Challenges.` },
+            effDesc(x) { return `使所有量子之前的挑战需求变为原来的<b>${format(x)}倍</b>。` },
         },{
             eff(i) {
                 if (hasElement(163)) i /= 2
                 let x = i**1.5/2+1
                 return x
             },
-            effDesc(x) { return `^${format(x)} to Mass Dilation’s penalty.` },
+            effDesc(x) { return `使质量膨胀的惩罚变为原来的<b>${format(x)}次方</b>。` },
         },{
             eff(i) {
                 if (hasElement(98) && player.qu.rip.active) i *= 0.8
                 let x = [1-0.05*i,i/10+1]
                 return x
             },
-            effDesc(x) { return `^${format(x[0])} to starting of pre-Quantum scaling.<br>${format(x[1]*100)}% to strength of pre-Quantum scaling.` },
+            effDesc(x) { return `使所有量子之前的折算提前<b>${format(x[0])}次方</b>开始出现。<br>使所有量子之前的折算效果变为原来的<b>${format(x[1]*100)}%</b>。` },
         },
     ],
 }
@@ -126,9 +126,9 @@ function setupQCHTML() {
 	for (let x = 0; x < QCs_len; x++) {
         table += `
         <div style="margin: 5px;">
-        <div style="margin: 5px" tooltip="${QCs.names[x]}"><img onclick="tmp.qc_ch = ${x}" style="cursor: pointer" src="images/qcm${x}.png"></div>
+        <div style="margin: 5px" id='qc_tooltip${x}' class="tooltip" tooltip-html="${QCs.names[x]}"><img style="cursor: pointer" src="images/qcm${x}.png"></div>
         <div><span id="qcm_mod${x}">0</span>/10</div>
-        <div id="qcm_btns${x}"><button onclick="QCs.incMod(${x},-1); tmp.qc_ch = ${x}">-</button><button onclick="QCs.incMod(${x},1); tmp.qc_ch = ${x}">+</button></div>
+        <div id="qcm_btns${x}"><button onclick="QCs.incMod(${x},-1)">-</button><button onclick="QCs.incMod(${x},1)">+</button></div>
         </div>
         `
     }
@@ -147,7 +147,7 @@ function updateQCModPresets() {
         for (let y = 0; y < QCs_len; y++) {
             table += `
             <div style="margin: 5px; align-items: center;" class="table_center">
-            <div style="margin-right: 3px; width: 20px; text-align: right;">${p.mods[y]}</div><div tooltip="${QCs.names[y]}"><img style="width: 25px; height: 25px" src="images/qcm${y}.png"></div>
+            <div style="margin-right: 3px; width: 20px; text-align: right;">${p.mods[y]}</div><div class="tooltip" tooltip-html="${QCs.names[y]}"><img style="width: 25px; height: 25px" src="images/qcm${y}.png"></div>
             </div>
             `
         }
@@ -161,6 +161,7 @@ function updateQCModPresets() {
         </div>`
     }
     tmp.el.QC_Presets_table.setHTML(table)
+    setupTooltips()
 }
 
 function updateQCTemp() {
@@ -193,17 +194,19 @@ function updateQCHTML() {
         tmp.el["qc_tab"+x].setDisplay(tmp.qc_tab == x)
     }
     if (tmp.qc_tab == 0) {
-        tmp.el.qc_btn.setDisplay(!(player.qu.rip.active || player.dark.run.active))
+        tmp.el.qc_btn.setDisplay(!(player.qu.rip.active || tmp.c16active || player.dark.run.active))
         tmp.el.qc_btn.setTxt((QCs.active()?"Exit":"Enter") + " the Quantum Challenge")
         for (let x = 0; x < QCs_len; x++) {
             tmp.el["qcm_mod"+x].setTxt(QCs.getMod(x))
             tmp.el["qcm_btns"+x].setDisplay(!QCs.active())
-        }
-        tmp.el.qc_desc_div.setDisplay(tmp.qc_ch >= 0)
-        if (tmp.qc_ch >= 0) {
-            let x = tmp.qc_ch
-            tmp.el.qc_ch_title.setTxt(`[${x+1}]${QCs.names[x]}[目前为${QCs.getMod(x)}，上限为10]`)
-            tmp.el.qc_ch_desc.setHTML(QCs.ctn[x].effDesc(tmp.qu.qc_eff[x]))
+
+            tmp.el['qc_tooltip'+x].setTooltip(
+                `
+                <h3>${QCs.names[x]}</h3>
+                <br class='line'>
+                ${QCs.ctn[x].effDesc(tmp.qu.qc_eff[x])}
+                `
+            )
         }
     }
 }

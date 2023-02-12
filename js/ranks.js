@@ -5,11 +5,11 @@ const RANKS = {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].add(1)
             let reset = true
-            if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
+            if (tmp.chal14comp) reset = false
+            else if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
             else if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             else if (type == "tetr" && hasTree("qol5")) reset = false
             else if (type == "pent" && hasTree("qol8")) reset = false
-            else if (type == "hex" && tmp.chal14comp) reset = false
             if (reset) this.doReset[type]()
             updateRanksTemp()
         }
@@ -18,11 +18,11 @@ const RANKS = {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].max(tmp.ranks[type].bulk.max(player.ranks[type].add(1)))
             let reset = true
+            if (tmp.chal14comp) reset = false
             if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
             else if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             else if (type == "tetr" && hasTree("qol5")) reset = false
             else if (type == "pent" && hasTree("qol8")) reset = false
-            else if (type == "hex" && tmp.chal14comp) reset = false
             if (reset) this.doReset[type]()
             updateRanksTemp()
         }
@@ -276,6 +276,10 @@ const RANKS = {
     },
 }
 
+const CORRUPTED_PRES = [
+    [10,40],
+]
+
 const PRESTIGES = {
     fullNames: ["转生等级", "荣耀", '赞颂', '名望'],
     baseExponent() {
@@ -286,7 +290,7 @@ const PRESTIGES = {
         x += glyphUpgEff(10,0)
 
         x += 1
-        if (player.dark.run.active) x /= mgEff(5)
+        if (tmp.c16active || player.dark.run.active) x /= mgEff(5)
 
         return x
     },
@@ -410,9 +414,9 @@ const PRESTIGES = {
             "5": `使五重阶层5的奖励基于转生基础值变得更强。`,
             "7": `使夸克获取速度基于荣耀的数值而增加。`,
             "15": `使宇宙弦的超级折算和究极折算基于荣耀的数值而弱化。`,
-            "22": `使黑暗之影获取速度变为原来的1.1次方。`,
+            "22": `使黑暗之影获取速度增加10%。`,
             "33": `使铀砹混合物的效果可以对元折算之前的五重阶层需求生效，只是效果倍率降低。`,
-            "46": `使挑战13-挑战15的次数上限增加200。`,
+            "46": `使挑战13-挑战15的次数上限增加500。`,
             "66": `使费米子的所有折算弱化20%。`,
             "91": `最终星辰碎片基础值变为原来的1.05次方。`,
         },
@@ -532,7 +536,7 @@ const PRESTIGES = {
 
 const PRES_LEN = PRESTIGES.fullNames.length
 
-function hasPrestige(x,y) { return player.prestiges[x].gte(y) }
+function hasPrestige(x,y) { return player.prestiges[x].gte(y) && !(tmp.c16active && CORRUPTED_PRES[x] && CORRUPTED_PRES[x].includes(y)) }
 
 function prestigeEff(x,y,def=E(1)) { return tmp.prestiges.eff[x][y] || def }
 
@@ -542,7 +546,7 @@ function updateRanksTemp() {
     let fp2 = tmp.qu.chroma_eff[1][0]
     let ffp = E(1)
     let ffp2 = 1
-    if (player.dark.run.active) ffp2 /= mgEff(5)
+    if (tmp.c16active || player.dark.run.active) ffp2 /= mgEff(5)
 
     let fp = RANKS.fp.rank().mul(ffp)
     tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ffp2).scaleEvery('rank',false,[1,1,1,1,fp2]).div(fp).pow(1.15)).mul(10)
@@ -658,7 +662,7 @@ const BEYOND_RANKS = {
             7: `使物质的获取速度基于七重阶层(超-级别)的数值而增加。`,
         },
         2: {
-            1: `您可以自动购买超-级别。超-级别可以对转生基础值生效，公式不变。`,
+            1: `您可以自动购买超-级别。超-级别可以对转生基础值生效。`,
             2: `超-级别不再重置任何东西。使[元-轻子]的效果变为原来的8倍。`,
             4: `加速器效果可以对时间速度、黑洞压缩器和宇宙射线倍率生效。使色度获取速度变为原来的1.1次方。`,
         },

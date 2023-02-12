@@ -68,10 +68,12 @@ Decimal.prototype.softcapHTML = function (start, invisible) { return softcapHTML
 
 function calcOverflow(x,y,s,inv=false) { return x.gte(s) ? x.max(1).log10().div(y.max(1).log10()).pow(inv?-1:1) : E(1) }
 
+String.prototype.corrupt = function (active=true) { return active ? this.strike() + `<span class='corrupted_text'>[Corrupted]</span>` : this }
+
 function calc(dt, dt_offline) {
     let du_gs = tmp.preQUGlobalSpeed.mul(dt)
 
-    if (tmp.pass) {
+    if (tmp.pass<=0) {
         player.mass = player.mass.add(tmp.massGain.mul(du_gs))
         if (player.mainUpg.rp.includes(3)) for (let x = 1; x <= UPGS.mass.cols; x++) if (player.autoMassUpg[x] && (player.ranks.rank.gte(x) || player.mainUpg.atom.includes(1))) UPGS.mass.buyMax(x)
         if (FORMS.tickspeed.autoUnl() && player.autoTickspeed) FORMS.tickspeed.buyMax()
@@ -130,7 +132,7 @@ function calc(dt, dt_offline) {
         }
     }
 
-    tmp.pass = true
+    tmp.pass = Math.max(0,tmp.pass-1)
 
     player.offline.time = Math.max(player.offline.time-tmp.offlineMult*dt_offline,0)
     player.time += dt
@@ -408,16 +410,18 @@ function export_copy() {
 
 function importy() {
     createPrompt("在方框内输入您的存档代码。注意：会覆盖现有游戏的进度。",'import',loadgame=>{
+        st = convertStringIntoAGY(loadgame)
+        console.log(st)
         if (ssf[2](loadgame)) return
-        if (loadgame == 'monke') {
+        if (st == 'OJY$VFe*b') {
             addNotify('monke<br><img style="width: 100%; height: 100%" src="./images/cbc.jpg">')
             return
         }
-        if (loadgame == 'matt parker') {
+        if (st == 'p4H)pb{v2y5?g!') {
             addNotify('2+2=5<br><img src="./images/106175au.jpg">')
             return
         }
-        if (loadgame == 'SUPERNOVA.get()') {
+        if (st == 'L5{W*oI.NhA-lE)C1#e') {
             addNotify('<img src="./images/22687C6536A50ADB3489A721A264E0EF506A89B3.gif">',6)
             return
         }
@@ -448,11 +452,13 @@ function loadGame(start=true, gotNaN=false) {
     wipe()
     load(tmp.prevSave)
     setupHTML()
+    setupTooltips()
     updateQCModPresets()
     
     if (start) {
         setInterval(save,60000)
-        updateTemp()
+        for (let x = 0; x < 5; x++) updateTemp()
+        updateTooltipResHTML(true)
         updateHTML()
         for (let x = 0; x < 3; x++) {
             let r = document.getElementById('ratio_d'+x)

@@ -51,13 +51,16 @@ function updateChalTemp() {
         canFinish: false,
         gain: E(0),
     }
-    let s = tmp.qu.chroma_eff[2]
+    let s = tmp.qu.chroma_eff[2], w = treeEff('ct5'), v = 12
+
+    if (hasTree('ct5')) v++
+
     for (let x = 1; x <= CHALS.cols; x++) {
         let data = CHALS.getChalData(x)
         tmp.chal.max[x] = CHALS.getMax(x)
         tmp.chal.goal[x] = data.goal
         tmp.chal.bulk[x] = data.bulk
-        tmp.chal.eff[x] = CHALS[x].effect(FERMIONS.onActive("05")?E(0):player.chal.comps[x].mul(x<=8?s:hasElement(174)&&x<=12?s.root(5):1))
+        tmp.chal.eff[x] = CHALS[x].effect(FERMIONS.onActive("05")?E(0):player.chal.comps[x].mul(x<=8?s:hasElement(174)&&x<=12?s.root(5):hasTree('ct5')&&x<=v?w:1))
     }
     tmp.chal.format = player.chal.active != 0 ? CHALS.getFormat() : format
     tmp.chal.gain = player.chal.active != 0 ? tmp.chal.bulk[player.chal.active].min(tmp.chal.max[player.chal.active]).sub(player.chal.comps[player.chal.active]).max(0).floor() : E(0)
@@ -76,10 +79,12 @@ const CHALS = {
         if (x < 5) FORMS.bh.doReset()
         else if (x < 9) ATOM.doReset(chal_reset)
         else if (x < 13) SUPERNOVA.reset(true, true)
-        else DARK.doReset(true)
+        else if (x < 16) DARK.doReset(true)
+        else MATTERS.final_star_shard.reset(true)
     },
     exit(auto=false) {
         if (!player.chal.active == 0) {
+            if (player.chal.active == 16 && !auto) player.dark.c16.shard = player.dark.c16.shard.add(tmp.c16.shardGain)
             if (tmp.chal.canFinish) {
                 player.chal.comps[player.chal.active] = player.chal.comps[player.chal.active].add(tmp.chal.gain).min(tmp.chal.max[player.chal.active])
             }
@@ -89,14 +94,19 @@ const CHALS = {
             }
         }
     },
-    enter() {
+    enter(ch=player.chal.choosed) {
         if (player.chal.active == 0) {
-            player.chal.active = player.chal.choosed
-            this.reset(player.chal.choosed, false)
-        } else if (player.chal.choosed != player.chal.active) {
+            if (ch == 16) {
+                player.dark.c16.first = true
+                tmp.c16active = true
+            }
+
+            player.chal.active = ch
+            this.reset(ch, false)
+        } else if (ch != player.chal.active) {
             this.exit(true)
-            player.chal.active = player.chal.choosed
-            this.reset(player.chal.choosed, false)
+            player.chal.active = ch
+            this.reset(ch, false)
         }
     },
     getResource(x) {
@@ -111,10 +121,11 @@ const CHALS = {
         return formatMass
     },
     getReset(x) {
-        if (x < 5) return "Entering challenge will reset with Dark Matters!"
-        if (x < 9) return "Entering challenge will reset with Atoms except previous challenges!"
-        if (x < 13) return "Entering challenge will reset without being Supernova!"
-        return "Entering challenge will force a Darkness reset!"
+        if (x < 5) return "Entering this challenge will force dark matter reset."
+        else if (x < 9) return "Entering this challenge will force atom reset."
+        else if (x < 13) return "Entering challenge will supernova reset."
+        else if (x < 16) return "Entering challenge will force a Darkness reset."
+        return "Entering challenge will force a FSS reset."
     },
     getMax(i) {
         let x = this[i].max
@@ -258,8 +269,8 @@ const CHALS = {
     },
     1: {
         title: "即时折算",
-        desc: "Super Ranks, Mass Upgrades starts at 25. In addtional, Super Tickspeed start at 50.",
-        reward: `Super Ranks starts later, Super Tickspeed scaling weaker by completions.`,
+        desc: "Super rank and mass upgrade scaling starts at 25. Also, Super tickspeed starts at 50.",
+        reward: `Super Ranks starts later, Super Tickspeed scales weaker by completions.`,
         max: E(100),
         inc: E(5),
         pow: E(1.3),
@@ -275,7 +286,7 @@ const CHALS = {
         unl() { return player.chal.comps[1].gte(1) || player.atom.unl },
         title: "反对时速",
         desc: "You cannot buy Tickspeed.",
-        reward: `For every completions adds +7.5% to Tickspeed Power.`,
+        reward: `For every completion adds +7.5% to Tickspeed Power.`,
         max: E(100),
         inc: E(10),
         pow: E(1.3),
@@ -292,8 +303,8 @@ const CHALS = {
     3: {
         unl() { return player.chal.comps[2].gte(1) || player.atom.unl },
         title: "质量熔化",
-        desc: "Mass gain softcap is divided by 1e150, and is stronger.",
-        reward: `Mass gain are raised by completions, but cannot append while in this challenge!`,
+        desc: "Mass gain softcap starts 150 OoMs eariler, and is stronger.",
+        reward: `Mass gain is raised based on completions (doesn't apply in this challenge).`,
         max: E(100),
         inc: E(25),
         pow: E(1.25),
@@ -308,8 +319,8 @@ const CHALS = {
     4: {
         unl() { return player.chal.comps[3].gte(1) || player.atom.unl },
         title: "怒意减弱",
-        desc: "Rage Points gain is rooted by 10. In addtional, mass gain softcap is divided by 1e100.",
-        reward: `Rage Powers gain are raised by completions.`,
+        desc: "Rage Points gain is rooted by 10. Additionally, mass gain softcap starts 100 OoMs eariler.",
+        reward: `Rage Powers gain is raised by completions.`,
         max: E(100),
         inc: E(30),
         pow: E(1.25),
@@ -325,7 +336,7 @@ const CHALS = {
         unl() { return player.atom.unl },
         title: "移除级别",
         desc: "You cannot rank up.",
-        reward: `Rank requirement are weaker by completions.`,
+        reward: `Rank requirement is weaker by completions.`,
         max: E(50),
         inc: E(50),
         pow: E(1.25),
@@ -340,7 +351,7 @@ const CHALS = {
         unl() { return player.chal.comps[5].gte(1) || player.supernova.times.gte(1) || quUnl() },
         title: "无时不压",
         desc: "You cannot buy Tickspeed & BH Condenser.",
-        reward: `For every completions adds +10% to Tickspeed & BH Condenser Power.`,
+        reward: `Every completion adds 10% to tickspeed and BH condenser power.`,
         max: E(50),
         inc: E(64),
         pow: E(1.25),
@@ -354,8 +365,8 @@ const CHALS = {
     7: {
         unl() { return player.chal.comps[6].gte(1) || player.supernova.times.gte(1) || quUnl() },
         title: "明镜止水",
-        desc: "You cannot gain Rage Powers, but Dark Matters are gained by mass instead of Rage Powers at a reduced rate.<br>In addtional, mass gain softcap is stronger.",
-        reward: `Completions adds 2 maximum completions of 1-4 Challenge.<br><span class="yellow">On 16th completion, unlock Elements</span>`,
+        desc: "You cannot gain rage powers. Instead, dark matters are gained from mass at a reduced rate. Additionally, mass gain softcap is stronger.",
+        reward: `Each completion increases challenges 1-4 cap by 2.<br><span class="yellow">On 16th completion, unlock Elements</span>`,
         max: E(50),
         inc: E(64),
         pow: E(1.25),
@@ -386,8 +397,8 @@ const CHALS = {
     9: {
         unl() { return hasTree("chal4") },
         title: "粒子消失",
-        desc: "You cannot assign quarks. In addtional, mass gains exponent is raised to 0.9th power.",
-        reward: `Improve Magnesium-12 better.`,
+        desc: "You cannot assign quarks. Additionally, mass gains exponent is raised to 0.9th power.",
+        reward: `Improve Magnesium-12.`,
         max: E(100),
         inc: E('e500'),
         pow: E(2),
@@ -401,7 +412,7 @@ const CHALS = {
     10: {
         unl() { return hasTree("chal5") },
         title: "现实 I",
-        desc: "All challenges 1-8 are applied at once. In addtional, you are trapped in Mass Dilation!",
+        desc: "You are trapped in mass dilation and challenges 1-8.",
         reward: `The exponent of the RP formula is multiplied by completions. (this effect doesn't work while in this challenge)<br><span class="yellow">On first completion, unlock Fermions!</span>`,
         max: E(100),
         inc: E('e2000'),
@@ -416,8 +427,8 @@ const CHALS = {
     11: {
         unl() { return hasTree("chal6") },
         title: "绝对论",
-        desc: "You cannot gain relativistic particles or dilated mass. However, you are stuck in Mass Dilation.",
-        reward: `Star Booster is stonger by completions.`,
+        desc: "You cannot gain dilated mass, and you are stuck in mass dilation.",
+        reward: `Star boosters are stronger based on completions.`,
         max: E(100),
         inc: E("ee6"),
         pow: E(2),
@@ -446,7 +457,7 @@ const CHALS = {
     13: {
         unl() { return hasElement(132) },
         title: "以质之名",
-        desc: "Normal mass and mass of black hole gains are setting to lg(x)^^1.5.",
+        desc: "Normal mass and mass of black hole gains are set to lg(x)^^1.5.",
         reward: `Increase dark ray earned based on completions.<br><span class="yellow">On first completion, unlock more features!</span>`,
         max: E(25),
         inc: E('e2e4'),
@@ -461,7 +472,7 @@ const CHALS = {
     14: {
         unl() { return hasElement(144) },
         title: "门捷列夫之殇",
-        desc: "You cannot purchase any pre-118 elements. In addtional, you are trapped in quantum challenge with modifiers [5,5,5,5,5,5,5,5].",
+        desc: "You cannot purchase any pre-118 elements. Additionally, you are trapped in quantum challenge with modifiers [5,5,5,5,5,5,5,5].",
         reward: `Gain more primordium theorems.<br><span class="yellow">On first completion, unlock more features!</span>`,
         max: E(100),
         inc: E('e2e19'),
@@ -476,7 +487,7 @@ const CHALS = {
     15: {
         unl() { return hasElement(168) },
         title: "现实 II",
-        desc: "All challenges 1-12 are applied at once. In addtional, you are trapped in quantum challenge with modifiers [10,5,10,10,10,10,10,10].",
+        desc: "You are trapped in c1-12 and quantum challenge with modifiers [10,5,10,10,10,10,10,10].",
         reward: `Normal mass's overflow starts later by completions.<br><span class="yellow">On first completion, unlock more features!</span>`,
         max: E(100),
         inc: E('e1e6'),
@@ -488,7 +499,29 @@ const CHALS = {
         },
         effDesc(x) { return "^"+format(x,2)+" later" },
     },
-    cols: 15,
+    16: {
+        unl() { return hasElement(218) },
+        title: "混沌物质湮灭",
+        desc: `
+        • You cannot gain rage points nor dark matters, and all matters’ formula is disabled, and they generate each other. Red matter generates dark matter.<br>
+        • Pre-C16 following contents (including rank & prestige tiers, main upgrades, elements, tree and etc.) are corrupted like disabled.<br>
+        • You are trapped in Mass Dilation & Dark Run with 100 all glyphs.<br>
+        • Primordium particles disabled.<br>
+        • Pre-Quantum global speed always sets to /100.<br>
+        You can earn Corrupted Shard based on your mass of black hole, when exiting the challenge.
+        `,
+        reward: `Nothing.`,
+        max: E(1),
+        inc: EINF,
+        pow: EINF,
+        start: EINF,
+        effect(x) {
+            let ret = E(1)
+            return ret
+        },
+        effDesc(x) { return "Nothing." },
+    },
+    cols: 16,
 }
 
 /*

@@ -24,6 +24,7 @@ const CHROMA = {
     ],
     eff: [
         i => {
+            //if (tmp.c16active) return E(1)
             let x = i.add(1).log10().add(1).root(3)
             if (hasUpgrade('br',10)) x = x.mul(1.1)
             return x
@@ -47,14 +48,14 @@ const CHROMA = {
     ],
     effDesc: [
         x => {
-            return `Tickspeed power is ^${format(x)} better`
+            return `Makes tickspeed power raised to the ${format(x)}th power.`//.corrupt(tmp.c16active)
         },
         x => {
-            return `${player.dark.unl ? "Pre-Exotic p" : "P"}re-Pents requirement is reduced by ${format(x[0])}x`+x[0].softcapHTML(1e10)
-            +(hasPrestige(2,4)?`<br>All pre-Exotic ${hasElement(207) ? "Rank-Hex" : "pre-Hexs"} scalings are ${formatReduction(x[1])} weaker`:"")
+            return `Makes all ${player.dark.unl ? "Pre-Exotic p" : "P"}re-Pent requirements reduced by ${format(x[0])}x`+x[0].softcapHTML(1e10)+"."
+            +(hasPrestige(2,4)?`<br>Also, all pre-Exotic ${hasElement(207) ? "Rank-Hex" : "pre-Hex"} scalings are ${formatReduction(x[1])} weaker.`:"")
         },
         x => {
-            return `Rewards from Challenges 1-8 are ${format(x)}x stronger`
+            return `Makes rewards from Challenges 1-8 ${format(x)}x stronger.`
         },
     ],
 }

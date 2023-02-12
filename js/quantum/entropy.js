@@ -69,10 +69,11 @@ const ENTROPY = {
             inc: E(20),
 
             eff(i) {
+                if (tmp.c16active) return E(1)
                 let x = i.pow(0.5).div(5).add(1)
                 return x
             },
-            desc(x) { return `Atomic Power’s effect is <b>${formatPercent(x.sub(1))}</b> exponentially stronger.` },
+            desc(x) { return `Atomic Power’s effect is <b>${formatPercent(x.sub(1))}</b> exponentially stronger.`.corrupt(tmp.c16active) },
         },{
             title: "Entropic Evaporation",
 
@@ -95,11 +96,12 @@ const ENTROPY = {
             inc: E(2),
 
             eff(i) {
+                if (tmp.c16active) return [E(0),E(1)]
                 let x = i.div(QCs.active()?100:5).softcap(2,0.5,0)
                 let y = tmp.tickspeedEffect?tmp.tickspeedEffect.step.pow(x):E(1)
                 return [x,y]
             },
-            desc(x) { return `Tickspeed Power gives <b>${x[0].format(2)}次方</b> boost to BHC & Cosmic Ray Powers.<br>Currently: <b>${x[1].format()}倍</b>` },
+            desc(x) { return `Tickspeed Power gives <b>${x[0].format(2)}次方</b> boost to BHC & Cosmic Ray Powers.<br>Currently: <b>${x[1].format()}倍</b>`.corrupt(tmp.c16active) },
         },{
             title: "Entropic Booster",
 
@@ -107,10 +109,11 @@ const ENTROPY = {
             inc: E(2),
 
             eff(i) {
+                if (tmp.c16active) return E(1)
                 let x = i.pow(2).div(20).add(1)
                 return x
             },
-            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。` },
+            desc(x) { return `质量升级、时间速度、黑洞压缩器和宇宙射线变为原来的<b>${x.format(2)}倍</b>。`.corrupt(tmp.c16active) },
         },{
             title: "Entropic Scaling",
 
@@ -121,7 +124,7 @@ const ENTROPY = {
                 let x = i.root(2).div(10).add(1).pow(-1)
                 return x
             },
-            desc(x) { return `All pre-Supernova scaling is <b>${formatReduction(x)}</b> weaker before Meta scaling (not including Pent or further).` },
+            desc(x) { return `All pre-Supernova, pre-Pent & pre-Meta scalings are <b>${formatReduction(x)}</b> weaker.` },
         },{
             title: "Entropic Condenser",
 
@@ -147,7 +150,7 @@ const ENTROPY = {
                 let x = player.qu.en.amt.add(1).log10().pow(0.75).mul(i).div(1500).add(1)
                 return x
             },
-            desc(x) { return `Radiation effects are also boosted by <b>${x.format()}次方</b> (based on Entropy).` },
+            desc(x) { return `Radiation effects are boosted by <b>${x.format()}次方</b> based on Entropy.` },
         },
 
         /*
@@ -198,10 +201,10 @@ const ENTROPY = {
         return x
     },
     getRewardEffect(i) {
-        if ((player.qu.rip.active || player.dark.run.active) && !tmp.en.reward_br.includes(i)) return E(0)
+        if ((player.qu.rip.active || tmp.c16active || player.dark.run.active) && !tmp.en.reward_br.includes(i)) return E(0)
         let x = player.qu.en.rewards[i]
 
-        if (hasElement(91) && (player.qu.rip.active || player.dark.run.active) && (i==1||i==4)) x = x.mul(0.1)
+        if (hasElement(91) && (player.qu.rip.active || tmp.c16active || player.dark.run.active) && (i==1||i==4)) x = x.mul(0.1)
 
         return x
     },
