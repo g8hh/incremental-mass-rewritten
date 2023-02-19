@@ -23,7 +23,7 @@ const TREE_IDS = [
         ['chal2','chal4a','chal4b','chal3'],
         ['bs5','bs2','fn1','bs3','qf2','qf3','rad2','rad3'],
         ['qu1','qu2','qu3'],
-        ['ct2','ct3','ct4','ct5'],
+        ['ct2','ct3','ct4','ct5','ct6'],
     ],[
         ['s2','m2','t1','d1','bh2','gr1','sn2'],
         ['qol5','qol6','qol7','','','qu_qol7','',''],
@@ -886,7 +886,7 @@ const TREE_UPGS = {
                 let x = (player.qu.qc.shard+1)**0.5
                 return x
             },
-            effDesc(x) { return "x"+format(x) },
+            effDesc(x) { return ""+format(x)+"倍" },
         },
 
         // Other
@@ -976,7 +976,7 @@ const TREE_UPGS = {
                 let x = player.dark.c16.bestBH.add(1).log10().add(1).pow(2)
                 return x
             },
-            effDesc(x) { return "x"+format(x) },
+            effDesc(x) { return ""+format(x)+"倍" },
         },
         ct3: {
             branch: ['ct1'],
@@ -1018,7 +1018,22 @@ const TREE_UPGS = {
                 let x = overflow(tmp.qu.chroma_eff[2],10,0.5).root(3)
                 return x
             },
-            effDesc(x) { return "x"+format(x) },
+            effDesc(x) { return ""+format(x)+"倍" },
+        },
+        ct6: {
+            branch: ['ct1'],
+
+            desc: `Mass overflow starts later based on best mass of black hole in C16.`,
+            cost: E(300),
+
+            req() { return tmp.c16active && player.atom.atomic.gte(1e8) },
+            reqDesc() { return `当进行挑战16时，到达${format(1e8)}原子能量。` },
+
+            effect() {
+                let x = player.dark.c16.bestBH.add(1).log10().add(1).pow(2)
+                return overflow(x,10,0.5)
+            },
+            effDesc(x) { return "延迟^"+format(x)+"" },
         },
 
         /*

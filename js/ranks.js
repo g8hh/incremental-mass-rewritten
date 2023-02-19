@@ -431,6 +431,7 @@ const PRESTIGES = {
         {
             "1": `之前所有转生的需求降低10%。`,
             "2": `每次名望使超新星的奇异折算延迟1.25倍出现。`,
+            "4": `每次名望使腐化碎片获取数量增加50%。`,
         },
     ],
     rewardEff: [
@@ -514,6 +515,10 @@ const PRESTIGES = {
                 let x = Decimal.pow(1.25,player.prestiges[3])
                 return x
             },x=>"延迟"+x.format()+"倍"],
+            "4": [()=>{
+                let x = player.prestiges[3].div(2).add(1)
+                return x
+            },x=>""+x.format()+"倍"],
         },
     ],
     reset(i, bulk = false) {
@@ -665,6 +670,7 @@ const BEYOND_RANKS = {
             1: `您可以自动购买超-级别。超-级别可以对转生基础值生效。`,
             2: `超-级别不再重置任何东西。使[元-轻子]的效果变为原来的8倍。`,
             4: `加速器效果可以对时间速度、黑洞压缩器和宇宙射线倍率生效。使色度获取速度变为原来的1.1次方。`,
+            7: `使元-费米子以外的费米子获取速度基于七重阶层的数值而增加。`,
         },
     },
 
@@ -702,7 +708,15 @@ const BEYOND_RANKS = {
 
                     return x
                 },
-                x=>"x"+format(x),
+                x=>""+format(x)+"倍",
+            ],
+            7: [
+                ()=>{
+                    let x = player.ranks.beyond.add(1).log10().add(1).pow(2)
+
+                    return overflow(x,10,0.5)
+                },
+                x=>""+format(x)+"倍",
             ],
         },
     },
