@@ -44,6 +44,11 @@ const TOOLTIP_RES = {
             if (tmp.overflowBefore.bh.gte(tmp.overflow_start.bh))
             h += `<br>(<b>溢出</b>之前为<b>${formatMass(tmp.overflowBefore.bh)}</b>)`;
 
+            if (hasCharger(1))
+            h += `
+            <br class='line'>You have <b class='corrupted_text'>${formatMass(player.bh.unstable)} ${formatGain(player.bh.unstable,UNSTABLE_BH.calcProduction(),true)}</b> of Unstable Black Hole.
+            `;
+
             if (quUnl())
             h += `
             <br class='line'>You have <b class='cyan'>${player.atom.points.format(0)}${player.atom.points.formatGain(tmp.atom.gain.mul(tmp.preQUGlobalSpeed))}</b> Atom. (after Quantum)
@@ -141,7 +146,7 @@ const TOOLTIP_RES = {
 
             if (player.dark.unl) {
                 h += `You have <b>${player.dark.shadow.format(0)}${player.dark.shadow.formatGain(tmp.dark.shadowGain)}</b> Dark Shadow.`
-                if (tmp.chal14comp) h += `<br>You have <b>${player.dark.abyssalBlot.format(0)}${player.dark.abyssalBlot.formatGain(tmp.dark.abGain)}</b> Abyssal Bolt.`
+                if (tmp.chal14comp) h += `<br>You have <b>${player.dark.abyssalBlot.format(0)}${player.dark.abyssalBlot.formatGain(tmp.dark.abGain)}</b> Abyssal Blot.`
                 h += `<br class='line'>`
             }
             
@@ -185,7 +190,7 @@ const TOOLTIP_RES = {
             Start the 16th Challenge. Earn <b>Corrupted Shard</b> based on your mass of black hole, when exiting that challenge and reaching <b>${formatMass('e100')}</b> of black hole.<br><br>
             • You cannot gain rage points nor dark matters, and all matters’ formula is disabled, and they generate each other. Red matter generates dark matter.<br>
             • Pre-C16 following contents (including rank & prestige tiers, main upgrades, elements, tree and etc.) are corrupted like disabled.<br>
-            • You are trapped in Mass Dilation & Dark Run with 100 all glyphs.<br>
+            • You are trapped in Mass Dilation & Dark Run with 100 all glyphs (10 slovak glyphs).<br>
             • Primordium particles disabled.<br>
             • Pre-Quantum global speed always sets to /100.<br>
             </i>`

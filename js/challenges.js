@@ -54,6 +54,7 @@ function updateChalTemp() {
     let s = tmp.qu.chroma_eff[2], w = treeEff('ct5'), v = 12
 
     if (hasTree('ct5')) v++
+    if (hasTree('ct7')) v++
 
     for (let x = 1; x <= CHALS.cols; x++) {
         let data = CHALS.getChalData(x)
@@ -70,6 +71,7 @@ function updateChalTemp() {
 const CHALS = {
     choose(x) {
         if (player.chal.choosed == x) {
+            this.exit()
             this.enter()
         }
         player.chal.choosed = x
@@ -149,6 +151,7 @@ const CHALS = {
         if (hasElement(186) && (i==13||i==14||i==15))  x = x.add(100)
         if (hasElement(196) && (i==13||i==14))  x = x.add(200)
         if (hasPrestige(1,46) && (i==13||i==14||i==15))  x = x.add(200)
+        if (i==13||i==14||i==15)  x = x.add(tmp.dark.rayEff.dChal||0)
         return x.floor()
     },
     getScaleName(i) {
@@ -505,7 +508,7 @@ const CHALS = {
         desc: `
         • You cannot gain rage points nor dark matters, and all matters’ formula is disabled, and they generate each other. Red matter generates dark matter.<br>
         • Pre-C16 following contents (including rank & prestige tiers, main upgrades, elements, tree and etc.) are corrupted like disabled.<br>
-        • You are trapped in Mass Dilation & Dark Run with 100 all glyphs.<br>
+        • You are trapped in Mass Dilation & Dark Run with 100 all glyphs (10 slovak glyphs).<br>
         • Primordium particles disabled.<br>
         • Pre-Quantum global speed always sets to /100.<br>
         You can earn Corrupted Shard based on your mass of black hole, when exiting the challenge.
