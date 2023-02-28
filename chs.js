@@ -880,7 +880,7 @@ var cnItems = {
     'Best mass of black hole in C16 increases the base of each matter\'s upgrade.': '使挑战16中最高的黑洞质量可以加成每种物质升级的基础值。',
     'Neutronium-0 now affects Challenge 13 at a reduced rate.': '使零号中子的效果对挑战13也生效，只是效果倍率降低。',
     'Mass overflow starts later based on best mass of black hole in C16.': '使质量的溢出基于挑战16中最高的黑洞质量的数值而延迟出现。',
-    'Neutronium-0 now affects Challenge 14 at a reduced rate. (like [ct5])': '使零号中子的效果对挑战14也生效，只是效果倍率降低(类似[ct5]的效果)。',
+    'Neutronium-0 now affects Challenge 14 at a reduced rate. (like [ct5]': '使零号中子的效果对挑战14也生效，只是效果倍率降低。(类似[ct5]的效果',
     'Keep pre-C16 tree on entering C16. Best mass of black hole in C16 boosts all radiation gains.': '进入挑战16时可以保留挑战16之前的中子树升级。使挑战16中最高的黑洞质量可以加成辐射波获取速度。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
