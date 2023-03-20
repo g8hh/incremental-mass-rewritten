@@ -263,7 +263,7 @@ const RANKS = {
         rank() {
             let f = E(1)
             if (player.ranks.tier.gte(1)) f = f.mul(1/0.8)
-            f = f.mul(tmp.chal.eff[5].pow(-1))
+            if (!hasCharger(3)) f = f.mul(tmp.chal.eff[5].pow(-1))
             return f
         },
         tier() {
@@ -419,6 +419,8 @@ const PRESTIGES = {
             "46": `使挑战13-挑战15的次数上限增加500。`,
             "66": `使费米子的所有折算弱化20%。`,
             "91": `最终星辰碎片基础值变为原来的1.05次方。`,
+            "127": `移除级别和阶层的所有奇异折算之前的折算，但也使挑战5的奖励失效。`,
+            "139": `每有一个最终星辰碎片，就使物质的获取速度变为原来的3倍。假真空操控器的花费略微降低。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -427,6 +429,7 @@ const PRESTIGES = {
             "5": `使赞颂可以加成雕文获取数量。`,
             "8": `使赞颂可以减少黑洞溢出的削弱。`,
             "22": `使赞颂可以加成所有物质获取速度。`,
+            "25": `移除黑暗之前挑战的次数上限。使挑战7的奖励发生变化。`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
@@ -499,6 +502,10 @@ const PRESTIGES = {
                 let x = tmp.qu.chroma_eff[1][0].max(1).log10().add(1).pow(2)
                 return x
             },x=>"延迟"+x.format()+"倍"],
+            "139": [()=>{
+                let x = Decimal.pow(3,player.dark.matters.final)
+                return x
+            },x=>""+x.format(0)+"倍"],
         },
         {
             "5": [()=>{
@@ -676,6 +683,12 @@ const BEYOND_RANKS = {
             4: `加速器效果可以对时间速度、黑洞压缩器和宇宙射线倍率生效。使色度获取速度变为原来的1.1次方。`,
             7: `使元-费米子以外的费米子获取速度基于七重阶层的数值而增加。`,
             10: `使黑洞质量变为原来的1.2次方。`,
+            15: `移除质量升级1-质量升级3的所有折算。`,
+            17: `使[qu9]的效果基于黑洞质量的数值变得更好。超新星的奇异折算基于前往量子的次数而延迟出现。`,
+            20: `使挑战1的奖励发生变化。`,
+        },
+        3: {
+            1: `质量和强化器的溢出基于质量的宇宙阶层而弱化。`
         },
     },
 
@@ -723,13 +736,33 @@ const BEYOND_RANKS = {
                 },
                 x=>""+format(x)+"倍",
             ],
+            17: [
+                ()=>{
+                    let x = player.bh.mass.add(1).log10().add(1).log10().add(1).pow(2)
+                    
+                    let y = player.qu.times.add(1).log10().root(2).div(8).add(1)
+
+                    return [x,y]
+                },
+                x=>""+format(x[0])+"倍；延迟"+format(x[1])+"倍",
+            ],
+        },
+        3: {
+            1: [
+                ()=>{
+                    let x = Decimal.pow(0.99,player.mass.div(1.5e56).max(1).log10().div(1e9).max(1).log10().div(15).root(3))
+
+                    return x
+                },
+                x=>"弱化"+formatReduction(x)+"",
+            ],
         },
     },
 }
 
 const RTNS = [
     ['','级别','阶层','四重阶层','五重阶层','六重阶层','七重阶层','八重阶层','九重阶层'],
-    ['','dec','icos'], // d>2 -> cont
+    ['','十重阶层','icos'], // d>2 -> cont
     ['','hect'], // h>1 -> ct
 ]
 
@@ -780,7 +813,7 @@ function updateRanksHTML() {
                 let desc = ""
                 for (let i = 0; i < keys.length; i++) {
                     if (player.ranks[rn].lt(keys[i])) {
-                        desc = `在${RANKS.fullNames[x]}${format(keys[i],0)}，将${RANKS.desc[rn][keys[i]]}`
+                        desc = `${RANKS.fullNames[x]}${format(keys[i],0)}时，${RANKS.desc[rn][keys[i]]}`
                         break
                     }
                 }
@@ -828,7 +861,7 @@ function updateRanksHTML() {
                 for (tr in BEYOND_RANKS.rewards[tt]) {
                     tt = Number(tt)
                     if (tt > t || (tmp.beyond_ranks.latestRank.lt(tr) && tt == t)) {
-                        r = "在"+getRankTierName(tt+5)+""+format(tr,0)+"，将"+BEYOND_RANKS.rewards[tt][tr]
+                        r = ""+getRankTierName(tt+5)+""+format(tr,0)+"时，"+BEYOND_RANKS.rewards[tt][tr]
                         b = true
                         break
                     }
@@ -864,7 +897,7 @@ function updateRanksHTML() {
                 let desc = ""
                 for (let i = 0; i < keys.length; i++) {
                     if (p.lt(keys[i]) && (tmp.chal13comp || p.lte(PRES_BEFOREC13[x]||Infinity))) {
-                        desc = `在${PRESTIGES.fullNames[x]}${format(keys[i],0)}，将${PRESTIGES.rewards[x][keys[i]]}`
+                        desc = `${PRESTIGES.fullNames[x]}${format(keys[i],0)}时，${PRESTIGES.rewards[x][keys[i]]}`
                         break
                     }
                 }

@@ -251,11 +251,12 @@ var cnItems = {
     'Violet matter\'s upgrade applies to collapsed stars at a reduced rate.': '使蓝紫色物质的升级可以对坍缩星辰获取速度生效，只是效果倍率降低。',
     'Make black hole\'s effect stronger.': '使黑洞的效果变得更好。',
     'Mass of black hole boosts accelerator power at an extremely reduced rate.': '使黑洞质量可以加成加速器倍率，只是效果倍率极度降低。',
+    'Corrupted Shards boost mass of black hole gain.': '使腐化碎片可以加成黑洞质量获取速度。',
     'Atom Upgrades': '原子升级',
     'Start with Mass upgrades unlocked.': '初始状态下就解锁质量升级。',
     'You can automatically buy BH Condenser and upgrades. Tickspeed no longer spends Rage Powers.': '您可以自动购买黑洞压缩器和黑洞升级。购买时间速度不再花费狂怒能量。',
     '[Tetr Era] Unlock Tetr.': '[四重阶层纪元]解锁四重阶层。',
-    'Keep challenges 1-4 on reset. BH Condensers add Cosmic Rays Power at a reduced rate.': '重置时保留挑战1-挑战4的完成次数。黑洞压缩器可以增加宇宙射线的数量，只是效果倍率降低。',
+    'Keep challenges 1-4 on reset. BH Condensers add Cosmic Rays Power at a reduced rate.': '重置时保留挑战1-挑战4的完成次数。使黑洞压缩器可以增加宇宙射线的数量，只是效果倍率降低。',
     'You can automatically Tetr up. Super Tier starts 10 later.': '您可以自动提升四重阶层。阶层的超级折算延迟10次出现。',
     'Gain 100% of Dark Matters gained from reset per second. Mass gain from Black Hole softcap starts later based on Atomic Powers.': '每秒获得暗物质，数量为重置时获取数量的100%。使黑洞质量获取速度的软上限基于原子能量的数值而延迟出现。',
     'Tickspeed boosts each particle powers gain.': '使时间速度可以加成粒子能量的获取速度。',
@@ -271,6 +272,7 @@ var cnItems = {
     'Pink matter\'s upgrade applies to quark gain at a reduced rate.': '使粉色物质的升级可以对夸克获取速度生效，只是效果倍率降低。',
     'Neutron Power\'s second effect now provides an expontial boost and applies to mass of black hole.': '使中子能量的第二个效果变为指数加成，且可以对黑洞质量生效。',
     'Yellow matter\'s upgrade applies to dilated mass overflow at a reduced rate.': '使黄色物质的升级可以让膨胀质量的溢出延迟出现，只是效果倍率降低。',
+    'Atomic Powers add Overpowers at an extremely reduced rate.': '使原子能量可以增加降伏器的数量，只是效果倍率极度降低。',
     'Big Rip Upgrades': '大撕裂升级',
     'Start with Hydrogen-1 unlocked in Big Rip.': '在大撕裂中，初始状态下就解锁氢(1H)。',
     'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
@@ -291,13 +293,15 @@ var cnItems = {
     'Dark matter raises atoms gain at a reduced rate.': '使暗物质可以加成原子获取速度，只是效果倍率降低。',
     'Chromas gain is boosted by mass.': '使色度获取速度基于质量的数值而增加。',
     'Red Matters reduce Pre-Renown requirements slightly.': '使红色质量可以略微减少名望之前所有转生的需求。',
+    'Total corrupted Shards boost dark rays gain.': '使腐化碎片的总数可以加成暗射线的获取速度。',
     //#endregion
     //#region 挑战
     ' Note: Click any image to show challenge description. Click again to enter any challenge': '提示：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
     'Exit Challenge': '退出挑战',
     'Enter Challenge': '进入挑战',
     'Super rank and mass upgrade scaling starts at 25. Also, Super tickspeed starts at 50.': '级别和质量升级的超级折算在25次就开始出现。另外，时间速度的超级折算在50次就开始出现。',
-    'Reward: Super Ranks starts later, Super Tickspeed scales weaker by completions.': '奖励：使级别的超级折算更迟出现，时间速度的超级折算效果随着完成次数而弱化。',
+    'Reward: Super Rank starts later, Super Tickspeed scales weaker by completions.': '奖励：使级别的超级折算延迟出现，时间速度的超级折算效果随着完成次数而弱化。',
+    'Reward: Supercritical Rank & All Fermions start later, Super Overpower scales weaker by completions.': '奖励：使级别和所有费米子的超临界折算延迟出现，降伏器的超级折算效果随着完成次数而弱化。',
     'You cannot buy Tickspeed.': '您无法购买时间速度。',
     'Reward: For every completion adds +7.5% to Tickspeed Power.': '奖励：每次完成该挑战，就使时间速度倍率增加7.5%。',
     'Mass gain softcap starts 150 OoMs eariler, and is stronger.': '质量获取速度软上限提前150个数量级出现，且效果变得更严重。',
@@ -306,10 +310,12 @@ var cnItems = {
     'Reward: Rage Powers gain is raised by completions.': '奖励：使狂怒能量获取速度随着完成次数变为原来的一个指数。',
     'You cannot rank up.': '您无法提升级别。',
     'Reward: Rank requirement is weaker by completions.': '奖励：使级别的需求随着完成次数而降低。',
+    'Reward: Exotic Rank & Tier, Ultra Prestige Level scale weaker by completions.': '奖励：使级别和阶层的奇异折算和转生等级的超究折算随着完成次数而弱化。',
     'You cannot buy Tickspeed & BH Condenser.': '您无法购买时间速度和黑洞压缩器。',
     'Reward: Every completion adds 10% to tickspeed and BH condenser power.': '奖励：每次完成该挑战，就使时间速度倍率和黑洞压缩器倍率增加10%。',
     'You cannot gain rage powers. Instead, dark matters are gained from mass at a reduced rate. Additionally, mass gain softcap is stronger.': '您无法获得狂怒能量，但暗物质可以通过质量，而不是狂怒能量来获取，只是获取倍率降低。另外，质量获取速度软上限的效果变得更严重。',
     'Reward: Each completion increases challenges 1-4 cap by 2.': '奖励：每次完成该挑战，就使挑战1-挑战4的次数上限增加2。',
+    'Reward: Pre-Impossible challenges scale weaker by completions, but this reward doesn\'t affect C7.': '奖励：使无望之前的挑战折算随着完成次数而弱化，但对挑战7无效。',
     'On 16th completion, unlock Elements': '当完成第16次该挑战时，解锁元素',
     'Dark Matter & Mass from Black Hole gains are rooted by 8.': '暗物质和黑洞质量变为原来的八次方根。',
     'Reward: Dark Matter & Mass from Black Hole gains are raised by completions.': '奖励：使暗物质和黑洞质量获取速度随着完成次数变为原来的一个指数。',
@@ -876,12 +882,17 @@ var cnItems = {
     'Unlock 2 new meta-types of U-Quark & U-Fermion.': '解锁两种元类型的U-夸克和U-轻子。',
     'Best mass of black hole in C16 boosts normal mass gain.': '使挑战16中最高的黑洞质量可以加成质量获取速度。',
     'Best mass of black hole in C16 boosts bosonic resources gain.': '使挑战16中最高的黑洞质量可以加成玻色子获取速度。',
-    'Best mass of black hole in C16 increases free fermion tiers.': '使挑战16中最高的黑洞质量可以使费米子阶层额外增加。',
-    'Best mass of black hole in C16 increases the base of each matter\'s upgrade.': '使挑战16中最高的黑洞质量可以加成每种物质升级的基础值。',
+    'Best mass of black hole in C16 adds free fermion tiers.': '使挑战16中最高的黑洞质量可以额外增加费米子阶层。',
+    'Best mass of black hole in C16 adds the base of each matter\'s upgrade.': '使挑战16中最高的黑洞质量可以额外增加每种物质升级的基础值。',
     'Neutronium-0 now affects Challenge 13 at a reduced rate.': '使零号中子的效果对挑战13也生效，只是效果倍率降低。',
     'Mass overflow starts later based on best mass of black hole in C16.': '使质量的溢出基于挑战16中最高的黑洞质量的数值而延迟出现。',
     'Neutronium-0 now affects Challenge 14 at a reduced rate. (like [ct5]': '使零号中子的效果对挑战14也生效，只是效果倍率降低。(类似[ct5]的效果',
     'Keep pre-C16 tree on entering C16. Best mass of black hole in C16 boosts all radiation gains.': '进入挑战16时可以保留挑战16之前的中子树升级。使挑战16中最高的黑洞质量可以加成辐射波获取速度。',
+    'Best mass of black hole in C16 adds free radiation boosts.': '使挑战16中最高的黑洞质量可以额外增加辐射波的免费升级。',
+    'FSS Requirement is lower based on total corrupted shards.': '使最终星辰碎片的需求基于腐化碎片的总数而降低。',
+    'Mass of black hole overflow starts later based on best mass of black hole in C16. (weaker during C16': '使黑洞质量的溢出基于挑战16中最高的黑洞质量而延迟出现。(在挑战16中效果弱化',
+    'Best mass of black hole in C16 adds free primordium particles.': '使挑战16中最高的黑洞质量可以额外增加原基定理的免费升级。',
+    'Neutronium-0 now affects Challenge 15 at a reduced rate (like [ct5]). C15 now affects Atomic & Quark Overflows.': '使零号中子的效果对挑战15也生效，只是效果倍率降低(类似[ct5]的效果)。挑战15的奖励对原子能量和夸克的溢出也生效。',
     'click any tree upgrade to show': '点击任意中子树升级以查看详情',
     'click again to buy if affordable': '如果资源足够，再次点击将购买升级',
     ' Graviton, which speeds Bosons production by ': '引力子，因此玻色子获取速度乘以',
@@ -1142,6 +1153,8 @@ var cnItems = {
     ' FSS base': '最终星辰碎片基础值',
     'Multiply all matters gain by 1e10, and square mass of black hole gain.': '使所有物质获取速度变为1e10倍，并使黑洞质量获取速度变为原来的平方。',
     'Unlock the Unstable Black Hole that boosts normal black hole. (in black hole tab)': '在黑洞子选项卡下解锁了不稳定黑洞，可以增加黑洞质量获取速度。',
+    'Unstable Black Hole\'s effect is 50% stronger. (after overflow)': '使不稳定黑洞的效果增加50%。(在计算完溢出之后的数值)',
+    'Remove all pre-Meta scalings from Supernova. [Neut-Muon]\'s effect is now changed. Denullify C5\'s effect, but it\'s changed.': '移除超新星所有元折算之前的折算。使[缪中微子]的效果发生变化。使挑战5的奖励重新生效，但效果发生变化。',
     'Requires': '需',
     ' Corrupted Shard.': '腐化碎片。',
     //#endregion
@@ -1157,7 +1170,6 @@ var cnItems = {
     'Import': '导入',
     'Error Importing': '输入有误，导入失败',
     'Join Discord': '加入Discord频道',
-    'Donate': '捐赠',
     'Help': '帮助',
     'Offline Production': '离线产量',
     'Fonts': '字体',
@@ -1193,7 +1205,7 @@ var cnItems = {
     'Don’t worry, new mechanics will arrive for you!\n        ': '别担心，新机制就要来了！',
     'Cool': '酷毙啦',
     'Entropy is unlocked in Quantum tab!': '量子选项卡下解锁了熵！',
-    'Incremental Mass Rewritten v0.6.4.2 - made by MrRedShark77': '质量增量重制版v0.6.4.2 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.6.4.4 - made by MrRedShark77': '质量增量重制版v0.6.4.4 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Lemon': 'Lemon',
@@ -1272,13 +1284,13 @@ var cnExcludeWhole = [
     /^[A-Z][a-z]?$/, //单独处理短文字
     /^(.*)[\u4E00-\u9FFF]+(.*)$/, //不抓取内容
     /^e\d\.[e\d]+e\d+$/, //不抓取内容
-    /^e[e\.\,\d]+$/, //不抓取内容
+    /^\^?e[e\.\,\d]+$/, //不抓取内容
     /^×?[\d:]+\d+.\d$/, //不抓取内容
     /^×\d+.\d+e[\,\d]+$/, //不抓取内容
     /^[x×]\d[.,]\d+e?\d+$/, //不抓取内容
     /^U[a-z]{2}$/, //不抓取内容
     /^\d+\(\+\d+$/, //不抓取内容
-    /^ = \d.\d+e\d+$/, //不抓取内容
+    /^ = \d.\d+e[\.\,\d]+$/, //不抓取内容
     /^[\d\,]*\d{1,3}arv\^\d+$/, //不抓取内容
     /^[\d:]*\d{2}.\d{2}$/, //不抓取内容
 ];
@@ -1328,11 +1340,12 @@ var cnRegReplace = new Map([
     [/^(.+) Completions \(\+1 at (.+) of Black Hole$/, '本次挑战可增加$1次完成次数(下一个完成次数在$2黑洞质量'], //挑战等
     [/^(.+) Completions \(\+1 at\s*(.*)$/, '本次挑战可增加$1次完成次数(下一个完成次数在$2'], //挑战等
     [/^Finish Challenge for \+(.+) Completions$/, '完成挑战，使完成次数增加$1次'], //挑战等
-    [/^Currently: \+(.+) later to Super Ranks, Super Tickspeed scaling (.+)% weaker$/, '目前效果：使级别的超级折算延迟$1次出现，时间速度的超级折算弱化$2%'], //挑战等
+    [/^Currently: \+(.+) later to Super Rank starting, (.+)% weaker to Super Tickspeed scaling$/, '目前效果：使级别的超级折算延迟$1次出现，时间速度的超级折算弱化$2%'], //挑战等
+    [/^Currently: ×(.+) later to Supercritical Rank & All Fermions starting, (.+) weaker to Super Overpower scaling$/, '目前效果：使级别和所有费米子的超临界折算延迟$1倍出现，降伏器的超级折算弱化$2%'], //挑战等
     [/^Currently: \+(.+)%\s?$/, '目前效果：增加$1%'], //挑战等
     [/^Currently: \^(.+) later$/, '目前效果：延迟$1次方出现'], //原子等，前置
     [/^Currently: \^(.*)$/, '目前效果：^$1'], //挑战等
-    [/^Currently: (.+)% weaker\s?$/, '目前效果：降低$1%'], //挑战等
+    [/^Currently: (.+) weaker\s?$/, '目前效果：降低$1'], //挑战等
     [/^Currently: \+(.+)x\s?$/, '目前效果：增加$1倍'], //挑战等
     [/^Currently: \+(.+) to Rage Power Upgrade 7$/, '目前效果：狂怒升级7的效果增加$1'], //原子等，前置
     [/^Currently: \+(.+)$/, '目前效果：增加$1'], //挑战等
@@ -1376,6 +1389,7 @@ var cnRegReplace = new Map([
     [/^Tickspeed is (.+)x cheaper \(before Meta scaling$/, '使时间速度便宜$1倍(在元折算前生效'], //超新星等
     [/^Tier requirement is (.+)x cheaper$/, '使阶层的需求便宜$1倍'], //超新星等
     [/^Pre-Meta-Supernova Scalings are (.+)% weaker$/, '使超新星元折算之前的所有折算弱化$1%'], //超新星等
+    [/^Meta & Exotic Supernovas scale (.+) weaker$/, '使超新星的元折算和奇异折算弱化$1'], //超新星等
     [/^Pre-Meta BH Condensers & Cosmic Rays are (.+)x cheaper$/, '使黑洞压缩器和宇宙射线在元折算之前的部分便宜$1倍'], //超新星等
     [/^Increase prestige base's exponent by (.+)$/, '使转生基础值的指数增加$1'], //超新星等
     [/^Radio wave is boosted by (.+)x \(based on Frequency$/, '使无线电波的获取速度变为原来的$1倍(基于频率的数值'], //超新星等

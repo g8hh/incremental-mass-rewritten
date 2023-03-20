@@ -19,6 +19,8 @@ const DARK = {
         if (hasPrestige(0,233)) x = x.mul(prestigeEff(0,233))
         x = x.mul(glyphUpgEff(6))
 
+        if (hasUpgrade('br',20)) x = x.mul(upgEffect(4,20))
+
         return x.floor()
     },
     rayEffect() {
@@ -313,6 +315,7 @@ function getDarkSave() {
         c16: {
             first: false,
             shard: E(0),
+            totalS: E(0),
             bestBH: E(0),
             charger: [],
             tree: [],

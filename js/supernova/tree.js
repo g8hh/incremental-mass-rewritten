@@ -30,14 +30,14 @@ const TREE_IDS = [
         ['chal4','chal7a'],
         ['fn4','fn3','fn9','fn2','fn5','qf4','rad4','rad5'],
         ['prim3','prim2','prim1','qu4','qc1','qc2','qc3'],
-        ['ct8','','','ct7',''],
+        ['ct8','ct9','ct10','ct7','ct11'],
     ],[
         ['s3','m3','gr2','sn3'],
         ['qol9','unl1','qol8','unl2','unl3','qu_qol8','qu_qol9','unl4'],
         ['chal5','chal6','chal7','chal8'],
         ['fn12','fn11','fn6','fn10','rad6',""],
         ['en1','qu5','br1'],
-        [],
+        ['','ct12','','ct13',''],
     ],[
         ['s4','sn5','sn4'],
         ['','','','qu_qol8a'],
@@ -700,6 +700,7 @@ const TREE_UPGS = {
             cost: E(1e24),
             effect() {
                 let x = player.qu.prim.theorems.add(1)
+                if (hasBeyondRank(2,17)) x = x.mul(beyondRankEffect(2,17)[0])
                 return x
             },
             effDesc(x) { return format(x,0)+"倍" },
@@ -981,7 +982,7 @@ const TREE_UPGS = {
         ct3: {
             branch: ['ct1'],
 
-            desc: `Best mass of black hole in C16 increases free fermion tiers.`,
+            desc: `Best mass of black hole in C16 adds free fermion tiers.`,
             cost: E(50),
 
             req() { return tmp.c16active && player.supernova.fermions.choosed == "06" && player.bh.mass.gte('1e81') },
@@ -996,7 +997,7 @@ const TREE_UPGS = {
         ct4: {
             branch: ['ct1'],
 
-            desc: `Best mass of black hole in C16 increases the base of each matter's upgrade.`,
+            desc: `Best mass of black hole in C16 adds the base of each matter's upgrade.`,
             cost: E(100),
 
             req() { return tmp.c16active && player.bh.dm.gte(1e300) },
@@ -1056,11 +1057,83 @@ const TREE_UPGS = {
             },
             effDesc(x) { return ""+format(x)+"倍" },
         },
+        ct9: {
+            branch: ['ct3'],
+
+            desc: `Best mass of black hole in C16 adds free radiation boosts.`,
+            cost: E(5000),
+
+            req() { return tmp.c16active && player.supernova.fermions.choosed == "16" && player.bh.mass.gte('1e400') && player.bh.condenser.lte(0) },
+            reqDesc() { return `当进行挑战16，选择[元-轻子]，且未购买过黑洞压缩器时，到达${formatMass('1e400')}黑洞质量。` },
+
+            effect() {
+                let x = player.dark.c16.bestBH.add(1).log10().root(3)
+                return x
+            },
+            effDesc(x) { return "+"+format(x) },
+        },
+        ct10: {
+            branch: ['ct4'],
+
+            desc: `FSS Requirement is lower based on total corrupted shards.`,
+            cost: E(5e4),
+
+            effect() {
+                let x = Decimal.pow(0.95,overflow(player.dark.c16.totalS.add(1).log10(),2,0.5).root(2))
+                return x.toNumber()
+            },
+            effDesc(x) { return formatReduction(x) },
+        },
+        ct11: {
+            branch: ['ct6'],
+
+            desc: `Mass of black hole overflow starts later based on best mass of black hole in C16. (weaker during C16)`,
+            cost: E(1e6),
+
+            req() { return tmp.c16active && player.atom.atomic.gte(1e20) },
+            reqDesc() { return `当进行挑战16时，到达${format(1e20)}原子能量。` },
+
+            effect() {
+                let x = player.dark.c16.bestBH.add(1).log10().add(1)
+                x = tmp.c16active ? x.root(4) : x.pow(3)
+                x = overflow(x,10,0.5)
+                x = tmp.c16active ? x.root(3) : x.pow(2)
+                return x
+            },
+            effDesc(x) { return "延迟^"+format(x)+"" },
+        },
+        ct12: {
+            branch: ['ct9'],
+            icon: "placeholder",
+
+            desc: `Best mass of black hole in C16 adds free primordium particles.`,
+            cost: E(5e7),
+
+            req() { return tmp.c16active && player.supernova.fermions.choosed == "06" && player.bh.mass.gte('1e2070') && player.bh.condenser.lte(0) },
+            reqDesc() { return `当进行挑战16，选择[元-夸克]，且未购买过黑洞压缩器时，到达${formatMass('1e2070')}黑洞质量。` },
+
+            effect() {
+                let x = player.dark.c16.bestBH.add(1).log10().root(2)
+                return x
+            },
+            effDesc(x) { return "+"+format(x) },
+        },
+        ct13: {
+            branch: ['ct7'],
+            icon: "placeholder",
+
+            desc: `Neutronium-0 now affects Challenge 15 at a reduced rate (like [ct5]). C15 now affects Atomic & Quark Overflows.`,
+            cost: E(2.5e8),
+
+            req() { return player.chal.comps[14]&&player.chal.comps[14].gte(960) },
+            reqDesc() { return `完成${format(960,0)}次挑战14。` },
+        },
 
         /*
         x: {
             unl() { return true },
             req() { return true },
+            icon: "placeholder",
             reqDesc: ``,
             desc: `Placeholder.`,
             cost: EINF,
@@ -1083,7 +1156,6 @@ for (let i in CS_TREE) {
         cost: EINF,
     }
     else {
-        u.icon = u.icon||`placeholder`
         u.desc = u.desc||`Placeholder.`
         u.cs = true
         u.cost = u.cost||EINF

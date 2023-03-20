@@ -14,7 +14,7 @@ const ELEMENTS = {
         'Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd',
         'Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb',
         'Lu','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg',
-        'Ti','Pb','Bi','Po','At','Rn','Fr','Ra','Ac','Th',
+        'Tl','Pb','Bi','Po','At','Rn','Fr','Ra','Ac','Th',
         'Pa','U','Np','Pu','Am','Cm','Bk','Cf','Es','Fm',
         'Md','No','Lr','Rf','Db','Sg','Bh','Hs','Mt','Ds',
         'Rg','Cn','Nh','Fl','Mc','Lv','Ts','Og'
@@ -768,6 +768,7 @@ const ELEMENTS = {
             desc: `7th challenge’s effect gives more C9-12 completions at 10% rate.`,
             cost: E("e9e24"),
             effect() {
+                if (hasPrestige(2,25)) return E(0)
                 let c = tmp.chal?tmp.chal.eff[7]:E(0)
                 let x = c.div(10).ceil()
                 return x
@@ -951,14 +952,14 @@ const ELEMENTS = {
             cost: E("1e96"),
         },{
             desc: `Collapsed star’s effect now provide an exponential boost at reduced rate. It can apply to mass of black hole gain. But nullify Palladium-46, Cadmium-48, Thulium-69 & Osmium-76.`,
-            cost: E("e4.20e69"), // nice
+            cost: E("e2e69"),
         },{
             desc: `Spatial Dilation is slightly weaker.`,
             cost: E("e4.7e70"),
         },{
             br: true,
             desc: `[m1]’s effect is overpowered.`,
-            cost: E("e4.20e69"), // nice x2
+            cost: E("e4.20e69"), // nice
         },{
             br: true,
             desc: `[rp1]’s effect is another overpowered.`,

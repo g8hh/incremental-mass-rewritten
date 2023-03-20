@@ -62,8 +62,8 @@
     <title>质量增量重制版 - Incremental Mass Rewritten</title>
 </head>
 <body onload="loadGame()">
-<script src="chs.js?20230120"></script>
-<script src="core.js?20230120"></script>
+<script src="chs.js?20230320"></script>
+<script src="core.js?20230320"></script>
     <input id="copy" style="position: absolute; top: 0; left: 0; user-select: all; visibility: hidden;">
     <div id="tooltip-div"></div>
     <div id="loading" class='table_center' style="align-items: center; height: 100%;">
@@ -323,7 +323,7 @@
                         <div style="width: 50%; min-width: 600px;">
                             You have <span id="bhMass2">X</span> of Black Hole<br>
                             <span class="green">Which boosts mass gain by <span id="bhEffect">X</span></span><br><br>
-                            Black Hole mass's gain formula - (x + 1)<sup id="bhMassPower">0.33</sup> * <span id="bhCondenserEffect">X</span>
+                            Black Hole mass's gain formula - (x + 1)<sup id="bhMassPower">0.33</sup> × <span id="bhCondenserEffect">X</span>
                         </div><div style="width: 50%; min-width: 600px;" id="unstable_bhUnl">
                             You have <span id="bhUnstable" class="corrupted_text">X</span> of Unstable Black Hole<br>
                             <span class="green">Which boosts mass of black hole gain by <span id="bhUnstableEffect">X</span></span><br><br>
@@ -596,7 +596,7 @@
                 <button class="btn" onclick="export_copy()">Export to clipboard</button>
                 <button class="btn" onclick="importy()">Import</button>
                 <button class="btn" onclick="window.open('https://discord.gg/Ekp8FsSwzR')">Join Discord</button>
-                <button class="btn tooltip" onclick="window.open('https://www.donationalerts.com/r/mrredshark77')" tooltip-html="支持质量增量重制版的开发！">Donate</button>
+                <!--<button class="btn tooltip" onclick="window.open('https://www.donationalerts.com/r/mrredshark77')" tooltip-html="Support the original creator of IMR!">Donate</button>-->
                 <button class="btn" onclick="createPopup(POPUP_GROUPS.help.html,'help')">Help</button><br>
                 <button class="btn" onclick="turnOffline()">Offline Production: <span id="offline_active">ON</span></button>
                 <button class="btn" onclick="createPopup(POPUP_GROUPS.fonts.html,'fonts')">Fonts</button>
@@ -607,7 +607,7 @@
                 <h2>Confirmation Settings</h2><br>
                 <div id="confirm_table" class="table_center"></div>
                 <br><br>
-                Incremental Mass Rewritten v0.6.4.2 - made by MrRedShark77<br>
+                Incremental Mass Rewritten v0.6.4.4 - made by MrRedShark77<br>
                 The game is inspired by Distance Incremental & Synergism<br>
                 Contributors: <span style="cursor: pointer;" onclick='addNotify(`frfrfr<br><img src="./images/lemon-500x500.jpg" style="width:100%">`)'>Lemon</span>, 16777216 & Aarex (Artists)<br><br><br>
                 Hint 1: Hover top image above tabs to show description...<br><br>
