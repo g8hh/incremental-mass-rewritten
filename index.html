@@ -24,6 +24,7 @@
     <script src="js/saves.js"></script>
     <script src="js/challenges.js"></script>
 
+    <script src="js/darkness/exotic_atoms.js"></script>
     <script src="js/darkness/c16.js"></script>
     <script src="js/darkness/matter.js"></script>
     <script src="js/darkness/dark_run.js"></script>
@@ -287,7 +288,7 @@
                                 <img src="images/tickspeed.png">
                                 <span style="margin-left: 5px; text-align: left;"><span id="tickspeed_scale"></span>Tickspeeds [<span id="tickspeed_lvl">X</span>]</span>
                             </div>
-                        </div><button id="tickspeed_btn" class="btn" style="width: 300px;" onclick="FORMS.tickspeed.buy()">Cost: <span id="tickspeed_cost">X</span> Rage Points</button>
+                        </div><button id="tickspeed_btn" class="btn" style="width: 300px;" onclick="FORMS.tickspeed.buy()">Cost: <span id="tickspeed_cost">X</span> Rage Power</button>
                         <button class="btn" style="width: 120px;" onclick="FORMS.tickspeed.buyMax()">Buy Max</button>
                         <button id="tickspeed_auto" class="btn" style="width: 80px;" onclick="FORMS.tickspeed.autoSwitch()">OFF</button>
                         <div style="margin-left: 5px; text-align: left; width: 400px">
@@ -299,7 +300,7 @@
                                 <img src="images/accelerator.png">
                                 <span style="margin-left: 5px; text-align: left;"><span id="accel_scale"></span>Accelerators [<span id="accel_lvl">X</span>]</span>
                             </div>
-                        </div><button id="accel_btn" class="btn" style="width: 300px;" onclick="FORMS.accel.buy()">Cost: <span id="accel_cost">X</span> Rage Points</button>
+                        </div><button id="accel_btn" class="btn" style="width: 300px;" onclick="FORMS.accel.buy()">Cost: <span id="accel_cost">X</span> Rage Power</button>
                         <button class="btn" style="width: 120px;" onclick="FORMS.accel.buyMax()">Buy Max</button>
                         <button id="accel_auto" class="btn" style="width: 80px;" onclick="FORMS.accel.autoSwitch()">OFF</button>
                         <div style="margin-left: 5px; text-align: left; width: 400px">
@@ -316,6 +317,7 @@
                         <span id="massSoft8" style="color: rgb(0, 255, 149)">After <b id="massSoftStart8">X</b> of mass gain will softcap^7 mass gain!<br></span>
                         <span id="massSoft9" style="color: rgb(0, 225, 255)">After <b id="massSoftStart9">X</b> of mass gain will softcap^8 mass gain!</span>
                         <div id="massOverflow"></div>
+                        <div id="massOverflow2" style="color: rgb(255, 197, 215)"></div>
                         <div id="strongerOverflow"></div>
                     </div>
                 </div><div id="stab_frame0_1">
@@ -362,6 +364,7 @@
                             The formula (x + 1)<sup id="bhMassPower2">0.33</sup> softcaps at <b id="bhFSoftStart1">X</b>
                         </span><br>
                         <span id="bhOverflow"></span>
+                        <div id="bhOverflow2" style="color: rgb(255, 197, 215)"></div>
                     </div>
                 </div><div id="stab_frame0_2">
                     You have <span id="atomicAmt">X</span> Atomic Power<br>
@@ -480,9 +483,8 @@
                         <span id="quarkOverflow"></span>
                     </div>
                 </div><div id="stab_frame4_1">
-                    <div id="elemTierDiv">
-                        <button onclick="player.atom.elemTier = Math.max(1,player.atom.elemTier-1)" class="btn"><--</button><span id="elemTier" style="margin: 0px 10px">Element Tier 1</span><button onclick="player.atom.elemTier = Math.min(MAX_ELEM_TIERS,player.atom.elemTier+1)" class="btn">--></button><br><br>
-                    </div>
+                    <button class="btn" id="elemLayer" onclick="changeElemLayer()">Elements' Layer: Normal</button>
+                    <div id="elemTierDiv"></div><br>
                     <div id="elem_ch_div" style="min-height: 70px;">
                         <span id="elem_desc" class='sky'>X</span><br>
                         Cost: <span id="elem_cost">X</span><br>
@@ -504,6 +506,25 @@
                     <button onclick="MASS_DILATION.break.toggle()" id="bd_btn" class="btn half_full bd tooltip" tooltip-html="进行撕裂膨胀时，在大撕裂中黑洞压缩器和宇宙射线不再受到量子挑战8的削弱，量子挑战7失效，您可以根据膨胀质量获得<b>相对论能量</b>。相对论能量可以产生<b>相对论质量</b>。修复膨胀后，相对论能量和相对论质量将被重置，并强制前往量子。">Break Dilation</button><br><br>
                     <div class="table_center">
                         <div id="bd_upg_table" class="table_center" style="width: 1000px;"></div>
+                    </div>
+                </div><div id="stab_frame4_4">
+                    <button class="btn half_full tooltip" id="mcf_btn" tooltip-html="提升阶层时将强制进行最终星辰碎片重置。" onclick="EXOTIC_ATOM.tier()">
+                        Muon-Catalyzed Fusion Tier 0<br>
+                        Requirement: ??? Exotic Atoms
+                    </button>
+                    <div id="ea_div">
+                        <br>
+                        <div>You have <span id="ext_atom">0</span> Exotic Atoms (Muon & Pion based).</div>
+                        <div class="table_center">
+                            <div style="width: 50%; min-width: 500px;">
+                                You have <span id="ea_amt0">0</span> Muons.<br><br>
+                                <div class="sky" id="ea_milestone_table0"></div>
+                            </div>
+                            <div style="width: 50%; min-width: 500px;">
+                                You have <span id="ea_amt1">0</span> Pions.<br><br>
+                                <div class="sky" id="ea_milestone_table1"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div><div id="tab_frame6">
@@ -607,7 +628,7 @@
                 <h2>Confirmation Settings</h2><br>
                 <div id="confirm_table" class="table_center"></div>
                 <br><br>
-                Incremental Mass Rewritten v0.6.4.5 - made by MrRedShark77<br>
+                Incremental Mass Rewritten v0.6.5 - made by MrRedShark77<br>
                 The game is inspired by Distance Incremental & Synergism<br>
                 Contributors: <span style="cursor: pointer;" onclick='addNotify(`frfrfr<br><img src="./images/lemon-500x500.jpg" style="width:100%">`)'>Lemon</span>, 16777216 & Aarex (Artists)<br><br><br>
                 Hint 1: Hover top image above tabs to show description...<br><br>

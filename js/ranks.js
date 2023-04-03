@@ -432,11 +432,13 @@ const PRESTIGES = {
             "22": `使赞颂可以加成所有物质获取速度。`,
             "25": `移除黑暗之前挑战的次数上限。使挑战7的奖励发生变化。`,
             "28": `使荣耀可以加成假真空操控器倍率。`,
+            "34": `使π介子可以加成μ子获取速度，只是效果倍率降低。`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
             "2": `每次名望使超新星的奇异折算延迟1.25倍出现。`,
             "4": `每次名望使腐化碎片获取数量增加50%。`,
+            "6": `使奇异原子可以加成其他资源。`,
         },
     ],
     rewardEff: [
@@ -526,6 +528,10 @@ const PRESTIGES = {
                 let x = player.prestiges[1].root(2).div(10).add(1)
                 return x
             },x=>""+format(x)+"倍"],
+            "34": [()=>{
+                let x = player.dark.exotic_atom.amount[1].add(1).log10().add(1).pow(1.5)
+                return x
+            },x=>""+format(x)+"倍"],
         },
         {
             "2": [()=>{
@@ -534,6 +540,10 @@ const PRESTIGES = {
             },x=>"延迟"+x.format()+"倍"],
             "4": [()=>{
                 let x = player.prestiges[3].div(2).add(1)
+                return x
+            },x=>""+x.format()+"倍"],
+            "6": [()=>{
+                let x = tmp.exotic_atom.amount.add(1).log10().add(1)
                 return x
             },x=>""+x.format()+"倍"],
         },
@@ -694,7 +704,9 @@ const BEYOND_RANKS = {
             20: `使挑战1的奖励发生变化。`,
         },
         3: {
-            1: `质量和强化器的溢出基于质量的宇宙阶层而弱化。`
+            1: `质量和强化器的溢出基于质量的宇宙阶层而弱化。`,
+            2: `使最终星辰碎片的超级折算延迟1次出现。`,
+            4: `使超-级别可以加成π介子和μ子的获取速度。`,
         },
     },
 
@@ -710,7 +722,7 @@ const BEYOND_RANKS = {
             ],
             4: [
                 ()=>{
-                    let x = player.dark.matters.final**0.75/10+1
+                    let x = player.dark.matters.final.pow(.75).div(10).add(1)
 
                     return x
                 },
@@ -761,6 +773,14 @@ const BEYOND_RANKS = {
                     return x
                 },
                 x=>"弱化"+formatReduction(x)+"",
+            ],
+            4: [
+                ()=>{
+                    let x = player.ranks.beyond.add(1).log10().add(1).pow(2)
+
+                    return x
+                },
+                x=>""+format(x)+"倍",
             ],
         },
     },
@@ -828,7 +848,7 @@ function updateRanksHTML() {
                 tmp.el["ranks_amt_"+x].setTxt(format(player.ranks[rn],0))
                 tmp.el["ranks_"+x].setClasses({btn: true, reset: true, locked: !tmp.ranks[rn].can})
                 tmp.el["ranks_desc_"+x].setTxt(desc)
-                tmp.el["ranks_req_"+x].setTxt(x==0?formatMass(tmp.ranks[rn].req):RANKS.fullNames[x-1]+" "+format(tmp.ranks[rn].req,0))
+                tmp.el["ranks_req_"+x].setTxt(x==0?formatMass(tmp.ranks[rn].req):RANKS.fullNames[x-1]+format(tmp.ranks[rn].req,0))
                 tmp.el["ranks_auto_"+x].setDisplay(RANKS.autoUnl[rn]())
                 tmp.el["ranks_auto_"+x].setTxt(player.auto_ranks[rn]?"ON":"OFF")
             }
@@ -912,7 +932,7 @@ function updateRanksHTML() {
                 tmp.el["pres_amt_"+x].setTxt(format(p,0))
                 tmp.el["pres_"+x].setClasses({btn: true, reset: true, locked: x==0?tmp.prestiges.base.lt(tmp.prestiges.req[x]):player.prestiges[x-1].lt(tmp.prestiges.req[x])})
                 tmp.el["pres_desc_"+x].setTxt(desc)
-                tmp.el["pres_req_"+x].setTxt(x==0?format(tmp.prestiges.req[x],0)+"转生基础值":PRESTIGES.fullNames[x-1]+" "+format(tmp.prestiges.req[x],0))
+                tmp.el["pres_req_"+x].setTxt(x==0?format(tmp.prestiges.req[x],0)+"转生基础值":PRESTIGES.fullNames[x-1]+format(tmp.prestiges.req[x],0))
                 tmp.el["pres_auto_"+x].setDisplay(PRESTIGES.autoUnl[x]())
                 tmp.el["pres_auto_"+x].setTxt(player.auto_pres[x]?"ON":"OFF")
             }
