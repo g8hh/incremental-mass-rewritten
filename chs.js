@@ -1359,10 +1359,10 @@ var cnRegReplace = new Map([
     [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Base: (.+)x$/, '基础值：$1倍'], //主界面等
     [/^Reach over (.+) collapsed stars to be Supernova$/, '坍缩星辰不少于$1时就可以成为超新星了'], //主界面等
-    [/^Cost: (.+) Rage Power$/, '花费：$1狂怒能量'], //升级等
-    [/^Cost: (.+) Dark Matter$/, '花费：$1暗物质'], //升级等
-    [/^Cost: (.+) Atom$/, '花费：$1原子'], //升级等
-    [/^Cost: (.+) Death Shard$/, '花费：$1死寂碎片'], //升级等
+    [/^Cost: (.+)Rage Power$/, '花费：$1狂怒能量'], //升级等
+    [/^Cost: (.+)Dark Matter$/, '花费：$1暗物质'], //升级等
+    [/^Cost: (.+)Atom$/, '花费：$1原子'], //升级等
+    [/^Cost: (.+)Death Shard$/, '花费：$1死寂碎片'], //升级等
     [/^Currently: \+(.+) Musclers$/, '目前效果：增加$1锻体器'], //升级等
     [/^Currently: \+(.+) Boosters$/, '目前效果：增加$1助推器'], //升级等
     [/^Currently: \+(.+) Stronger$/, '目前效果：增加$1强化器'], //升级等
