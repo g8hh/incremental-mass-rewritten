@@ -526,6 +526,8 @@ var cnItems = {
     '[Muonic Carbon]': '[μ子-碳]',
     '[Muonic Nitrogen]': '[μ子-氮]',
     '[Muonic Oxygen]': '[μ子-氧]',
+    '[Muonic Fluorine]': '[μ子-氟]',
+    '[Muonic Neon]': '[μ子-氖]',
     'Quark gain formula is better.': '使增加夸克获取速度的公式变得更好。',
     'Hardened Challenge scales 25% weaker.': '使硬化挑战的折算效果弱化25%。',
     'Electron Powers boost Atomic Powers gain.': '使电子能量可以加成原子能量获取速度。',
