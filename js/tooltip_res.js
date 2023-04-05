@@ -197,6 +197,20 @@ const TOOLTIP_RES = {
             return h
         },
     },
+    idk: {
+        full: "???",
+        desc() {
+            let h = `
+            What am i supposed to do now?...
+            <br class='line'>
+            <i>
+            Reach <b>???</b> of mass to ???.
+            </i>
+            `
+
+            return h
+        },
+    },
 
     /**
      * desc() {
