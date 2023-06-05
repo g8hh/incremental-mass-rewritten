@@ -5,20 +5,22 @@ const RANKS = {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].add(1)
             let reset = true
-            if (tmp.chal14comp) reset = false
+            if (tmp.chal14comp || tmp.inf_unl) reset = false
             else if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
             else if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             else if (type == "tetr" && hasTree("qol5")) reset = false
             else if (type == "pent" && hasTree("qol8")) reset = false
             if (reset) this.doReset[type]()
             updateRanksTemp()
+
+            addQuote(1)
         }
     },
     bulk(type) {
         if (tmp.ranks[type].can) {
             player.ranks[type] = player.ranks[type].max(tmp.ranks[type].bulk.max(player.ranks[type].add(1)))
             let reset = true
-            if (tmp.chal14comp) reset = false
+            if (tmp.chal14comp || tmp.inf_unl) reset = false
             if (type == "rank" && player.mainUpg.rp.includes(4)) reset = false
             else if (type == "tier" && player.mainUpg.bh.includes(4)) reset = false
             else if (type == "tetr" && hasTree("qol5")) reset = false
@@ -28,10 +30,10 @@ const RANKS = {
         }
     },
     unl: {
-        tier() { return player.ranks.rank.gte(3) || player.ranks.tier.gte(1) || player.mainUpg.atom.includes(3) || tmp.radiation.unl },
-        tetr() { return player.mainUpg.atom.includes(3) || tmp.radiation.unl },
-        pent() { return tmp.radiation.unl },
-        hex() { return tmp.chal13comp },
+        tier() { return player.ranks.rank.gte(3) || player.ranks.tier.gte(1) || player.mainUpg.atom.includes(3) || tmp.radiation.unl || tmp.inf_unl },
+        tetr() { return player.mainUpg.atom.includes(3) || tmp.radiation.unl || tmp.inf_unl },
+        pent() { return tmp.radiation.unl || tmp.inf_unl },
+        hex() { return tmp.chal13comp || tmp.inf_unl },
     },
     doReset: {
         rank() {
@@ -57,10 +59,10 @@ const RANKS = {
     },
     autoSwitch(rn) { player.auto_ranks[rn] = !player.auto_ranks[rn] },
     autoUnl: {
-        rank() { return player.mainUpg.rp.includes(5) },
-        tier() { return player.mainUpg.rp.includes(6) },
-        tetr() { return player.mainUpg.atom.includes(5) },
-        pent() { return hasTree("qol8") },
+        rank() { return player.mainUpg.rp.includes(5) || tmp.inf_unl },
+        tier() { return player.mainUpg.rp.includes(6) || tmp.inf_unl },
+        tetr() { return player.mainUpg.atom.includes(5) || tmp.inf_unl },
+        pent() { return hasTree("qol8") || tmp.inf_unl },
         hex() { return true },
     },
     desc: {
@@ -82,7 +84,7 @@ const RANKS = {
             '220': "使级别40的奖励变得滥强。",
             '300': "使级别可以加成夸克获取速度。",
             '380': "使级别可以加成质量获取速度。",
-            '800': "基于级别的数值，使质量获取速度的软上限弱化0.25%。",
+            '800': "基于级别的数值，使质量获取速度的软上限弱化0.25%，硬上限为25%。",
         },
         tier: {
             '1': "使级别的需求减少20%。",
@@ -281,6 +283,7 @@ const CORRUPTED_PRES = [
 ]
 
 const PRESTIGES = {
+    names: ['prestige','honor','glory','renown'],
     fullNames: ["转生等级", "荣耀", '赞颂', '名望'],
     baseExponent() {
         let x = 0
@@ -288,8 +291,11 @@ const PRESTIGES = {
         if (hasPrestige(0,32)) x += prestigeEff(0,32,0)
         x += tmp.fermions.effs[1][6]||0
         x += glyphUpgEff(10,0)
+        if (tmp.inf_unl) x += theoremEff('mass',3,0)
 
         x += 1
+
+        if (hasBeyondRank(4,2)) x *= beyondRankEffect(4,2)
         if (tmp.c16active || player.dark.run.active) x /= mgEff(5)
 
         return x
@@ -322,7 +328,7 @@ const PRESTIGES = {
                 x = hasElement(167)?y.div(fp).scaleEvery('prestige2',false).pow(1.25).mul(3.5).add(5):y.pow(1.3).mul(4).add(6)
                 break;
             case 3:
-                x = y.div(fp).pow(1.25).mul(3).add(9)
+                x = y.div(fp).scaleEvery('prestige3',false).pow(1.25).mul(3).add(9)
                 break;
             default:
                 x = EINF
@@ -343,7 +349,7 @@ const PRESTIGES = {
                 if (y.gte(6)) x = hasElement(167)?y.sub(5).div(3.5).max(0).root(1.25).scaleEvery('prestige2',true).mul(fp).add(1):y.sub(6).div(4).max(0).root(1.3).mul(fp).add(1)
                 break
             case 3:
-                if (y.gte(9)) x = y.sub(9).div(3).max(0).root(1.25).mul(fp).add(1)
+                if (y.gte(9)) x = y.sub(9).div(3).max(0).root(1.25).scaleEvery('prestige3',true).mul(fp).add(1)
                 break 
             default:
                 x = E(0)
@@ -361,20 +367,20 @@ const PRESTIGES = {
     unl: [
         ()=>true,
         ()=>true,
-        ()=>tmp.chal14comp,
-        ()=>tmp.brUnl,
+        ()=>tmp.chal14comp||tmp.inf_unl,
+        ()=>tmp.brUnl||tmp.inf_unl,
     ],
     noReset: [
-        ()=>hasUpgrade('br',11),
-        ()=>tmp.chal13comp,
-        ()=>tmp.chal15comp,
-        ()=>false,
+        ()=>hasUpgrade('br',11)||tmp.inf_unl,
+        ()=>tmp.chal13comp||tmp.inf_unl,
+        ()=>tmp.chal15comp||tmp.inf_unl,
+        ()=>tmp.inf_unl,
     ],
     autoUnl: [
-        ()=>tmp.chal13comp,
-        ()=>tmp.chal14comp,
-        ()=>tmp.chal15comp,
-        ()=>false,
+        ()=>tmp.chal13comp||tmp.inf_unl,
+        ()=>tmp.chal14comp||tmp.inf_unl,
+        ()=>tmp.chal15comp||tmp.inf_unl,
+        ()=>tmp.inf_unl,
     ],
     autoSwitch(x) { player.auto_pres[x] = !player.auto_pres[x] },
     rewards: [
@@ -414,7 +420,7 @@ const PRESTIGES = {
             "5": `使五重阶层5的奖励基于转生基础值变得更强。`,
             "7": `使夸克获取速度基于荣耀的数值而增加。`,
             "15": `使宇宙弦的超级折算和究极折算基于荣耀的数值而弱化。`,
-            "22": `使黑暗之影获取速度增加10%。`,
+            "22": `使黑暗之影获取速度变为原来的1.1次方。`,
             "33": `使铀砹混合物的效果可以对元折算之前的五重阶层需求生效，只是效果倍率降低。`,
             "46": `使挑战13-挑战15的次数上限增加500。`,
             "66": `使费米子的所有折算弱化20%。`,
@@ -423,6 +429,8 @@ const PRESTIGES = {
             "139": `每有一个最终星辰碎片，就使物质的获取速度变为原来的3倍。假真空操控器的花费略微降低。`,
             "167": `使最终星辰碎片可以加成深渊之渍的第四个效果。`,
             "247": `使μ子催化聚变阶层可以加成K介子获取速度。`,
+            "300": `使元-夸克和元-轻子的软上限略微弱化。`,
+            400: `使每种粒子能量的第一个效果变得更强。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -435,6 +443,7 @@ const PRESTIGES = {
             "28": `使荣耀可以加成假真空操控器倍率。`,
             "34": `使π介子可以加成K介子获取速度，只是效果倍率降低。`,
             "40": `使[ct4]的效果变得更好。`,
+            45: `使黑洞质量的二重溢出基于不稳定黑洞而延迟出现。`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
@@ -538,6 +547,11 @@ const PRESTIGES = {
                 let x = player.dark.exotic_atom.amount[1].add(1).log10().add(1).pow(1.5)
                 return x
             },x=>""+format(x)+"倍"],
+            45: [()=>{
+                let x = player.bh.unstable.add(1)
+                if (tmp.c16active) x = overflow(x.log10().add(1).root(2),10,0.5)
+                return x
+            },x=>"延迟"+format(x)+"次方"],
         },
         {
             "2": [()=>{
@@ -581,21 +595,26 @@ function prestigeEff(x,y,def=E(1)) { return tmp.prestiges.eff[x][y] || def }
 function updateRanksTemp() {
     if (!tmp.ranks) tmp.ranks = {}
     for (let x = 0; x < RANKS.names.length; x++) if (!tmp.ranks[RANKS.names[x]]) tmp.ranks[RANKS.names[x]] = {}
+    let ifp = E(1)
+    if (tmp.inf_unl) ifp = ifp.mul(theoremEff('mass',2))
     let fp2 = tmp.qu.chroma_eff[1][0]
-    let rt_fp2 = hasPrestige(1,127) ? 1 : fp2
+
+    let tetr_fp2 = hasCharger(8) ? 1 : fp2
+
+    let rt_fp2 = hasPrestige(1,127) ? tmp.c16active ? 5e2 : 1 : fp2
     let ffp = E(1)
     let ffp2 = 1
     if (tmp.c16active || player.dark.run.active) ffp2 /= mgEff(5)
 
     let fp = RANKS.fp.rank().mul(ffp)
-    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ffp2).scaleEvery('rank',false,[1,1,1,1,rt_fp2]).div(fp).pow(1.15)).mul(10)
+    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ifp).div(ffp2).scaleEvery('rank',false,[1,1,1,1,rt_fp2]).div(fp).pow(1.15)).mul(10)
     tmp.ranks.rank.bulk = E(0)
-    if (player.mass.gte(10)) tmp.ranks.rank.bulk = player.mass.div(10).max(1).log10().root(1.15).mul(fp).scaleEvery('rank',true,[1,1,1,1,rt_fp2]).mul(ffp2).add(1).floor();
+    if (player.mass.gte(10)) tmp.ranks.rank.bulk = player.mass.div(10).max(1).log10().root(1.15).mul(fp).scaleEvery('rank',true,[1,1,1,1,rt_fp2]).mul(ffp2).mul(ifp).add(1).floor();
     tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5) && !CHALS.inChal(10) && !FERMIONS.onActive("03")
 
     fp = RANKS.fp.tier().mul(ffp)
-    tmp.ranks.tier.req = player.ranks.tier.div(ffp2).scaleEvery('tier',false,[1,1,1,rt_fp2]).div(fp).add(2).pow(2).floor()
-    tmp.ranks.tier.bulk = player.ranks.rank.max(0).root(2).sub(2).mul(fp).scaleEvery('tier',true,[1,1,1,rt_fp2]).mul(ffp2).add(1).floor();
+    tmp.ranks.tier.req = player.ranks.tier.div(ifp).div(ffp2).scaleEvery('tier',false,[1,1,1,rt_fp2]).div(fp).add(2).pow(2).floor()
+    tmp.ranks.tier.bulk = player.ranks.rank.max(0).root(2).sub(2).mul(fp).scaleEvery('tier',true,[1,1,1,rt_fp2]).mul(ffp2).mul(ifp).add(1).floor();
 
     fp = E(1).mul(ffp)
     let pow = 2
@@ -606,15 +625,15 @@ function updateRanksTemp() {
 
     let tps = 0
 
-    tmp.ranks.tetr.req = player.ranks.tetr.div(ffp2).scaleEvery('tetr',false,[1,1,1,fp2]).div(fp).pow(pow).mul(3).add(10-tps).floor()
-    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10-tps).div(3).max(0).root(pow).mul(fp).scaleEvery('tetr',true,[1,1,1,fp2]).mul(ffp2).add(1).floor();
+    tmp.ranks.tetr.req = player.ranks.tetr.div(ifp).div(ffp2).scaleEvery('tetr',false,[1,1,1,tetr_fp2]).div(fp).pow(pow).mul(3).add(10-tps).floor()
+    tmp.ranks.tetr.bulk = player.ranks.tier.sub(10-tps).div(3).max(0).root(pow).mul(fp).scaleEvery('tetr',true,[1,1,1,tetr_fp2]).mul(ffp2).mul(ifp).add(1).floor();
 
     fp = E(1).mul(ffp)
     let fpa = hasPrestige(1,33) ? [1,1,1,prestigeEff(1,33,1)] : []
     if (player.ranks.hex.gte(1)) fp = fp.div(0.8)
     pow = 1.5
-    tmp.ranks.pent.req = player.ranks.pent.div(ffp2).scaleEvery('pent',false,fpa).div(fp).pow(pow).add(15-tps).floor()
-    tmp.ranks.pent.bulk = player.ranks.tetr.sub(15-tps).gte(0)?player.ranks.tetr.sub(15-tps).max(0).root(pow).mul(fp).scaleEvery('pent',true,fpa).mul(ffp2).add(1).floor():E(0);
+    tmp.ranks.pent.req = player.ranks.pent.div(ifp).div(ffp2).scaleEvery('pent',false,fpa).div(fp).pow(pow).add(15-tps).floor()
+    tmp.ranks.pent.bulk = player.ranks.tetr.sub(15-tps).gte(0)?player.ranks.tetr.sub(15-tps).max(0).root(pow).mul(fp).scaleEvery('pent',true,fpa).mul(ffp2).mul(ifp).add(1).floor():E(0);
 
     fp = E(1)
     pow = 1.8
@@ -623,8 +642,8 @@ function updateRanksTemp() {
         s /= 2
         pow *= 0.9
     }
-    tmp.ranks.hex.req = player.ranks.hex.div(ffp2).div(fp).scaleEvery('hex',false).pow(pow).add(s-tps).floor()
-    tmp.ranks.hex.bulk = player.ranks.pent.sub(s-tps).gte(0)?player.ranks.pent.sub(s-tps).max(0).root(pow).scaleEvery('hex',true).mul(fp).mul(ffp2).add(1).floor():E(0);
+    tmp.ranks.hex.req = player.ranks.hex.div(ifp).div(ffp2).div(fp).scaleEvery('hex',false).pow(pow).add(s-tps).floor()
+    tmp.ranks.hex.bulk = player.ranks.pent.sub(s-tps).gte(0)?player.ranks.pent.sub(s-tps).max(0).root(pow).scaleEvery('hex',true).mul(fp).mul(ffp2).mul(ifp).add(1).floor():E(0);
 
     for (let x = 0; x < RANKS.names.length; x++) {
         let rn = RANKS.names[x]
@@ -686,7 +705,7 @@ const BEYOND_RANKS = {
         if (player.ranks.hex.gte(tmp.beyond_ranks.req) && (!auto || tmp.beyond_ranks.bulk.gt(player.ranks.beyond))) {
             player.ranks.beyond = auto ? player.ranks.beyond.max(tmp.beyond_ranks.bulk) : player.ranks.beyond.add(1)
 
-            if (hasBeyondRank(2,2)) return;
+            if (hasBeyondRank(2,2)||hasInfUpgrade(10)) return;
 
             player.ranks.hex = E(0)
             DARK.doReset()
@@ -714,6 +733,14 @@ const BEYOND_RANKS = {
             1: `质量和强化器的溢出基于质量的宇宙阶层而弱化。`,
             2: `使最终星辰碎片的超级折算延迟1次出现。`,
             4: `使超-级别可以加成π介子和K介子的获取速度。`,
+            12: `移除暗射线第四个效果的软上限。`,
+            18: `超-级别的最大阶层每有一重，就使最终星辰碎片的超级折算弱化2.5%(最高弱化50%)。`,
+            32: `使氩(18Ar)的效果可以对时间速度倍率生效。`,
+        },
+        4: {
+            1: `使超新星的超临界折算基于贝塔[B]粒子而延迟出现，只是效果倍率降低。`,
+            2: `超-级别的最大阶层从十重阶层开始，每有一重，就使转生基础值的指数增加20%。`,
+            40: `使[陶子]的效果变为原来的立方。`,
         },
     },
 
@@ -789,6 +816,32 @@ const BEYOND_RANKS = {
                 },
                 x=>""+format(x)+"倍",
             ],
+            18: [
+                ()=>{
+                    let x = 1-tmp.beyond_ranks.max_tier*0.025
+
+                    return Math.max(0.5,x)
+                },
+                x=>"弱化"+formatReduction(x)+"",
+            ],
+        },
+        4: {
+            1: [
+                ()=>{
+                    let x = overflow(tmp.prim.eff[7].div(5),1e6,0.5)
+
+                    return x
+                },
+                x=>"延迟"+format(x)+"",
+            ],
+            2: [
+                ()=>{
+                    let x = (tmp.beyond_ranks.max_tier-3)**0.2*0.2+1
+
+                    return Math.max(1,x)
+                },
+                x=>""+format(x,1)+"倍",
+            ],
         },
     },
 }
@@ -813,8 +866,13 @@ function getRankTierName(i) {
         let m = ''
         let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
 
-        if (d > 0) m += (d > 2 ? (o == 1 ? 'hen' : RTNS2[0][o]) + RTNS2[1][d] + 'cont' : (d == 2 && o == 3 ? "tr" : d > 1 && o == 1 ? "hen" : RTNS2[0][o]) + RTNS[1][d]) + (h > 0 ? 'a' : '');
-        if (h > 0) m += h > 1 ? RTNS2[2][h] + 'ct' : 'hect';
+        if (d > 1 && o == 1) m += 'hen' 
+        else if (d == 2 && o == 3) m += 'tr' 
+        else m += RTNS2[0][o]
+        if (d > 2) m += RTNS2[1][d] + 'cont'
+        else m += RTNS[1][d]
+        if (h > 0 && d > 0) m += 'a'
+        if (h > 0) m += (h > 1 ? RTNS2[2][h] + 'ct' : 'hect')
 
         return capitalFirst(m)
     }
@@ -869,13 +927,13 @@ function updateRanksHTML() {
             let h = ''
             for (let x = 0; x < 4; x++) {
                 let rn = RANKS.names[x]
-                h += '<div>' + getScalingName(rn) + '<i></i>'  + RANKS.fullNames[x]+ format(player.ranks[rn],0) + '</div>'
+                h += '<div>' + getScalingName(rn) + '<i></i>' + RANKS.fullNames[x]+ format(player.ranks[rn],0) + '</div>'
             }
             tmp.el.pre_beyond_ranks.setHTML(h)
 
             // Beyond Rank
 
-            tmp.el.br_auto.setDisplay(hasBeyondRank(2,1))
+            tmp.el.br_auto.setDisplay(hasBeyondRank(2,1)||hasInfUpgrade(10))
             tmp.el.br_auto.setTxt(player.auto_ranks.beyond?"ON":"OFF")
 
             let t = tmp.beyond_ranks.max_tier
