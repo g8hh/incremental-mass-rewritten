@@ -1310,7 +1310,7 @@ var cnItems = {
     'Dark Passive': '被动之暗',
     ' Start with more dark rays (like dark ray’s first reward unlocked).': '初始状态下就获得更多暗射线(直接解锁暗射线的第一个效果)。',
     'Corrupted Construction': '腐化建造',
-    ' Start with rows of upgrades bought in corrupted tree (based on infinity theorems, starting at 2, ending at 5).': '初始状态下就视为已经购买了相应行数的腐化中子树升级(数量基于无限定理，初始为2，最终为5)。',
+    ' Start with rows of upgrades bought in corrupted tree (based on infinity theorems, starting at 2, ending at 5).': '初始状态下就视为已经购买了相应行数的腐化中子树升级(数量基于无限定理，从2开始到5结束)。',
     ' Unlock new generator in Main tab. Also, passively generate Dimensional Mass that increases meta-score of equipped theorems.': '在主要面板下解锁新的发生器。另外，自动产生维度质量，它可以增加已装备定理的综合评分。',
     'Final Star Automation': '自动最终星辰',
     ' Automate final star shard, and it doesn’t reset anything. Also, start with beyond-ranks automation.': '您可以自动购买最终星辰碎片，且它不再重置任何东西。另外，初始状态下您就可以自动购买超-级别。',
