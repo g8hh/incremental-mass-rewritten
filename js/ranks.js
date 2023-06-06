@@ -853,9 +853,9 @@ const RTNS = [
 ]
 
 const RTNS2 = [
-    ['','un','do','tri','tetra','penta','hexa','hepta','octa','nona'], // d < 3
-    ['','un','du','tria','tetra','penta','hexa','hepta','octa','nona'],
-    ['','un','di','tri','tetra','penta','hexa','hepta','octa','nona'], // h
+    ['','一-','二-','三-','四-','五-','六-','七-','八-','九-'], // d < 3
+    ['','一-','二-','三-','四-','五-','六-','七-','八-','九-'],
+    ['','一-','二-','三-','四-','五-','六-','七-','八-','九-'], // h
 ]
 
 function getRankTierName(i) {
