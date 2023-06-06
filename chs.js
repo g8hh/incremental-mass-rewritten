@@ -787,7 +787,7 @@ var cnItems = {
     'Final Star Shards increase Matter formula.': '使最终星辰碎片可以改良物质的公式。',
     'C15\'s reward affects mass overflow^2 starting.': '使挑战15的奖励效果也可以对质量的二重溢出生效。',
     'Dimensional mass affects pre-theorem\'s level.': '使维度质量可以影响所有定理的等级。',
-    'Quantum times boost infinity points gain. De-nullify [Tau]’s effect, but its formula is changed.': '使前往量子次数可以加成无限点数获取速度。使[陶子]的重新生效，但公式发生变化。',
+    'Quantum times boost infinity points gain. De-nullify [Tau]’s effect, but its formula is changed.': '使前往量子次数可以加成无限点数获取速度。使[陶子]的效果重新生效，但公式发生变化。',
     'Accelerators raise the Argon-18\'s effect at an extremely reduced rate (after first overflow).': '使加速器可以加成氩(18Ar)的效果，只是效果倍率极度降低(在计算完第一重溢出之后生效)。',
     ' Relativistic particles': '相对论粒子',
     ' of dilated mass, which makes Tickspeed ': '膨胀质量，使时间速度增加',
