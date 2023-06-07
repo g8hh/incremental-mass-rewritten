@@ -206,7 +206,7 @@ var cnItems = {
     ' to go Dark.': '才能融入黑暗。',
     'Global Speed': '所有资源获取速度',
     'Pre-Quantum: Speeds up the production of pre-Quantum resources (after exponent, dilation, etc.).': '量子之前：加快量子之前所有资源获取速度(在计算完指数和膨胀等之后的数值)。',
-    'Pre-Infinity: Speeds up the production of pre-Infinity resources. Applies pre-Quantum global speed. (after exponent, dilation, etc.)': '无限之前：加快无限之前所有资源获取速度(在计算完指数和膨胀等之后的数值)。使用量子之前所有资源获取速度。',
+    'Pre-Infinity: Speeds up the production of pre-Infinity resources. Applies pre-Quantum global speed. (after exponent, dilation, etc.)': '无限之前：加快无限之前所有资源获取速度(在计算完指数和膨胀等之后的数值)。可以与量子之前所有资源获取速度共同生效。',
     'Final Star Shard (FSS': '最终星辰碎片(物质',
     'Your FSS base is ': '您的最终星辰碎片基础值为',
     ' of FSS\'s base to get Final Star Shard.': '最终星辰碎片基础值才能获得最终星辰碎片。',
