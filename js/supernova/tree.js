@@ -154,12 +154,16 @@ const TREE_UPGS = {
             desc: `Neutron star multiplies Mass gain.`,
             cost: E(100),
             effect() {
-                let x = hasElement(164)
+                let x = 
+                hasElement(219)
+                ? Decimal.pow(1.25,player.supernova.stars.add(1).log10().add(1).log10().softcap(100,0.5,0))
+                :
+                hasElement(164)
                 ? player.supernova.stars.add(1).log10().add(1).log10().div(10).add(1)
                 : E(1e100).pow(player.supernova.stars.add(1).log10().pow(5).softcap(1e3,0.25,0))
                 return x
             },
-            effDesc(x) { return hasElement(164)?"^"+format(x):(format(x)+"倍"+(x.max(1).log(1e100).gte(1e3)?"<span class='soft'>(softcapped)</span>":"")) },
+            effDesc(x) { return hasElement(164)||hasElement(219)?"^"+format(x):(format(x)+"倍"+(x.max(1).log(1e100).gte(1e3)?"<span class='soft'>(softcapped)</span>":"")) },
         },
         m2: {
             branch: ["m1"],
@@ -714,7 +718,7 @@ const TREE_UPGS = {
             cost: E(1e32),
             effect() {
                 let x = E(1.0333).pow(player.qu.bp.add(1).log10().softcap(70,0.5,0))
-                return x
+                return overflow(x,'e450',0.5)
             },
             effDesc(x) { return format(x)+"倍" },
         },

@@ -17,9 +17,11 @@ const INF = {
         if (hasInfUpgrade(3)) e.push(161)
         if (iu15) e.push(218)
 
+        for (let i = 0; i < player.atom.elements.length; i++) if (player.atom.elements[i] > 218) e.push(player.atom.elements[i])
+
         player.atom.elements = e
         player.atom.muonic_el = []
-        for (let x = 1; x <= 16; x++) player.chal.comps[x] = E(0)
+        for (let x = 1; x <= (hasElement(229) ? 15 : 16); x++) player.chal.comps[x] = E(0)
         player.supernova.tree = ["qu_qol1", "qu_qol2", "qu_qol3", "qu_qol4", "qu_qol5", "qu_qol6", "qu_qol7", "qu_qol8", "qu_qol9", "qu_qol8a", "unl1", "unl2", "unl3", "unl4",
         "qol1", "qol2", "qol3", "qol4", "qol5", "qol6", "qol7", "qol8", "qol9", 'qu_qol10', 'qu_qol11', 'qu_qol12', 'qu0']
 
@@ -148,11 +150,17 @@ const INF = {
 
         // Other
 
-        tmp.rank_tab = 0
-        tmp.stab[4] = 0
+        if (!hasInfUpgrade(11)) {
+            tmp.rank_tab = 0
+            tmp.stab[4] = 0
+        }
+        
         tmp.stab[7] = 0
-        player.atom.elemTier[0] = 1
-        player.atom.elemLayer = 0
+
+        if (!iu15) {
+            player.atom.elemTier[0] = 1
+            player.atom.elemLayer = 0
+        }
 
         // Infinity
 
@@ -170,7 +178,7 @@ const INF = {
     },
     req: Decimal.pow(10,Number.MAX_VALUE),
     limit() {
-        let x = Decimal.pow(10,Decimal.pow(10,Decimal.pow(1.05,player.inf.theorem.pow(1.25)).mul(Math.log10(Number.MAX_VALUE))))
+        let x = Decimal.pow(10,Decimal.pow(10,Decimal.pow(1.05,player.inf.theorem.scaleEvery('inf_theorem').pow(1.25)).mul(Math.log10(Number.MAX_VALUE))))
 
         return x
     },
@@ -186,7 +194,7 @@ const INF = {
 
         if (hasElement(16,1)) s = s.mul(player.inf.dim_mass.add(1).log(1e6).add(1))
 
-        return s.max(1).root(2).softcap(5,1/3,0).toNumber()
+        return s.max(1).root(2).softcap(tmp.inf_level_ss,1/3,0).toNumber()
     },
     gain() {
         if (player.mass.lt(this.req)) return E(0)
@@ -195,6 +203,7 @@ const INF = {
 
         if (hasInfUpgrade(5)) x = x.mul(infUpgEffect(5))
         if (hasElement(17,1)) x = x.mul(muElemEff(17))
+        if (hasElement(20,1)) x = x.mul(muElemEff(20))
 
         return x.max(1).floor()
     },
@@ -247,7 +256,7 @@ const INF = {
                 desc: "Infinity theorem boosts infinity points gain.",
                 cost: E(100),
                 effect() {
-                    let x = Decimal.pow(2,player.inf.theorem)
+                    let x = Decimal.pow(hasBeyondRank(6,1)?3:2,player.inf.theorem)
 
                     return x
                 },
@@ -295,7 +304,7 @@ const INF = {
                 desc: "Infinity Theorems boost kaon and pion gains.",
                 cost: E(6e6),
                 effect() {
-                    let x = Decimal.pow(2,player.inf.theorem)
+                    let x = Decimal.pow(hasBeyondRank(6,1)?3:2,player.inf.theorem)
 
                     return x
                 },
@@ -312,8 +321,8 @@ const INF = {
         ],[
             {
                 title: "Break Infinity",
-                desc: "Reaching infinity no longer plays animation. You can lift beyond normal mass limit and get infinity theorems freely. Finally, unlock Element Tier 3, more Muonic Elements.<br><b><i>[COMING AFTER RELEASE]</i></b>",
-                cost: EINF,
+                desc: "Reaching infinity no longer plays animation. You can lift beyond normal mass limit and get infinity theorems freely. Finally, unlock Element Tier 3, more Muonic Elements.",
+                cost: E(1e12),
             },
         ],
     ],
@@ -361,6 +370,8 @@ const INF = {
             let bonus = E(0)
 
             let step = E(2).add(exoticAEff(1,4,0))
+
+            if (hasElement(225)) step = step.add(elemEffect(225,0))
             
             let eff = step.pow(t.add(bonus))
 
@@ -389,9 +400,11 @@ function buyInfUpgrade(r,c) {
     let u = INF.upgs[r][c]
     let cost = u.cost
 
-    if (player.inf.points.gte(cost)) {
+    if (player.inf.points.gte(cost) && player.inf.theorem.gte(INF.upg_row_req[r])) {
         player.inf.upg.push(r*4+c)
         player.inf.points = player.inf.points.sub(cost).max(0).round()
+
+        if (r == 4 && c == 0) addQuote(12)
     }
 }
 
@@ -406,11 +419,13 @@ function getInfSave() {
         inv: [],
         pre_theorem: [],
         upg: [],
+        fragment: {},
         pt_choosed: -1,
 
         dim_mass: E(0),
         pe: E(0),
     }
+    for (let i in CORE) s.fragment[i] = E(0)
     //for (let i = 0; i < 4; i++) s.pre_theorem.push(createPreTheorem())
     return s
 }
@@ -442,6 +457,10 @@ function updateInfTemp() {
 
     updateCoreTemp()
 
+    tmp.inf_level_ss = 5
+
+    if (hasElement(222)) tmp.inf_level_ss += 5
+
     tmp.IP_gain = INF.gain()
     tmp.inf_limit = INF.limit()
     tmp.inf_reached = player.mass.gte(tmp.inf_limit)
@@ -468,7 +487,7 @@ function infButton() {
 }
 
 function calcInf(dt) {
-    if (tmp.inf_reached && tmp.inf_time == 0) {
+    if (!tmp.brokenInf && tmp.inf_reached && tmp.inf_time == 0) {
         tmp.inf_time += 1
         document.body.style.animation = "inf_reset_1 10s 1"
 
@@ -478,13 +497,20 @@ function calcInf(dt) {
             tmp.el.inf_popup.setDisplay(true)
         },8500)
     }
-
+    
     if (!player.inf.reached && player.mass.gte(INF.req)) player.inf.reached=true
 
     if (hasInfUpgrade(4)) for (let x = 0; x < TREE_TYPES.qu.length; x++) TREE_UPGS.buy(TREE_TYPES.qu[x], true)
-    if (hasInfUpgrade(6)) for (let x = 119; x <= 218; x++) buyElement(x)
+    if (hasInfUpgrade(6)) for (let x = 119; x <= 218; x++) buyElement(x,0)
 
     player.inf.dim_mass = player.inf.dim_mass.add(tmp.dim_mass_gain.mul(dt))
+
+    if (hasElement(232)) {
+        let cs = tmp.c16.shardGain
+
+        player.dark.c16.shard = player.dark.c16.shard.add(cs.mul(dt))
+        player.dark.c16.totalS = player.dark.c16.totalS.add(cs.mul(dt))
+    }
 }
 
 function setupInfHTML() {
@@ -514,6 +540,8 @@ function updateInfHTML() {
                 for (let i = 0; i < 4; i++) {
                     if (s[i] > 0) hh += "综合评分"+format(s[i],2)+" | <i></i>"+ct.preEff[i]+`<b class='sky'>(${ct.effDesc[i](ctmp[i])})</b><br>`
                 }
+                let f = player.inf.fragment[t]
+                if (f.gt(0)) hh += `<br>${f.format(0)}<i></i> ${ct.title.split(' ')[0]} Fragments | <i></i>${ct.fragment[1](tmp.fragment_eff[t])}<br>`
                 if (hh != '') h += `<h2>${ct.title}<b>(${format(core_tmp[t].total_p*100,0)}%)</b></h2><br>`+hh+'<br>'
             }
             tmp.el.core_eff_div.setHTML(h||"Place any theorem in core to show effects!")

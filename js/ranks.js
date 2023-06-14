@@ -431,6 +431,7 @@ const PRESTIGES = {
             "247": `使μ子催化聚变阶层可以加成K介子获取速度。`,
             "300": `使元-夸克和元-轻子的软上限略微弱化。`,
             400: `使每种粒子能量的第一个效果变得更强。`,
+            510: `使K介子和π介子的获取速度变为原来的1.1次方。`,
         },
         {
             "1": `使转生等级和荣耀的需求降低15%。`,
@@ -548,9 +549,9 @@ const PRESTIGES = {
                 return x
             },x=>""+format(x)+"倍"],
             45: [()=>{
-                let x = player.bh.unstable.add(1)
+                let x = hasElement(224) ? Decimal.pow(1.1,player.bh.unstable.root(4)) : player.bh.unstable.add(1)
                 if (tmp.c16active) x = overflow(x.log10().add(1).root(2),10,0.5)
-                return x
+                return overflow(x,1e100,0.5)
             },x=>"延迟"+format(x)+"次方"],
         },
         {
@@ -666,6 +667,13 @@ function updateRanksTemp() {
 
     // Beyond
 
+    let p = 1
+
+    if (hasElement(221)) p /= 0.95
+    p /= getFragmentEffect('time')
+
+    tmp.beyond_ranks.tier_power = p
+
     tmp.beyond_ranks.max_tier = BEYOND_RANKS.getTier()
     tmp.beyond_ranks.latestRank = BEYOND_RANKS.getRankFromTier(tmp.beyond_ranks.max_tier)
 
@@ -689,16 +697,16 @@ const BEYOND_RANKS = {
         return x
     },
     getTier() {
-        let x = player.ranks.beyond.gt(0)?player.ranks.beyond.log10().max(0).pow(.8).add(1).floor().toNumber():1
+        let x = player.ranks.beyond.gt(0)?player.ranks.beyond.log10().max(0).pow(.8).mul(tmp.beyond_ranks.tier_power).add(1).floor().toNumber():1
         return x
     },
     getRankFromTier(i) {
-        let hp = Decimal.pow(10,(i-1)**(1/.8)).ceil()
+        let hp = Decimal.pow(10,Math.pow((i-1)/tmp.beyond_ranks.tier_power,1/.8)).ceil()
 
         return player.ranks.beyond.div(hp).floor()
     },
     getRequirementFromTier(i,t=tmp.beyond_ranks.latestRank,mt=tmp.beyond_ranks.max_tier) {
-        return Decimal.pow(10,(mt)**(1/.8)-(mt-i)**(1/.8)).mul(Decimal.add(t,1)).ceil()
+        return Decimal.pow(10,Math.pow(mt/tmp.beyond_ranks.tier_power,1/.8)-Math.pow((mt-i)/tmp.beyond_ranks.tier_power,1/.8)).mul(Decimal.add(t,1)).ceil()
     },
 
     reset(auto=false) {
@@ -741,6 +749,13 @@ const BEYOND_RANKS = {
             1: `使超新星的超临界折算基于贝塔[B]粒子而延迟出现，只是效果倍率降低。`,
             2: `超-级别的最大阶层从十重阶层开始，每有一重，就使转生基础值的指数增加20%。`,
             40: `使[陶子]的效果变为原来的立方。`,
+        },
+        5: {
+            2: `超-级别的最大阶层从十重阶层开始，每有一重，就使最终星辰碎片的超级折算延迟1次出现。`,
+            7: `移除转生等级所有元折算之前的折算。`,
+        },
+        6: {
+            1: `“自助无限”和“奇异速度”升级的公式中，底数由2变为3。`
         },
     },
 
@@ -841,6 +856,42 @@ const BEYOND_RANKS = {
                     return Math.max(1,x)
                 },
                 x=>""+format(x,1)+"倍",
+            ],
+            18: [
+                ()=>{
+                    let x = 1-tmp.beyond_ranks.max_tier*0.025
+
+                    return Math.max(0.5,x)
+                },
+                x=>"弱化"+formatReduction(x)+"",
+            ],
+        },
+        4: {
+            1: [
+                ()=>{
+                    let x = overflow(tmp.prim.eff[7].div(5),1e6,0.5)
+
+                    return x
+                },
+                x=>"延迟"+format(x)+"次",
+            ],
+            2: [
+                ()=>{
+                    let x = (tmp.beyond_ranks.max_tier-3)**0.2*0.2+1
+
+                    return Math.max(1,x)
+                },
+                x=>""+format(x,1)+"倍",
+            ],
+        },
+        5: {
+            2: [
+                ()=>{
+                    let x = tmp.beyond_ranks.max_tier-3
+
+                    return Math.max(1,x)
+                },
+                x=>"延迟"+format(x,0)+"次",
             ],
         },
     },

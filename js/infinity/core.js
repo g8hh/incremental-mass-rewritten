@@ -38,6 +38,15 @@ const CORE = {
             x => formatMult(x),
             x => "+"+format(x),
         ],
+
+        fragment: [
+            f=>{
+                let x = f.add(1).pow(2)
+
+                return x
+            },
+            x => `Stronger overflow starts <b>${formatMult(x)}</b> later.`,
+        ],
     },
     bh: {
         title: `Hawking Theorem`,
@@ -70,7 +79,7 @@ const CORE = {
                 return x
             },
             s => {
-                let x = Math.pow(1+Math.log10(s+1)/10,-1)
+                let x = Math.pow(1+Math.log10(s+1)/100,-1)
 
                 return x
             },
@@ -85,6 +94,15 @@ const CORE = {
             x => "^"+format(x),
             x => formatReduction(x),
             x => formatMult(x),
+        ],
+
+        fragment: [
+            f=>{
+                let x = f.add(1).log10().div(10).add(1)
+
+                return x
+            },
+            x => `Raise mass of unstable black hole gain to the <b>${format(x)}</b>th power.`,
         ],
     },
     atom: {
@@ -130,6 +148,15 @@ const CORE = {
             x => "+"+format(x),
             x => "+"+format(x),
         ],
+
+        fragment: [
+            f=>{
+                let x = f.add(1)
+
+                return x
+            },
+            x => `Boost kaon & pion gains by <b>${formatMult(x)}</b>.`,
+        ],
     },
     proto: {
         title: `Protoversal Theorem`,
@@ -170,6 +197,15 @@ const CORE = {
             x => formatReduction(x),
             x => formatReduction(x),
         ],
+
+        fragment: [
+            f=>{
+                let x = f.add(1).log10().root(2).div(100).add(1)
+
+                return x
+            },
+            x => `Raise chromas gain to the <b>${format(x)}</b>th power.`,
+        ],
     },
     time: {
         title: `Einstein Theorem`,
@@ -209,6 +245,15 @@ const CORE = {
             x => "^"+format(x),
             x => "^"+format(x),
             x => formatReduction(x),
+        ],
+
+        fragment: [
+            f=>{
+                let x = f.add(1).log10().root(2).div(50).add(1).pow(-1)
+
+                return x.toNumber()
+            },
+            x => `Weaken beyond rank’s next tier requirement by <b>${formatReduction(x)}</b>.`,
         ],
     },
 }
@@ -304,10 +349,21 @@ function getTheoremHTML(data,sub=false) {
     `
 }
 
-function getTheoremPreEffects(t,s) {
+function calcFragmentBase(data,s,p,level) {
+    let lvl = level||data.level, m = 0
+    s.forEach(i=>{m += i})
+
+    return Decimal.pow(1.5*p,lvl-1).mul(m**(2*p)*lvl).floor()
+}
+
+function getTheoremPreEffects(data,s,p,level) {
+    let t = data.type
+
     let e = ""
     for (let i = 0; i < 4; i++) if (s[i]) e += CORE[t].preEff[i]+"<br>"
-    return e+`(Based on <b>${CORE[t].res}</b>)`
+    e += `(Based on <b>${CORE[t].res}</b>)`
+    if (tmp.tfUnl) e += `<br class='line'><b>+${format(calcFragmentBase(data,s,p,level),0)}</b> fragment base`
+    return e
 }
 
 function setupCoreHTML() {
@@ -363,18 +419,20 @@ function updateCoreHTML() {
 
         if (!reached) continue
 
-        let p = player.inf.pre_theorem[i], s = p.star_c.map(x => x < chance)
+        let p = player.inf.pre_theorem[i], s = p.star_c.map(x => x < chance), power = Math.round(100+pm*p.power_m*100)/100
         pt.setClasses({theorem_div:true, tooltip:true, [p.type]:true, choosed: player.inf.pt_choosed == i})
-        pt.setHTML(getTheoremHTML({type: p.type, level: fl, power: Math.round(100+pm*p.power_m*100)/100, star: s},true))
+        pt.setHTML(getTheoremHTML({type: p.type, level: fl, power, star: s},true))
 
         pt.setTooltip(`
         <h3>${CORE[p.type].title}</h3>
         <br class='line'>
-        ${getTheoremPreEffects(p.type,s)}
+        ${getTheoremPreEffects(p,s,power,fl)}
         `)
     }
     
     tmp.el.preTReq.setHTML(`Reach over <b>${formatMass(INF.req)}</b> of normal mass to show theorems that you will choose.`)
+
+    tmp.el.formTBtn.setDisplay(tmp.tfUnl)
 }
 
 function updateTheoremCore() {
@@ -401,7 +459,7 @@ function updateTheoremCore() {
             t.setTooltip(`
             <h3>${CORE[type].title}</h3>
             <br class='line'>
-            ${getTheoremPreEffects(type,s)}
+            ${getTheoremPreEffects(p,p.star,p.power)}
             `)
 
             core_weight[type]++
@@ -421,7 +479,7 @@ function updateTheoremInv() {
         t.setTooltip(p?`
         <h3>${CORE[p.type].title}</h3>
         <br class='line'>
-        ${getTheoremPreEffects(p.type,p.star)}
+        ${getTheoremPreEffects(p,p.star,p.power)}
         `:"")
     }
 }
@@ -436,6 +494,20 @@ function removeTheorem() {
 
         updateTheoremInv()
     })
+}
+
+function formTheorem() {
+    if (t_choosed.includes('c') || t_choosed == '-' || !tmp.tfUnl) return
+
+    let inv = player.inf.inv[t_choosed]
+
+    player.inf.fragment[inv.type] = player.inf.fragment[inv.type].add(calcFragmentBase(inv,inv.star,inv.power));
+
+    delete player.inf.inv[t_choosed]
+
+    t_choosed = '-'
+
+    updateTheoremInv()
 }
 
 function createPreTheorem() {
@@ -466,6 +538,8 @@ function addTheorem(type, star, level, power, chance=CORE_CHANCE_MIN) {
     updateTheoremInv()
 }
 
+function getFragmentEffect(id,def=1) { return tmp.fragment_eff[id]||def }
+
 function chooseTheorem(id,is_core=false) {
     let inv = player.inf.inv, core = player.inf.core;
 
@@ -481,8 +555,9 @@ function chooseTheorem(id,is_core=false) {
             if (is_core) {
                 if (core[id] !== undefined && core[id] !== null) {
                     if (checkSwitchingCore(t_choosed,id)) {
-                        createConfirm(`Are you sure you want to pick theorem out of core?`,'pickout',()=>{
-                            switchTheorems(t_choosed,id)
+                        if (isTheoremHigher(core[id],inv[t_choosed])) switchTheorems(t_choosed,id)
+                        else createConfirm(`Are you sure you want to pick theorem out of core?`,'pickout',()=>{
+                            switchTheorems(t_choosed,id,true)
                         })
                         return
                     }
@@ -491,9 +566,10 @@ function chooseTheorem(id,is_core=false) {
             } else [inv[id], inv[t_choosed]] = [inv[t_choosed], inv[id]]
         } else if (core[t_choosed.split('c')[0]]) {
             if (is_core) [core[id], core[t_choosed.split('c')[0]]] = [core[t_choosed.split('c')[0]], core[id]]
-            else {
-                createConfirm(`Are you sure you want to pick theorem out of core?`,'pickout',()=>{
-                    switchTheorems(id,t_choosed.split('c')[0])
+            else if (checkSwitchingCore(id,t_choosed.split('c')[0])) {
+                if (isTheoremHigher(core[t_choosed.split('c')[0]],inv[id])) switchTheorems(id,t_choosed.split('c')[0])
+                else createConfirm(`Are you sure you want to pick theorem out of core?`,'pickout',()=>{
+                    switchTheorems(id,t_choosed.split('c')[0],true)
                 })
                 return
             }
@@ -512,14 +588,25 @@ function checkSwitchingCore(id1,id2) {
     return !inv[id1] || (core[id2] && inv[id1].type == core[id2].type) || core_weight[inv[id1].type] < MAX_CORE_FIT
 }
 
-function switchTheorems(id1,id2) {
+function isTheoremHigher(t,t_target) {
+    if (!t_target || t.type != t_target.type || t.level > t_target.level || Math.pow(t.level,t.power) > Math.pow(t_target.level,t_target.power)) return false
+
+    for (let i = 0; i < 4; i++) if (t.star[i] > t_target.star[i]) return false
+
+    return true
+}
+
+function switchTheorems(id1,id2,force=false) {
     let inv = player.inf.inv, core = player.inf.core;
 
     [inv[id1], core[id2]] = [core[id2], inv[id1]]
 
     t_choosed = '-'
 
-    INF.doReset()
+    if (force) {
+        INF.doReset()
+    }
+    
     updateTheoremCore()
     updateTheoremInv()
 }
@@ -546,5 +633,7 @@ function updateCoreTemp() {
             s[j] = sc
             eff[j] = t.eff[j](sc)
         }
+
+        tmp.fragment_eff[i] = t.fragment[0](player.inf.fragment[i])
     }
 }

@@ -40,6 +40,7 @@ function resetTemp() {
 
         beyond_ranks: {
             max_tier: 1,
+            tier_power: 0.8,
             eff: {},
         },
 
@@ -214,6 +215,7 @@ function resetTemp() {
         core_lvl: 1,
         core_score: {},
         core_eff: {},
+        fragment_eff: {},
 
         iu_eff: [],
     }
@@ -363,6 +365,8 @@ function updateTemp() {
     tmp.mass4Unl = hasElement(202)
     tmp.brUnl = hasElement(208)
     tmp.eaUnl = hasCharger(5)
+    tmp.brokenInf = hasInfUpgrade(16)
+    tmp.tfUnl = hasElement(230)
 
     updateInfTemp()
     updateC16Temp()

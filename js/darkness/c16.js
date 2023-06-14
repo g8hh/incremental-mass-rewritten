@@ -68,10 +68,13 @@ const UNSTABLE_BH = {
 
         x = x.mul(exoticAEff(1,0))
 
+        x = x.pow(getFragmentEffect('bh'))
+
         return x
     },
     getProduction(x,gain) {
-        return Decimal.pow(1+9*tmp.unstable_bh.p,x.max(0).root(2)).add(gain).log(1+9*tmp.unstable_bh.p).pow(2)
+
+        return Decimal.pow(10,x.max(0).root(2*tmp.unstable_bh.p)).add(gain).log(10).pow(2*tmp.unstable_bh.p)
     },
     calcProduction() {
         let bh = player.bh.unstable
@@ -161,9 +164,12 @@ function setupC16HTML() {
 }
 
 function corruptedShardGain() {
-    if (!tmp.c16active || player.bh.mass.lt('e100')) return E(0)
+    let bh = player.bh.mass
 
-    let x = Decimal.pow(10,overflow(player.bh.mass.max(1).log10(),1e9,0.5).div(100).root(3).sub(1))
+    if (hasElement(232)) bh = player.dark.c16.bestBH.max('e100')
+    else if (!tmp.c16active || bh.lt('e100')) return E(0)
+
+    let x = Decimal.pow(10,overflow(bh.max(1).log10(),1e9,0.5).div(100).root(hasElement(223) ? 2.9 : 3).sub(1))
 
     if (hasPrestige(3,4)) x = x.mul(prestigeEff(3,4))
 
