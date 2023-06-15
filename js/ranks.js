@@ -445,12 +445,14 @@ const PRESTIGES = {
             "34": `使π介子可以加成K介子获取速度，只是效果倍率降低。`,
             "40": `使[ct4]的效果变得更好。`,
             45: `使黑洞质量的二重溢出基于不稳定黑洞而延迟出现。`,
+            58: `超-级别的最大阶层每有一重，就使奇异原子的加成效果增加5%。`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
             "2": `每次名望使超新星的奇异折算延迟1.25倍出现。`,
             "4": `每次名望使腐化碎片获取数量增加50%。`,
             "6": `使奇异原子可以加成其他资源。`,
+            10: `使转生等级388的奖励也对赞颂的折算生效。`,
         },
     ],
     rewardEff: [
@@ -481,7 +483,7 @@ const PRESTIGES = {
                 return x
             },x=>"弱化"+formatReduction(x)+""],
             "607": [()=>{
-                let x = tmp.prestiges.base.max(1).pow(1.5).softcap('e7500',0.1,0)
+                let x = tmp.prestiges.base.max(1).pow(1.5).softcap('e7500',0.1,0).min('e50000')
                 return x
             },x=>""+format(x)+"倍"+softcapHTML(x,'e7500')],
             "1337": [()=>{
@@ -553,6 +555,10 @@ const PRESTIGES = {
                 if (tmp.c16active) x = overflow(x.log10().add(1).root(2),10,0.5)
                 return overflow(x,1e100,0.5)
             },x=>"延迟"+format(x)+"次方"],
+            58: [()=>{
+                let x = tmp.beyond_ranks.max_tier*0.05
+                return x
+            },x=>"+"+formatPercent(x)],
         },
         {
             "2": [()=>{
@@ -843,7 +849,7 @@ const BEYOND_RANKS = {
         4: {
             1: [
                 ()=>{
-                    let x = overflow(tmp.prim.eff[7].div(5),1e6,0.5)
+                    let x = overflow(tmp.prim.eff[7].div(5),1e6,0.5).softcap(1e7,1/3,0)
 
                     return x
                 },
