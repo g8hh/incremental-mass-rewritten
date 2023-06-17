@@ -560,7 +560,7 @@ function updateInfHTML() {
             tmp.el.core_eff_div.setHTML(h||"Place any theorem in core to show effects!")
         }
         else if (tmp.stab[8] == 2) {
-            tmp.el.ip_amt.setHTML(player.inf.points.format(0) + (hasElement(235)?" "+player.inf.points.formatGain(player.inf.best.div(1e2)):""))
+            tmp.el.ip_amt.setHTML(player.inf.points.format(0) + (hasElement(235)?player.inf.points.formatGain(player.inf.best.div(1e2)):""))
 
             for (let r in INF.upgs) {
                 r = parseInt(r)
