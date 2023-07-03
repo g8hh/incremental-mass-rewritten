@@ -20,7 +20,10 @@ const MATTERS = {
 
         if (x.lt(1)) return x
 
-        if (i < MATTERS_LEN-1) x = c16 ? x.mul(tmp.matters.upg[i+1].eff) : x.pow(tmp.matters.upg[i+1].eff)
+        if (i < MATTERS_LEN-1) {
+            x = c16 ? x.mul(tmp.matters.upg[i+1].eff) : x.pow(tmp.matters.upg[i+1].eff)
+            if (hasElement(256)) x = c16 ? x.mul(player.dark.matters.amt[i+1].add(1)) : x.pow(player.dark.matters.amt[i+1].max(1).log10().add(1))
+        }
 
         if (!c16) {
             x = x.pow(tmp.dark.abEff.mexp||1)
@@ -53,6 +56,8 @@ const MATTERS = {
 
         let eff = c16?Decimal.pow(base,lvl):i==0?hasElement(21,1)?Decimal.pow(base,lvl.root(5)):lvl.add(1):Decimal.pow(base,lvl)
 
+        if (i==0) eff = eff.overflow('e2500',0.5)
+
         return {cost: cost, bulk: bulk, eff: eff}
     },
 
@@ -70,9 +75,7 @@ const MATTERS = {
         req() {
             let f = player.dark.matters.final
 
-            if (hasTree('ct10')) f = f.mul(treeEff('ct10'))
-
-            f = f.scaleEvery('FSS')
+            f = f.scaleEvery('FSS',false,[1,hasTree('ct10')?treeEff('ct10').pow(-1):1])
 
             if (hasElement(217)) f = f.mul(.8)
 
@@ -88,9 +91,7 @@ const MATTERS = {
 
             if (hasElement(217)) x = x.div(.8)
 
-            x = x.scaleEvery('FSS',true)
-
-            if (hasTree('ct10')) x = x.div(treeEff('ct10'))
+            x = x.scaleEvery('FSS',true,[1,hasTree('ct10')?treeEff('ct10').pow(-1):1])
 
             return x.add(1).floor()
         },
@@ -115,7 +116,10 @@ const MATTERS = {
 
             let x = Decimal.pow(2,fss.pow(1.25))
 
-            if (c16) x = x.log10().div(10).add(1)
+            if (c16) {
+                x = x.log10().div(10).add(1)
+                if (hasElement(247)) x = x.pow(1.5)
+            }
 
             let y = fss.mul(.15).add(1)
 
@@ -148,7 +152,9 @@ function updateMattersHTML() {
     let c16 = tmp.c16active
     let inf_gs = tmp.preInfGlobalSpeed
 
-    tmp.el.matter_exponent.setTxt(format(tmp.matters.exponent))
+    let h = `10<sup>lg(lg(x))<sup>${format(tmp.matters.exponent)}</sup>`
+    if (hasElement(256)) h += c16 ? `</sup>×(后一种物质)` : `×lg(后一种物质)</sup>`
+    tmp.el.matter_formula.setHTML(h)
     tmp.el.matter_req_div.setDisplay(player.dark.matters.unls<14)
     if (player.dark.matters.unls<14) tmp.el.matter_req.setTxt(format(tmp.matters.req_unl))
 
@@ -201,6 +207,8 @@ function updateMattersTemp() {
 
     tmp.matters.str = 1
     if (hasBeyondRank(1,2)) tmp.matters.str *= beyondRankEffect(1,2)
+
+    if (hasElement(29,1)) tmp.matters.str *= Math.max(1,tmp.exotic_atom.strength**0.5)
 
     tmp.matters.exponent = 2 + glyphUpgEff(11,0) + exoticAEff(1,5,0)
     if (hasPrestige(0,382)) tmp.matters.exponent += prestigeEff(0,382,0)

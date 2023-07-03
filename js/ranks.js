@@ -446,6 +446,7 @@ const PRESTIGES = {
             "40": `使[ct4]的效果变得更好。`,
             45: `使黑洞质量的二重溢出基于不稳定黑洞而延迟出现。`,
             58: `超-级别的最大阶层每有一重，就使奇异原子的加成效果增加5%。`,
+            121: `使八重阶层1的奖励变为原来的4次方。`,
         },
         {
             "1": `之前所有转生的需求降低10%。`,
@@ -551,9 +552,10 @@ const PRESTIGES = {
                 return x
             },x=>""+format(x)+"倍"],
             45: [()=>{
-                let x = hasElement(224) ? Decimal.pow(1.1,player.bh.unstable.root(4)) : player.bh.unstable.add(1)
+                let y = player.bh.unstable//.overflow(1e24,0.5,0)
+                let x = hasElement(224) ? Decimal.pow(1.1,y.root(4)) : y.add(1)
                 if (tmp.c16active) x = overflow(x.log10().add(1).root(2),10,0.5)
-                return overflow(x,1e100,0.5)
+                return overflow(x,1e100,0.5).min('e1750')
             },x=>"延迟"+format(x)+"次方"],
             58: [()=>{
                 let x = tmp.beyond_ranks.max_tier*0.05
@@ -757,7 +759,7 @@ const BEYOND_RANKS = {
         },
         4: {
             1: `使超新星的超临界折算基于贝塔[B]粒子而延迟出现，只是效果倍率降低。`,
-            2: `超-级别的最大阶层从十重阶层开始，每有一重，就使转生基础值的指数增加20%。`,
+            2: `超-级别的最大阶层从十重阶层开始，每有一重，就使转生基础值的指数增加一次。`,
             40: `使[陶子]的效果变为原来的立方。`,
         },
         5: {
@@ -767,6 +769,9 @@ const BEYOND_RANKS = {
         6: {
             1: `“自助无限”和“奇异速度”升级的公式中，底数由2变为3。`,
             12: `使Bitriunium(231Btu)的效果变为原来的立方。`,
+        },
+        8: {
+            1: `超-级别的最大阶层每有一重，就使无限点数获取速度翻倍。`,
         },
     },
 
@@ -800,9 +805,11 @@ const BEYOND_RANKS = {
         2: {
             1: [
                 ()=>{
-                    let x = player.ranks.beyond.pow(3).add(1)
+                    let x = player.ranks.beyond.pow(3)
 
-                    return x
+                    if (hasPrestige(2,121)) x = x.pow(4)
+
+                    return x.add(1)
                 },
                 x=>""+format(x)+"倍",
             ],
@@ -866,33 +873,7 @@ const BEYOND_RANKS = {
 
                     return Math.max(1,x)
                 },
-                x=>""+format(x,1)+"倍",
-            ],
-            18: [
-                ()=>{
-                    let x = 1-tmp.beyond_ranks.max_tier*0.025
-
-                    return Math.max(0.5,x)
-                },
-                x=>"弱化"+formatReduction(x)+"",
-            ],
-        },
-        4: {
-            1: [
-                ()=>{
-                    let x = overflow(tmp.prim.eff[7].div(5),1e6,0.5)
-
-                    return x
-                },
-                x=>"延迟"+format(x)+"次",
-            ],
-            2: [
-                ()=>{
-                    let x = (tmp.beyond_ranks.max_tier-3)**0.2*0.2+1
-
-                    return Math.max(1,x)
-                },
-                x=>""+format(x,1)+"倍",
+                x=>""+format(x)+"倍",
             ],
         },
         5: {
@@ -903,6 +884,16 @@ const BEYOND_RANKS = {
                     return Math.max(1,x)
                 },
                 x=>"延迟"+format(x,0)+"次",
+            ],
+        },
+        8: {
+            1: [
+                ()=>{
+                    let x = Decimal.pow(2,tmp.beyond_ranks.max_tier)
+
+                    return x
+                },
+                x=>formatMult(x),
             ],
         },
     },

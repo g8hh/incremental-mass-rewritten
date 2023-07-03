@@ -1,10 +1,18 @@
 const MUONIC_ELEM = {
     canBuy(x) {
         if (player.atom.muonic_el.includes(x)) return false
-        return tmp.exotic_atom.amount.gte(this.upgs[x].cost||EINF)
+        let upg = this.upgs[x], amt = upg.cs ? player.inf.cs_amount : tmp.exotic_atom.amount
+
+        return amt.gte(upg.cost||EINF)
     },
     buyUpg(x) {
-        if (this.canBuy(x)) player.atom.muonic_el.push(x)
+        if (this.canBuy(x)) {
+            let upg = this.upgs[x]
+
+            if (upg.cs) player.inf.cs_amount = player.inf.cs_amount.sub(upg.cost)
+
+            player.atom.muonic_el.push(x)
+        }
     },
     upgs: [
         null,
@@ -175,6 +183,54 @@ const MUONIC_ELEM = {
         },{
             desc: `Bibihexium-226 works thrice as effective.`,
             cost: E('e1500'),
+        },{
+            desc: `Exotic Atom’s Reward Strength appends to Matter Upgrades at a reduced rate.`,
+            cost: E('e1600'),
+        },{
+            desc: `Muonic Hydrogen-1 also applies to Kaon gain.`,
+            cost: E('e1750'),
+        },{
+            desc: `16th Challenge’s reward also appends to 9th Challenge’s reward.`,
+            cost: E('e1970'),
+        },{
+            desc: `Kaon’s first reward is better.`,
+            cost: E('e2200'),
+        },{
+            desc: `Corrupted Star’s speed is increased by pre-Infinity global speed at a reduced rate.`,
+            cost: E('e2600'),
+            eff() {
+                let x = tmp.preInfGlobalSpeed.max(1).log10().add(1).pow(2)
+                return x
+            },
+            effDesc: x=>formatMult(x),
+        },{
+            cs: true,
+            desc: `Muon-Catalyzed Fusion speeds Corrupted Star.`,
+            cost: E('e20'),
+            eff() {
+                let x = Decimal.pow(1.5,player.dark.exotic_atom.tier)
+                return x
+            },
+            effDesc: x=>formatMult(x),
+        },{
+            desc: `Increase the base of C17’s reward by 1.`,
+            cost: E('e3000'),
+        },{
+            cs: true,
+            desc: `Supernova no longer has requirement with collapsed stars. Instead, they can produce supernovas passively.`,
+            cost: E('e34'),
+        },{
+            desc: `The growth reductions of corrupted stars start later based on supernovas.`,
+            cost: E('e3500'),
+            eff() {
+                let x = player.supernova.times.add(1).overflow(10,0.5)
+                return x
+            },
+            effDesc: x=>formatMult(x)+' later',
+        },{
+            cs: true,
+            desc: `Unlock a new effect of corrupted star.`,
+            cost: E('e56'),
         },
 
         /*
@@ -197,7 +253,8 @@ const MUONIC_ELEM = {
 
         if (tmp.brokenInf) u += 2
         if (tmp.tfUnl) u += 6
-        if (tmp.ascensions_unl) u += 2
+        if (tmp.ascensions_unl) u += 6
+        if (tmp.CS_unl) u += 6
 
         return u
     },
@@ -270,12 +327,14 @@ const EXOTIC_ATOM = {
         if (hasBeyondRank(3,4)) xy = xy.mul(beyondRankEffect(3,4))
         if (hasInfUpgrade(13)) xy = xy.mul(infUpgEffect(13))
         if (hasElement(22,1)) xy = xy.mul(muElemEff(22))
+        if (hasAscension(0,4)) xy = xy.mul(ascensionEff(0,4))
 
         xy = xy.mul(getFragmentEffect('atom'))
         
         let x = xy.div(10)
         if (hasPrestige(2,34)) x = x.mul(prestigeEff(2,34))
         if (hasPrestige(1,247)) x = x.mul(prestigeEff(1,247))
+        if (hasElement(1,1) && hasElement(30,1)) x = x.mul(muElemEff(1))
         
         let y = xy.div(20)
         if (hasElement(1,1)) y = y.mul(muElemEff(1))
@@ -289,7 +348,7 @@ const EXOTIC_ATOM = {
     milestones: [
         [
             [a=>{
-                let x = overflow(a.add(1).root(2),100,0.5)
+                let x = hasElement(32,1) ? expMult(a.add(1),1.4) : overflow(a.add(1).root(2),100,0.5)
                 return x
             },x=>`Boosts corrupted shard gain by <b>${format(x)}倍</b>`],
             [a=>{

@@ -61,11 +61,20 @@ const ASCENSIONS = {
         {
             1: `使时间速度和所有质量升级(除了溢出)与相应免费升级的加成从相加变为相乘。使道尔顿定理变得更强。`,
             2: `使费米子的元折算延迟2次方出现。`,
+            3: `使大撕裂升级19的效果翻倍，并移除不稳定黑洞效果的溢出。`,
+            4: `每进行1次飞升，就使K介子和π介子的获取速度变为原来的5倍。`,
         },
     ],
     rewardEff: [
         {
-            
+            4: [
+                ()=>{
+                    let x = Decimal.pow(5,player.ascensions[0])
+
+                    return x
+                },
+                x=>formatMult(x),
+            ],
         },
     ],
     reset(i, bulk = false) {
@@ -87,6 +96,7 @@ const ASCENSIONS = {
 }
 
 function hasAscension(i,x) { return player.ascensions[i].gte(x) }
+function ascensionEff(i,x,def=1) { return tmp.ascensions.eff[i][x]||def }
 
 function setupAscensionsHTML() {
     let new_table = new Element("asc_table")
@@ -94,7 +104,7 @@ function setupAscensionsHTML() {
 	for (let x = 0; x < ASCENSIONS.names.length; x++) {
 		table += `<div style="width: 300px" id="asc_div_${x}">
 			<button id="asc_auto_${x}" class="btn" style="width: 80px;" onclick="ASCENSIONS.autoSwitch(${x})">OFF</button>
-			<span id="asc_scale_${x}""></span>${ASCENSIONS.fullNames[x]} <span id="asc_amt_${x}">X</span><br><br>
+			<span id="asc_scale_${x}""></span>${ASCENSIONS.fullNames[x]}<span id="asc_amt_${x}">X</span><br><br>
 			<button onclick="ASCENSIONS.reset(${x})" class="btn reset" id="asc_${x}">
 				进行${ASCENSIONS.resetName[x]}(强制前往无限)，但提升${ASCENSIONS.fullNames[x]}。<span id="asc_desc_${x}"></span><br>
 				Req: <span id="asc_req_${x}">X</span>
@@ -109,7 +119,7 @@ function setupAscensionsHTML() {
 		table += `<div id="asc_reward_div_${x}">`
 		let keys = Object.keys(ASCENSIONS.rewards[x])
 		for (let y = 0; y < keys.length; y++) {
-			table += `<span id="asc_reward_${x}_${y}"><b>${ASCENSIONS.fullNames[x]} ${keys[y]}:</b> ${ASCENSIONS.rewards[x][keys[y]]}${ASCENSIONS.rewardEff[x][keys[y]]?`目前效果：<span id='asc_eff_${x}_${y}'></span>`:""}</span><br>`
+			table += `<span id="asc_reward_${x}_${y}"><b>${ASCENSIONS.fullNames[x]}${keys[y]}：</b>${ASCENSIONS.rewards[x][keys[y]]}${ASCENSIONS.rewardEff[x][keys[y]]?`目前效果：<span id='asc_eff_${x}_${y}'></span>`:""}</span><br>`
 		}
 		table += `</div>`
 	}

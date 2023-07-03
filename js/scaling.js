@@ -37,6 +37,7 @@ const SCALE_START = {
 		prestige0: E(80),
 		prestige1: E(60),
 		prestige2: E(60),
+		FSS: E(32),
 	},
 	ultra: {
 		rank: E(600),
@@ -114,6 +115,7 @@ const SCALE_POWER= {
 		prestige0: 2,
 		prestige1: 2,
 		prestige2: 3,
+		FSS: 3,
 	},
 	ultra: {
 		rank: 4,
@@ -325,9 +327,11 @@ function getScalingStart(type, name) {
 		else if (name=="FSS") {
 			if (hasBeyondRank(3,2)) start = start.add(1)
 			if (hasBeyondRank(5,2)) start = start.add(beyondRankEffect(5,2,0))
+			if (hasElement(246)) start = start.add(elemEffect(246))
 		}
 		else if (name=="pe") {
 			if (hasElement(233)) start = start.add(25)
+			if (hasElement(255)) start = start.add(elemEffect(255))
 		}
 	}
 	else if (type==1) {
@@ -558,7 +562,7 @@ function getScalingPower(type, name) {
 
 	let rps = ['rank','tier','tetr','pent']
 	if (hasElement(207)) rps.push('hex')
-	if (hasPrestige(2,4) && rps.includes(name) && type<4) power = power.mul(tmp.qu.chroma_eff[1][1])
+	if (hasPrestige(2,4) && rps.includes(name) && (name=='hex'?type<2:type<4)) power = power.mul(tmp.qu.chroma_eff[1][1])
 
 	let qf = tmp.qu.qc_eff[7][1]
 	if (!tmp.c16active) if (player.dark.run.upg[4] && inDarkRun() && ['rank','tier','tetr','pent','hex'].includes(name)) qf **= 0.75 
@@ -591,7 +595,7 @@ function noScalings(type,name) {
 		if (hasBeyondRank(2,15)) return true
 	}
 	else if (name=="supernova") {
-		if (type<3 && hasCharger(3)) return true
+		return tmp.SN_passive || type<3 && hasCharger(3)
 	}
 	else if (name=="tickspeed") {
 		if (hasCharger(4)) return true

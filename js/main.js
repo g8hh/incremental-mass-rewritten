@@ -105,6 +105,8 @@ const FORMS = {
         if (tmp.inf_unl) x = x.pow(theoremEff('mass',0))
         if (hasInfUpgrade(1)) x = x.pow(infUpgEffect(1)[0])
 
+        x = x.pow(tmp.bosons.effect.pos_w[2]||1)
+
         if (tmp.c16active || inDarkRun()) x = expMult(x,mgEff(0))
 
         let o = x
@@ -123,6 +125,8 @@ const FORMS = {
             os = os.pow(p)
             os2 = os2.pow(p)
         }
+
+        if (hasElement(257)) os2 = os2.pow(elemEffect(257))
 
         if (CHALS.inChal(17)) os = E('ee95')
 
@@ -480,6 +484,7 @@ const FORMS = {
             if (tmp.inf_unl) os = os.pow(theoremEff('bh',1))
 
             if (hasPrestige(2,45)) os2 = os2.pow(prestigeEff(2,45))
+            if (hasElement(252)) os2 = expMult(os2,1.5)
 
             os = os.min(os2)
 
@@ -546,6 +551,8 @@ const FORMS = {
 
             if (hasUpgrade('bh',18)) x = x.pow(2.5)
 
+            if (hasElement(201)) x = x.overflow('e1000',0.5)
+
             return x//.softcap("ee14",0.95,2)
         },
         condenser: {
@@ -583,6 +590,15 @@ const FORMS = {
                 if (CHALS.inChal(17)) pow = E(1)
                 
                 let eff = pow.pow(t.add(tmp.bh.condenser_bonus))
+
+                let os = tmp.c16active ? E('ee150') : E('ee10000'), op = E(0.5)
+
+                let o = eff
+
+                eff = overflow(eff,os,op,2)
+
+                tmp.overflow.BHCEffect = calcOverflow(o,eff,os,2)
+                tmp.overflow_start.BHCEffect = [os]
 
                 return {pow: pow, eff: eff}
             },

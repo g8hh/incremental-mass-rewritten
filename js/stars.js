@@ -154,7 +154,7 @@ function setupStarsHTML() {
 }
 
 function updateStarsScreenHTML() {
-    let show = player.supernova.times.lt(1e5)
+    let show = !tmp.SN_passive && player.supernova.times.lt(1e5)
 
     tmp.el.star.setDisplay(show)
     if ((!tmp.supernova.reached || player.supernova.post_10) && tmp.tab != 5 && show) {
@@ -181,8 +181,8 @@ function updateStarsScreenHTML() {
 function updateStarsHTML() {
     tmp.el.starSoft1.setDisplay(tmp.stars.gain.gte(tmp.stars.softGain))
 	tmp.el.starSoftStart1.setTxt(format(tmp.stars.softGain))
-    tmp.el.stars_Amt.setTxt(format(player.stars.points,2)+formatGain(player.stars.points,tmp.stars.gain.mul(tmp.preQUGlobalSpeed))+"星辰，成为超新星需要"+format(tmp.supernova.maxlimit,2))
-    tmp.el.stars_Eff.setTxt((hasElement(162)?"^":"")+format(tmp.stars.effect)+(hasElement(162)?"":"倍"))
+    tmp.el.stars_Amt.setTxt(format(player.stars.points,2)+(tmp.SN_passive?"":formatGain(player.stars.points,tmp.stars.gain.mul(tmp.preQUGlobalSpeed))+"星辰，成为超新星需要"+format(tmp.supernova.maxlimit,2)))
+    tmp.el.stars_Eff.setHTML((hasElement(162)?"^":"")+`<h4>${format(tmp.stars.effect)}</h4>`+(hasElement(162)?"":"倍")+(tmp.SN_passive?`，超新星每秒获取<h4>${tmp.supernova.passive.format(0)}</h4>`:''))
     tmp.el.stars_Eff.setClasses({corrupted_text2: tmp.c16active})
 
     tmp.el.star_btn.setDisplay(hasTree("s4") || player.stars.unls < 5)
