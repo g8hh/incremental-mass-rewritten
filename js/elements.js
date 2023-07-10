@@ -307,7 +307,7 @@ function updateTickspeedHTML() {
 		tmp.el.accel_btn.setClasses({btn: true, locked: !FORMS.accel.can()})
 		tmp.el.accel_cost.setTxt(format(tmp.accelCost,0))
 		tmp.el.accel_step.setHTML("+"+format(eff.step)+"次方")
-		tmp.el.accel_eff.setHTML("^"+format(eff.eff)+"时间速度效果")
+		tmp.el.accel_eff.setHTML("^"+format(eff.eff)+"时间速度效果"+eff.eff.softcapHTML(eff.ss))
 
 		tmp.el.accel_auto.setDisplay(FORMS.accel.autoUnl())
 		tmp.el.accel_auto.setTxt(player.autoAccel?"ON":"OFF")

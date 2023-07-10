@@ -1,7 +1,7 @@
 const ASCENSIONS = {
-    names: ['ascension'],
-    fullNames: ["飞升"],
-    resetName: ['飞升'],
+    names: ['ascension','transcension'],
+    fullNames: ["飞升",'超越'],
+    resetName: ['飞升','超越'],
     baseExponent() {
         let x = 0
 
@@ -25,6 +25,9 @@ const ASCENSIONS = {
             case 0:
                 x = Decimal.pow(1.1,y.div(fp).pow(1.1)).mul(1600)
                 break;
+            case 1:
+                x = y.div(fp).pow(1.1).mul(2).add(6)
+                break;
             default:
                 x = EINF
                 break;
@@ -36,6 +39,9 @@ const ASCENSIONS = {
         switch (i) {
             case 0:
                 if (y.gte(1600)) x = y.div(1600).max(1).log(1.1).max(0).root(1.1).mul(fp).add(1)
+                break;
+            case 1:
+                if (y.gte(6)) x = y.sub(6).div(2).root(1.1).mul(fp).add(1)
                 break;
             default:
                 x = E(0)
@@ -49,11 +55,14 @@ const ASCENSIONS = {
     },
     unl: [
         ()=>true,
+        ()=>tmp.c18reward,
     ],
     noReset: [
         ()=>false,
+        ()=>false,
     ],
     autoUnl: [
+        ()=>false,
         ()=>false,
     ],
     autoSwitch(x) { player.auto_asc[x] = !player.auto_asc[x] },
@@ -63,6 +72,10 @@ const ASCENSIONS = {
             2: `使费米子的元折算延迟2次方出现。`,
             3: `使大撕裂升级19的效果翻倍，并移除不稳定黑洞效果的溢出。`,
             4: `每进行1次飞升，就使K介子和π介子的获取速度变为原来的5倍。`,
+            7: `移除膨胀质量的溢出。`,
+        },{
+            1: `使转生基础值的指数翻倍。使大撕裂升级19的效果对名望也生效。`,
+            2: `使无限定理的超级折算弱化10%。`,
         },
     ],
     rewardEff: [
@@ -75,6 +88,8 @@ const ASCENSIONS = {
                 },
                 x=>formatMult(x),
             ],
+        },{
+            
         },
     ],
     reset(i, bulk = false) {

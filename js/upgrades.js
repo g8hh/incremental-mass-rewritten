@@ -49,7 +49,7 @@ const UPGS = {
                 if (hasInfUpgrade(2)) start = E(1e10)
                 let pow = 1.5
                 cost = Decimal.pow(10,Decimal.pow(inc,lvl.scaleEvery('massUpg4').pow(pow)).mul(start))
-                if (player.mass.gte('ee100')) bulk = player.mass.max(1).log10().div(start).max(1).log(inc).max(0).root(pow).scaleEvery('massUpg4',true).add(1).floor()
+                if (player.mass.gte(Decimal.pow(10,start))) bulk = player.mass.max(1).log10().div(start).max(1).log(inc).max(0).root(pow).scaleEvery('massUpg4',true).add(1).floor()
             } else {
                 fp = tmp.massFP
                 
@@ -521,7 +521,7 @@ const UPGS = {
                 cost: E(1e33),
                 effect() {
                     let ret = E(2).pow(player.bh.dm.add(1).log10().softcap(11600,0.5,0))
-                    return ret
+                    return ret.min('ee7000')
                 },
                 effDesc(x=this.effect()) {
                     return format(x)+"x"+(x.max(1).log2().gte(11600)?"<span class='soft'>(softcapped)</span>":"")
@@ -874,7 +874,7 @@ const UPGS = {
                 cost: E(1e17),
                 effect() {
                     let x = (tmp.prestiges.base||E(1)).add(1).log10().tetrate(1.5).add(1)
-                    return x
+                    return x.min('e2.5e4')
                 },
                 effDesc(x=this.effect()) { return "x"+format(x) },
             },
