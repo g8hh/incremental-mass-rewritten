@@ -121,7 +121,7 @@ var cnItems = {
     ', your stronger effect is rooted by ': '，发生溢出，因此强化器效果变为了以下次方根：',
     'Because of stronger overflow^2 at ': '因为强化器超过了',
     ', your stronger overflow is even stronger!': '，发生二重溢出，它变得更严重了！',
-    'Because of Rank Collapse at ': '因为超级别达到',
+    'Because of Rank Collapse at ': '因为超-级别达到',
     ', Hept\'s requirement is raised by ': '，七重阶层的需求变为了以下次方：',
     'Your Prestige base is ': '您的转生基础值为',
     'Galactic Prestige ': '银河转生',
