@@ -54,7 +54,7 @@ const POPUP_GROUPS = {
         多宇宙：1e1e9宇宙<br>
         兆宇宙：1e15多宇宙<br>
         吉宇宙：1e15兆宇宙<br>
-        arv^n(即第n阶高阶宇宙)：1e15 arv^n-1<br>
+        高阶宇宙^n：1e15高阶宇宙^(n-1)<br>
         `,
     },
     fonts: {

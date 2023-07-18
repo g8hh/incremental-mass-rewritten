@@ -174,6 +174,12 @@ const UPGS = {
 
                 if (hasBeyondRank(3,1)) op = op.pow(beyondRankEffect(3,1))
 
+                if (hasElement(264)) {
+                    let w = elemEffect(264)
+                    op = op.pow(w)
+                    op2 = op2.pow(w)
+                }
+
                 ret = overflow(ret,os,op)
 
                 ret = overflow(ret,os2,op2)
@@ -415,7 +421,7 @@ const UPGS = {
                 },
             },
             20: {
-                unl() { return player.dark.exotic_atom.tier>0 || tmp.inf_unl },
+                unl() { return player.dark.exotic_atom.tier.gt(0) || tmp.inf_unl },
                 desc: `Corrupted Shards boost normal mass gain.`,
                 cost: E('e2e357'),
                 effect() {
@@ -613,7 +619,7 @@ const UPGS = {
                 cost: E('e1e273'),
                 effect() {
                     let x = player.dark.c16.totalS.add(1)
-                    return overflow(x,10,0.5).pow(3)
+                    return overflow(x,10,0.5).pow(3).overflow(x,'e3500',0.25)
                 },
                 effDesc(x=this.effect()) {
                     return "^"+format(x)
@@ -920,7 +926,7 @@ const UPGS = {
                 effect() {
                     let x = player.dark.matters.amt[0].add(1).log10().add(1).log10().add(1).log10().div(60).add(1)
                     if (hasAscension(0,3)) x = x.pow(2)
-                    return x.toNumber()
+                    return x
                 },
                 effDesc(x=this.effect()) { return "x"+format(x)+" cheaper" },
             },

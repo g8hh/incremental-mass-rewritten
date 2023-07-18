@@ -20,6 +20,7 @@ const SCALE_START = {
 		FSS: E(5),
 		pe: E(25),
 		inf_theorem: E(10),
+		ascension0: E(20),
     },
 	hyper: {
 		rank: E(120),
@@ -37,6 +38,7 @@ const SCALE_START = {
 		prestige0: E(80),
 		prestige1: E(60),
 		prestige2: E(60),
+		prestige3: E(55),
 		massUpg4: E(250),
 		FSS: E(32),
 	},
@@ -99,6 +101,7 @@ const SCALE_POWER= {
 		FSS: 2,
 		pe: 2,
 		inf_theorem: 2,
+		ascension0: 2,
     },
 	hyper: {
 		rank: 2.5,
@@ -116,6 +119,7 @@ const SCALE_POWER= {
 		prestige0: 2,
 		prestige1: 2,
 		prestige2: 3,
+		prestige3: 3,
 		massUpg4: 8,
 		FSS: 3,
 	},
@@ -186,6 +190,7 @@ const SCALING_RES = {
 	FSS() { return player.dark.matters.final },
 	pe() { return player.inf.pe},
 	inf_theorem() { return player.inf.theorem},
+	ascension0() { return player.ascensions[0] },
 }
 
 const NAME_FROM_RES = {
@@ -209,6 +214,7 @@ const NAME_FROM_RES = {
 	FSS: "Final Star Shard",
 	pe: "Parallel Extruder",
 	inf_theorem: "Infinity Theorem",
+	ascension0: "Ascension",
 }
 
 const C18_SCALING = [
@@ -342,6 +348,9 @@ function getScalingStart(type, name) {
 			if (hasElement(233)) start = start.add(25)
 			if (hasElement(255)) start = start.add(elemEffect(255))
 		}
+		else if (name=="massUpg4") {
+			if (hasAscension(1,3)) start = start.add(50)
+		}
 	}
 	else if (type==1) {
 		if (name=="tickspeed") {
@@ -357,6 +366,9 @@ function getScalingStart(type, name) {
 		}
 		else if (name=="hex") {
 			if (hasPrestige(0,651)) start = start.mul(4/3)
+		}
+		else if (name=="massUpg4") {
+			if (hasAscension(1,3)) start = start.add(50)
 		}
 	}
 	else if (type==2) {
@@ -406,6 +418,7 @@ function getScalingStart(type, name) {
 		}
 		else if (name=="prestige0") {
 			start = start.mul(exoticAEff(0,1))
+			if (hasAscension(1,4)) start = start.mul(2)
 		}
 		else if (name=="fTier") {
 			if (hasAscension(0,2)) start = start.pow(2)
@@ -497,6 +510,9 @@ function getScalingPower(type, name) {
 		else if (name=='inf_theorem') {
 			if (hasAscension(1,2)) power = power.mul(0.9)
 		}
+		else if (name=="prestige3") {
+			if (hasPrestige(4,1)) power = power.mul(0.75)
+		}
 	}
 	else if (type==1) {
 		if (name=="rank") {
@@ -539,6 +555,9 @@ function getScalingPower(type, name) {
 			if (hasElement(27)) power = power.mul(0.75)
 			if (hasElement(58)) power = power.mul(tmp.elements.effect[58])
 		}
+		if (name=="hex") {
+			if (tmp.chal && hasAscension(0,22)) power = power.mul(tmp.chal.eff[5])
+		}
 		else if (name=='tickspeed') {
 			if (hasElement(27)) power = power.mul(0.75)
 			if (hasElement(58)) power = power.mul(tmp.elements.effect[58])
@@ -551,7 +570,7 @@ function getScalingPower(type, name) {
 		}
 		else if (name=='prestige0') {
 			if (hasElement(197)) power = power.mul(0.9)
-			if (tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
+			if (!hasAscension(0,22) && tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
 		}
 	}
 	else if (type==3) {
@@ -562,13 +581,18 @@ function getScalingPower(type, name) {
 	else if (type==4) {
 		if (name=='rank') {
 			if (hasElement(197)) power = power.mul(0.9)
-			if (tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
+			if (!hasAscension(0,22) && tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
 		}
 		else if (name=="tier") {
-			if (tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
+			if (!hasAscension(0,22) && tmp.chal && hasCharger(3)) power = power.mul(tmp.chal.eff[5])
 		}
 		else if (name=="supernova") {
 			if (hasElement(212)) power = power.mul(0.75)
+		}
+	}
+	else if (type==5) {
+		if (name=='rank') {
+			if (tmp.chal && hasAscension(0,22)) power = power.mul(tmp.chal.eff[5])
 		}
 	}
 	if (hasUpgrade("atom",15) && name == "gamma_ray") power = power.mul(0.8)
@@ -588,6 +612,7 @@ function getScalingPower(type, name) {
 	if (hasPrestige(0,388) && p.includes(name) && type<3) power = power.mul(prestigeEff(0,388,1))
 
 	if (hasPrestige(1,66) && name=="fTier") power = power.mul(0.8)
+
 	return power.max(type==3?0.5:0)
 }
 
@@ -596,16 +621,20 @@ function noScalings(type,name) {
 
 	if (name=="rank") {
 		if (type<4 && hasPrestige(1,127)) return true
-		// else if (type == 4) return true
+		else if (type == 4 && hasAscension(0,15)) return true
 	}
 	else if (name=="tier") {
 		if (type<4 && hasPrestige(1,127)) return true
+		else if (type == 4 && hasAscension(0,15)) return true
 	}
 	else if (name=="tetr") {
 		return hasCharger(8)
 	}
 	else if (name=="pent") {
 		return hasElement(243)
+	}
+	else if (name=="hex") {
+		if (type<2 && hasAscension(0,15)) return true
 	}
 	else if (name=="massUpg") {
 		if (hasBeyondRank(2,15)) return true

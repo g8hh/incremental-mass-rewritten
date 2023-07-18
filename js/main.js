@@ -114,7 +114,7 @@ const FORMS = {
         let op = E(.5)
         let os2 = tmp.c16active ? E('ee11') : E('ee279')
         let op2 = E(.25)
-        let os3 = E('eee4')
+        let os3 = E('eee5')
         let op3 = E(.15)
 
         if (hasTree('ct6')) os = os.pow(treeEff('ct6'))
@@ -142,6 +142,10 @@ const FORMS = {
             op = op.pow(.95)
             op2 = op2.pow(.95)
         }
+
+        let pp = GPEffect(1)
+        op = op.pow(pp)
+        op2 = op2.pow(pp)
 
         x = overflow(x,os,op)
 
@@ -557,7 +561,7 @@ const FORMS = {
             let x = (player.mainUpg.atom.includes(12)?player.bh.mass.add(1).pow(1.25):player.bh.mass.add(1).root(4))
             if (hasElement(89)) x = x.pow(tmp.elements.effect[89])
 
-            if (hasElement(201)) x = Decimal.pow(1.1+exoticAEff(0,5,0),x.max(1).log10().add(1).log10().pow(.8))
+            if (hasElement(201)) x = Decimal.add(1.1,exoticAEff(0,5,0)).pow(x.max(1).log10().add(1).log10().pow(.8))
 
             if (hasUpgrade('bh',18)) x = x.pow(2.5)
 
@@ -723,21 +727,13 @@ function turnOffline() { player.offline.active = !player.offline.active }
 
 const ARV = ['多宇宙','兆宇宙','吉宇宙','太宇宙','拍宇宙','艾宇宙','泽宇宙','尧宇宙']
 
-function formatARV(ex,gain=false,set_mlt=false) {
-    if (gain) ex = uni('ee9').pow(ex)
-    let mlt = ex.div(1.5e56).log10().div(1e9)
-    if (set_mlt) return format(mlt)+"多宇宙"
-    let arv = mlt.log10().div(15).floor()
-    return format(mlt.div(Decimal.pow(1e15,arv))) + (arv.gte(8)?"arv^"+format(arv.add(2),0):ARV[arv.toNumber()])
-}
-
 function formatMass(ex) {
     let md = player.options.massDis
     ex = E(ex)
     if (md == 1) return format(ex) + '克'
     else if (md == 2) return format(ex.div(1.5e56).max(1).log10().div(1e9)) + '多宇宙'
     else if (md == 3) {
-        return ex.gte('1.5e1000000056') ? format(ex.div(1.5e56).max(1).log10().div(1e9)) + '多宇宙' : format(ex) + '克'
+        return  ex.gte('ee14979') ? formatARV(ex) : ex.gte('1.5e1000000056') ? format(ex.div(1.5e56).max(1).log10().div(1e9)) + '多宇宙' : format(ex) + '克'
     }
 
     if (ex.gte(E(1.5e56).mul('ee9'))) return formatARV(ex)
@@ -751,24 +747,51 @@ function formatMass(ex) {
     return format(ex) + '克'
 }
 
+function getMltValue(mass){
+	mass = E(mass);
+	if(mass.lte(1e50)){
+		return mass.div(1.5e56).mul(Decimal.log10(Decimal.exp(1))).div(1e9);
+	}else{
+		return mass.div(1.5e56).add(1).log10().div(1e9);
+	}
+}
+
+function formatARV(ex,gain=false) {
+    let mlt = getMltValue(ex);
+    if (gain) mlt = ex
+    let arv = mlt.log10().div(15).floor()
+	if (player.options.massDis == 2 || player.options.massDis == 3 && arv.lt(1002))arv = E(0)
+	if(arv.add(2).gte(1000))return format(mlt.log10().div(15).add(2))+"高阶宇宙";
+    return format(mlt.div(Decimal.pow(1e15,arv))) + (arv.gte(8)?"高阶宇宙^"+format(arv.add(2),0):ARV[arv.toNumber()])
+}
+
 function formatGain(amt, gain, isMass=false) {
+    let md = player.options.massDis
     let f = isMass?formatMass:format
     let next = amt.add(gain)
     let rate
     let ooms = next.max(1).log10().div(amt.max(1).log10())
-    if (ooms.gte(10) && amt.gte('ee100') && !isMass) {
+    if (((ooms.gte(10) && amt.gte('ee100')) || ooms.gte(10**0.05) && amt.gte('ee1000')) && (!isMass || md == 1 || md == 2)) {
         ooms = ooms.log10().mul(20)
         rate = "(+"+format(ooms) + "二重数量级/秒)"
-    } else {
-        ooms = next.div(amt)
-        if (ooms.gte(10) && amt.gte(1e100)) {
-            let md = player.options.massDis
-            ooms = ooms.log10().mul(20)
-            if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6) && md!=1) rate = "(+"+formatARV(ooms.div(1e9),true,md>1) + "/秒)"
-            else rate = "(+"+format(ooms) + "数量级/秒)"
-        }
-        else rate = "(+"+f(gain)+"/秒)"
+    }else{
+		ooms = next.div(amt)
+		if ((ooms.gte(10) && amt.gte(1e100)) || (isMass && md == 2)) {
+        ooms = ooms.log10().mul(20)
+        if (isMass && amt.gte(mlt(1)) && ooms.gte(1e6) && md != 1){
+			let mlt_amt = getMltValue(amt)
+			let mlt_next = getMltValue(amt.add(gain.div(20)))
+			rate = "(+"+formatARV(mlt_next.sub(mlt_amt).mul(20),true) + "/秒)"
+		}
+        else rate = "(+"+format(ooms) + "数量级/秒)"
+		if ((md == 0 || md == 3) && isMass){
+			let arv_amt = getMltValue(amt).log10().div(15);
+			let arv_next = getMltValue(amt.add(gain.div(20))).log10().div(15);
+			if (getMltValue(gain).log10().div(15).gte(1000) || arv_next.sub(arv_amt).gte(10))rate = "(+"+format(arv_next.sub(arv_amt).mul(20)) + "高阶宇宙/秒)"
+		}
     }
+    else rate = "(+"+f(gain)+"/秒)"
+	}
     return rate
 }
 

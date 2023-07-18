@@ -34,12 +34,12 @@ function resetTemp() {
             req: [],
             bulk: [],
             eff: [],
-            baseExp: 1,
+            baseExp: E(1),
             base: E(1),
         },
 
         beyond_ranks: {
-            max_tier: 1,
+            max_tier: E(1),
             tier_power: 0.8,
             eff: {},
         },
@@ -174,6 +174,8 @@ function resetTemp() {
             stronger: E(.5),
         },
 
+        rank_collapse: { start: E('1e14'), power: E(2), reduction: E(1) },
+
         mass_glyph_msg: 0,
 
         glyph_upg_eff: [],
@@ -212,7 +214,7 @@ function resetTemp() {
         inf_unl: false,
 
         core_chance: CORE_CHANCE_MIN,
-        core_lvl: 1,
+        core_lvl: E(1),
         core_score: {},
         core_eff: {},
         fragment_eff: {},
@@ -222,14 +224,20 @@ function resetTemp() {
         ascensions: {
             req: [],
             bulk: [],
-            eff: new Array(ASCENSIONS.names.length).fill({}),
+            eff: [],
             baseExp: 1,
             base: E(1),
         },
 
         cs_effect: {},
+
+        gp: {
+            res_gain: [],
+            res_effect: [],
+        },
     }
     for (let x = 0; x < PRES_LEN; x++) tmp.prestiges.eff[x] = {}
+    for (let x = 0; x < ASCENSIONS.names.length; x++) tmp.ascensions.eff[x] = {}
     for (let x in BEYOND_RANKS.rewardEff) tmp.beyond_ranks.eff[x] = {}
     for (let x = UPGS.mass.cols; x >= 1; x--) tmp.upgs.mass[x] = {}
     for (let x = 1; x <= UPGS.main.cols; x++) tmp.upgs.main[x] = {}
@@ -352,8 +360,8 @@ function updateBlackHoleTemp() {
 
     t = tmp.unstable_bh
     
-    t.p = 1
-    if (tmp.inf_unl) t.p /= theoremEff('bh',2)
+    t.p = E(1)
+    if (tmp.inf_unl) t.p = t.p.div(theoremEff('bh',2))
 
     let p = 1.5
     if (hasBeyondRank(1,137)) p **= 0.8
@@ -392,6 +400,10 @@ function updateTemp() {
     tmp.c18reward = player.chal.comps[18].gte(4)
 
     tmp.SN_passive = hasElement(36,1)
+
+    tmp.NHDimprove = hasElement(268)
+
+    updateGPTemp()
 
     updateInfTemp()
     updateC16Temp()

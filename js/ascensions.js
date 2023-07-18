@@ -3,9 +3,11 @@ const ASCENSIONS = {
     fullNames: ["飞升",'超越'],
     resetName: ['飞升','超越'],
     baseExponent() {
-        let x = 0
+        let x = E(0)
 
-        x += 1
+        if (hasElement(44,1)) x = x.add(muElemEff(44,0))
+
+        x = x.add(1)
 
         return x
     },
@@ -23,7 +25,7 @@ const ASCENSIONS = {
         let x = EINF, fp = this.fp(i), y = player.ascensions[i]
         switch (i) {
             case 0:
-                x = Decimal.pow(1.1,y.div(fp).pow(1.1)).mul(1600)
+                x = Decimal.pow(1.1,y.div(fp).scaleEvery('ascension0',false).pow(1.1)).mul(1600)
                 break;
             case 1:
                 x = y.div(fp).pow(1.1).mul(2).add(6)
@@ -38,7 +40,7 @@ const ASCENSIONS = {
         let x = E(0), y = i==0?tmp.ascensions.base:player.ascensions[i-1], fp = this.fp(i)
         switch (i) {
             case 0:
-                if (y.gte(1600)) x = y.div(1600).max(1).log(1.1).max(0).root(1.1).mul(fp).add(1)
+                if (y.gte(1600)) x = y.div(1600).max(1).log(1.1).max(0).root(1.1).scaleEvery('ascension0',true).mul(fp).add(1)
                 break;
             case 1:
                 if (y.gte(6)) x = y.sub(6).div(2).root(1.1).mul(fp).add(1)
@@ -58,24 +60,30 @@ const ASCENSIONS = {
         ()=>tmp.c18reward,
     ],
     noReset: [
-        ()=>false,
+        ()=>hasElement(267),
         ()=>false,
     ],
     autoUnl: [
-        ()=>false,
+        ()=>hasElement(267),
         ()=>false,
     ],
     autoSwitch(x) { player.auto_asc[x] = !player.auto_asc[x] },
     rewards: [
         {
-            1: `使时间速度和所有质量升级(除了溢出)与相应免费升级的加成从相加变为相乘。使道尔顿定理变得更强。`,
+            1: `使时间速度和所有质量升级(除了降伏器)与相应免费升级的加成从相加变为相乘。使道尔顿定理变得更强。`,
             2: `使费米子的元折算延迟2次方出现。`,
             3: `使大撕裂升级19的效果翻倍，并移除不稳定黑洞效果的溢出。`,
             4: `每进行1次飞升，就使K介子和π介子的获取速度变为原来的5倍。`,
             7: `移除膨胀质量的溢出。`,
+            13: `移除原子能量的溢出。`,
+            15: `移除级别和阶层的奇异折算，移除六重阶层的超级折算和究极折算。`,
+            22: `挑战5的奖励效果再度发生变化。`,
         },{
             1: `使转生基础值的指数翻倍。使大撕裂升级19的效果对名望也生效。`,
             2: `使无限定理的超级折算弱化10%。`,
+            3: `使降伏器的超级折算和究极折算延迟50次出现。`,
+            4: `使转生等级的元折算延迟2倍出现。`,
+            7: `使μ子催化聚变阶层的需求减少10%。`,
         },
     ],
     rewardEff: [
@@ -89,7 +97,7 @@ const ASCENSIONS = {
                 x=>formatMult(x),
             ],
         },{
-            
+
         },
     ],
     reset(i, bulk = false) {
@@ -119,7 +127,7 @@ function setupAscensionsHTML() {
 	for (let x = 0; x < ASCENSIONS.names.length; x++) {
 		table += `<div style="width: 300px" id="asc_div_${x}">
 			<button id="asc_auto_${x}" class="btn" style="width: 80px;" onclick="ASCENSIONS.autoSwitch(${x})">OFF</button>
-			<span id="asc_scale_${x}""></span>${ASCENSIONS.fullNames[x]}<span id="asc_amt_${x}">X</span><br><br>
+			<span id="asc_scale_${x}""></span>${ASCENSIONS.fullNames[x]}<h4 id="asc_amt_${x}">X</h4><br><br>
 			<button onclick="ASCENSIONS.reset(${x})" class="btn reset" id="asc_${x}">
 				进行${ASCENSIONS.resetName[x]}(强制前往无限)，但提升${ASCENSIONS.fullNames[x]}。<span id="asc_desc_${x}"></span><br>
 				Req: <span id="asc_req_${x}">X</span>
@@ -163,7 +171,7 @@ function updateAscensionsHTML() {
             tmp.el["asc_desc_"+x].setTxt(desc)
             tmp.el["asc_req_"+x].setTxt(x==0?format(tmp.ascensions.req[x],0)+"飞升基础值":ASCENSIONS.fullNames[x-1]+format(tmp.ascensions.req[x],0))
             tmp.el["asc_auto_"+x].setDisplay(ASCENSIONS.autoUnl[x]())
-            tmp.el["asc_auto_"+x].setTxt(player.auto_pres[x]?"ON":"OFF")
+            tmp.el["asc_auto_"+x].setTxt(player.auto_asc[x]?"ON":"OFF")
         }
     }
 }
@@ -172,7 +180,7 @@ function updateAscensionsTemp() {
     tmp.ascensions.baseMul = ASCENSIONS.base()
     tmp.ascensions.baseExp = ASCENSIONS.baseExponent()
     tmp.ascensions.base = tmp.ascensions.baseMul.pow(tmp.ascensions.baseExp)
-    for (let x = 0; x < PRES_LEN; x++) {
+    for (let x = 0; x < ASCENSIONS.names.length; x++) {
         tmp.ascensions.req[x] = ASCENSIONS.req(x)
         for (let y in ASCENSIONS.rewardEff[x]) {
             if (ASCENSIONS.rewardEff[x][y]) tmp.ascensions.eff[x][y] = ASCENSIONS.rewardEff[x][y][0]()
