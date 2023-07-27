@@ -38,7 +38,7 @@ const RANKS = {
     doReset: {
         rank() {
             player.mass = E(0)
-            for (let x = 1; x <= UPGS.mass.cols; x++) if (player.massUpg[x]) player.massUpg[x] = E(0)
+            for (let x = 1; x <= UPGS.mass.cols; x++) BUILDINGS.reset("mass_"+x)
         },
         tier() {
             player.ranks.rank = E(0)
@@ -132,11 +132,11 @@ const RANKS = {
     effect: {
         rank: {
             '3'() {
-                let ret = E(player.massUpg[1]||0).div(20)
+                let ret = player.build.mass_1.amt.div(20)
                 return ret
             },
             '5'() {
-                let ret = E(player.massUpg[2]||0).div(40)
+                let ret = player.build.mass_2.amt.div(40)
                 return ret
             },
             '6'() {
@@ -189,7 +189,7 @@ const RANKS = {
         },
         tetr: {
             '2'() {
-                let ret = E(player.massUpg[3]||0).div(400)
+                let ret = player.build.mass_3.amt.div(400)
                 if (ret.gte(1) && hasPrestige(0,15)) ret = ret.pow(1.5)
                 return ret
             },
@@ -633,10 +633,12 @@ function updateRanksTemp() {
     let ffp2 = 1
     if (tmp.c16active || inDarkRun()) ffp2 /= mgEff(5)
 
+    let rooted_fp = GPEffect(3)
+
     let fp = RANKS.fp.rank().mul(ffp)
-    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ifp).div(ffp2).scaleEvery('rank',false,[1,1,1,1,rt_fp2]).div(fp).pow(1.15)).mul(10)
+    tmp.ranks.rank.req = E(10).pow(player.ranks.rank.div(ffp2).scaleEvery('rank',false,[1,1,1,1,rt_fp2,1,ifp]).pow(rooted_fp).div(fp).pow(1.15)).mul(10)
     tmp.ranks.rank.bulk = E(0)
-    if (player.mass.gte(10)) tmp.ranks.rank.bulk = player.mass.div(10).max(1).log10().root(1.15).mul(fp).scaleEvery('rank',true,[1,1,1,1,rt_fp2]).mul(ffp2).mul(ifp).add(1).floor();
+    if (player.mass.gte(10)) tmp.ranks.rank.bulk = player.mass.div(10).max(1).log10().root(1.15).mul(fp).root(rooted_fp).scaleEvery('rank',true,[1,1,1,1,rt_fp2,1,ifp]).mul(ffp2).add(1).floor();
     tmp.ranks.rank.can = player.mass.gte(tmp.ranks.rank.req) && !CHALS.inChal(5) && !CHALS.inChal(10) && !FERMIONS.onActive("03")
 
     fp = RANKS.fp.tier().mul(ffp)
@@ -703,6 +705,12 @@ function updateRanksTemp() {
     p /= getFragmentEffect('time')
 
     tmp.beyond_ranks.tier_power = p
+
+    let rcs = E(1e14)
+
+    if (hasUpgrade('rp',22)) rcs = rcs.mul(upgEffect(1,22))
+
+    tmp.rank_collapse.start = rcs
 
     tmp.beyond_ranks.max_tier = BEYOND_RANKS.getTier()
     tmp.beyond_ranks.latestRank = BEYOND_RANKS.getRankFromTier(tmp.beyond_ranks.max_tier)
@@ -811,6 +819,12 @@ const BEYOND_RANKS = {
         12: {
             1: `使零号中子的效果对挑战16也生效，只是效果倍率极度降低。`,
         },
+        14: {
+            1: `使十重阶层2的公式变得更好。超-级别的最大阶层从二十重阶层开始，每有一重，就使转生等级的元折算延迟更多出现。`,
+        },
+        16: {
+            1: `超-级别的最大阶层从二十重阶层开始，每有一重，就使飞升基础值增加更多。`,
+        },
     },
 
     rewardEff: {
@@ -907,7 +921,7 @@ const BEYOND_RANKS = {
             ],
             2: [
                 ()=>{
-                    let x = tmp.beyond_ranks.max_tier.sub(3).pow(.2).mul(.2).add(1) // (tmp.beyond_ranks.max_tier-3)**0.2*0.2+1
+                    let x = tmp.beyond_ranks.max_tier.sub(3).pow(hasBeyondRank(14,1) ? 1 : .2).mul(.2).add(1) // (tmp.beyond_ranks.max_tier-3)**0.2*0.2+1
 
                     return Decimal.max(1,x)
                 },
@@ -942,6 +956,26 @@ const BEYOND_RANKS = {
                     return x
                 },
                 x=>formatMult(x),
+            ],
+        },
+        14: {
+            1: [
+                ()=>{
+                    let x = Decimal.pow(1.25,tmp.beyond_ranks.max_tier.sub(13).max(0).root(2))
+
+                    return x
+                },
+                x=>"延迟"+format(x)+"倍",
+            ],
+        },
+        16: {
+            1: [
+                ()=>{
+                    let x = tmp.beyond_ranks.max_tier.sub(13).max(0).div(50)
+
+                    return x
+                },
+                x=>"+"+format(x),
             ],
         },
     },
@@ -1153,6 +1187,16 @@ const GAL_PRESTIGE = {
                     x = player.dark.matters.amt[12].add(1).log10().add(1).log10().add(1).pow(2).pow(gp.sub(3).root(1.5))
                 }
             break;
+            case 3:
+                if (gp.gte(6)) {
+                    x = player.supernova.radiation.hz.add(1).log10().add(1).log10().add(1).pow(2).pow(gp.sub(5).root(1.5))
+                }
+            break;
+            case 4:
+                if (gp.gte(9)) {
+                    x = player.inf.cs_amount.add(1).log10().add(1).pow(2).pow(gp.sub(8).root(1.5))
+                }
+            break;
         }
 
         if (hasElement(263)) x = x.mul(elemEffect(263))
@@ -1172,11 +1216,17 @@ const GAL_PRESTIGE = {
             case 2:
                 x = res.add(1).log10().root(3).div(2)
             break;
+            case 3:
+                x = Decimal.pow(0.9,res.add(10).log10().log10().add(1).pow(2).sub(1))
+            break;
+            case 4:
+                x = Decimal.pow(0.95,res.add(1).slog(10))
+            break;
         }
 
         return x
     },
-    res_length: 3,
+    res_length: 5,
 }
 
 function GPEffect(i,def=1) { return tmp.gp.res_effect[i]||def }
@@ -1211,7 +1261,11 @@ function updateGPHTML() {
 
         if (gp.gte(2)) h += `You have <h4>${formatMass(res[1])}</h4>${res[1].formatGain(res_gain[1],true)}转生质量(基于转生基础值和银河转生的数值而定)，它使质量的溢出和二重溢出弱化<h4>${formatReduction(res_effect[1])}</h4>.<br>`
 
-        if (gp.gte(4)) h += `You have <h4>${formatMass(res[2])}</h4>${res[1].formatGain(res_gain[2],true)}银河质量(基于褪色物质和银河转生的数值而定)，它使所有物质升级的基础值增加<h4>${format(res_effect[2])}</h4>.<br>`
+        if (gp.gte(4)) h += `You have <h4>${res[2].format(0)}</h4>${res[2].formatGain(res_gain[2])}银河质量(基于褪色物质和银河转生的数值而定)，它使所有物质升级的基础值增加<h4>${format(res_effect[2])}</h4>.<br>`
+
+        if (gp.gte(6)) h += `You have <h4>${res[3].format(0)}</h4>${res[3].formatGain(res_gain[3])}红移值(基于频率和银河转生的数值而定)，它使级别的需求减少为<h4>${format(res_effect[3],5)}次方</h4>.<br>`
+
+        if (gp.gte(9)) h += `You have <h4>${res[4].format(0)}</h4>${res[4].formatGain(res_gain[4])}正常能量(基于腐化星辰和银河转生的数值而定)，它使腐化星辰速度的降低弱化<h4>${formatReduction(res_effect[4])}</h4>.<br>`
 
         tmp.el.gp_rewards.setHTML(h)
     }

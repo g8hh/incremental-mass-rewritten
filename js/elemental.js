@@ -187,7 +187,7 @@ const ELEMENTS = {
             desc: `You can now automatically buy Cosmic Rays. Cosmic Ray raises tickspeed effect at an extremely reduced rate.`,
             cost: E(1e44),
             effect() {
-                let x = overflow(hasElement(129) ? player.atom.gamma_ray.pow(0.5).mul(0.02).add(1) : player.atom.gamma_ray.pow(0.35).mul(0.01).add(1),1000,0.5)
+                let x = overflow(hasElement(129) ? player.build.cosmic_ray.amt.pow(0.5).mul(0.02).add(1) : player.build.cosmic_ray.amt.pow(0.35).mul(0.01).add(1),1000,0.5)
                 if (hasElement(18,1)) x = x.pow(muElemEff(18))
                 return x
             },
@@ -209,7 +209,7 @@ const ELEMENTS = {
             desc: `Dilated mass gain is increased by tickspeed at a reduced rate.`,
             cost: E(1e61),
             effect() {
-                let x = E(1.25).pow(player.tickspeed.pow(0.55))
+                let x = E(1.25).pow(player.build.tickspeed.amt.pow(0.55))
                 return x.min('ee11000')
             },
             effDesc(x) { return format(x)+"x" },
@@ -429,7 +429,7 @@ const ELEMENTS = {
             desc: `Tickspeed power boosts base of Star Booster at a reduced rate.`,
             cost: E('e3.6e4'),
             effect() {
-                let x = tmp.tickspeedEffect?tmp.tickspeedEffect.step.max(1).log10().div(10).max(1):E(1)
+                let x = BUILDINGS.eff('tickspeed','power').max(1).log10().div(10).max(1)
                 if (hasElement(66)) x = x.pow(2)
                 return x
             },
@@ -1181,7 +1181,7 @@ const ELEMENTS = {
             desc: `Booster boosts its effect.`,
             cost: E("e4e99"),
             effect() {
-                let m = player.massUpg[2]||E(0)
+                let m = player.build.mass_2.amt
                 let x = m.add(10).log10().pow(0.8);
 
                 if (hasElement(228)) x = x.mul(Decimal.pow(1.1,m.max(1).log10()))
@@ -1197,7 +1197,7 @@ const ELEMENTS = {
             desc: `Overpower boosts accelerator power at a reduced rate.`,
             cost: E("e4.2e101"),
             effect() {
-                let x = (player.massUpg[4]||E(1)).pow(1.5).add(10).log10()
+                let x = player.build.mass_4.amt.pow(1.5).add(10).log10()
                 
 				return x
             },
@@ -1223,7 +1223,7 @@ const ELEMENTS = {
             desc: `Muscler boosts its effect.`,
             cost: E('e1.4e112'),
             effect() {
-                let m = player.massUpg[1]||E(0)
+                let m = player.build.mass_1.amt
                 let x = m.add(10).log10().pow(0.8);
 
                 if (hasElement(245)) x = x.mul(Decimal.pow(1.1,m.max(1).log10()))
@@ -1396,7 +1396,7 @@ const ELEMENTS = {
             desc: `Dimensional mass gain is boosted by infinity theorems. Its formula is slightly better.`,
             cost: E('ee1155'),
             effect() {
-                let x = player.inf.theorem.add(1).tetrate(1.75)
+                let x = hasElement(273) ? Decimal.pow(10,player.inf.theorem.pow(2)) : player.inf.theorem.add(1).tetrate(1.75)
                 
                 return x
             },
@@ -1515,6 +1515,49 @@ const ELEMENTS = {
         },{
             desc: `Newton, Hawking, and Dalton Theorems are GREATLY improved.`,
             cost: E('ee7773'),
+        },{
+            c16: true,
+            desc: `Newton Theorem’s fifth star now affects black hole overflow^2, but weaker in C16.`,
+            cost: E('ee1745'),
+            effect() {
+                let x = theoremEff('mass',4)
+                if (tmp.c16active) x = x.max(1).log10().add(1)
+                return x
+            },
+            effDesc(x) { return "^"+format(x)+' later' },
+        },{
+            desc: `Unlock fifth row of main upgrades.`,
+            cost: E('ee10333'),
+        },{
+            dark: true,
+            desc: `Add 300 more C16’s max completions.`,
+            cost: E('e2.5e10'),
+        },{
+            inf: true,
+            desc: `The softcap of theorem’s meta-score starts x1.05 later per infinity theorem.`,
+            cost: E('1e94'),
+            effect() {
+                let x = Decimal.pow(1.05,player.inf.theorem)
+                return x
+            },
+            effDesc(x) { return formatMult(x)+' later' },
+        },{
+            desc: `Biquadquadium-244’s formula is better.`,
+            cost: E('ee17600'),
+        },{
+            dark: true,
+            desc: `Dark shadow’s fourth reward now affects supernova generation at reduced rate.`,
+            cost: E('e1.67e11'),
+            effect() {
+                let x = tmp.dark.shadowEff.sn||E(1)
+                x = x.root(3)
+                return x
+            },
+            effDesc(x) { return formatMult(x) },
+        },{
+            c16: true,
+            desc: `Super False Vacuum Manipulator is 50% weaker.`,
+            cost: E('ee3500'),
         },
     ],
     /*
@@ -1566,7 +1609,8 @@ const ELEMENTS = {
         if (tmp.tfUnl) u += 12
         if (tmp.ascensions_unl) u += 9
         if (tmp.CS_unl) u += 7
-        if (tmp.c18reward) u += 10
+        if (tmp.c18reward) u += 12
+        if (tmp.fifthRowUnl) u += 10
 
         return u
     },

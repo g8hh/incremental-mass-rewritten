@@ -84,24 +84,16 @@ var cnItems = {
     'Meta': '元折算',
     'Exotic': '奇异折算',
     'Supercritical': '超临界折算',
+    'Instant': '刹那折算',
+    'Mega': '极巨折算',
     'Super ': '超级折算|',
     'Hyper ': '究极折算|',
     'Ultra ': '超究折算|',
     'Meta-': '元折算|',
     'Exotic ': '奇异折算|',
     'Supercritical ': '超临界折算|',
-    'Muscler [': '锻体器[',
-    'Booster [': '助推器[',
-    'Stronger [': '强化器[',
-    'Overpower [': '降伏器[',
-    'Tickspeeds [': '时间速度[',
-    ' Rage Power': '狂怒能量',
-    'Tickspeed Power': '时间速度倍率',
-    'Tickspeed Effect': '时间速度效果',
-    ' to mass gain': '质量获取速度',
-    'Accelerators [': '加速器[',
-    'Accelerator Power': '加速器倍率',
-    'Accelerator Effect': '加速器效果',
+    'Instant ': '刹那折算|',
+    'Mega ': '极巨折算|',
     'After ': '当到达',
     ' of mass gain, mass gain will be softcapped!': '的质量获取速度以后，质量获取速度将受到软上限限制！',
     ' of mass gain will softcap^2 mass gain!': '的质量获取速度以后，质量获取速度将受到二重软上限限制！',
@@ -122,7 +114,7 @@ var cnItems = {
     'Because of stronger overflow^2 at ': '因为强化器超过了',
     ', your stronger overflow is even stronger!': '，发生二重溢出，它变得更严重了！',
     'Because of Rank Collapse at ': '因为超-级别达到',
-    ', Hept\'s requirement is raised by ': '，七重阶层的需求变为了以下次方：',
+    ', Hept\'s requirement is raised by ': '，发生级别坍缩，七重阶层的需求变为了以下次方：',
     'Your Prestige base is ': '您的转生基础值为',
     'Galactic Prestige ': '银河转生',
     'Reset Supernovas (force an Infinity reset), but Galactic Prestige up. Next Galactic Prestige reveals its treasure or happens nothing.': '重置超新星(并强制前往无限)，但提升银河转生。下次银河转生可能解锁新资源。',
@@ -135,14 +127,6 @@ var cnItems = {
     ' of Unstable Black Hole': '不稳定黑洞',
     'Which boosts mass of black hole gain by ': '它使黑洞质量获取速度增加',
     'Unstable BH\'s production is decreased based on its mass': '不稳定黑洞的获取速度基于它的质量而减少',
-    'Black Hole Condensers [': '黑洞压缩器[',
-    ' Dark Matters': '暗物质',
-    'BH Condenser Power': '黑洞压缩器倍率',
-    'False Vacuum Manipulators [': '假真空操控器[',
-    ' Dark Matters in C16': '挑战16中的暗物质',
-    'FV Manipulator Power': '假真空操控器倍率',
-    'FV Manipulator Effect': '假真空操控器效果',
-    ' to Unstable BH production speed': '不稳定黑洞的获取速度',
     ' of mass gain from black hole, its mass gain will be softcapped!': '的黑洞质量获取速度以后，质量获取速度将受到软上限限制！',
     'The formula (x + 1': '公式(x + 1',
     ' softcaps at ': '的软上限为',
@@ -157,10 +141,6 @@ var cnItems = {
     ' Atomic Power': '原子能量',
     'Which provides ': '它使您获得了',
     ' free Tickspeeds': '个免费时间速度升级',
-    'Cosmic Rays [': '宇宙射线[',
-    ' Atoms': '原子',
-    'Cosmic Ray Power': '宇宙射线倍率',
-    'Cosmic Ray Effect': '宇宙射线效果',
     'Because of atomic power overflow at ': '因为原子能量超过了',
     ', your atomic power gain is raised by ': '，发生溢出，因此它变为了以下次方：',
     ', your atomic power gain is rooted by ': '，发生溢出，因此它变为了以下次方根：',
@@ -169,17 +149,8 @@ var cnItems = {
     ' Collapsed stars gain, Collapsed stars gain will be softcap!': '的坍缩星辰以后，坍缩星辰获取速度将受到软上限限制！',
     ' Blueprint Particles': '蓝图粒子',
     'Which increases pre-Quantum global speed by ': '它使量子之前所有资源获取速度变为原来的',
-    'Cosmic Strings [': '宇宙弦[',
-    ' Quantum Foam': '量子泡沫',
-    'Cosmic Strings Power': '宇宙弦倍率',
-    'Cosmic Strings Effect': '宇宙弦效果',
     ' of dimensional mass': '维度质量',
     'Which boosts meta-score of equipped theorems by ': '它使已装备定理的综合评分增加',
-    'Parallel Extruder [': '平行挤出机[',
-    ' Infinity Points': '无限点数',
-    'Parallel Extruder Power': '平行挤出机倍率',
-    'Parallel Extruder Effect': '平行挤出机效果',
-    ' to dimensional mass gain': '维度质量的获取速度',
     //#endregion
     //#region 提示框
     'You have pushed ': '您推动了',
@@ -249,6 +220,7 @@ var cnItems = {
     'Renown': '名望',
     'Overpower': '降伏器',
     'Final Star Shard': '最终星辰碎片',
+    'False Vacuum Manipulator': '假真空操控器',
     'Parallel Extruder': '平行挤出机',
     'Infinity Theorem': '无限定理',
     'Ascension': '飞升',
@@ -276,6 +248,8 @@ var cnItems = {
     'Fading matter\'s upgrade applies to rage powers gain at a reduce rate.': '使褪色物质的升级可以对狂怒能量获取速度生效，只是效果倍率降低。',
     'Supernovas boost overpower power.': '使超新星次数可以加成降伏器倍率。',
     'Corrupted Shards boost normal mass gain.': '使腐化碎片可以加成质量获取速度。',
+    'Rage powers boost dark rays gain.': '使狂怒能量可以加成暗射线获取速度。',
+    'Rank Collapse starts later based on rage powers at an extremely reduced rate.': '使狂怒能量可以延迟级别坍缩，只是效果倍率极度降低。',
     'Black Hole Upgrades': '黑洞升级',
     'Mass Upgardes no longer spend mass.': '购买质量升级不再花费质量。',
     'Tickspeeds boost BH Condenser Power.': '使时间速度可以加成黑洞压缩器倍率。',
@@ -297,6 +271,7 @@ var cnItems = {
     'Make black hole\'s effect stronger.': '使黑洞的效果变得更好。',
     'Mass of black hole boosts accelerator power at an extremely reduced rate.': '使黑洞质量可以加成加速器倍率，只是效果倍率极度降低。',
     'Corrupted Shards boost mass of black hole gain.': '使腐化碎片可以加成黑洞质量获取速度。',
+    'BH Condenser Siltation starts ^2 later to exponent.': '使黑洞压缩器的淤积延迟指数的2次方出现。',
     'Atom Upgrades': '原子升级',
     'Start with Mass upgrades unlocked.': '初始状态下就解锁质量升级。',
     'You can automatically buy BH Condenser and upgrades. Tickspeed no longer spends Rage Powers.': '您可以自动购买黑洞压缩器和黑洞升级。购买时间速度不再花费狂怒能量。',
@@ -318,12 +293,14 @@ var cnItems = {
     'Neutron Power\'s second effect now provides an expontial boost and applies to mass of black hole.': '使中子能量的第二个效果变为指数加成，且可以对黑洞质量生效。',
     'Yellow matter\'s upgrade applies to dilated mass overflow at a reduced rate.': '使黄色物质的升级可以让膨胀质量的溢出延迟出现，只是效果倍率降低。',
     'Atomic Powers add Overpowers at an extremely reduced rate.': '使原子能量可以增加降伏器的数量，只是效果倍率极度降低。',
+    'The exponent of any particle powers is raised by 5.': '使粒子能量的指数变为原来的5次方。',
+    'Remove the softcaps of Star Booster\'s power and effect.': '移除星辰助推器倍率和效果的软上限。',
     'Big Rip Upgrades': '大撕裂升级',
     'Start with Hydrogen-1 unlocked in Big Rip.': '在大撕裂中，初始状态下就解锁氢(1H)。',
     'Mass Upgrades & Ranks are no longer nerfed by 8th QC modifier.': '使质量升级和级别不再受到量子挑战8的削弱。',
     'Pre-Quantum Global Speed is raised based on Death Shards (before division).': '使量子之前所有资源获取速度基于死寂碎片数量而增加(在计算削弱之前生效)。',
     'Start with 2 tiers of each Fermion in Big Rip.': '在大撕裂中，初始状态下就获得所有费米子各2阶层。',
-    'Root Star Booster’s starting cost by 10. Star Booster’s base is increased based on Death Shards.': '使星辰发生器的初始花费变为原来的0.1次方，效果基于死寂碎片数量而增加。',
+    'Root Star Booster’s starting cost by 10. Star Booster’s base is increased based on Death Shards.': '使星辰助推器的初始花费变为原来的0.1次方，效果基于死寂碎片数量而增加。',
     'Start with all Radiation features unlocked.': '初始状态下就解锁所有辐射波。',
     'Hybridized Uran-Astatine is twice as effective in Big Rip.': '在大撕裂中，使铀砹混合物的效果翻倍。',
     'Passively gain 10% of Quantum Foams & Death Shards you would get from resetting each second.': '每秒获得量子泡沫和死寂碎片，数量为重置时获取数量的10%。',
@@ -339,6 +316,8 @@ var cnItems = {
     'Chromas gain is boosted by mass.': '使色度获取速度基于质量的数值而增加。',
     'Red Matters reduce Pre-Renown requirements slightly.': '使红色质量可以略微减少名望之前所有转生的需求。',
     'Total corrupted Shards boost dark rays gain.': '使腐化碎片的总数可以加成暗射线的获取速度。',
+    'Pre-Infinity Global Speed is raised based on Death Shards at an extremely reduced rate (before division).': '使无限之前所有资源获取速度基于死寂碎片数量而增加(在计算削弱之前生效)，只是效果倍率极度降低。',
+    'Beta Particles\'s effect is now changed.': '使贝塔[B]粒子的效果发生变化。',
     //#endregion
     //#region 挑战
     'Note: Click any image to show challenge description. Click again to enter any challenge': '提示：点击图片以查看挑战详情。再次点击该挑战后将进入该挑战。',
@@ -372,7 +351,7 @@ var cnItems = {
     'Reward: The exponent of the RP formula is multiplied by completions. (this effect doesn\'t work while in this challenge': '奖励：使相对论粒子公式的指数乘以该挑战的完成次数。(在该挑战内此奖励无效',
     'On first completion, unlock Fermions!': '第1次完成该挑战时，解锁费米子！',
     'You cannot gain dilated mass, and you are stuck in mass dilation.': '您无法获得相对论粒子和膨胀质量。强制进行质量膨胀。',
-    'Reward: Star boosters are stronger based on completions.': '奖励：使星辰发生器的效果随着完成次数变得更好。',
+    'Reward: Star boosters are stronger based on completions.': '奖励：使星辰助推器的效果随着完成次数变得更好。',
     'You cannot gain Atoms or Quarks.': '您无法获得原子和夸克。',
     'Reward: Completions add free Radiation Boosters.': '奖励：每次完成该挑战，就获得免费的辐射波升级。',
     'On first completion, unlock new prestige layer!': '第1次完成该挑战时，解锁新的转生层级！',
@@ -391,7 +370,7 @@ var cnItems = {
     'You can earn Corrupted Shards based on your mass of black hole, when exiting the challenge.': '您可以根据退出挑战时的黑洞质量获得腐化碎片。',
     'Reward: Improve Hybridized Uran-Astatine.': '奖励：使铀砹混合物的效果变得更好。',
     'On first completion, unlock new prestige layer.': '第1次完成该挑战时，解锁新的转生层级。',
-    'Tickspeeds, Accelerators, BHC, FVM, Cosmic Rays, Star Boosters, and Cosmic Strings (including bonuses) don\'t work, they are unaffordable or unobtainable. Second neutron effect doesn\'t work until Atom Upgrade 18. Black Hole\'s effect doesn\'t work until Binilunium-201. You are stuck in dark run with 250 all glyphs (unaffected by weakness).': '使时间速度、加速器、黑洞压缩器、假真空操控器、宇宙射线、星辰发生器、宇宙弦(及相应加成)失效，且不可购买及获取。使中子能量的第二个效果在购买原子升级18后才开始生效。使黑洞的效果在购买Binilunium(201Bnu)后才开始生效。您强制进行黑暗狂奔，所有雕文为250，且雕文质量的削弱不受缓和影响。',
+    'Tickspeeds, Accelerators, BHC, FVM, Cosmic Rays, Star Boosters, and Cosmic Strings (including bonuses) don\'t work, they are unaffordable or unobtainable. Second neutron effect doesn\'t work until Atom Upgrade 18. Black Hole\'s effect doesn\'t work until Binilunium-201. You are stuck in dark run with 250 all glyphs (unaffected by weakness).': '使时间速度、加速器、黑洞压缩器、假真空操控器、宇宙射线、星辰助推器、宇宙弦(及相应加成)失效，且不可购买及获取。使中子能量的第二个效果在购买原子升级18后才开始生效。使黑洞的效果在购买Binilunium(201Bnu)后才开始生效。您强制进行黑暗狂奔，所有雕文为250，且雕文质量的削弱不受缓和影响。',
     'Reward: Per completion, increase the softcap of theorem\'s level starting by +3.': '奖励：每次完成后，使定理等级的软上限延迟3次出现。',
     'On 4th completion, unlock Ascensions and more elements.': '第4次完成该挑战时，解锁飞升和更多元素。',
     'You cannot weaken nor remove pre-Infinity scalings. You are stuck in dark run with 500 all glyphs (unaffected by weakness).': '无限之前的折算无法弱化或移除。您强制进行黑暗狂奔，所有雕文为500，且雕文质量的削弱不受缓和影响。',
@@ -604,6 +583,13 @@ var cnItems = {
     '[Muonic Rhodium]': '[μ子-铑]',
     '[Muonic Palladium]': '[μ子-钯]',
     '[Muonic Silver]': '[μ子-银]',
+    '[Muonic Cadmium]': '[μ子-镉]',
+    '[Muonic Indium]': '[μ子-铟]',
+    '[Muonic Tin]': '[μ子-锡]',
+    '[Muonic Antimony]': '[μ子-锑]',
+    '[Muonic Tellurium]': '[μ子-碲]',
+    '[Muonic Iodine]': '[μ子-碘]',
+    '[Muonic Xenon]': '[μ子-氙]',
     'Quark gain formula is better.': '使增加夸克获取速度的公式变得更好。',
     'Hardened Challenge scaling is 25% weaker.': '使硬化挑战的折算效果弱化25%。',
     'Electron Powers boost Atomic Powers gain.': '使电子能量可以加成原子能量获取速度。',
@@ -659,7 +645,7 @@ var cnItems = {
     'Normal mass boosts all-star resources at a reduced rate.': '使质量可以加成所有星辰相关资源，只是效果倍率降低。',
     'Hyper/Ultra BH Condenser & Cosmic Ray scale 25% weaker.': '使黑洞压缩器和宇宙射线的究极和超究折算弱化25%。',
     'Add 200 more C8 maximum completions.': '使挑战8的次数上限增加200。',
-    'Tickspeed power boosts base of Star Booster at a reduced rate.': '使时间速度倍率可以加成星辰发生器的基础加成，只是效果倍率降低。',
+    'Tickspeed power boosts base of Star Booster at a reduced rate.': '使时间速度倍率可以加成星辰助推器的基础加成，只是效果倍率降低。',
     'Ultra Rank & Tickspeed scale weaker based on Tier.': '使级别和时间速度的超究折算基于阶层的数值而弱化。',
     'The power from the mass of the BH formula is increased to 0.45.': '黑洞质量公式中，使指数增加为0.45。',
     'Add 100 more C7 maximum completions.': '使挑战7的次数上限增加100。',
@@ -855,7 +841,7 @@ var cnItems = {
     'The first softcap of Abyssal Blot’s tenth reward is slightly weaker.': '使深渊之渍第十个效果的第一重软上限略微弱化。',
     'W+ Boson now provides an exponential boost.': '使W+玻色子变为指数加成。',
     'Unlock the Corrupted Star.': '解锁腐化星辰。',
-    'Black Hole’s Mass Overflow^2 starts ^1.5 later to exponent.': '使黑洞质量的二重溢出延迟其指数上的1.5次方出现。',
+    'Black Hole’s Mass Overflow^2 starts ^1.5 later to exponent.': '使黑洞质量的二重溢出延迟指数的1.5次方出现。',
     'Passively gain 1% of fragment formed from theorem in the core.': '每秒自动获得定理碎片，数量为核心中定理变换数量的1%。',
     'De-corrupt Unhexbium-162.': '使Unhexbium(162Uhb)不再腐化。',
     'C17’s completions boost Super Parallel Extruder.': '使平行挤出机的超级折算基于挑战17的完成次数而延迟出现。',
@@ -872,6 +858,13 @@ var cnItems = {
     'The softcap of abyssal blot’s tenth reward is slightly weaker.': '使深渊之渍第十个效果的软上限略微弱化。',
     'Unlock Valor, and automate Ascension.': '解锁英勇，您可以自动进行飞升。',
     'Newton, Hawking, and Dalton Theorems are GREATLY improved.': '使牛顿定理、霍金定理和道尔顿定理的效果大幅度增加。',
+    'Newton Theorem’s fifth star now affects black hole overflow^2, but weaker in C16.': '使牛顿定理第五颗星的效果对黑洞质量的二重溢出也生效，只是在挑战16中弱化。',
+    'Unlock fifth row of main upgrades.': '解锁第五行主要升级。',
+    'Add 300 more C16’s max completions.': '使挑战16的次数上限增加300。',
+    'The softcap of theorem’s meta-score starts x1.05 later per infinity theorem.': '每有一个无限定理，就使定理综合评分的软上限延迟1.05倍出现。',
+    'Biquadquadium-244’s formula is better.': '使Biquadquadium(244Bqq)的公式变得更好。',
+    'Dark shadow’s fourth reward now affects supernova generation at reduced rate.': '使黑暗之影第四个效果对超新星产生速度也生效，只是效果倍率降低。',
+    'Super False Vacuum Manipulator is 50% weaker.': '使假真空操控器的超级折算弱化50%。',
     'Mass of unstable black hole boosts Pion gain.': '使不稳定黑洞质量可以加成π介子获取速度。',
     'Remove all pre-meta scalings from Fermion Tiers.': '移除费米子阶层所有元折算之前的折算。',
     'You can now automatically get all Meta-Fermions Tiers outside any Fermion.': '您可以自动获得元-费米子阶层。',
@@ -911,13 +904,20 @@ var cnItems = {
     'The growth reductions of corrupted stars start later based on supernovas.': '使腐化星辰速度的降低基于超新星次数而延迟出现。',
     'Unlock a new effect of corrupted star.': '解锁腐化星辰的新效果。',
     'Pion’s first reward now provides an exponential boost.': '使π介子的第一个效果变为指数加成。',
-    'Collapsed Stars boost starting of the growth reductions of corrupted stars.': '使腐化星辰速度的降低基于腐化星辰数量而延迟出现。',
+    'Collapsed Stars boost starting of the growth reductions of corrupted stars.': '使腐化星辰速度的降低基于坍缩星辰数量而延迟出现。',
     'Remove first softcap of C9’s reward.': '移除挑战9效果的第一重软上限。',
     'Double corrupted star’s speed per infinity theorem.': '每有一个无限定理，就使腐化星辰速度翻倍。',
     'The exponent of ascension base is increased by Renown at a reduced rate.': '使名望可以加成飞升基础值的指数，只是效果倍率降低。',
     'Quark overflow is 25% weaker.': '使夸克的溢出弱化25%。',
     'Boost Supernova Generation based on beyond-ranks\' maximum tier.': '使超-级别的最大阶层可以加成超新星产生速度。',
     'Corrupted star boosts its speed at a reduced rate. Keep Supernovas on Infinity.': '使腐化星辰可以加成它的速度，只是效果倍率降低。前往无限时保留超新星次数。',
+    'Hawking Theorem’s fifth star now affects black hole’s effect.': '使霍金定理第五颗星的效果对黑洞也生效。',
+    'Pre-Infinity global speed now affects supernova generation.': '使无限之前所有资源获取速度可以加成超新星产生速度。',
+    'Corrupted star boosts its reductions starting at a reduced rate.': '使腐化星辰速度的降低基于腐化星辰数量而延迟出现。',
+    'Pion’s second reward now affects black hole overflow^2 at a reduced rate.': '使π介子的第二个效果对黑洞质量的二重溢出也生效，只是效果倍率降低。',
+    'Pion’s third reward is 50% stronger.': '使π介子的第三个效果增加50%。',
+    'Supernova divides Corrupted Star upgrade 1 and 2 costs.': '使腐化星辰升级1和升级2的花费基于超新星次数而减少。',
+    'You can unlock sixth star type.': '您可以解锁第六种星辰了。',
     ' Relativistic particles': '相对论粒子',
     ' of dilated mass, which makes Tickspeed ': '膨胀质量，使时间速度增加',
     ' stronger': '',
@@ -1002,7 +1002,7 @@ var cnItems = {
     'Neutron Star boosts last star gain.': '使中子星可以加成最后一种星辰的获取速度。',
     'Tetr amount to Star boost’s softcap is 50% weaker.': '使星辰加成的四重阶层的软上限弱化50%。',
     'Star generators are stronger based on Supernova.': '使星辰发生器的效果基于超新星次数变得更强。',
-    'After getting all 5 star types, star unlocker will transform into star boosters.': '解锁完所有5种星辰以后，星辰解锁的功能变为星辰加成。',
+    'Unlock Star Booster.': '解锁星辰助推器。',
     'Start with Silicon-14 & Argon-18 unlocked. You can now automatically buy Elements & Atom upgrades.': '初始状态下就解锁硅(Si14)和氩(Ar18)。您可以自动购买元素和原子升级。',
     'Start with Chromium-24 and Atom upgrade 6 unlocked.': '初始状态下就解锁铬(Cr24)和原子升级6。',
     'Start with technetium-43 unlocked, and it\'s improved. You can automatically gain Relativistic particles from mass.': '初始状态下就解锁锝(Tc43)，且相应的元素效果变得更好。您可以自动从质量中获得相对论粒子。',
@@ -1554,7 +1554,7 @@ var cnItems = {
     'Infinity. You have been evolved to a god.\n    ': '无限……您进化成神了。',
     'Chapter 12: Broken Infinity': '第12章：打破无限',
     'Your omnipotence ascends as you surpass Infinity.\n    ': '随着您超过无限，您的全能更上一层楼了。',
-    'Incremental Mass Rewritten v0.7.1.3 - made by MrRedShark77': '质量增量重制版v0.7.1.3 - 作者为MrRedShark77，由by22dgb汉化',
+    'Incremental Mass Rewritten v0.7.1.5 - made by MrRedShark77': '质量增量重制版v0.7.1.5 - 作者为MrRedShark77，由by22dgb汉化',
     'The game is inspired by Distance Incremental & Synergism': '本游戏灵感来自于距离增量及协同放置',
     'Contributors': '特别鸣谢',
     'Bézier': 'Bézier',
@@ -1656,19 +1656,7 @@ var cnExcludePostfix = [
 var cnRegReplace = new Map([
     [/^\s*Cost$/, '需'], //主界面等
     [/^\s*Req$/, '需求'], //主界面等
-    [/^\s*Muscler Power$/, '锻体器倍率'], //主界面等
-    [/^\s*Muscler Effect$/, '锻体器效果'], //主界面等
-    [/^\s*Booster Power$/, '助推器倍率'], //主界面等
-    [/^\s*Booster Effect$/, '助推器效果'], //主界面等
-    [/^x(.+) to Muscler Power$/, 'x$1倍锻体器倍率'], //主界面等
-    [/^\s*Stronger Power$/, '强化器倍率'], //主界面等
-    [/^\s*Stronger Effect$/, '强化器效果'], //主界面等
-    [/^\^(.+) to Booster Power\s*$/, '^$1助推器倍率'], //主界面等
-    [/^\s*Overpower Power$/, '降伏器倍率'], //主界面等
-    [/^\s*Overpower Effect$/, '降伏器效果'], //主界面等
-    [/^\^(.+) to Stronger Power\s*$/, '^$1强化器倍率'], //主界面等
     [/^Unlock new type of Stars, require (.+) Quark$/, '解锁新的星辰，需$1夸克'], //主界面等
-    [/^Boost all-Star resources gain, require (.+) Quark$/, '加成所有星辰相关资源的获取速度，需$1夸克'], //主界面等
     [/^Base: (.+)x$/, '基础值：$1倍'], //主界面等
     [/^Reach over (.+) collapsed stars to go Supernova$/, '坍缩星辰不少于$1时就可以前往超新星了'], //主界面等
     [/^Cost: (.+)Rage Power$/, '花费：$1狂怒能量'], //升级等
@@ -1715,8 +1703,10 @@ var cnRegReplace = new Map([
     [/^Currently: (.+)x\s?$/, '目前效果：$1倍'], //原子等
     [/^Currently: (.+)x, \^(.+)$/, '目前效果：$1倍，且^$2'], //原子等
     [/^Currently: (.+)x stronger$/, '目前效果：增加$1倍'], //原子等
+    [/^Currently: ×(.+) later$/, '目前效果：延迟$1倍出现'], //原子等，前置
     [/^Currently: (.+) later$/, '目前效果：延迟$1次出现'], //原子等
     [/^Currently: ×(.+)$/, '目前效果：$1倍'], //原子等
+    [/^Currently: \/(.+)$/, '目前效果：除以$1'], //原子等
     [/^\s*\[Level $/, '[等级：'], //原子等
     [/^Cancel for (.+) Relativistic particles$/, '取消质量膨胀后可获得$1相对论粒子'], //原子等
     [/^\s+Gain more Dark Matters & Mass from Black Hole based on Photon.$/, '基于光子的数值，增加暗物质和黑洞质量的获取速度。'], //超新星等
@@ -1782,6 +1772,7 @@ var cnRegReplace = new Map([
     [/^Boost all Radiations gains by (.+)x$/, '使辐射波的波长获取速度变为原来的$1倍'], //量子等
     [/^Boost all Radiations gains by (.+)x \/$/, '使辐射波的波长获取速度变为原来的$1倍/'], //量子等
     [/^ Make all Radiations effects (.+)x stronger$/, '使辐射波的效果变为原来的$1倍'], //量子等
+    [/^Increase supernova generation by ×(.+)$/, '使超新星产生速度变为原来的$1倍'], //量子等
     [/^Make pre-exotic Supernova's scalings start (.+) later$/, '使超新星所有奇异折算之前的折算延迟$1次出现'], //量子等
     [/^Make all Supernova's scalings start (.+) later$/, '使超新星的所有折算延迟$1次出现'], //量子等
     [/^Require (.+) Infinity Theorem$/, '需要$1无限定理'], //无限等

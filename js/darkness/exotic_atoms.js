@@ -123,7 +123,7 @@ const MUONIC_ELEM = {
             desc: `Accelerators raise the Argon-18's effect at an extremely reduced rate (after first overflow).`,
             cost: E(1e170),
             eff() {
-                let x = player.accelerator.add(10).log10()
+                let x = player.build.accelerator.amt.add(10).log10()
                 return x
             },
             effDesc: x=>"^"+format(x),
@@ -179,7 +179,7 @@ const MUONIC_ELEM = {
                 let x = overflow(tmp.prestiges.base.add(1),1e10,0.5,2)
                 return x
             },
-            effDesc: x=>formatMult(x)+" later",
+            effDesc: x=>format(x)+"x later",
         },{
             desc: `Bibihexium-226 works thrice as effective.`,
             cost: E('e1500'),
@@ -226,7 +226,7 @@ const MUONIC_ELEM = {
                 let x = player.supernova.times.add(1).overflow(10,0.5)
                 return x
             },
-            effDesc: x=>formatMult(x)+' later',
+            effDesc: x=>format(x)+'x later',
         },{
             cs: true,
             desc: `Unlock a new effect of corrupted star.`,
@@ -242,7 +242,7 @@ const MUONIC_ELEM = {
                 let x = player.stars.points.add(1).log10().add(1).log10().add(1)
                 return x
             },
-            effDesc: x=>formatMult(x)+' later',
+            effDesc: x=>format(x)+'x later',
         },{
             cs: true,
             desc: `Remove first softcap of C9’s reward.`,
@@ -287,6 +287,51 @@ const MUONIC_ELEM = {
                 return x
             },
             effDesc: x=>formatMult(x),
+        },{
+            desc: `Hawking Theorem’s fifth star now affects black hole’s effect.`,
+            cost: E('e14900'),
+        },{
+            desc: `Pre-Infinity global speed now affects supernova generation.`,
+            cost: E('e15900'),
+            eff() {
+                let x = expMult(tmp.preInfGlobalSpeed.max(1),0.5).pow(2)
+                return x
+            },
+            effDesc: x=>formatMult(x),
+        },{
+            cs: true,
+            desc: `Corrupted star boosts its reductions starting at a reduced rate.`,
+            cost: E('e230'),
+            eff() {
+                let x = player.inf.cs_amount.add(1).log10().add(1).pow(3)
+                return x
+            },
+            effDesc: x=>formatMult(x),
+        },{
+            desc: `Pion’s second reward now affects black hole overflow^2 at a reduced rate.`,
+            cost: E('e20400'),
+            eff() {
+                let x = exoticAEff(1,1,E(1)).root(5)
+                if (tmp.c16active) x = x.max(1).log10().add(1)
+                return x
+            },
+            effDesc: x=>"^"+format(x),
+        },{
+            desc: `Pion’s third reward is 50% stronger.`,
+            cost: E('e23400'),
+        },{
+            cs: true,
+            desc: `Supernova divides Corrupted Star upgrade 1 and 2 costs.`,
+            cost: E('e440'),
+            eff() {
+                let x = player.supernova.times.add(1)
+                return x
+            },
+            effDesc: x=>"/"+format(x),
+        },{
+            cs: true,
+            desc: `You can unlock sixth star type.`,
+            cost: E('e625'),
         },
 
         /*
@@ -312,6 +357,7 @@ const MUONIC_ELEM = {
         if (tmp.ascensions_unl) u += 6
         if (tmp.CS_unl) u += 6
         if (tmp.c18reward) u += 10
+        if (tmp.fifthRowUnl) u += 10
 
         return u
     },
@@ -438,10 +484,11 @@ const EXOTIC_ATOM = {
             },x=>`Boosts mass of unstable BH gain by <b>${format(x[0])}倍</b>`+(hasElement(39,1)?`，<b>${format(x[1])}次方</b>`:'')],
             [a=>{
                 let x = a.add(1).pow(3)
-                return x
+                return x.overflow('1e10000',0.5)
             },x=>`Black hole overflow starts <b>${format(x)}次方</b>出现`],
             [a=>{
                 let x = a.add(1).log10().div(80).add(1).root(2)
+                if (hasElement(52,1)) x = x.pow(1.5)
                 return x
             },x=>`FSS's base is raised by <b>${format(x)}</b>`],
             [a=>{

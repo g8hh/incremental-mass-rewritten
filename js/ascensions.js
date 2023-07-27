@@ -7,6 +7,8 @@ const ASCENSIONS = {
 
         if (hasElement(44,1)) x = x.add(muElemEff(44,0))
 
+        if (hasBeyondRank(16,1)) x = x.add(beyondRankEffect(16,1,0))
+
         x = x.add(1)
 
         return x
@@ -78,6 +80,7 @@ const ASCENSIONS = {
             13: `移除原子能量的溢出。`,
             15: `移除级别和阶层的奇异折算，移除六重阶层的超级折算和究极折算。`,
             22: `挑战5的奖励效果再度发生变化。`,
+            23: `使辐射波加成变为相乘，只是效果倍率降低。`,
         },{
             1: `使转生基础值的指数翻倍。使大撕裂升级19的效果对名望也生效。`,
             2: `使无限定理的超级折算弱化10%。`,
