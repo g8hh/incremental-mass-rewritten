@@ -966,7 +966,7 @@ var cnItems = {
     'Pion’s third reward is 50% stronger.': '使π介子的第三个效果增加50%。',
     'Supernova divides Corrupted Star upgrade 1 and 2 costs.': '使腐化星辰升级1和升级2的花费基于超新星次数而减少。',
     'Unlock the sixth star generator.': '解锁第六种星辰发生器。',
-    'Undec 2’s reward now affects Hyper FSS.': '使1-十重阶层2的效果对最终星辰碎片的究极折算也生效。',
+    'Undec 2’s reward now affects Hyper FSS.': '使十一重阶层2的效果对最终星辰碎片的究极折算也生效。',
     'Muonic Zirconium-40 is twice as stronger.': '使μ子-锆(40μZr)的效果翻倍。',
     'Unstable BH\'s effect is raised by 10 outside C16.': '在挑战16之外使不稳定黑洞的效果变为原来的10次方。',
     'Unlock sixth star in the theorem.': '解锁定理的第六颗星。',

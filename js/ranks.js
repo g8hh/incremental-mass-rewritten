@@ -995,14 +995,10 @@ const BEYOND_RANKS = {
 
 const RTNS = [
     ['','级别','阶层','四重阶层','五重阶层','六重阶层','七重阶层','八重阶层','九重阶层'],
-    ['','十重阶层','二十重阶层'], // d>2 -> cont
-    ['','hect'], // h>1 -> ct
 ]
 
 const RTNS2 = [
-    ['','1-','2-','3-','4-','5-','6-','7-','8-','9-'], // d < 3
-    ['','1-','2-','3-','4-','5-','6-','7-','8-','9-'],
-    ['','1-','2-','3-','4-','5-','6-','7-','8-','9-'], // h
+    ['','一','二','三','四','五','六','七','八','九'],
 ]
 
 function getRankTierName(i) {
@@ -1015,13 +1011,11 @@ function getRankTierName(i) {
         let m = ''
         let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
 
-        if (d > 1 && o == 1) m += '1-' 
-        else if (d == 2 && o == 3) m += '3-' 
-        else m += RTNS2[0][o]
-        if (d > 2) m += RTNS2[1][d] + ''
-        else m += RTNS[1][d]
-        if (h > 0 && d > 0) m += 'a'
-        if (h > 0) m += (h > 1 ? RTNS2[2][h] + 'ct' : 'hect')
+        if (h > 0 && d == 0) m += RTNS2[0][h] + '百零'
+        else if (h > 0) m += RTNS2[0][h] + '百'
+        if (d > 1) m += RTNS2[0][d] + '十'
+        else m += '十'
+        m += RTNS2[0][o] + '重阶层'
 
         return capitalFirst(m)
     }
