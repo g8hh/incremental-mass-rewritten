@@ -1016,9 +1016,9 @@ function getRankTierName(i) {
         let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
 
         if (d > 1 && o == 1) m += '1-' 
-        else if (d == 2 && o == 3) m += 'tr' 
+        else if (d == 2 && o == 3) m += '3-' 
         else m += RTNS2[0][o]
-        if (d > 2) m += RTNS2[1][d] + 'cont'
+        if (d > 2) m += RTNS2[1][d] + ''
         else m += RTNS[1][d]
         if (h > 0 && d > 0) m += 'a'
         if (h > 0) m += (h > 1 ? RTNS2[2][h] + 'ct' : 'hect')
