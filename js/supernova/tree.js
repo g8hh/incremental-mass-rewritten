@@ -1076,7 +1076,7 @@ const TREE_UPGS = {
 
             effect() {
                 let x = player.dark.c16.bestBH.add(1).log10().root(3)
-                return x
+                return x.overflow('1e300',0.25)
             },
             effDesc(x) { return "+"+format(x) },
         },
@@ -1121,7 +1121,7 @@ const TREE_UPGS = {
             reqDesc() { return `当进行挑战16，选择[元-夸克]，且未购买过黑洞压缩器时，到达${formatMass('1e1960')}黑洞质量。` },
 
             effect() {
-                let x = player.dark.c16.bestBH.add(1).log10().root(2)
+                let x = player.dark.c16.bestBH.add(1).log10().root(2).overflow('1e430',0.25)
                 return x
             },
             effDesc(x) { return "+"+format(x) },

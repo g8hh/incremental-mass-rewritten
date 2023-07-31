@@ -11,13 +11,17 @@ const STARS = {
 
         if (hasUpgrade('bh',17)) x = x.pow(upgEffect(2,17))
 
-        /*
+        let os = E('eee5'), op = E(0.5)
+
+        if (hasUpgrade('atom',24)) os = expMult(os,2)
+        
         let o = x
 
-        x = overflow(x,'ee55',0.5)
+        x = overflow(x,os,op,2)
 
-        tmp.overflow.star = calcOverflow(o,x,'ee55')
-        */
+        tmp.overflow.star = calcOverflow(o,x,os,2)
+        tmp.overflow_start.star = [os]
+        tmp.overflow_power.star = [op]
 
         return x
     },
@@ -70,10 +74,12 @@ const STARS = {
         return x
     },
     generators: {
-        req: [E(1e225),E(1e280),E('e320'),E('e430'),E('e870'),E('ee3600')],
+        req: [E(1e225),E(1e280),E('e320'),E('e430'),E('e870'),E('ee3600'),E('ee20000'),E('ee21000')],
         unl() {
             if (player.atom.quarks.gte(tmp.stars.generator_req)) {
                 player.stars.unls++
+
+                tmp.stars.generator_req = player.stars.unls<tmp.stars.max_unlocks?STARS.generators.req[player.stars.unls]:EINF
             }
         },
         gain(i) {
@@ -115,7 +121,13 @@ function updateStarsTemp() {
     if (!tmp.stars) tmp.stars = {
         generators_gain: [],
     }
-    tmp.stars.max_unlocks = hasElement(54,1) ? 6 : 5
+
+    let s = 5
+    if (hasElement(54,1)) s++
+    if (hasElement(62,1)) s++
+    if (hasElement(66,1)) s++
+    if (CHALS.inChal(19)) s = 0
+    tmp.stars.max_unlocks = s
 
     tmp.stars.generator_req = player.stars.unls<tmp.stars.max_unlocks?STARS.generators.req[player.stars.unls]:EINF
 
@@ -151,11 +163,11 @@ function updateStarsTemp() {
 function setupStarsHTML() {
     let stars_table = new Element("stars_table")
 	let table = ""
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < 8; i++) {
         if (i > 0) table += `<div id="star_gen_arrow_${i}" style="width: 30px; font-size: 30px"><br>←</div>`
         table += `
             <div id="star_gen_div_${i}" style="width: 250px;">
-                <img src="images/star_${5-i}.png"><br><br>
+                <img src="images/star_${i}.png"><br><br>
                 <div id="star_gen_${i}">X</div>
             </div>
         `
@@ -200,10 +212,13 @@ function updateStarsHTML() {
 
     tmp.el.star_btn.setClasses({btn: true, locked: player.atom.quarks.lt(tmp.stars.generator_req)})
 
-    for (let x = 0; x < 6; x++) {
+    for (let x = 0; x < 8; x++) {
         let unl = player.stars.unls > x
         tmp.el["star_gen_div_"+x].setDisplay(unl)
         if (tmp.el["star_gen_arrow_"+x]) tmp.el["star_gen_arrow_"+x].setDisplay(unl)
         if (unl) tmp.el["star_gen_"+x].setHTML(format(player.stars.generators[x],2)+"<br>"+formatGain(player.stars.generators[x],tmp.stars.generators_gain[x].mul(tmp.preQUGlobalSpeed)))
     }
+
+    tmp.el.starSiltation.setDisplay(player.stars.points.gte(tmp.overflow_start.star[0]))
+	tmp.el.starSiltation.setHTML(`Because of star siltation at <b>${format(tmp.overflow_start.star[0])}</b>, the exponent of collapsed stars is ${overflowFormat(tmp.overflow.star||1)}！`)
 }

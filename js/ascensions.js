@@ -3,10 +3,10 @@ const ASCENSIONS = {
     fullNames: ["飞升",'超越'],
     resetName: ['飞升','超越'],
     baseExponent() {
-        let x = E(0)
+        let x = theoremEff('mass',5,0)
 
+        if (hasElement(284)) x = x.add(elemEffect(284,0))
         if (hasElement(44,1)) x = x.add(muElemEff(44,0))
-
         if (hasBeyondRank(16,1)) x = x.add(beyondRankEffect(16,1,0))
 
         x = x.add(1)
@@ -14,14 +14,24 @@ const ASCENSIONS = {
         return x
     },
     base() {
-        let x = E(1)
+        let x = E(1), exp = tmp.ascensions.tierExp
 
         for (let i = 0; i < PRESTIGES.names.length; i++) {
-            let r = player.prestiges[i]
-            x = x.mul(r.add(1).ln().add(1))
+            let r = player.prestiges[i], q = r.add(1).ln()
+            if (q.gt(1)) q = q.pow(exp)
+            x = x.mul(q.add(1))
         }
 
         return x.sub(1)
+    },
+    tierExponent() {
+        let x = E(0)
+
+        if (hasAscension(1,9)) x = x.add(1/3)
+
+        x = x.add(1)
+
+        return x
     },
     req(i) {
         let x = EINF, fp = this.fp(i), y = player.ascensions[i]
@@ -30,7 +40,7 @@ const ASCENSIONS = {
                 x = Decimal.pow(1.1,y.div(fp).scaleEvery('ascension0',false).pow(1.1)).mul(1600)
                 break;
             case 1:
-                x = y.div(fp).pow(1.1).mul(2).add(6)
+                x = y.div(fp).scaleEvery('ascension1',false).pow(1.1).mul(2).add(6)
                 break;
             default:
                 x = EINF
@@ -45,7 +55,7 @@ const ASCENSIONS = {
                 if (y.gte(1600)) x = y.div(1600).max(1).log(1.1).max(0).root(1.1).scaleEvery('ascension0',true).mul(fp).add(1)
                 break;
             case 1:
-                if (y.gte(6)) x = y.sub(6).div(2).root(1.1).mul(fp).add(1)
+                if (y.gte(6)) x = y.sub(6).div(2).root(1.1).scaleEvery('ascension1',true).mul(fp).add(1)
                 break;
             default:
                 x = E(0)
@@ -81,12 +91,15 @@ const ASCENSIONS = {
             15: `移除级别和阶层的奇异折算，移除六重阶层的超级折算和究极折算。`,
             22: `挑战5的奖励效果再度发生变化。`,
             23: `使辐射波加成变为相乘，只是效果倍率降低。`,
+            33: `使大撕裂升级19的效果再度翻倍。`,
+            42: `使黑洞升级15的效果变为与原子能量类似。黑洞压缩器免费升级的加成从相加变为相乘。`,
         },{
             1: `使转生基础值的指数翻倍。使大撕裂升级19的效果对名望也生效。`,
             2: `使无限定理的超级折算弱化10%。`,
             3: `使降伏器的超级折算和究极折算延迟50次出现。`,
             4: `使转生等级的元折算延迟2倍出现。`,
             7: `使μ子催化聚变阶层的需求减少10%。`,
+            9: `计算飞升基础值时使转生等级的指数增加0.333。`,
         },
     ],
     rewardEff: [
@@ -154,6 +167,7 @@ function setupAscensionsHTML() {
 
 function updateAscensionsHTML() {
     tmp.el.asc_base.setHTML(`${tmp.ascensions.baseMul.format(0)}<sup>${format(tmp.ascensions.baseExp)}</sup> = ${tmp.ascensions.base.format(0)}`)
+    tmp.el.asc_texp.setHTML(tmp.ascensions.tierExp.format(2))
 
     for (let x = 0; x < ASCENSIONS.names.length; x++) {
         let unl = ASCENSIONS.unl[x]?ASCENSIONS.unl[x]():true
@@ -180,6 +194,7 @@ function updateAscensionsHTML() {
 }
 
 function updateAscensionsTemp() {
+    tmp.ascensions.tierExp = ASCENSIONS.tierExponent()
     tmp.ascensions.baseMul = ASCENSIONS.base()
     tmp.ascensions.baseExp = ASCENSIONS.baseExponent()
     tmp.ascensions.base = tmp.ascensions.baseMul.pow(tmp.ascensions.baseExp)

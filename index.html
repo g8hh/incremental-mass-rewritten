@@ -244,16 +244,14 @@
                                 <br><br>
                                 <div id="galactic_prestige_div">
                                     <div>
-                                        Galactic Prestige <h4 id="gal_prestige">0</h4><br>
+                                        <span id="gal_prestige_scale"></span>Galactic Prestige <h4 id="gal_prestige">0</h4><br>
                                         <button id="gp_btn" class="btn galactic" onclick="GAL_PRESTIGE.reset()">Reset Supernova for that what do you mean?</button>
                                     </div>
                                     <br>
-                                    <div id="gp_rewards">
-                                        
-                                    </div>
+                                    <div id="gp_rewards"></div>
                                 </div>
                             </div><div id="rank_tab2">
-                                Your Ascension base is <span id="asc_base"></span>(基于ln[所有转生等级+1]+1而定)<br><br>
+                                Your Ascension base is <span id="asc_base"></span>(基于所有ln[转生等级+1]<sup id="asc_texp"></sup>+1而定)<br><br>
                                 <div id="asc_table" class="table_center" style="min-height: 180px;"></div>
                             </div>
                         </div><div id="stab_frame0_1">
@@ -294,6 +292,7 @@
                             <div id="stars_table" class="table_center"></div><br><br>
                             <div id="building_star_booster"></div><br><br>
                             <span id="starSoft1" class="red">After <b id="starSoftStart1">X</b> Collapsed stars gain, Collapsed stars gain will be softcap!</span><br>
+                            <div id="starSiltation" style="color: rgb(194, 177, 255)"></div>
                         </div><div id="stab_frame0_4">
                             You have <h4 id="bpAmt">0</h4> Blueprint Particles<br>
                             <span class="green">Which increases pre-Quantum global speed by <h4 id="bpEff">1</h4>倍</span><br><br>
@@ -321,8 +320,10 @@
                             <div id="asc_rewards_table"></div>
                         </div>
                     </div><div id="tab_frame2">
-                        <div id="main_upg_msg" style="min-height: 100px;"></div>
-                        <div id="main_upgs_table" class="table_center"></div>
+                        <div id="stab_frame2_0">
+                            <div id="main_upg_msg" style="min-height: 100px;"></div>
+                            <div id="main_upgs_table" class="table_center"></div>
+                        </div>
                     </div><div id="tab_frame3">
                         <div id="stab_frame3_0">
                             Note: Click any image to show challenge description. Click again to enter any challenge<br><br>
@@ -589,7 +590,7 @@
                             <h2>Confirmation Settings</h2><br>
                             <div id="confirm_table" class="table_center"></div>
                             <br><br>
-                            Incremental Mass Rewritten v0.7.1.5 - made by MrRedShark77<br>
+                            Incremental Mass Rewritten v0.7.1.6 - made by MrRedShark77<br>
                             The game is inspired by Distance Incremental & Synergism<br>
                             Contributors: <span style="cursor: pointer;" onclick='addNotify(`where lemon<br><img src="images/57cc98.jpg" style="width:100%">`)'>Bézier</span>, 16777216 & Aarex (Artists)<br><br><br>
                             Hint 1: Hover top image above tabs to show description...<br><br>
