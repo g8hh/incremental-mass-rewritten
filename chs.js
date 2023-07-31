@@ -1542,13 +1542,13 @@ var cnItems = {
     'Break Infinity': '打破无限',
     ' Reaching infinity no longer plays animation. You can lift beyond normal mass limit and get infinity theorems freely. Finally, unlock Element Tier 3, more Muonic Elements.': '满足无限的条件时不再播放动画。您可以超越质量上限并自由获得无限定理。最后，您还可以解锁元素阶层3和更多μ子元素。',
     'Extraordinary Matters': '不凡之物',
-    'Every matter upgrade (except red matter) now provides an additional boost to previous matter.': '所有物质升级(除了红色物质)对前一种物质提供额外加成。',
+    ' Every matter upgrade (except red matter) now provides an additional boost to previous matter.': '所有物质升级(除了红色物质)对前一种物质提供额外加成。',
     '\'Permanent\' Upgrades': '永久升级',
-    'Keep main upgrades on reset.': '重置时保留主要升级。',
+    ' Keep main upgrades on reset.': '重置时保留主要升级。',
     'Blackest Challenges': '至暗挑战',
-    'Remove the cap of Challenge 13-15\'s completion.': '移除挑战13-挑战15的次数上限。',
+    ' Remove the cap of Challenge 13-15\'s completion.': '移除挑战13-挑战15的次数上限。',
     'Better Infinity': '改良无限',
-    'The formula of Infinity Points gain is improved.': '使无限点数获取速度的公式变得更好。',
+    ' The formula of Infinity Points gain is improved.': '使无限点数获取速度的公式变得更好。',
     ' Infinity Points. Hover any upgrade to see its description.': '无限点数。鼠标停留在升级上方可以查看详情。',
     ' Corrupted Stars.': '腐化星辰。',
     'The speed of the corrupted star is ': '腐化星辰的速度为',
@@ -1716,6 +1716,7 @@ var cnExcludeWhole = [
     /^ = \d.\d+e[\.\,\d]+$/, //不抓取内容
     /^[\d\,]*\d{1,3}arv\^\d+$/, //不抓取内容
     /^[\d:]*\d{2}.\d{2}$/, //不抓取内容
+    /^\d\.[e\.\,\d]+ × \d\.[e\.\,\d]+$/, //不抓取内容
 ];
 var cnExcludePostfix = [
 ]
