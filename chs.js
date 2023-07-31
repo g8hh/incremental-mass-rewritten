@@ -1550,6 +1550,7 @@ var cnItems = {
     'Better Infinity': '改良无限',
     ' The formula of Infinity Points gain is improved.': '使无限点数获取速度的公式变得更好。',
     ' Infinity Points. Hover any upgrade to see its description.': '无限点数。鼠标停留在升级上方可以查看详情。',
+    ' Infinity Points': '无限点数',
     ' Corrupted Stars.': '腐化星辰。',
     'The speed of the corrupted star is ': '腐化星辰的速度为',
     'Corrupted Star Effects': '腐化星辰的效果',
